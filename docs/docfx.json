@@ -55,7 +55,8 @@
       "_appTitle": "NetFabric.Numerics",
       "_appLogoPath": "images/Logo.png",
       "_appFaviconPath": "images/Logo.png",
-      "_appFooter": "Copyright (c) 2023 Antão Almada"
+      "_appFooter": "Copyright (c) 2023 Antão Almada",
+      "_googleAnalyticsTagId": "G-E372L91FWS"
     },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
