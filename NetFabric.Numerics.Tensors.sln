@@ -12,14 +12,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		README.md = README.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetFabric.Numerics", "src\NetFabric.Numerics\NetFabric.Numerics.csproj", "{78191CDC-E104-42B1-AE19-8E44FBDE0A97}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetFabric.Numerics.Angle", "src\NetFabric.Numerics.Angle\NetFabric.Numerics.Angle.csproj", "{6A408F78-4EE3-4F3D-8E88-D18096386544}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetFabric.Numerics.Angle.UnitTests", "src\NetFabric.Numerics.Angle.UnitTests\NetFabric.Numerics.Angle.UnitTests.csproj", "{D3F1C490-2386-4BBC-8559-35AC6F53D2F3}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetFabric.Numerics.UnitTests", "src\NetFabric.Numerics.UnitTests\NetFabric.Numerics.UnitTests.csproj", "{F269C2EB-68AF-490B-B728-7E4EDE43F1B0}"
-EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Workflows", "Workflows", "{9991D38D-9E7A-42B8-B4EB-E2FB4183D266}"
 	ProjectSection(SolutionItems) = preProject
 		.github\workflows\docs.yml = .github\workflows\docs.yml
@@ -50,12 +42,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Api", "Api", "{83BDB68A-4F4
 		docs\api\index.md = docs\api\index.md
 	EndProjectSection
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetFabric.Numerics.Benchmarks", "src\NetFabric.Numerics.Benchmarks\NetFabric.Numerics.Benchmarks.csproj", "{22D5FBE1-04E3-4B84-94A5-C2B959A51D68}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetFabric.Numerics.Geodesy", "src\NetFabric.Numerics.Geodesy\NetFabric.Numerics.Geodesy.csproj", "{4ACC5E06-26C9-41FB-BEAD-620CBB0DB1CC}"
-EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetFabric.Numerics.Geodesy.UnitTests", "src\NetFabric.Numerics.Geodesy.UnitTests\NetFabric.Numerics.Geodesy.UnitTests.csproj", "{4E4414C1-E5CF-4679-9016-7C3F70F13110}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetFabric.Numerics.Tensors", "src\NetFabric.Numerics.Tensors\NetFabric.Numerics.Tensors.csproj", "{8D2EE0A5-32A2-4019-AD55-7E9B70B76D67}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "NetFabric.Numerics.Tensors.UnitTests", "src\NetFabric.Numerics.Tensors.UnitTests\NetFabric.Numerics.Tensors.UnitTests.csproj", "{31E6CCB0-E04A-4947-BF74-E8E70D5594E5}"
@@ -68,34 +54,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{78191CDC-E104-42B1-AE19-8E44FBDE0A97}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{78191CDC-E104-42B1-AE19-8E44FBDE0A97}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{78191CDC-E104-42B1-AE19-8E44FBDE0A97}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{78191CDC-E104-42B1-AE19-8E44FBDE0A97}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6A408F78-4EE3-4F3D-8E88-D18096386544}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6A408F78-4EE3-4F3D-8E88-D18096386544}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6A408F78-4EE3-4F3D-8E88-D18096386544}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6A408F78-4EE3-4F3D-8E88-D18096386544}.Release|Any CPU.Build.0 = Release|Any CPU
-		{D3F1C490-2386-4BBC-8559-35AC6F53D2F3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{D3F1C490-2386-4BBC-8559-35AC6F53D2F3}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{D3F1C490-2386-4BBC-8559-35AC6F53D2F3}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{D3F1C490-2386-4BBC-8559-35AC6F53D2F3}.Release|Any CPU.Build.0 = Release|Any CPU
-		{F269C2EB-68AF-490B-B728-7E4EDE43F1B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F269C2EB-68AF-490B-B728-7E4EDE43F1B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F269C2EB-68AF-490B-B728-7E4EDE43F1B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F269C2EB-68AF-490B-B728-7E4EDE43F1B0}.Release|Any CPU.Build.0 = Release|Any CPU
-		{22D5FBE1-04E3-4B84-94A5-C2B959A51D68}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{22D5FBE1-04E3-4B84-94A5-C2B959A51D68}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{22D5FBE1-04E3-4B84-94A5-C2B959A51D68}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{22D5FBE1-04E3-4B84-94A5-C2B959A51D68}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4ACC5E06-26C9-41FB-BEAD-620CBB0DB1CC}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4ACC5E06-26C9-41FB-BEAD-620CBB0DB1CC}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4ACC5E06-26C9-41FB-BEAD-620CBB0DB1CC}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4ACC5E06-26C9-41FB-BEAD-620CBB0DB1CC}.Release|Any CPU.Build.0 = Release|Any CPU
-		{4E4414C1-E5CF-4679-9016-7C3F70F13110}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{4E4414C1-E5CF-4679-9016-7C3F70F13110}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{4E4414C1-E5CF-4679-9016-7C3F70F13110}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{4E4414C1-E5CF-4679-9016-7C3F70F13110}.Release|Any CPU.Build.0 = Release|Any CPU
 		{8D2EE0A5-32A2-4019-AD55-7E9B70B76D67}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{8D2EE0A5-32A2-4019-AD55-7E9B70B76D67}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8D2EE0A5-32A2-4019-AD55-7E9B70B76D67}.Release|Any CPU.ActiveCfg = Release|Any CPU
