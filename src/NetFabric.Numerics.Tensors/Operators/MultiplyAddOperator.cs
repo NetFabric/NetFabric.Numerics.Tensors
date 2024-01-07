@@ -4,7 +4,7 @@ namespace NetFabric.Numerics;
 /// Represents a multiply-add operator for a given type.
 /// </summary>
 /// <typeparam name="T">The type of the values.</typeparam>
-public readonly struct MultiplyAddOperator<T> 
+public readonly struct MultiplyAddOperator<T>
     : ITernaryOperator<T>
     where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
 {
@@ -15,7 +15,7 @@ public readonly struct MultiplyAddOperator<T>
     /// <param name="y">The second value to multiply.</param>
     /// <param name="z">The value to add.</param>
     /// <returns>The result of multiplying <paramref name="x"/> and <paramref name="y"/> and adding <paramref name="z"/>.</returns>
-    public static T Invoke(T x, T y, T z) 
+    public static T Invoke(T x, T y, T z)
         => (x * y) + z;
 
     /// <summary>

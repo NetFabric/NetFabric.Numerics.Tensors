@@ -10,7 +10,7 @@ readonly record struct MyVector2<T>(T X, T Y)
     {
     }
 
-    public static MyVector2<T> AdditiveIdentity 
+    public static MyVector2<T> AdditiveIdentity
         => new(T.AdditiveIdentity, T.AdditiveIdentity);
 
     public static MyVector2<T> operator +(MyVector2<T> left, MyVector2<T> right)
@@ -27,7 +27,7 @@ readonly record struct MyVector3<T>(T X, T Y, T Z)
     {
     }
 
-    public static MyVector3<T> AdditiveIdentity 
+    public static MyVector3<T> AdditiveIdentity
         => new(T.AdditiveIdentity, T.AdditiveIdentity, T.AdditiveIdentity);
 
     public static MyVector3<T> operator +(MyVector3<T> left, MyVector3<T> right)

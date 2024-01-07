@@ -4,7 +4,7 @@ namespace NetFabric.Numerics;
 /// Represents a square operator that performs squaring operations on values of type <typeparamref name="T"/>.
 /// </summary>
 /// <typeparam name="T">The type of values to square.</typeparam>
-public readonly struct SquareOperator<T> 
+public readonly struct SquareOperator<T>
     : IUnaryOperator<T>
     where T : struct, IMultiplyOperators<T, T, T>
 {
@@ -13,7 +13,7 @@ public readonly struct SquareOperator<T>
     /// </summary>
     /// <param name="x">The value to square.</param>
     /// <returns>The squared value.</returns>
-    public static T Invoke(T x) 
+    public static T Invoke(T x)
         => x * x;
 
     /// <summary>

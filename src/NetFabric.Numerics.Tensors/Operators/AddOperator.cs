@@ -4,7 +4,7 @@ namespace NetFabric.Numerics;
 /// Represents an add operator for a specified type.
 /// </summary>
 /// <typeparam name="T">The type of the values to add.</typeparam>
-public readonly struct AddOperator<T> 
+public readonly struct AddOperator<T>
     : IBinaryOperator<T>
     where T : struct, IAdditionOperators<T, T, T>
 {
@@ -14,7 +14,7 @@ public readonly struct AddOperator<T>
     /// <param name="x">The first value to add.</param>
     /// <param name="y">The second value to add.</param>
     /// <returns>The sum of <paramref name="x"/> and <paramref name="y"/>.</returns>
-    public static T Invoke(T x, T y) 
+    public static T Invoke(T x, T y)
         => x + y;
 
     /// <summary>

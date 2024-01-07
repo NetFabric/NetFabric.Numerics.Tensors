@@ -8,9 +8,9 @@ public static partial class Tensor
     {
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
-        if(SpansOverlapAndAreNotSame(x, destination))
+        if (SpansOverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-                    
+
         // Initialize the index to 0.
         nint index = 0;
 
@@ -28,7 +28,7 @@ public static partial class Tensor
             ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
             for (nint indexVector = 0; indexVector < sourceVectors.Length; indexVector++)
-            {                
+            {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
                     Unsafe.Add(ref sourceVectorsRef, indexVector));
             }

@@ -4,7 +4,7 @@ namespace NetFabric.Numerics;
 /// Represents a unary negate operator.
 /// </summary>
 /// <typeparam name="T">The type of the operand.</typeparam>
-public readonly struct NegateOperator<T> 
+public readonly struct NegateOperator<T>
     : IUnaryOperator<T>
     where T : struct, IUnaryNegationOperators<T, T>
 {
@@ -13,7 +13,7 @@ public readonly struct NegateOperator<T>
     /// </summary>
     /// <param name="x">The value to negate.</param>
     /// <returns>The negated value.</returns>
-    public static T Invoke(T x) 
+    public static T Invoke(T x)
         => -x;
 
     /// <summary>

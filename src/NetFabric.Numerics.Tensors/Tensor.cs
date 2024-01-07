@@ -11,7 +11,7 @@ public static partial class Tensor
     {
         var array = new T[Vector<T>.Count];
         ref var resultRef = ref MemoryMarshal.GetReference<T>(array);
-        for (nint indexVector = 0; indexVector<array.Length; indexVector += 2)
+        for (nint indexVector = 0; indexVector < array.Length; indexVector += 2)
         {
             Unsafe.Add(ref resultRef, indexVector) = tuple.Item1;
             Unsafe.Add(ref resultRef, indexVector + 1) = tuple.Item2;

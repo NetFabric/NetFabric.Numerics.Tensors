@@ -4,7 +4,7 @@ namespace NetFabric.Numerics;
 /// Represents a divide operator for a specified type.
 /// </summary>
 /// <typeparam name="T">The type of the operands.</typeparam>
-public readonly struct DivideOperator<T> 
+public readonly struct DivideOperator<T>
     : IBinaryOperator<T>
     where T : struct, IDivisionOperators<T, T, T>
 {
@@ -14,7 +14,7 @@ public readonly struct DivideOperator<T>
     /// <param name="x">The dividend.</param>
     /// <param name="y">The divisor.</param>
     /// <returns>The result of the division.</returns>
-    public static T Invoke(T x, T y) 
+    public static T Invoke(T x, T y)
         => x / y;
 
     /// <summary>

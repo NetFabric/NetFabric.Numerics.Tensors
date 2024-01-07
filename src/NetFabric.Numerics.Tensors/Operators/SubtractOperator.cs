@@ -4,7 +4,7 @@ namespace NetFabric.Numerics;
 /// Represents a subtract operator for a specified type.
 /// </summary>
 /// <typeparam name="T">The type of the operands.</typeparam>
-public readonly struct SubtractOperator<T> 
+public readonly struct SubtractOperator<T>
     : IBinaryOperator<T>
     where T : struct, ISubtractionOperators<T, T, T>
 {
@@ -14,7 +14,7 @@ public readonly struct SubtractOperator<T>
     /// <param name="x">The first value.</param>
     /// <param name="y">The second value.</param>
     /// <returns>The result of the subtraction.</returns>
-    public static T Invoke(T x, T y) 
+    public static T Invoke(T x, T y)
         => x - y;
 
     /// <summary>

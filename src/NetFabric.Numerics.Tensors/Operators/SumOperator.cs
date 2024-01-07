@@ -4,7 +4,7 @@ namespace NetFabric.Numerics
     /// Represents an operator that performs the sum aggregation operation on a tensor.
     /// </summary>
     /// <typeparam name="T">The type of the tensor elements.</typeparam>
-    public readonly struct SumOperator<T> : IAggregationOperator<T>
+    public readonly struct SumOperator<T>: IAggregationOperator<T>
         where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
     {
         /// <summary>
@@ -44,7 +44,7 @@ namespace NetFabric.Numerics
     /// Represents an operator that performs the sum aggregation operation on pairs of elements in a tensor.
     /// </summary>
     /// <typeparam name="T">The type of the tensor elements.</typeparam>
-    public readonly struct SumPairsOperator<T> : IAggregationPairsOperator<T>
+    public readonly struct SumPairsOperator<T>: IAggregationPairsOperator<T>
         where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
     {
         /// <summary>
@@ -87,20 +87,18 @@ namespace NetFabric.Numerics
             => x + y;
     }
 
-    public readonly struct SumTripletsOperator<T> : IAggregationTripletsOperator<T>
+    public readonly struct SumTripletsOperator<T>: IAggregationTripletsOperator<T>
         where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
     {
         public static ValueTuple<T, T, T> Seed => (T.AdditiveIdentity, T.AdditiveIdentity, T.AdditiveIdentity);
 
-        public static ValueTuple<T, T, T> ResultSelector(ValueTuple<T, T, T> value, Vector<T> vector)
-        {
+        public static ValueTuple<T, T, T> ResultSelector(ValueTuple<T, T, T> value, Vector<T> vector) =>
             // for (var index = 0; index < Vector<T>.Count; index += 3)
             // {
             //     value.Item1 += vector[index];
             //     value.Item2 += vector[index + 1];
             // }
-            return value;
-        }
+            value;
 
         public static T Invoke(T x, T y)
             => x + y;

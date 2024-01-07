@@ -1,6 +1,6 @@
 namespace NetFabric.Numerics
 {
-    public static partial class Tensor  
+    public static partial class Tensor
     {
         /// <summary>
         /// Aggregates triplets of elements from a <see cref="ReadOnlySpan{T}"/> using the specified <typeparamref name="TOperator"/>.

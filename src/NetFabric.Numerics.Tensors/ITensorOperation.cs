@@ -76,14 +76,14 @@ public interface ITernaryOperator<T>
 /// Represents an aggregation operator that operates on two values or vectors and produces a single result.
 /// </summary>
 /// <typeparam name="T">The type of the values or vectors.</typeparam>
-public interface IAggregationOperator<T> 
+public interface IAggregationOperator<T>
     : IBinaryOperator<T>
     where T : struct
 {
     /// <summary>
     /// Gets the identity value for the type and operation to be performed.
     /// </summary>
-    static virtual T Identity 
+    static virtual T Identity
         => Throw.NotSupportedException<T>();
 
     /// <summary>
@@ -99,13 +99,13 @@ public interface IAggregationOperator<T>
 /// Represents an aggregation operator that operates on two values or vectors and produces a pair of results.
 /// </summary>
 /// <typeparam name="T">The type of the values or vectors.</typeparam>
-public interface IAggregationPairsOperator<T> : IBinaryOperator<T>
+public interface IAggregationPairsOperator<T>: IBinaryOperator<T>
     where T : struct
 {
     /// <summary>
     /// Gets the identity value for the type and operation to be performed.
     /// </summary>
-    static virtual ValueTuple<T, T> Identity 
+    static virtual ValueTuple<T, T> Identity
         => Throw.NotSupportedException<ValueTuple<T, T>>();
 
     /// <summary>
@@ -121,14 +121,14 @@ public interface IAggregationPairsOperator<T> : IBinaryOperator<T>
 /// Represents an aggregation operator that operates on two values or vectors and produces a triplet of results.
 /// </summary>
 /// <typeparam name="T">The type of the values or vectors.</typeparam>
-public interface IAggregationTripletsOperator<T> 
+public interface IAggregationTripletsOperator<T>
     : IBinaryOperator<T>
     where T : struct
 {
     /// <summary>
     /// Gets the seed value for the aggregation operation.
     /// </summary>
-    static virtual ValueTuple<T, T, T> Seed 
+    static virtual ValueTuple<T, T, T> Seed
         => Throw.NotSupportedException<ValueTuple<T, T, T>>();
 
     /// <summary>
