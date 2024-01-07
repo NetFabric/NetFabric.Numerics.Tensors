@@ -60,7 +60,7 @@ namespace NetFabric.Numerics
         /// <returns>The result of the sum operation on pairs.</returns>
         public static ValueTuple<T, T> ResultSelector(ValueTuple<T, T> value, Vector<T> vector)
         {
-            for (var index = 0; index < Vector<T>.Count; index += 2)
+            for (var index = 0; index + 1 < Vector<T>.Count; index += 2)
             {
                 value.Item1 += vector[index];
                 value.Item2 += vector[index + 1];

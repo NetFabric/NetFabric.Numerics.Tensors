@@ -148,7 +148,7 @@ public static partial class Tensor
         // Iterate through the remaining elements.
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (; index < x.Length; index += 2)
+        for (; index + 1 < x.Length; index += 2)
         {
             Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(
                 Unsafe.Add(ref xRef, index),

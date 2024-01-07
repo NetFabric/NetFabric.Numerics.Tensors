@@ -42,7 +42,7 @@ namespace NetFabric.Numerics
                     index = source.Length - (source.Length % Vector<T>.Count);
                 }
 
-                for (; index < source.Length; index += 2)
+                for (; index + 1 < source.Length; index += 2)
                 {
                     result.Item1 = TOperator.Invoke(result.Item1, Unsafe.Add(ref sourceRef, index));
                     result.Item2 = TOperator.Invoke(result.Item2, Unsafe.Add(ref sourceRef, index + 1));
@@ -52,7 +52,7 @@ namespace NetFabric.Numerics
             }
             else
             {
-                for (nint index = 0; index < source.Length; index += 2)
+                for (nint index = 0; index + 1 < source.Length; index += 2)
                 {
                     result.Item1 = TOperator.Invoke(result.Item1, Unsafe.Add(ref sourceRef, index));
                     result.Item2 = TOperator.Invoke(result.Item2, Unsafe.Add(ref sourceRef, index + 1));
