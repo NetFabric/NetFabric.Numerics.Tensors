@@ -34,9 +34,9 @@ namespace NetFabric.Numerics
             {
                 var tupleSize = result.Length;
                 ref var sourceRef = ref MemoryMarshal.GetReference(source);
-                ref var resultRef = ref MemoryMarshal.GetReference<T>(result);
+                ref var resultRef = ref MemoryMarshal.GetReference(result);
 
-                for (nint index = 0; index + tupleSize - 1 < source.Length; index += tupleSize)
+                for (nint index = 0; index + tupleSize <= source.Length; index += tupleSize)
                 {
                     for (nint indexResult = 0; indexResult < tupleSize; indexResult++)
                     {
@@ -56,7 +56,7 @@ namespace NetFabric.Numerics
             {
                 var tupleSize = result.Length;
                 ref var sourceRef = ref MemoryMarshal.GetReference(source);
-                ref var resultRef = ref MemoryMarshal.GetReference<T>(result);
+                ref var resultRef = ref MemoryMarshal.GetReference(result);
                 nint index = 0;
 
                 // use as many vectors as the number of elements in the tuple
@@ -69,11 +69,11 @@ namespace NetFabric.Numerics
                 {
                     ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
 
-                    var resultVectors = GetVectors<T>(tupleSize, TOperator.Identity);
+                    var resultVectors = GetVectors(tupleSize, TOperator.Identity);
                     ref var resultVectorsRef = ref MemoryMarshal.GetReference(resultVectors);
 
                     // aggregate the source vectors into the result vectors
-                    for (nint indexVector = 0; indexVector + tupleSize - 1 < sourceVectors.Length; indexVector += tupleSize)
+                    for (nint indexVector = 0; indexVector + tupleSize <= sourceVectors.Length; indexVector += tupleSize)
                     {
                         for (nint indexTuple = 0; indexTuple < tupleSize; indexTuple++)
                         {
@@ -102,12 +102,12 @@ namespace NetFabric.Numerics
                         }
                     }
 
-                    // skip the source vectors already aggregated
+                    // skip the source elements already aggregated
                     index = source.Length - (source.Length % Vector<T>.Count);
                 }
 
                 // aggregate the remaining elements in the source
-                for (; index + tupleSize - 1 < source.Length; index += tupleSize)
+                for (; index + tupleSize <= source.Length; index += tupleSize)
                 {
                     for (nint indexResult = 0; indexResult < tupleSize; indexResult++)
                     {
