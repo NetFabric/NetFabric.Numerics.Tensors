@@ -22,10 +22,9 @@ public static partial class Tensor
             var resultVector = new Vector<T>(TOperator.Identity);
             nint index = 0;
 
-            if (source.Length >= Vector<T>.Count)
+            var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(source);
+            if (sourceVectors.Length > 1)
             {
-                var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(source);
-
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
                 for (nint indexVector = 0; indexVector < sourceVectors.Length; indexVector++)
                     resultVector = TOperator.Invoke(resultVector, Unsafe.Add(ref sourceVectorsRef, indexVector));

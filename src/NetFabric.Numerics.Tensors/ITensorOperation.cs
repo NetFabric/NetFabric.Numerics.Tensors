@@ -117,25 +117,13 @@ public interface IAggregationPairsOperator<T>: IBinaryOperator<T>
     static abstract ValueTuple<T, T> ResultSelector(ValueTuple<T, T> value, Vector<T> vector);
 }
 
-/// <summary>
-/// Represents an aggregation operator that operates on two values or vectors and produces a triplet of results.
-/// </summary>
-/// <typeparam name="T">The type of the values or vectors.</typeparam>
-public interface IAggregationTripletsOperator<T>
+public interface IAggregationTuplesOperator<T>
     : IBinaryOperator<T>
     where T : struct
 {
     /// <summary>
-    /// Gets the seed value for the aggregation operation.
+    /// Gets the identity value for the type and operation to be performed.
     /// </summary>
-    static virtual ValueTuple<T, T, T> Seed
-        => Throw.NotSupportedException<ValueTuple<T, T, T>>();
-
-    /// <summary>
-    /// Combines the specified values with the vector to produce a new triplet of values.
-    /// </summary>
-    /// <param name="value">The current triplet of values.</param>
-    /// <param name="vector">The vector to combine with the values.</param>
-    /// <returns>The result of combining the values with the vector.</returns>
-    static abstract ValueTuple<T, T, T> ResultSelector(ValueTuple<T, T, T> value, Vector<T> vector);
+    static virtual T Identity
+        => Throw.NotSupportedException<T>();
 }

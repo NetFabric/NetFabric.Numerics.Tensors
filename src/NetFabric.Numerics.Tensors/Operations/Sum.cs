@@ -39,7 +39,7 @@ public static partial class Tensor
     /// This method can be used to calculate the sum of 3D vectors.
     /// This method requires the type <typeparamref name="T"/> to implement the <see cref="IAdditionOperators{T, T, T}"/> and <see cref="IAdditiveIdentity{T, T}"/> interfaces.
     /// </remarks>
-    public static ValueTuple<T, T, T> SumTriplets<T>(ReadOnlySpan<T> source)
+    public static ReadOnlySpan<T> SumTriplets<T>(ReadOnlySpan<T> source)
         where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
-        => AggregateTriplets<T, SumTripletsOperator<T>>(source);
+        => AggregateTuples<T, SumTuplesOperator<T>>(source, 3);
 }

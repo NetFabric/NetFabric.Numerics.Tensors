@@ -29,12 +29,9 @@ namespace NetFabric.Numerics
 
                 nint index = 0;
 
-                if (Vector<T>.Count > 2 &&
-                    Vector<T>.Count % 2 is 0 &&
-                    source.Length >= Vector<T>.Count)
+                var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(source);
+                if (sourceVectors.Length > 2)
                 {
-                    var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(source);
-
                     ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
                     for (nint indexVector = 0; indexVector < sourceVectors.Length; indexVector++)
                         resultVector = TOperator.Invoke(resultVector, Unsafe.Add(ref sourceVectorsRef, indexVector));
