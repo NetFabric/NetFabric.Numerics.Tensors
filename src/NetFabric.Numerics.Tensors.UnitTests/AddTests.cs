@@ -19,7 +19,7 @@ public class AddTests
         Tensor.Add<T>(x, y, result);
 
         // assert
-        _ = result.Should().Equal(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]

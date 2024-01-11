@@ -23,6 +23,6 @@ public readonly struct DivideOperator<T>
     /// <param name="x">The dividend vector.</param>
     /// <param name="y">The divisor vector.</param>
     /// <returns>The result of the division.</returns>
-    public static Vector<T> Invoke(Vector<T> x, Vector<T> y)
+    public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
         => x / y;
 }

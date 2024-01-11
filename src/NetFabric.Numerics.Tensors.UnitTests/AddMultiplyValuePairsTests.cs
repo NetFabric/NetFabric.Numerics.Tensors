@@ -32,7 +32,7 @@ public class AddMultiplyValuePairsTests
             MemoryMarshal.Cast<MyVector2<T>, T>(result));
 
         // assert
-        _ = result.Should().Equal(expected);
+        Assert.Equal(expected, result);
     }
 
 
@@ -61,7 +61,7 @@ public class AddMultiplyValuePairsTests
             MemoryMarshal.Cast<MyVector2<T>, T>(result));
 
         // assert
-        _ = result.Should().Equal(expected);
+        Assert.Equal(expected, result);
     }
 
     static void AddMultiply_Both_Should_Succeed<T>(int count)
@@ -87,7 +87,7 @@ public class AddMultiplyValuePairsTests
             MemoryMarshal.Cast<MyVector2<T>, T>(result));
 
         // assert
-        _ = result.Should().Equal(expected);
+        Assert.Equal(expected, result);
     }
 
 

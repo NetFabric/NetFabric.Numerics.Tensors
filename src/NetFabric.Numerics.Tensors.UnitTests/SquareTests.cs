@@ -18,7 +18,7 @@ public class SquareTests
         Tensor.Square<T>(x, result);
 
         // assert
-        _ = result.Should().Equal(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]

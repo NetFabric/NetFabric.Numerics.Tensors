@@ -34,7 +34,7 @@ public class AddMultiplyPairsTests
             MemoryMarshal.Cast<MyVector2<T>, T>(result));
 
         // assert
-        _ = result.Should().Equal(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]

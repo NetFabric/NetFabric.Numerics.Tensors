@@ -21,6 +21,6 @@ public readonly struct SquareOperator<T>
     /// </summary>
     /// <param name="x">The vector to square.</param>
     /// <returns>A new vector with each element squared.</returns>
-    public static Vector<T> Invoke(Vector<T> x)
+    public static Vector<T> Invoke(ref readonly Vector<T> x)
         => x * x;
 }

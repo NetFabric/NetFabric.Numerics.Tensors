@@ -3,32 +3,45 @@ using System.Runtime.CompilerServices;
 
 namespace NetFabric.Numerics.Tensors.UnitTests;
 
-public class SumTests
+public class Sum4DTests
 {
+    [Fact]
+    public void Sum_Size_Not_Multiple_Of_4_Throws()
+    {
+        // arrange
+        var source = new short[5];
+
+        // act
+        void action() => Tensor.Sum3D<short>(source);
+
+        // assert
+        Assert.Throws<ArgumentException>("source", action);
+    }
+    
     public static TheoryData<int> SumData
         => new() { 
-            { 0 }, { 1 }, { 2 }, { 3 }, { 4 }, { 5 }, { 6 }, { 7 }, { 8 }, { 9 }, { 10 }, { 100 },
+            { 0 }, { 4 }, { 8 }, { 12 }, { 16 }, { 20 }, { 400 },
         };
 
     static void Sum_Should_Succeed<T>(int count)
         where T : struct, INumber<T>
     {
         // arrange
-        var source = new T[count];
-        var expected = T.Zero;
+        var source = new MyVector4<T>[count];
+        var expected = MyVector4<T>.AdditiveIdentity;
         var random = new Random(42);
         for (var index = 0; index < source.Length; index++)
         {
-            var value = T.CreateChecked(random.Next(10));
+            var value = new MyVector4<T>(T.CreateChecked(random.Next(10)), T.CreateChecked(random.Next(10)), T.CreateChecked(random.Next(10)), T.CreateChecked(random.Next(10)));
             source[index] = value;
             expected += value;
         }
 
         // act
-        var result = Tensor.Sum<T>(source);
+        var result = Tensor.Sum4D<T>(MemoryMarshal.Cast<MyVector4<T>, T>(source));
 
         // assert
-        Assert.Equal(expected, result);
+        Assert.Equal(expected, new MyVector4<T>(result[0], result[1], result[2], result[3]));
     }
 
     [Theory]
