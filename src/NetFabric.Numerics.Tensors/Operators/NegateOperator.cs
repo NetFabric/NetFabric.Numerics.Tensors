@@ -21,6 +21,6 @@ public readonly struct NegateOperator<T>
     /// </summary>
     /// <param name="x">The vector to negate.</param>
     /// <returns>The negated vector.</returns>
-    public static Vector<T> Invoke(Vector<T> x)
+    public static Vector<T> Invoke(ref readonly Vector<T> x)
         => -x;
 }

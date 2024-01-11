@@ -28,7 +28,7 @@ public class AddMultiplyTests
         Tensor.AddMultiply<T>(x, y, z, result);
 
         // assert
-        _ = result.Should().Equal(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]

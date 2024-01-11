@@ -26,7 +26,7 @@ public class AddMultiplyValueTests
         Tensor.AddMultiply(x, y, z, result);
 
         // assert
-        _ = result.Should().Equal(expected);
+        Assert.Equal(expected, result);
     }
 
     static void AddMultiply_Second_Should_Succeed<T>(int count)
@@ -50,7 +50,7 @@ public class AddMultiplyValueTests
         Tensor.AddMultiply(x, y, z, result);
 
         // assert
-        _ = result.Should().Equal(expected);
+        Assert.Equal(expected, result);
     }
 
     static void AddMultiply_Both_Should_Succeed<T>(int count)
@@ -72,7 +72,7 @@ public class AddMultiplyValueTests
         Tensor.AddMultiply(x, y, z, result);
 
         // assert
-        _ = result.Should().Equal(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]

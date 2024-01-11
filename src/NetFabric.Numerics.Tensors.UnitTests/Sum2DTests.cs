@@ -3,32 +3,45 @@ using System.Runtime.CompilerServices;
 
 namespace NetFabric.Numerics.Tensors.UnitTests;
 
-public class SumTests
+public class Sum2DTests
 {
+    [Fact]
+    public void Sum_Size_Not_Multiple_Of_2_Throws()
+    {
+        // arrange
+        var source = new short[3];
+
+        // act
+        void action() => Tensor.Sum2D<short>(source);
+
+        // assert
+        Assert.Throws<ArgumentException>("source", action);
+    }
+    
     public static TheoryData<int> SumData
         => new() { 
-            { 0 }, { 1 }, { 2 }, { 3 }, { 4 }, { 5 }, { 6 }, { 7 }, { 8 }, { 9 }, { 10 }, { 100 },
+            { 0 }, { 2 }, { 4 }, { 6 }, { 8 }, { 10 }, { 100 },
         };
 
     static void Sum_Should_Succeed<T>(int count)
         where T : struct, INumber<T>
     {
         // arrange
-        var source = new T[count];
-        var expected = T.Zero;
+        var source = new MyVector2<T>[count];
+        var expected = MyVector2<T>.AdditiveIdentity;
         var random = new Random(42);
         for (var index = 0; index < source.Length; index++)
         {
-            var value = T.CreateChecked(random.Next(10));
+            var value = new MyVector2<T>(T.CreateChecked(random.Next(10)), T.CreateChecked(random.Next(10)));
             source[index] = value;
             expected += value;
         }
 
         // act
-        var result = Tensor.Sum<T>(source);
+        var result = Tensor.Sum2D<T>(MemoryMarshal.Cast<MyVector2<T>, T>(source));
 
         // assert
-        Assert.Equal(expected, result);
+        Assert.Equal(expected, new MyVector2<T>(result[0], result[1]));
     }
 
     [Theory]

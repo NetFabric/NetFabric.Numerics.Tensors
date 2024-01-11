@@ -30,7 +30,7 @@ public class AddTripletsTests
             MemoryMarshal.Cast<MyVector3<T>, T>(result));
 
         // assert
-        _ = result.Should().Equal(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]

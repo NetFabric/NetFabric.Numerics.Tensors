@@ -23,6 +23,6 @@ public readonly struct SubtractOperator<T>
     /// <param name="x">The first vector.</param>
     /// <param name="y">The second vector.</param>
     /// <returns>The result of the subtraction.</returns>
-    public static Vector<T> Invoke(Vector<T> x, Vector<T> y)
+    public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
         => x - y;
 }

@@ -6,7 +6,7 @@ namespace NetFabric.Numerics.Tensors.Benchmarks;
 
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
-public class AddValueBenchmarks
+public class NegateBenchmarks
 {
     short[]? sourceShort, resultShort;
     int[]? sourceInt, resultInt;
@@ -49,60 +49,60 @@ public class AddValueBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark(Baseline = true)]
     public void Baseline_Short()
-        => Baseline.Add<short>(sourceShort!, 42, resultShort!);
+        => Baseline.Negate<short>(sourceShort!, resultShort!);
 
     [BenchmarkCategory("Short")]
     [Benchmark]
     public void Tensor_Short()
-        => Tensor.Add<short>(sourceShort!, 42, resultShort!);
+        => Tensor.Negate<short>(sourceShort!, resultShort!);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
     public void Baseline_Int()
-        => Baseline.Add<int>(sourceInt!, 42, resultInt!);
+        => Baseline.Negate<int>(sourceInt!, resultInt!);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
     public void Tensor_Int()
-        => Tensor.Add<int>(sourceInt!, 42, resultInt!);
+        => Tensor.Negate<int>(sourceInt!, resultInt!);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
     public void Baseline_Long()
-        => Baseline.Add<long>(sourceLong!, 42, resultLong!);
+        => Baseline.Negate<long>(sourceLong!, resultLong!);
 
     [BenchmarkCategory("Long")]
     [Benchmark]
     public void Tensor_Long()
-        => Tensor.Add<long>(sourceLong!, 42, resultLong!);
+        => Tensor.Negate<long>(sourceLong!, resultLong!);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
     public void Baseline_Half()
-        => Baseline.Add<Half>(sourceHalf!, (Half)42, resultHalf!);
+        => Baseline.Negate<Half>(sourceHalf!, resultHalf!);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
     public void Tensor_Half()
-        => Tensor.Add<Half>(sourceHalf!, (Half)42, resultHalf!);
+        => Tensor.Negate<Half>(sourceHalf!, resultHalf!);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
     public void Baseline_Float()
-        => Baseline.Add<float>(sourceFloat!, 42, resultFloat!);
+        => Baseline.Negate<float>(sourceFloat!, resultFloat!);
 
     [BenchmarkCategory("Float")]
     [Benchmark]
     public void Tensor_Float()
-        => Tensor.Add<float>(sourceFloat!, 42, resultFloat!);
+        => Tensor.Negate<float>(sourceFloat!, resultFloat!);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
     public void Baseline_Double()
-        => Baseline.Add<double>(sourceDouble!, 42, resultDouble!);
+        => Baseline.Negate<double>(sourceDouble!, resultDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]
     public void Tensor_Double()
-        => Tensor.Add<double>(sourceDouble!, 42, resultDouble!);
+        => Tensor.Negate<double>(sourceDouble!, resultDouble!);
 }
