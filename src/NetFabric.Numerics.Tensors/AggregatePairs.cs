@@ -30,7 +30,7 @@ namespace NetFabric.Numerics
                 nint index = 0;
 
                 var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(source);
-                if (sourceVectors.Length > 2)
+                if (sourceVectors.Length > 1)
                 {
                     ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
                     for (nint indexVector = 0; indexVector < sourceVectors.Length; indexVector++)
