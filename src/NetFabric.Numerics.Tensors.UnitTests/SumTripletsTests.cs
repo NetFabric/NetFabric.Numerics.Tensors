@@ -21,7 +21,7 @@ public class SumTripletsTests
         var result = new MyVector3<T>(Tensor.SumTriplets<T>(MemoryMarshal.Cast<MyVector3<T>, T>(source)));
 
         // assert
-        _ = result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]

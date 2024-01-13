@@ -18,7 +18,7 @@ public class SumTests
         var result = Tensor.Sum<T>(source);
 
         // assert
-        _ = result.Should().Be(T.CreateChecked(expected));
+        Assert.Equal(expected, result);
     }
 
     [Theory]

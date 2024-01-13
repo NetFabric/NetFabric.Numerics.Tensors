@@ -21,7 +21,7 @@ public class SumPairsTests
         var result = new MyVector2<T>(Tensor.SumPairs<T>(MemoryMarshal.Cast<MyVector2<T>, T>(source)));
 
         // assert
-        _ = result.Should().Be(expected);
+        Assert.Equal(expected, result);
     }
 
     [Theory]

@@ -42,4 +42,19 @@ public static partial class Tensor
     public static ReadOnlySpan<T> SumTriplets<T>(ReadOnlySpan<T> source)
         where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
         => AggregateTuples<T, SumTuplesOperator<T>>(source, 3);
+
+    /// <summary>
+    /// Computes the sum of tuples of values in a span.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the tuples.</typeparam>
+    /// <param name="source">The input span.</param>
+    /// <param name="tupleSize">The size of the tuples on the source span.</param>
+    /// <returns>A span containing the sum of tuples of elements.</returns>
+    /// <remarks>
+    /// This method can be used to calculate the sum of vectors with number of dimensions greater than one.
+    /// This method requires the type <typeparamref name="T"/> to implement the <see cref="IAdditionOperators{T, T, T}"/> and <see cref="IAdditiveIdentity{T, T}"/> interfaces.
+    /// </remarks>
+    public static ReadOnlySpan<T> SumTuples<T>(ReadOnlySpan<T> source, int tupleSize)
+        where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
+        => AggregateTuples<T, SumTuplesOperator<T>>(source, tupleSize);
 }
