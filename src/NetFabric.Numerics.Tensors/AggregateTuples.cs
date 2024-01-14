@@ -18,6 +18,8 @@ namespace NetFabric.Numerics
             ref var sourceRef = ref MemoryMarshal.GetReference<T>(source);
             ref var resultRef = ref MemoryMarshal.GetReference<T>(result);
 
+            nint index = 0;
+
             // aggregate
             if (Vector.IsHardwareAccelerated && Vector<T>.IsSupported)
             {
@@ -29,42 +31,23 @@ namespace NetFabric.Numerics
                     : IntrinsicNonPowerOfTwo(ref sourceVectorsRef, sourceVectors.Length, ref resultRef, result.Length);
 
                 // skip the source elements already aggregated
-                var index = intrinsic
-                    ? source.Length - (source.Length % Vector<T>.Count)
-                    : 0;
-
-                // aggregate the remaining elements in the source
-                for (; index + tupleSize <= source.Length; index += result.Length)
-                {
-                    for (nint indexResult = 0; indexResult < result.Length; indexResult++)
-                    {
-                        Unsafe.Add(ref resultRef, indexResult) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, indexResult), 
-                                Unsafe.Add(ref sourceRef, index + indexResult));
-                    }
-                }
+                if (intrinsic)
+                    index = source.Length - (source.Length % Vector<T>.Count);
             }
-            else
+
+            // aggregate the remaining elements in the source
+            for (; index + tupleSize <= source.Length; index += result.Length)
             {
-                Scalar(ref sourceRef, source.Length, ref resultRef, result.Length);
+                for (nint indexResult = 0; indexResult < result.Length; indexResult++)
+                {
+                    Unsafe.Add(ref resultRef, indexResult) = 
+                        TOperator.Invoke(
+                            Unsafe.Add(ref resultRef, indexResult), 
+                            Unsafe.Add(ref sourceRef, index + indexResult));
+                }
             }
 
             return result;
-
-            static void Scalar(ref T sourceRef, int sourceLength, ref T resultRef, int resultLength)
-            {
-                for (nint index = 0; index + resultLength <= sourceLength; index += resultLength)
-                {
-                    for (nint indexResult = 0; indexResult < resultLength; indexResult++)
-                    {
-                        Unsafe.Add(ref resultRef, indexResult) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, indexResult), 
-                                Unsafe.Add(ref sourceRef, index + indexResult));
-                    }
-                }
-            }
 
             static bool IntrinsicPowerOfTwo(ref Vector<T> sourceVectorsRef, int sourceVectorsLength, ref T resultRef, int resultLength)
             {
