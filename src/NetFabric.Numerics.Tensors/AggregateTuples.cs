@@ -24,9 +24,14 @@ namespace NetFabric.Numerics
                 var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(source);
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
 
-                var index = tupleSize.IsPowerOfTwo() 
+                var intrinsic = (tupleSize.IsPowerOfTwo())
                     ? IntrinsicPowerOfTwo(ref sourceVectorsRef, sourceVectors.Length, ref resultRef, result.Length)
                     : IntrinsicNonPowerOfTwo(ref sourceVectorsRef, sourceVectors.Length, ref resultRef, result.Length);
+
+                // skip the source elements already aggregated
+                var index = intrinsic
+                    ? source.Length - (source.Length % Vector<T>.Count)
+                    : 0;
 
                 // aggregate the remaining elements in the source
                 for (; index + tupleSize <= source.Length; index += result.Length)
@@ -61,26 +66,70 @@ namespace NetFabric.Numerics
                 }
             }
 
-            static nint IntrinsicPowerOfTwo(ref Vector<T> sourceVectorsRef, int sourceVectorsLength, ref T resultRef, int resultLength)
+            static bool IntrinsicPowerOfTwo(ref Vector<T> sourceVectorsRef, int sourceVectorsLength, ref T resultRef, int resultLength)
             {
-                nint index = 0;
+                if (sourceVectorsLength < 2 || Vector<T>.Count / resultLength < 1)
+                    return false;
+            
+                var resultVector = new Vector<T>(TOperator.Identity);
+                ref var resultVectorRef = ref Unsafe.As<Vector<T>, T>(ref Unsafe.AsRef(in resultVector));
 
-                if (sourceVectorsLength > 1)
+                // aggregate the source vectors into the result vector
+                for (nint indexVector = 0; indexVector < sourceVectorsLength; indexVector++)
                 {
-                    var resultVector = new Vector<T>(TOperator.Identity);
-                    ref var resultVectorRef = ref Unsafe.As<Vector<T>, T>(ref Unsafe.AsRef(in resultVector));
+                    resultVector = 
+                        TOperator.Invoke(
+                            resultVector, 
+                            Unsafe.Add(ref sourceVectorsRef, indexVector));
+                }
 
-                    // aggregate the source vectors into the result vector
-                    for (nint indexVector = 0; indexVector < sourceVectorsLength; indexVector++)
+                // aggregate the result vectors into the result
+                nint indexResult = 0;
+                for (var indexVector = 0; indexVector < Vector<T>.Count; indexVector++)
+                {
+                    Unsafe.Add(ref resultRef, indexResult) = 
+                        TOperator.Invoke(
+                            Unsafe.Add(ref resultRef, indexResult), 
+                            Unsafe.Add(ref resultVectorRef, indexVector));
+
+                    indexResult++;
+                    if(indexResult == resultLength)
+                        indexResult = 0;
+                }
+
+                return true;
+            } 
+
+            static bool IntrinsicNonPowerOfTwo(ref Vector<T> sourceVectorsRef, int sourceVectorsLength, ref T resultRef, int resultLength)
+            {
+                // use as many vectors as the number of elements in the tuple
+                // this guarantees alignment and allows to use the same code for all tuple sizes
+                // but only used these if source fills more than the number of elements in the tuple
+                // and the number of vectors filled is a multiple of the number of elements in the tuple
+                if (sourceVectorsLength < 2 * resultLength || sourceVectorsLength % resultLength is not 0)
+                    return false;
+            
+                var resultVectors = GetVectors(resultLength, TOperator.Identity);
+                ref var resultVectorsRef = ref MemoryMarshal.GetReference(resultVectors);
+
+                // aggregate the source vectors into the result vectors
+                for (nint indexVector = 0; indexVector + resultLength <= sourceVectorsLength; indexVector += resultLength)
+                {
+                    for (nint indexTuple = 0; indexTuple < resultLength; indexTuple++)
                     {
-                        resultVector = 
+                        Unsafe.Add(ref resultVectorsRef, indexTuple) = 
                             TOperator.Invoke(
-                                resultVector, 
-                                Unsafe.Add(ref sourceVectorsRef, indexVector));
+                                Unsafe.Add(ref resultVectorsRef, indexTuple), 
+                                Unsafe.Add(ref sourceVectorsRef, indexVector + indexTuple));
                     }
+                }
 
-                    // aggregate the result vectors into the result
-                    nint indexResult = 0;
+                // aggregate the result vectors into the result
+                nint indexResult = 0;
+                for(var indexResultVector = 0; indexResultVector < resultLength; indexResultVector++)
+                {
+                    var resultVector = Unsafe.Add(ref resultVectorsRef, indexResultVector);
+                    ref var resultVectorRef = ref Unsafe.As<Vector<T>, T>(ref Unsafe.AsRef(in resultVector));
                     for (var indexVector = 0; indexVector < Vector<T>.Count; indexVector++)
                     {
                         Unsafe.Add(ref resultRef, indexResult) = 
@@ -92,64 +141,9 @@ namespace NetFabric.Numerics
                         if(indexResult == resultLength)
                             indexResult = 0;
                     }
-
-                    // skip the source elements already aggregated
-                    index = source.Length - (source.Length % Vector<T>.Count);
                 }
 
-                return index;
-            } 
-
-            static nint IntrinsicNonPowerOfTwo(ref Vector<T> sourceVectorsRef, int sourceVectorsLength, ref T resultRef, int resultLength)
-            {
-                nint index = 0;
-
-                // use as many vectors as the number of elements in the tuple
-                // this guarantees alignment and allows to use the same code for all tuple sizes
-                // but only used these if source fills more than the number of elements in the tuple
-                // and the number of vectors filled is a multiple of the number of elements in the tuple
-                if (sourceVectorsLength > resultLength && 
-                    sourceVectorsLength % resultLength is 0)
-                {
-                    var resultVectors = GetVectors(resultLength, TOperator.Identity);
-                    ref var resultVectorsRef = ref MemoryMarshal.GetReference(resultVectors);
-
-                    // aggregate the source vectors into the result vectors
-                    for (nint indexVector = 0; indexVector + resultLength <= sourceVectorsLength; indexVector += resultLength)
-                    {
-                        for (nint indexTuple = 0; indexTuple < resultLength; indexTuple++)
-                        {
-                            Unsafe.Add(ref resultVectorsRef, indexTuple) = 
-                                TOperator.Invoke(
-                                    Unsafe.Add(ref resultVectorsRef, indexTuple), 
-                                    Unsafe.Add(ref sourceVectorsRef, indexVector + indexTuple));
-                        }
-                    }
-
-                    // aggregate the result vectors into the result
-                    nint indexResult = 0;
-                    for(var indexResultVector = 0; indexResultVector < resultLength; indexResultVector++)
-                    {
-                        var resultVector = Unsafe.Add(ref resultVectorsRef, indexResultVector);
-                        ref var resultVectorRef = ref Unsafe.As<Vector<T>, T>(ref Unsafe.AsRef(in resultVector));
-                        for (var indexVector = 0; indexVector < Vector<T>.Count; indexVector++)
-                        {
-                            Unsafe.Add(ref resultRef, indexResult) = 
-                                TOperator.Invoke(
-                                    Unsafe.Add(ref resultRef, indexResult), 
-                                    Unsafe.Add(ref resultVectorRef, indexVector));
-
-                            indexResult++;
-                            if(indexResult == resultLength)
-                                indexResult = 0;
-                        }
-                    }
-
-                    // skip the source elements already aggregated
-                    index = source.Length - (source.Length % Vector<T>.Count);
-                }
-
-                return index;
+                return true;
             }
         }
     }
