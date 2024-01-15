@@ -121,7 +121,7 @@ namespace NetFabric.Numerics
                 var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(source);
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
 
-                return (resultLength is 1 || resultLength.IsPowerOfTwo())
+                return resultLength != 1 && resultLength.IsPowerOfTwo()
                     ? IntrinsicPowerOfTwo(ref sourceVectorsRef, sourceVectors.Length, ref resultRef, resultLength)
                     : IntrinsicNonPowerOfTwo(ref sourceVectorsRef, sourceVectors.Length, ref resultRef, resultLength);
             }
@@ -148,14 +148,19 @@ namespace NetFabric.Numerics
 
                 // aggregate the result vector into the result
                 nint indexResult = 0;
-                for (var indexVector = 0; indexVector < Vector<T>.Count; indexVector++)
+                for (var indexVector = 0; indexVector + 1 < Vector<T>.Count; indexVector += 2)
                 {
                     Unsafe.Add(ref resultRef, indexResult) = 
                         TOperator.Invoke(
                             Unsafe.Add(ref resultRef, indexResult), 
                             Unsafe.Add(ref resultVectorRef, indexVector));
 
-                    indexResult++;
+                    Unsafe.Add(ref resultRef, indexResult + 1) = 
+                        TOperator.Invoke(
+                            Unsafe.Add(ref resultRef, indexResult + 1), 
+                            Unsafe.Add(ref resultVectorRef, indexVector + 1));
+
+                    indexResult += 2;
                     if(indexResult == resultLength)
                         indexResult = 0;
                 }
