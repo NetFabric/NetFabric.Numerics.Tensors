@@ -1,9 +1,8 @@
 ﻿using BenchmarkDotNet.Attributes;
-using System.Runtime.InteropServices;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
-public class SumPairsBenchmarks
+public class Sum1DBenchmarks
 {
     short[]? arrayShort;
     int[]? arrayInt;
@@ -18,51 +17,45 @@ public class SumPairsBenchmarks
     [GlobalSetup]
     public void GlobalSetup()
     {
-        arrayShort = new short[Count * 2];
-        arrayInt = new int[Count * 2];
-        arrayLong = new long[Count * 2];
-        arrayHalf = new Half[Count * 2];
-        arrayFloat = new float[Count * 2];
-        arrayDouble = new double[Count * 2];
+        arrayShort = new short[Count];
+        arrayInt = new int[Count];
+        arrayLong = new long[Count];
+        arrayHalf = new Half[Count];
+        arrayFloat = new float[Count];
+        arrayDouble = new double[Count];
 
-        for(var index = 0; index + 1 < Count; index += 2)
+        for(var index = 0; index < Count; index++)
         {
             arrayShort[index] = (short)index;
-            arrayShort[index + 1] = (short)(index + 1);
             arrayInt[index] = index;
-            arrayInt[index + 1] = index + 1;
             arrayLong[index] = index;
-            arrayLong[index + 1] = index + 1;
             arrayHalf[index] = (Half)index;
-            arrayHalf[index + 1] = (Half)(index + 1);
             arrayFloat[index] = index;
-            arrayFloat[index + 1] = index + 1;
             arrayDouble[index] = index;
-            arrayDouble[index + 1] = index + 1;
         }
     }
 
     [Benchmark]
     public ReadOnlySpan<short> Sum_Short()
-        => Tensor.Sum<short>(arrayShort!, 2);
+        => Tensor.Sum<short>(arrayShort!);
 
     [Benchmark]
     public ReadOnlySpan<int> Sum_Int()
-        => Tensor.Sum<int>(arrayInt!, 2);
+        => Tensor.Sum<int>(arrayInt!);
 
     [Benchmark]
     public ReadOnlySpan<long> Sum_Long()
-        => Tensor.Sum<long>(arrayLong!, 2);
+        => Tensor.Sum<long>(arrayLong!);
 
     [Benchmark]
     public ReadOnlySpan<Half> Sum_Half()
-        => Tensor.Sum<Half>(arrayHalf!, 2);
+        => Tensor.Sum<Half>(arrayHalf!);
 
     [Benchmark]
     public ReadOnlySpan<float> Sum_Float()
-        => Tensor.Sum<float>(arrayFloat!, 2);
+        => Tensor.Sum<float>(arrayFloat!);
 
     [Benchmark]
     public ReadOnlySpan<double> Sum_Double()
-        => Tensor.Sum<double>(arrayDouble!, 2);
+        => Tensor.Sum<double>(arrayDouble);
 }

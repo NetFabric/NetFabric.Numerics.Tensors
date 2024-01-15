@@ -12,11 +12,11 @@ namespace NetFabric.Numerics
                 Throw.ArgumentException(nameof(source), "source span must have a size multiple of tupleSize.");
 
             // initialize result
-            var result = new T[tupleSize];
-            Array.Fill(result, TOperator.Identity);
+            var result = new T[tupleSize].AsSpan();
+            result.Fill(TOperator.Identity);
 
-            ref var sourceRef = ref MemoryMarshal.GetReference<T>(source);
-            ref var resultRef = ref MemoryMarshal.GetReference<T>(result);
+            ref var sourceRef = ref MemoryMarshal.GetReference(source);
+            ref var resultRef = ref MemoryMarshal.GetReference(result);
 
             nint index = 0;
 
