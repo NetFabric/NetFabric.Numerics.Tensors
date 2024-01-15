@@ -17,47 +17,45 @@ public class SumBenchmarks
     [GlobalSetup]
     public void GlobalSetup()
     {
-        var range = Enumerable.Range(0, Count);
-        arrayShort = range
-            .Select(value => (short)value)
-            .ToArray();
-        arrayInt = range
-            .ToArray();
-        arrayLong = range
-            .Select(value => (long)value)
-            .ToArray();
-        arrayHalf = range
-            .Select(value => (Half)value)
-            .ToArray();
-        arrayFloat = range
-            .Select(value => (float)value)
-            .ToArray();
-        arrayDouble = range
-            .Select(value => (double)value)
-            .ToArray();
+        arrayShort = new short[Count];
+        arrayInt = new int[Count];
+        arrayLong = new long[Count];
+        arrayHalf = new Half[Count];
+        arrayFloat = new float[Count];
+        arrayDouble = new double[Count];
+
+        for(var index = 0; index < Count; index++)
+        {
+            arrayShort[index] = (short)index;
+            arrayInt[index] = index;
+            arrayLong[index] = index;
+            arrayHalf[index] = (Half)index;
+            arrayFloat[index] = index;
+            arrayDouble[index] = index;
+        }
     }
 
     [Benchmark]
-    public short Sum_Short()
+    public ReadOnlySpan<short> Sum_Short()
         => Tensor.Sum<short>(arrayShort!);
 
     [Benchmark]
-    public int Sum_Int()
+    public ReadOnlySpan<int> Sum_Int()
         => Tensor.Sum<int>(arrayInt!);
 
     [Benchmark]
-    public long Sum_Long()
+    public ReadOnlySpan<long> Sum_Long()
         => Tensor.Sum<long>(arrayLong!);
 
     [Benchmark]
-    public Half Sum_Half()
+    public ReadOnlySpan<Half> Sum_Half()
         => Tensor.Sum<Half>(arrayHalf!);
 
     [Benchmark]
-    public float Sum_Float()
+    public ReadOnlySpan<float> Sum_Float()
         => Tensor.Sum<float>(arrayFloat!);
 
     [Benchmark]
-    public double Sum_Double()
+    public ReadOnlySpan<double> Sum_Double()
         => Tensor.Sum<double>(arrayDouble);
 }

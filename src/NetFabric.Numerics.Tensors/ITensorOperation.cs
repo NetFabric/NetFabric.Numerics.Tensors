@@ -73,51 +73,10 @@ public interface ITernaryOperator<T>
 }
 
 /// <summary>
-/// Represents an aggregation operator that operates on two values or vectors and produces a single result.
+/// Represents an aggregation operator that operates on two values or vectors.
 /// </summary>
 /// <typeparam name="T">The type of the values or vectors.</typeparam>
 public interface IAggregationOperator<T>
-    : IBinaryOperator<T>
-    where T : struct
-{
-    /// <summary>
-    /// Gets the identity value for the type and operation to be performed.
-    /// </summary>
-    static virtual T Identity
-        => Throw.NotSupportedException<T>();
-
-    /// <summary>
-    /// Combines the specified value with the vector to produce a new value.
-    /// </summary>
-    /// <param name="value">The current value.</param>
-    /// <param name="vector">The vector to combine with the value.</param>
-    /// <returns>The result of combining the value with the vector.</returns>
-    static abstract T ResultSelector(T value, Vector<T> vector);
-}
-
-/// <summary>
-/// Represents an aggregation operator that operates on two values or vectors and produces a pair of results.
-/// </summary>
-/// <typeparam name="T">The type of the values or vectors.</typeparam>
-public interface IAggregationPairsOperator<T>: IBinaryOperator<T>
-    where T : struct
-{
-    /// <summary>
-    /// Gets the identity value for the type and operation to be performed.
-    /// </summary>
-    static virtual ValueTuple<T, T> Identity
-        => Throw.NotSupportedException<ValueTuple<T, T>>();
-
-    /// <summary>
-    /// Combines the specified values with the vector to produce a new pair of values.
-    /// </summary>
-    /// <param name="value">The current pair of values.</param>
-    /// <param name="vector">The vector to combine with the values.</param>
-    /// <returns>The result of combining the values with the vector.</returns>
-    static abstract ValueTuple<T, T> ResultSelector(ValueTuple<T, T> value, Vector<T> vector);
-}
-
-public interface IAggregationTuplesOperator<T>
     : IBinaryOperator<T>
     where T : struct
 {

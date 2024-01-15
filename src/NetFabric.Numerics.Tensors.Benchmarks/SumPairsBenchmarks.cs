@@ -5,12 +5,12 @@ namespace NetFabric.Numerics.Tensors.Benchmarks;
 
 public class SumPairsBenchmarks
 {
-    ValueTuple<short, short>[]? arrayShort;
-    ValueTuple<int, int>[]? arrayInt;
-    ValueTuple<long, long>[]? arrayLong;
-    ValueTuple<Half, Half>[]? arrayHalf;
-    ValueTuple<float, float>[]? arrayFloat;
-    ValueTuple<double, double>[]? arrayDouble;
+    short[]? arrayShort;
+    int[]? arrayInt;
+    long[]? arrayLong;
+    Half[]? arrayHalf;
+    float[]? arrayFloat;
+    double[]? arrayDouble;
 
     [Params(10_000)]
     public int Count { get; set; }
@@ -18,48 +18,51 @@ public class SumPairsBenchmarks
     [GlobalSetup]
     public void GlobalSetup()
     {
-        var range = Enumerable.Range(0, Count);
-        arrayShort = range
-            .Select(value => ((short)value, (short)(value + 1)))
-            .ToArray();
-        arrayInt = range
-            .Select(value => ((int)value, (int)(value + 1)))
-            .ToArray();
-        arrayLong = range
-            .Select(value => ((long)value, (long)(value + 1)))
-            .ToArray();
-        arrayHalf = range
-            .Select(value => ((Half)value, (Half)(value + 1)))
-            .ToArray();
-        arrayFloat = range
-            .Select(value => ((float)value, (float)(value + 1)))
-            .ToArray();
-        arrayDouble = range
-            .Select(value => ((double)value, (double)(value + 1)))
-            .ToArray();
+        arrayShort = new short[Count * 2];
+        arrayInt = new int[Count * 2];
+        arrayLong = new long[Count * 2];
+        arrayHalf = new Half[Count * 2];
+        arrayFloat = new float[Count * 2];
+        arrayDouble = new double[Count * 2];
+
+        for(var index = 0; index + 1 < Count; index += 2)
+        {
+            arrayShort[index] = (short)index;
+            arrayShort[index + 1] = (short)(index + 1);
+            arrayInt[index] = index;
+            arrayInt[index + 1] = index + 1;
+            arrayLong[index] = index;
+            arrayLong[index + 1] = index + 1;
+            arrayHalf[index] = (Half)index;
+            arrayHalf[index + 1] = (Half)(index + 1);
+            arrayFloat[index] = index;
+            arrayFloat[index + 1] = index + 1;
+            arrayDouble[index] = index;
+            arrayDouble[index + 1] = index + 1;
+        }
     }
 
     [Benchmark]
-    public ValueTuple<short, short> Sum_Short()
-        => Tensor.SumPairs<short>(MemoryMarshal.Cast<ValueTuple<short, short>, short>(arrayShort!));
+    public ReadOnlySpan<short> Sum_Short()
+        => Tensor.Sum<short>(arrayShort!, 2);
 
     [Benchmark]
-    public ValueTuple<int, int> Sum_Int()
-        => Tensor.SumPairs<int>(MemoryMarshal.Cast<ValueTuple<int, int>, int>(arrayInt!));
+    public ReadOnlySpan<int> Sum_Int()
+        => Tensor.Sum<int>(arrayInt!, 2);
 
     [Benchmark]
-    public ValueTuple<long, long> Sum_Long()
-        => Tensor.SumPairs<long>(MemoryMarshal.Cast<ValueTuple<long, long>, long>(arrayLong!));
+    public ReadOnlySpan<long> Sum_Long()
+        => Tensor.Sum<long>(arrayLong!, 2);
 
     [Benchmark]
-    public ValueTuple<Half, Half> Sum_Half()
-        => Tensor.SumPairs<Half>(MemoryMarshal.Cast<ValueTuple<Half, Half>, Half>(arrayHalf!));
+    public ReadOnlySpan<Half> Sum_Half()
+        => Tensor.Sum<Half>(arrayHalf!, 2);
 
     [Benchmark]
-    public ValueTuple<float, float> Sum_Float()
-        => Tensor.SumPairs<float>(MemoryMarshal.Cast<ValueTuple<float, float>, float>(arrayFloat!));
+    public ReadOnlySpan<float> Sum_Float()
+        => Tensor.Sum<float>(arrayFloat!, 2);
 
     [Benchmark]
-    public ValueTuple<double, double> Sum_Double()
-        => Tensor.SumPairs<double>(MemoryMarshal.Cast<ValueTuple<double, double>, double>(arrayDouble!));
+    public ReadOnlySpan<double> Sum_Double()
+        => Tensor.Sum<double>(arrayDouble!, 2);
 }
