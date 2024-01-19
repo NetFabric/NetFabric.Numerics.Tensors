@@ -18,7 +18,7 @@ namespace NetFabric.Numerics
             ref var sourceRef = ref MemoryMarshal.GetReference(source);
             ref var resultRef = ref MemoryMarshal.GetReference(result);
 
-            nint index = 0;
+            var index = nint.Zero;
 
             // aggregate
             if (Vector.IsHardwareAccelerated && Vector<T>.IsSupported)
@@ -35,84 +35,54 @@ namespace NetFabric.Numerics
 
             return result;
 
-            static void Scalar(nint index, ref T sourceRef, int sourceLength, ref T resultRef, int resultLength)
+            [MethodImpl(MethodImplOptions.AggressiveInlining)]
+            static void Scalar(nint start, ref T sourceRef, int sourceLength, ref T resultRef, int resultLength)
             {
-                if (resultLength is 1)
+                switch (resultLength)
                 {
-                    for (; index < sourceLength; index++)
-                    {
-                        Unsafe.Add(ref resultRef, 0) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, 0), 
-                                Unsafe.Add(ref sourceRef, index));
-                    }
-                }
-                else if (resultLength is 2)
-                {
-                    for (; index + 1 < sourceLength; index += 2)
-                    {
-                        Unsafe.Add(ref resultRef, 0) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, 0), 
-                                Unsafe.Add(ref sourceRef, index));
-                        Unsafe.Add(ref resultRef, 1) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, 1), 
-                                Unsafe.Add(ref sourceRef, index + 1));
-                    }
-                }
-                else if (resultLength is 3)
-                {
-                    for (; index + 2 < sourceLength; index += 3)
-                    {
-                        Unsafe.Add(ref resultRef, 0) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, 0), 
-                                Unsafe.Add(ref sourceRef, index));
-                        Unsafe.Add(ref resultRef, 1) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, 1), 
-                                Unsafe.Add(ref sourceRef, index + 1));
-                        Unsafe.Add(ref resultRef, 2) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, 2), 
-                                Unsafe.Add(ref sourceRef, index + 2));
-                    }
-                }
-                else if (resultLength is 4)
-                {
-                    for (; index + 3 < sourceLength; index += 4)
-                    {
-                        Unsafe.Add(ref resultRef, 0) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, 0), 
-                                Unsafe.Add(ref sourceRef, index));
-                        Unsafe.Add(ref resultRef, 1) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, 1), 
-                                Unsafe.Add(ref sourceRef, index + 1));
-                        Unsafe.Add(ref resultRef, 2) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, 2), 
-                                Unsafe.Add(ref sourceRef, index + 2));
-                        Unsafe.Add(ref resultRef, 3) = 
-                            TOperator.Invoke(
-                                Unsafe.Add(ref resultRef, 3), 
-                                Unsafe.Add(ref sourceRef, index + 3));
-                    }
-                }
-                else
-                {
-                    for (; index + resultLength <= sourceLength; index += resultLength)
-                    {
-                        for (nint indexResult = 0; indexResult < resultLength; indexResult++)
+                    case 1:
+                        for (var index = start; index < sourceLength; index++)
                         {
-                            Unsafe.Add(ref resultRef, indexResult) = 
-                                TOperator.Invoke(
-                                    Unsafe.Add(ref resultRef, indexResult), 
-                                    Unsafe.Add(ref sourceRef, index + indexResult));
+                            Unsafe.Add(ref resultRef, 0) = TOperator.Invoke(Unsafe.Add(ref resultRef, 0), Unsafe.Add(ref sourceRef, index));
                         }
-                    }
+                        break;
+
+                    case 2:
+                        for (var index = start; index + 1 < sourceLength; index += 2)
+                        {
+                            Unsafe.Add(ref resultRef, 0) = TOperator.Invoke(Unsafe.Add(ref resultRef, 0), Unsafe.Add(ref sourceRef, index));
+                            Unsafe.Add(ref resultRef, 1) = TOperator.Invoke(Unsafe.Add(ref resultRef, 1), Unsafe.Add(ref sourceRef, index + 1));
+                        }      
+                        break;    
+
+                    case 3:
+                        for (var index = start; index + 2 < sourceLength; index += 3)
+                        {
+                            Unsafe.Add(ref resultRef, 0) = TOperator.Invoke(Unsafe.Add(ref resultRef, 0), Unsafe.Add(ref sourceRef, index));
+                            Unsafe.Add(ref resultRef, 1) = TOperator.Invoke(Unsafe.Add(ref resultRef, 1), Unsafe.Add(ref sourceRef, index + 1));
+                            Unsafe.Add(ref resultRef, 2) = TOperator.Invoke(Unsafe.Add(ref resultRef, 2), Unsafe.Add(ref sourceRef, index + 2));
+                        }      
+                        break;
+
+                    case 4:
+                        for (var index = start; index + 3 < sourceLength; index += 4)
+                        {
+                            Unsafe.Add(ref resultRef, 0) = TOperator.Invoke(Unsafe.Add(ref resultRef, 0), Unsafe.Add(ref sourceRef, index));
+                            Unsafe.Add(ref resultRef, 1) = TOperator.Invoke(Unsafe.Add(ref resultRef, 1), Unsafe.Add(ref sourceRef, index + 1));
+                            Unsafe.Add(ref resultRef, 2) = TOperator.Invoke(Unsafe.Add(ref resultRef, 2), Unsafe.Add(ref sourceRef, index + 2));
+                            Unsafe.Add(ref resultRef, 3) = TOperator.Invoke(Unsafe.Add(ref resultRef, 3), Unsafe.Add(ref sourceRef, index + 3));
+                        }      
+                        break;          
+                    
+                    default:
+                        for (var index = start; index + resultLength <= sourceLength; index += resultLength)
+                        {
+                            for (var indexResult = nint.Zero; indexResult < resultLength; indexResult++)
+                            {
+                                Unsafe.Add(ref resultRef, indexResult) = TOperator.Invoke(Unsafe.Add(ref resultRef, indexResult), Unsafe.Add(ref sourceRef, index + indexResult));
+                            }
+                        }
+                        break;
                 }
             }
 
@@ -138,7 +108,7 @@ namespace NetFabric.Numerics
                 ref var resultVectorRef = ref Unsafe.As<Vector<T>, T>(ref Unsafe.AsRef(in resultVector));
 
                 // aggregate the source vectors into the result vector
-                for (nint indexVector = 0; indexVector < sourceVectorsLength; indexVector++)
+                for (var indexVector = nint.Zero; indexVector < sourceVectorsLength; indexVector++)
                 {
                     resultVector = 
                         TOperator.Invoke(
@@ -147,8 +117,8 @@ namespace NetFabric.Numerics
                 }
 
                 // aggregate the result vector into the result
-                nint indexResult = 0;
-                for (var indexVector = 0; indexVector + 1 < Vector<T>.Count; indexVector += 2)
+                var indexResult = nint.Zero;
+                for (var indexVector = nint.Zero; indexVector + 1 < Vector<T>.Count; indexVector += 2)
                 {
                     Unsafe.Add(ref resultRef, indexResult) = 
                         TOperator.Invoke(
@@ -181,9 +151,9 @@ namespace NetFabric.Numerics
                 ref var resultVectorsRef = ref MemoryMarshal.GetReference(resultVectors);
 
                 // aggregate the source vectors into the result vectors
-                for (nint indexVector = 0; indexVector + resultLength <= sourceVectorsLength; indexVector += resultLength)
+                for (var indexVector = nint.Zero; indexVector + resultLength <= sourceVectorsLength; indexVector += resultLength)
                 {
-                    for (nint indexTuple = 0; indexTuple < resultLength; indexTuple++)
+                    for (var indexTuple = nint.Zero; indexTuple < resultLength; indexTuple++)
                     {
                         Unsafe.Add(ref resultVectorsRef, indexTuple) = 
                             TOperator.Invoke(
@@ -193,12 +163,12 @@ namespace NetFabric.Numerics
                 }
 
                 // aggregate the result vectors into the result
-                nint indexResult = 0;
-                for(var indexResultVector = 0; indexResultVector < resultLength; indexResultVector++)
+                var indexResult = nint.Zero;
+                for(var indexResultVector = nint.Zero; indexResultVector < resultLength; indexResultVector++)
                 {
                     var resultVector = Unsafe.Add(ref resultVectorsRef, indexResultVector);
                     ref var resultVectorRef = ref Unsafe.As<Vector<T>, T>(ref Unsafe.AsRef(in resultVector));
-                    for (var indexVector = 0; indexVector < Vector<T>.Count; indexVector++)
+                    for (var indexVector = nint.Zero; indexVector < Vector<T>.Count; indexVector++)
                     {
                         Unsafe.Add(ref resultRef, indexResult) = 
                             TOperator.Invoke(
@@ -207,7 +177,7 @@ namespace NetFabric.Numerics
 
                         indexResult++;
                         if(indexResult == resultLength)
-                            indexResult = 0;
+                            indexResult = nint.Zero;
                     }
                 }
 

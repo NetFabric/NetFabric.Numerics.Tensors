@@ -18,4 +18,13 @@ public static partial class Tensor
     public static Span<T> Sum<T>(ReadOnlySpan<T> source, int tupleSize = 1)
         where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
         => Aggregate<T, SumOperator<T>>(source, tupleSize);
+
+    public static T Sum1D<T>(ReadOnlySpan<T> source)
+        where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
+        => Aggregate1D<T, SumOperator<T>>(source);
+
+    public static ReadOnlySpan<T> Sum2D<T>(ReadOnlySpan<T> source)
+        where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
+        => Aggregate2D<T, SumOperator<T>>(source);
+
 }

@@ -14,7 +14,7 @@ public static partial class Tensor
     {
         var array = new T[Vector<T>.Count];
         ref var resultRef = ref MemoryMarshal.GetReference<T>(array);
-        for (nint indexVector = 0; indexVector + 1 < array.Length; indexVector += 2)
+        for (var indexVector = nint.Zero; indexVector + 1 < array.Length; indexVector += 2)
         {
             Unsafe.Add(ref resultRef, indexVector) = tuple.Item1;
             Unsafe.Add(ref resultRef, indexVector + 1) = tuple.Item2;
@@ -35,7 +35,7 @@ public static partial class Tensor
         where T : struct
     {
         var results = new Vector<T>[values.Length].AsSpan();
-        nint indexValue = 0;
+        var indexValue = nint.Zero;
         ref var valuesRef = ref MemoryMarshal.GetReference<T>(values);
         foreach (ref var result in results)
             result = GetVector(ref valuesRef, ref indexValue, values.Length);
@@ -50,7 +50,7 @@ public static partial class Tensor
                 value = Unsafe.Add(ref values, indexValue);
                 indexValue++;
                 if (indexValue == indexCount)
-                    indexValue = 0;
+                    indexValue = nint.Zero;
             }
             return new Vector<T>(array);
         }

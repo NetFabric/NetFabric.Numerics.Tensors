@@ -43,7 +43,7 @@ public interface IBinaryOperator<T>
     /// <param name="x">The first vector to apply the operator to.</param>
     /// <param name="y">The second vector to apply the operator to.</param>
     /// <returns>The result of applying the operator to the vectors.</returns>
-    static abstract Vector<T> Invoke(Vector<T> x, Vector<T> y);
+    static abstract Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y);
 }
 
 /// <summary>
@@ -85,4 +85,12 @@ public interface IAggregationOperator<T>
     /// </summary>
     static virtual T Identity
         => Throw.NotSupportedException<T>();
+
+    /// <summary>
+    /// Combines the specified value with the vector to produce a new value.
+    /// </summary>
+    /// <param name="value">The current value.</param>
+    /// <param name="vector">The vector to combine with the value.</param>
+    /// <returns>The result of combining the value with the vector.</returns>
+    static abstract T ResultSelector(T value, ref readonly Vector<T> vector);
 }

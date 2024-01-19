@@ -12,7 +12,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         // Initialize the index to 0.
-        nint index = 0;
+        var index = nint.Zero;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -27,7 +27,7 @@ public static partial class Tensor
             // Iterate through the vectors.
             ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            for (nint indexVector = 0; indexVector < sourceVectors.Length; indexVector++)
+            for (var indexVector = nint.Zero; indexVector < sourceVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
                     Unsafe.Add(ref sourceVectorsRef, indexVector));

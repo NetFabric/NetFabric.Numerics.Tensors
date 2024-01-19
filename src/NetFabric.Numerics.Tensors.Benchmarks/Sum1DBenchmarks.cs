@@ -28,14 +28,15 @@ public class Sum1DBenchmarks
         arrayFloat = new float[Count];
         arrayDouble = new double[Count];
 
+        var random = new Random(42);
         for(var index = 0; index < Count; index++)
         {
-            arrayShort[index] = (short)index;
-            arrayInt[index] = index;
-            arrayLong[index] = index;
-            arrayHalf[index] = (Half)index;
-            arrayFloat[index] = index;
-            arrayDouble[index] = index;
+            arrayShort[index] = (short)random.Next(100);
+            arrayInt[index] = random.Next(100);
+            arrayLong[index] = random.Next(100);
+            arrayHalf[index] = (Half)random.Next(100);
+            arrayFloat[index] = random.Next(100);
+            arrayDouble[index] = random.Next(100);
         }
     }
 
@@ -47,55 +48,55 @@ public class Sum1DBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark]
     public short Tensor_Short()
-        => Tensor.Sum<short>(arrayShort!)[0];
+        => Tensor.Sum1D<short>(arrayShort!);
 
-        [BenchmarkCategory("Int")]
-    [Benchmark]
+    [BenchmarkCategory("Int")]
+    [Benchmark(Baseline = true)]
     public int Baseline_Int()
         => arrayInt!.BaselineSum();
 
     [BenchmarkCategory("Int")]
     [Benchmark]
     public int Tensor_Int()
-        => Tensor.Sum<int>(arrayInt!)[0];
+        => Tensor.Sum1D<int>(arrayInt!);
 
     [BenchmarkCategory("Long")]
-    [Benchmark]
+    [Benchmark(Baseline = true)]
     public long Baseline_Long()
         => arrayLong!.BaselineSum();
 
     [BenchmarkCategory("Long")]
     [Benchmark]
     public long Tensor_Long()
-        => Tensor.Sum<long>(arrayLong!)[0];
+        => Tensor.Sum1D<long>(arrayLong!);
 
     [BenchmarkCategory("Half")]
-    [Benchmark]
+    [Benchmark(Baseline = true)]
     public Half Baseline_Half()
         => arrayHalf!.BaselineSum();
 
     [BenchmarkCategory("Half")]
     [Benchmark]
     public Half Tensor_Half()
-        => Tensor.Sum<Half>(arrayHalf!)[0];
+        => Tensor.Sum1D<Half>(arrayHalf!);
 
     [BenchmarkCategory("Float")]
-    [Benchmark]
+    [Benchmark(Baseline = true)]
     public float Baseline_Float()
         => arrayFloat!.BaselineSum();
 
     [BenchmarkCategory("Float")]
     [Benchmark]
     public float Tensor_Float()
-        => Tensor.Sum<float>(arrayFloat!)[0];
+        => Tensor.Sum1D<float>(arrayFloat!);
 
     [BenchmarkCategory("Double")]
-    [Benchmark]
+    [Benchmark(Baseline = true)]
     public double Baseline_Double()
         => arrayDouble!.BaselineSum();
 
     [BenchmarkCategory("Double")]
     [Benchmark]
     public double Tensor_Double()
-        => Tensor.Sum<double>(arrayDouble!)[0];
+        => Tensor.Sum1D<double>(arrayDouble!);
 }

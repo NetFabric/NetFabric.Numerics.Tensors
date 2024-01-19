@@ -23,6 +23,6 @@ public readonly struct AddOperator<T>
     /// <param name="x">The first vector to add.</param>
     /// <param name="y">The second vector to add.</param>
     /// <returns>The sum of <paramref name="x"/> and <paramref name="y"/>.</returns>
-    public static Vector<T> Invoke(Vector<T> x, Vector<T> y)
+    public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
         => x + y;
 }

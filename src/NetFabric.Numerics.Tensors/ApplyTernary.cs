@@ -18,7 +18,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         // Initialize the index to 0.
-        nint index = 0;
+        var index = nint.Zero;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -37,7 +37,7 @@ public static partial class Tensor
             ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
             ref var zVectorsRef = ref MemoryMarshal.GetReference(zVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            for (nint indexVector = 0; indexVector < xVectors.Length; indexVector++)
+            for (var indexVector = nint.Zero; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
                     Unsafe.Add(ref xVectorsRef, indexVector),
@@ -77,7 +77,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         // Initialize the index to 0.
-        nint index = 0;
+        var index = nint.Zero;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -95,7 +95,7 @@ public static partial class Tensor
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var zVectorsRef = ref MemoryMarshal.GetReference(zVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            for (nint indexVector = 0; indexVector < xVectors.Length; indexVector++)
+            for (var indexVector = nint.Zero; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
                     Unsafe.Add(ref xVectorsRef, indexVector),
@@ -136,7 +136,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         // Initialize the index to 0.
-        nint index = 0;
+        var index = nint.Zero;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -156,7 +156,7 @@ public static partial class Tensor
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var zVectorsRef = ref MemoryMarshal.GetReference(zVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            for (nint indexVector = 0; indexVector < xVectors.Length; indexVector++)
+            for (var indexVector = nint.Zero; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
                     Unsafe.Add(ref xVectorsRef, indexVector),
@@ -203,7 +203,7 @@ public static partial class Tensor
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var zRef = ref MemoryMarshal.GetReference(z);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (nint index = 0; index < x.Length; index += 3)
+        for (var index = nint.Zero; index < x.Length; index += 3)
         {
             Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(
                 Unsafe.Add(ref xRef, index),
@@ -234,7 +234,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         // Initialize the index to 0.
-        nint index = 0;
+        var index = nint.Zero;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -252,7 +252,7 @@ public static partial class Tensor
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            for (nint indexVector = 0; indexVector < xVectors.Length; indexVector++)
+            for (var indexVector = nint.Zero; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
                     Unsafe.Add(ref xVectorsRef, indexVector),
@@ -293,7 +293,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         // Initialize the index to 0.
-        nint index = 0;
+        var index = nint.Zero;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -313,7 +313,7 @@ public static partial class Tensor
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            for (nint indexVector = 0; indexVector < xVectors.Length; indexVector++)
+            for (var indexVector = nint.Zero; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
                     Unsafe.Add(ref xVectorsRef, indexVector),
@@ -360,7 +360,7 @@ public static partial class Tensor
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var yRef = ref MemoryMarshal.GetReference(y);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (nint index = 0; index < x.Length; index += 3)
+        for (var index = nint.Zero; index < x.Length; index += 3)
         {
             Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(
                 Unsafe.Add(ref xRef, index),
@@ -387,7 +387,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         // Initialize the index to 0.
-        nint index = 0;
+        var index = nint.Zero;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -404,7 +404,7 @@ public static partial class Tensor
             // Iterate through the vectors.
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            for (nint indexVector = 0; indexVector < xVectors.Length; indexVector++)
+            for (var indexVector = nint.Zero; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
                     Unsafe.Add(ref xVectorsRef, indexVector),
@@ -440,7 +440,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         // Initialize the index to 0.
-        nint index = 0;
+        var index = nint.Zero;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -459,7 +459,7 @@ public static partial class Tensor
             // Iterate through the vectors.
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            for (nint indexVector = 0; indexVector < xVectors.Length; indexVector++)
+            for (var indexVector = nint.Zero; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
                     Unsafe.Add(ref xVectorsRef, indexVector),
@@ -500,7 +500,7 @@ public static partial class Tensor
 
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (nint index = 0; index < x.Length; index += 3)
+        for (var index = nint.Zero; index < x.Length; index += 3)
         {
             Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(
                 Unsafe.Add(ref xRef, index),
