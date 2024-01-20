@@ -1,15 +1,19 @@
 ﻿using BenchmarkDotNet.Attributes;
+using BenchmarkDotNet.Configs;
+using System.Runtime.InteropServices;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
+[GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
+[CategoriesColumn]
 public class AddValueBenchmarks
 {
-    short[]? arrayShort;
-    int[]? arrayInt;
-    long[]? arrayLong;
-    Half[]? arrayHalf;
-    float[]? arrayFloat;
-    double[]? arrayDouble;
+    short[]? sourceShort, resultShort;
+    int[]? sourceInt, resultInt;
+    long[]? sourceLong, resultLong;
+    Half[]? sourceHalf, resultHalf;
+    float[]? sourceFloat, resultFloat;
+    double[]? sourceDouble, resultDouble;
 
     [Params(10_000)]
     public int Count { get; set; }
@@ -17,47 +21,88 @@ public class AddValueBenchmarks
     [GlobalSetup]
     public void GlobalSetup()
     {
-        var range = Enumerable.Range(0, Count);
-        arrayShort = range
-            .Select(value => (short)value)
-            .ToArray();
-        arrayInt = range
-            .ToArray();
-        arrayLong = range
-            .Select(value => (long)value)
-            .ToArray();
-        arrayHalf = range
-            .Select(value => (Half)value)
-            .ToArray();
-        arrayFloat = range
-            .Select(value => (float)value)
-            .ToArray();
-        arrayDouble = range
-            .Select(value => (double)value)
-            .ToArray();
+        sourceShort = new short[Count];
+        resultShort = new short[Count];
+        sourceInt = new int[Count];
+        resultInt = new int[Count];
+        sourceLong = new long[Count];
+        resultLong = new long[Count];
+        sourceHalf = new Half[Count];
+        resultHalf = new Half[Count];
+        sourceFloat = new float[Count];
+        resultFloat = new float[Count];
+        sourceDouble = new double[Count];
+        resultDouble = new double[Count];
+
+        var random = new Random(42);
+        for(var index = 0; index < Count; index++)
+        {
+            sourceShort[index] = (short)random.Next(10);
+            sourceInt[index] = random.Next(10);
+            sourceLong[index] = random.Next(10);
+            sourceHalf[index] = (Half)random.Next(10);
+            sourceFloat[index] = random.Next(10);
+            sourceDouble[index] = random.Next(10);
+        }
     }
 
-    [Benchmark]
-    public void Add_Short()
-        => Tensor.Add<short>(arrayShort!, 42, arrayShort!);
+    [BenchmarkCategory("Short")]
+    [Benchmark(Baseline = true)]
+    public void Baseline_Short()
+        => Baseline.Add<short>(sourceShort!, 42, resultShort!);
 
+    [BenchmarkCategory("Short")]
     [Benchmark]
-    public void Add_Int()
-        => Tensor.Add<int>(arrayInt!, 42, arrayInt!);
+    public void Tensor_Short()
+        => Tensor.Add<short>(sourceShort!, 42, resultShort!);
 
-    [Benchmark]
-    public void Add_Long()
-        => Tensor.Add<long>(arrayLong!, 42, arrayLong!);
+    [BenchmarkCategory("Int")]
+    [Benchmark(Baseline = true)]
+    public void Baseline_Int()
+        => Baseline.Add<int>(sourceInt!, 42, resultInt!);
 
+    [BenchmarkCategory("Int")]
     [Benchmark]
-    public void Add_Half()
-        => Tensor.Add<Half>(arrayHalf!, (Half)42, arrayHalf!);
+    public void Tensor_Int()
+        => Tensor.Add<int>(sourceInt!, 42, resultInt!);
 
-    [Benchmark]
-    public void Add_Float()
-        => Tensor.Add<float>(arrayFloat!, 42, arrayFloat!);
+    [BenchmarkCategory("Long")]
+    [Benchmark(Baseline = true)]
+    public void Baseline_Long()
+        => Baseline.Add<long>(sourceLong!, 42, resultLong!);
 
+    [BenchmarkCategory("Long")]
     [Benchmark]
-    public void Add_Double()
-        => Tensor.Add<double>(arrayDouble!, 42, arrayDouble!);
+    public void Tensor_Long()
+        => Tensor.Add<long>(sourceLong!, 42, resultLong!);
+
+    [BenchmarkCategory("Half")]
+    [Benchmark(Baseline = true)]
+    public void Baseline_Half()
+        => Baseline.Add<Half>(sourceHalf!, (Half)42, resultHalf!);
+
+    [BenchmarkCategory("Half")]
+    [Benchmark]
+    public void Tensor_Half()
+        => Tensor.Add<Half>(sourceHalf!, (Half)42, resultHalf!);
+
+    [BenchmarkCategory("Float")]
+    [Benchmark(Baseline = true)]
+    public void Baseline_Float()
+        => Baseline.Add<float>(sourceFloat!, 42, resultFloat!);
+
+    [BenchmarkCategory("Float")]
+    [Benchmark]
+    public void Tensor_Float()
+        => Tensor.Add<float>(sourceFloat!, 42, resultFloat!);
+
+    [BenchmarkCategory("Double")]
+    [Benchmark(Baseline = true)]
+    public void Baseline_Double()
+        => Baseline.Add<double>(sourceDouble!, 42, resultDouble!);
+
+    [BenchmarkCategory("Double")]
+    [Benchmark]
+    public void Tensor_Double()
+        => Tensor.Add<double>(sourceDouble!, 42, resultDouble!);
 }
