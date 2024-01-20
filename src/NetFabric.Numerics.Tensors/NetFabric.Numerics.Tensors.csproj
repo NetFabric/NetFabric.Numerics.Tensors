@@ -8,15 +8,13 @@
       Provides methods for performing mathematical operations over tensors represented as spans. 
       These methods are accelerated to use SIMD (Single instruction, multiple data) operations supported by the CPU where available.
     </Description>
-    <Version>1.1.0</Version>
+    <Version>2.0.0-beta01</Version>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>intrinsics, tensors</PackageTags>
     <PackageProjectUrl>https://netfabric.github.io/NetFabric.Numerics.Tensors/</PackageProjectUrl>
     <PackageReleaseNotes>
-      Add inline documentation.
-      Add support for tripplets.
     </PackageReleaseNotes>
     <RootNamespace>NetFabric.Numerics</RootNamespace>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
