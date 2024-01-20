@@ -31,19 +31,19 @@ public class SumBenchmarks
         var random = new Random(42);
         for(var index = 0; index < Count; index++)
         {
-            arrayShort[index] = (short)random.Next(100);
-            arrayInt[index] = random.Next(100);
-            arrayLong[index] = random.Next(100);
-            arrayHalf[index] = (Half)random.Next(100);
-            arrayFloat[index] = random.Next(100);
-            arrayDouble[index] = random.Next(100);
+            arrayShort[index] = (short)random.Next(10);
+            arrayInt[index] = random.Next(10);
+            arrayLong[index] = random.Next(10);
+            arrayHalf[index] = (Half)random.Next(10);
+            arrayFloat[index] = random.Next(10);
+            arrayDouble[index] = random.Next(10);
         }
     }
 
     [BenchmarkCategory("Short")]
     [Benchmark(Baseline = true)]
     public short Baseline_Short()
-        => arrayShort!.BaselineSum();
+        => Baseline.Sum<short>(arrayShort!);
 
     [BenchmarkCategory("Short")]
     [Benchmark]
@@ -53,7 +53,7 @@ public class SumBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
     public int Baseline_Int()
-        => arrayInt!.BaselineSum();
+        => Baseline.Sum<int>(arrayInt!);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
@@ -63,7 +63,7 @@ public class SumBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
     public long Baseline_Long()
-        => arrayLong!.BaselineSum();
+        => Baseline.Sum<long>(arrayLong!);
 
     [BenchmarkCategory("Long")]
     [Benchmark]
@@ -73,7 +73,7 @@ public class SumBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
     public Half Baseline_Half()
-        => arrayHalf!.BaselineSum();
+        => Baseline.Sum<Half>(arrayHalf!);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
@@ -83,7 +83,7 @@ public class SumBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
     public float Baseline_Float()
-        => arrayFloat!.BaselineSum();
+        => Baseline.Sum<float>(arrayFloat!);
 
     [BenchmarkCategory("Float")]
     [Benchmark]
@@ -93,7 +93,7 @@ public class SumBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
     public double Baseline_Double()
-        => arrayDouble!.BaselineSum();
+        => Baseline.Sum<double>(arrayDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]

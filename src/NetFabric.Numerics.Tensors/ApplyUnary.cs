@@ -29,8 +29,7 @@ public static partial class Tensor
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
             for (var indexVector = nint.Zero; indexVector < sourceVectors.Length; indexVector++)
             {
-                Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
-                    Unsafe.Add(ref sourceVectorsRef, indexVector));
+                Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(Unsafe.Add(ref sourceVectorsRef, indexVector));
             }
 
             // Update the index to the end of the last complete vector.
@@ -40,10 +39,30 @@ public static partial class Tensor
         // Iterate through the remaining elements.
         ref var sourceRef = ref MemoryMarshal.GetReference(x);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (; index < x.Length; index++)
+        for (; index + 3 < x.Length; index += 4)
         {
-            Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(
-                Unsafe.Add(ref sourceRef, index));
+            Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(Unsafe.Add(ref sourceRef, index));
+            Unsafe.Add(ref destinationRef, index + 1) = TOperator.Invoke(Unsafe.Add(ref sourceRef, index + 1));
+            Unsafe.Add(ref destinationRef, index + 2) = TOperator.Invoke(Unsafe.Add(ref sourceRef, index + 2));
+            Unsafe.Add(ref destinationRef, index + 3) = TOperator.Invoke(Unsafe.Add(ref sourceRef, index + 3));
+        }
+
+        switch(x.Length - (int)index)
+        {
+            case 3:
+                Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(Unsafe.Add(ref sourceRef, index));
+                Unsafe.Add(ref destinationRef, index + 1) = TOperator.Invoke(Unsafe.Add(ref sourceRef, index + 1));
+                Unsafe.Add(ref destinationRef, index + 2) = TOperator.Invoke(Unsafe.Add(ref sourceRef, index + 2));
+                break;
+
+            case 2:
+                Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(Unsafe.Add(ref sourceRef, index));
+                Unsafe.Add(ref destinationRef, index + 1) = TOperator.Invoke(Unsafe.Add(ref sourceRef, index + 1));
+                break;
+
+            case 1:
+                Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(Unsafe.Add(ref sourceRef, index));
+                break;
         }
     }
 

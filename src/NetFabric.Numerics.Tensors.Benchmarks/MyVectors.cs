@@ -35,17 +35,26 @@ public readonly record struct MyVector4<T>(T X, T Y, T Z, T W)
         => new(left.X + right.X, left.Y + right.Y, left.Z + right.Z, left.W + right.W);
 }
 
-public static class MyExtensions
+public static class Baseline
 {
-    public static T BaselineSum<T>(this T[] source)
-        where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
-        => BaselineSum(source.AsSpan());
+    public static void Add<T>(ReadOnlySpan<T> source, ReadOnlySpan<T> other, Span<T> result)
+        where T : struct, IAdditionOperators<T, T, T>
+    {
+        if (source.Length != source.Length)
+            Throw.ArgumentException(nameof(source), "Source spans must have the same length.");
 
-    public static T BaselineSum<T>(this Span<T> source)
-        where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
-        => BaselineSum((ReadOnlySpan<T>)source);
+        for(var index = 0; index < source.Length; index++)
+            result[index] = source[index] + other[index];
+    }
 
-    public static T BaselineSum<T>(this ReadOnlySpan<T> source)
+    public static void Add<T>(ReadOnlySpan<T> source, T value, Span<T> result)
+        where T : struct, IAdditionOperators<T, T, T>
+    {
+        for(var index = 0; index < source.Length; index++)
+            result[index] = source[index] + value;
+    }
+
+    public static T Sum<T>(ReadOnlySpan<T> source)
         where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
     {
         var sum = T.AdditiveIdentity;

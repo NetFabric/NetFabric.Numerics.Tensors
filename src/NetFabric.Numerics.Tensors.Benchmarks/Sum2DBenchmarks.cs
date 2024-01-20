@@ -31,19 +31,19 @@ public class Sum2DBenchmarks
         var random = new Random(42);
         for(var index = 0; index + 1 < Count; index += 2)
         {
-            arrayShort[index] = new((short)random.Next(100), (short)random.Next(100));
-            arrayInt[index] = new(random.Next(100), random.Next(100)); 
-            arrayLong[index] = new((long)random.Next(100), (long)random.Next(100));
-            arrayHalf[index] = new((Half)random.Next(100), (Half)random.Next(100));
-            arrayFloat[index] = new((float)random.Next(100), (float)random.Next(100));
-            arrayDouble[index] = new((double)random.Next(100), (double)random.Next(100));           
+            arrayShort[index] = new((short)random.Next(10), (short)random.Next(10));
+            arrayInt[index] = new(random.Next(10), random.Next(10)); 
+            arrayLong[index] = new(random.Next(10), random.Next(10));
+            arrayHalf[index] = new((Half)random.Next(10), (Half)random.Next(10));
+            arrayFloat[index] = new(random.Next(10), random.Next(10));
+            arrayDouble[index] = new(random.Next(10), random.Next(10));           
         }
     }
 
     [BenchmarkCategory("Short")]
     [Benchmark(Baseline = true)]
     public MyVector2<short> Baseline_Short()
-        => arrayShort!.BaselineSum();
+        => Baseline.Sum<MyVector2<short>>(arrayShort!);
 
     [BenchmarkCategory("Short")]
     [Benchmark]
@@ -56,7 +56,7 @@ public class Sum2DBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
     public MyVector2<int> Baseline_Int()
-        => arrayInt!.BaselineSum();
+        => Baseline.Sum<MyVector2<int>>(arrayInt!);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
@@ -69,7 +69,7 @@ public class Sum2DBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
     public MyVector2<long> Baseline_Long()
-        => arrayLong!.BaselineSum();
+        => Baseline.Sum<MyVector2<long>>(arrayLong!);
 
     [BenchmarkCategory("Long")]
     [Benchmark]
@@ -82,7 +82,7 @@ public class Sum2DBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
     public MyVector2<Half> Baseline_Half()
-        => arrayHalf!.BaselineSum();
+        => Baseline.Sum<MyVector2<Half>>(arrayHalf!);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
@@ -95,7 +95,7 @@ public class Sum2DBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
     public MyVector2<float> Baseline_Float()
-        => arrayFloat!.BaselineSum();
+        => Baseline.Sum<MyVector2<float>>(arrayFloat!);
 
     [BenchmarkCategory("Float")]
     [Benchmark]
@@ -108,7 +108,7 @@ public class Sum2DBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
     public MyVector2<double> Baseline_Double()
-        => arrayDouble!.BaselineSum();
+        => Baseline.Sum<MyVector2<double>>(arrayDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]
