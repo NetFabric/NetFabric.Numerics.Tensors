@@ -39,38 +39,70 @@ namespace NetFabric.Numerics
 
             // aggregate the remaining elements in the source
             ref var sourceRef = ref MemoryMarshal.GetReference(source);
-            var partial0 = TOperator.Identity;
-            var partial1 = TOperator.Identity;
-            var partial2 = TOperator.Identity;
-            var partial3 = TOperator.Identity;
-            for (; sourceIndex + 3 < source.Length; sourceIndex += 4)
+            var remaining = source.Length - sourceIndex;
+            if (remaining >= 8)
             {
-                partial0 = TOperator.Invoke(partial0, Unsafe.Add(ref sourceRef, sourceIndex));
-                partial1 = TOperator.Invoke(partial1, Unsafe.Add(ref sourceRef, sourceIndex + 1));
-                partial2 = TOperator.Invoke(partial2, Unsafe.Add(ref sourceRef, sourceIndex + 2));
-                partial3 = TOperator.Invoke(partial3, Unsafe.Add(ref sourceRef, sourceIndex + 3));
-            }
-
-            switch(source.Length - sourceIndex)
-            {
-                case 3:
-                    partial0 = TOperator.Invoke(partial0, Unsafe.Add(ref sourceRef, sourceIndex));
+                var partial1 = TOperator.Identity;
+                var partial2 = TOperator.Identity;
+                var partial3 = TOperator.Identity;
+                for (; sourceIndex + 3 < source.Length; sourceIndex += 4)
+                {
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
                     partial1 = TOperator.Invoke(partial1, Unsafe.Add(ref sourceRef, sourceIndex + 1));
                     partial2 = TOperator.Invoke(partial2, Unsafe.Add(ref sourceRef, sourceIndex + 2));
-                    break;
-                case 2:
-                    partial0 = TOperator.Invoke(partial0, Unsafe.Add(ref sourceRef, sourceIndex));
-                    partial1 = TOperator.Invoke(partial1, Unsafe.Add(ref sourceRef, sourceIndex + 1));
-                    break;
-                case 1:
-                    partial0 = TOperator.Invoke(partial0, Unsafe.Add(ref sourceRef, sourceIndex));
-                    break;
+                    partial3 = TOperator.Invoke(partial3, Unsafe.Add(ref sourceRef, sourceIndex + 3));
+                }
+                aggregate = TOperator.Invoke(aggregate, partial1);
+                aggregate = TOperator.Invoke(aggregate, partial2);
+                aggregate = TOperator.Invoke(aggregate, partial3);
+                remaining = source.Length - sourceIndex;
             }
 
-            aggregate = TOperator.Invoke(aggregate, partial0);
-            aggregate = TOperator.Invoke(aggregate, partial1);
-            aggregate = TOperator.Invoke(aggregate, partial2);
-            aggregate = TOperator.Invoke(aggregate, partial3);
+            switch(remaining)
+            {
+                case 7:
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 1));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 2));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 3));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 4));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 5));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 6));
+                    break;
+                case 6:
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 1));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 2));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 3));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 4));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 5));
+                    break;
+                case 5:
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 1));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 2));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 3));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 4));
+                    break;
+                case 4:
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 1));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 2));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 3));
+                    break;
+                case 3:
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 1));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 2));
+                    break;
+                case 2:
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 1));
+                    break;
+                case 1:
+                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
+                    break;
+            }
 
             return aggregate;
         }
