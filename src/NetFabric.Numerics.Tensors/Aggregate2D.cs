@@ -16,30 +16,45 @@ namespace NetFabric.Numerics
 
             // aggregate the remaining elements in the source
             ref var sourceRef = ref MemoryMarshal.GetReference(source);
-            var partialX0 = TOperator.Identity;
-            var partialY0 = TOperator.Identity;
-            var partialX1 = TOperator.Identity;
-            var partialY1 = TOperator.Identity;
-            for (; sourceIndex + 3 < source.Length; sourceIndex += 4)
+            var remaining = source.Length;
+            if (remaining >= 8)
             {
-                partialX0 = TOperator.Invoke(partialX0, Unsafe.Add(ref sourceRef, sourceIndex));
-                partialY0 = TOperator.Invoke(partialY0, Unsafe.Add(ref sourceRef, sourceIndex + 1));
-                partialX1 = TOperator.Invoke(partialX1, Unsafe.Add(ref sourceRef, sourceIndex + 2));
-                partialY1 = TOperator.Invoke(partialY1, Unsafe.Add(ref sourceRef, sourceIndex + 3));
+                var partialX1 = TOperator.Identity;
+                var partialY1 = TOperator.Identity;
+                for (; sourceIndex + 3 < source.Length; sourceIndex += 4)
+                {
+                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex));
+                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 1));
+                    partialX1 = TOperator.Invoke(partialX1, Unsafe.Add(ref sourceRef, sourceIndex + 2));
+                    partialY1 = TOperator.Invoke(partialY1, Unsafe.Add(ref sourceRef, sourceIndex + 3));
+                }
+                aggregateX = TOperator.Invoke(aggregateX, partialX1);
+                aggregateY = TOperator.Invoke(aggregateY, partialY1);
+                remaining = source.Length - (int)sourceIndex;
             }
 
-            switch(source.Length - sourceIndex)
+            switch(remaining)
             {
+                case 6:
+                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex));
+                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 1));
+                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex + 2));
+                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 3));
+                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex + 4));
+                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 5));
+                    break;
+                case 4:
+                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex));
+                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 1));
+                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex + 2));
+                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 3));
+                    break;
                 case 2:
-                    partialX0 = TOperator.Invoke(partialX0, Unsafe.Add(ref sourceRef, sourceIndex));
-                    partialY0 = TOperator.Invoke(partialY0, Unsafe.Add(ref sourceRef, sourceIndex + 1));
+                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex));
+                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 1));
                     break;
             }
 
-            aggregateX = TOperator.Invoke(aggregateX, partialX0);
-            aggregateY = TOperator.Invoke(aggregateY, partialY0);
-            aggregateX = TOperator.Invoke(aggregateX, partialX1);
-            aggregateY = TOperator.Invoke(aggregateY, partialY1);
 
             return new[] { aggregateX, aggregateY };
         }

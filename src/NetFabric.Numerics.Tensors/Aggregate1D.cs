@@ -39,7 +39,7 @@ namespace NetFabric.Numerics
 
             // aggregate the remaining elements in the source
             ref var sourceRef = ref MemoryMarshal.GetReference(source);
-            var remaining = source.Length - sourceIndex;
+            var remaining = source.Length - (int)sourceIndex;
             if (remaining >= 8)
             {
                 var partial1 = TOperator.Identity;
@@ -55,7 +55,7 @@ namespace NetFabric.Numerics
                 aggregate = TOperator.Invoke(aggregate, partial1);
                 aggregate = TOperator.Invoke(aggregate, partial2);
                 aggregate = TOperator.Invoke(aggregate, partial3);
-                remaining = source.Length - sourceIndex;
+                remaining = source.Length - (int)sourceIndex;
             }
 
             switch(remaining)
