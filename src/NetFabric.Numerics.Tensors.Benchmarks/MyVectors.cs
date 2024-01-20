@@ -37,11 +37,23 @@ public readonly record struct MyVector4<T>(T X, T Y, T Z, T W)
 
 public static class Baseline
 {
+    public static void Negate<T>(ReadOnlySpan<T> source, Span<T> result)
+        where T : struct, IUnaryNegationOperators<T, T>
+    {
+        if (source.Length > result.Length)
+            Throw.ArgumentException(nameof(source), "result spans is too small.");
+
+        for(var index = 0; index < source.Length; index++)
+            result[index] = -source[index];
+    }
+
     public static void Add<T>(ReadOnlySpan<T> source, ReadOnlySpan<T> other, Span<T> result)
         where T : struct, IAdditionOperators<T, T, T>
     {
-        if (source.Length != source.Length)
-            Throw.ArgumentException(nameof(source), "Source spans must have the same length.");
+        if (source.Length != other.Length)
+            Throw.ArgumentException(nameof(source), "source and other spans must have the same length.");
+        if (source.Length > result.Length)
+            Throw.ArgumentException(nameof(source), "result spans is too small.");
 
         for(var index = 0; index < source.Length; index++)
             result[index] = source[index] + other[index];
