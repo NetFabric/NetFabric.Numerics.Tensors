@@ -16,16 +16,52 @@ public static partial class Tensor
     /// treated as a single tuple. The method returns a span containing the averages of the values, where each element
     /// in the resulting span represents the average of the corresponding tuples in the input span.
     /// </remarks>
-    public static Span<T> Average<T>(ReadOnlySpan<T> source, int tupleSize = 1)
+    public static T Average<T>(ReadOnlySpan<T> source)
+        where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
+        => source.Length is 0
+            ? Throw.InvalidOperationException<T>()
+            : Sum(source) / T.CreateChecked(source.Length);
+
+    public static Span<T> Average2D<T>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
     {
         if (source.Length is 0)
             Throw.InvalidOperationException();
 
-        var result = Sum(source, tupleSize);
+        var result = Sum2D(source);
         var count = T.CreateChecked(source.Length);
-        foreach(ref var value in result)
-            value /= count;
+        result[0] /= count;
+        result[1] /= count;
         return result;
     }
+
+    public static Span<T> Average3D<T>(ReadOnlySpan<T> source)
+        where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
+    {
+        if (source.Length is 0)
+            Throw.InvalidOperationException();
+
+        var result = Sum3D(source);
+        var count = T.CreateChecked(source.Length);
+        result[0] /= count;
+        result[1] /= count;
+        result[2] /= count;
+        return result;
+    }
+
+    public static Span<T> Average4D<T>(ReadOnlySpan<T> source)
+        where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
+    {
+        if (source.Length is 0)
+            Throw.InvalidOperationException();
+
+        var result = Sum4D(source);
+        var count = T.CreateChecked(source.Length);
+        result[0] /= count;
+        result[1] /= count;
+        result[2] /= count;
+        result[3] /= count;
+        return result;
+    }
+
 }

@@ -6,7 +6,7 @@ namespace NetFabric.Numerics.Tensors.Benchmarks;
 
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
-public class Sum1DBenchmarks
+public class SumBenchmarks
 {
     short[]? arrayShort;
     int[]? arrayInt;
@@ -48,7 +48,7 @@ public class Sum1DBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark]
     public short Tensor_Short()
-        => Tensor.Sum1D<short>(arrayShort!);
+        => Tensor.Sum<short>(arrayShort!);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
@@ -58,7 +58,7 @@ public class Sum1DBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark]
     public int Tensor_Int()
-        => Tensor.Sum1D<int>(arrayInt!);
+        => Tensor.Sum<int>(arrayInt!);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
@@ -68,7 +68,7 @@ public class Sum1DBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark]
     public long Tensor_Long()
-        => Tensor.Sum1D<long>(arrayLong!);
+        => Tensor.Sum<long>(arrayLong!);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
@@ -78,7 +78,7 @@ public class Sum1DBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark]
     public Half Tensor_Half()
-        => Tensor.Sum1D<Half>(arrayHalf!);
+        => Tensor.Sum<Half>(arrayHalf!);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
@@ -88,7 +88,7 @@ public class Sum1DBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark]
     public float Tensor_Float()
-        => Tensor.Sum1D<float>(arrayFloat!);
+        => Tensor.Sum<float>(arrayFloat!);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
@@ -98,5 +98,5 @@ public class Sum1DBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark]
     public double Tensor_Double()
-        => Tensor.Sum1D<double>(arrayDouble!);
+        => Tensor.Sum<double>(arrayDouble!);
 }

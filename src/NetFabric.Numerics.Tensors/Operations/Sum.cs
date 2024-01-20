@@ -15,23 +15,19 @@ public static partial class Tensor
     /// treated as a single tuple. The method returns a span containing the sum of the values, where each element
     /// in the resulting span represents the sum of the corresponding tuples in the input span.
     /// </remarks>
-    public static Span<T> Sum<T>(ReadOnlySpan<T> source, int tupleSize = 1)
+    public static T Sum<T>(ReadOnlySpan<T> source)
         where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
-        => Aggregate<T, SumOperator<T>>(source, tupleSize);
+        => Aggregate<T, SumOperator<T>>(source);
 
-    public static T Sum1D<T>(ReadOnlySpan<T> source)
-        where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
-        => Aggregate1D<T, SumOperator<T>>(source);
-
-    public static ReadOnlySpan<T> Sum2D<T>(ReadOnlySpan<T> source)
+    public static Span<T> Sum2D<T>(ReadOnlySpan<T> source)
         where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
         => Aggregate2D<T, SumOperator<T>>(source);
 
-    public static ReadOnlySpan<T> Sum3D<T>(ReadOnlySpan<T> source)
+    public static Span<T> Sum3D<T>(ReadOnlySpan<T> source)
         where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
         => Aggregate3D<T, SumOperator<T>>(source);
 
-    public static ReadOnlySpan<T> Sum4D<T>(ReadOnlySpan<T> source)
+    public static Span<T> Sum4D<T>(ReadOnlySpan<T> source)
         where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
         => Aggregate4D<T, SumOperator<T>>(source);
 }

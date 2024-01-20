@@ -2,7 +2,7 @@ namespace NetFabric.Numerics
 {
     public static partial class Tensor
     {
-        public static ReadOnlySpan<T> Aggregate2D<T, TOperator>(ReadOnlySpan<T> source)
+        public static Span<T> Aggregate2D<T, TOperator>(ReadOnlySpan<T> source)
             where T : struct
             where TOperator : struct, IAggregationOperator<T>
         {
