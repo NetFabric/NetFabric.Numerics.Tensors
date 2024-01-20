@@ -49,7 +49,7 @@ public class Sum4DBenchmarks
     [Benchmark]
     public MyVector4<short> Tensor_Short()
     {
-        var result = Tensor.Sum<short>(MemoryMarshal.Cast<MyVector4<short>, short>(arrayShort!), 4);
+        var result = Tensor.Sum4D<short>(MemoryMarshal.Cast<MyVector4<short>, short>(arrayShort!));
         return new(result[0], result[1], result[2], result[3]);
     }
 
@@ -62,7 +62,7 @@ public class Sum4DBenchmarks
     [Benchmark]
     public MyVector4<int> Tensor_Int()
     {
-        var result = Tensor.Sum<int>(MemoryMarshal.Cast<MyVector4<int>, int>(arrayInt!), 4);
+        var result = Tensor.Sum4D<int>(MemoryMarshal.Cast<MyVector4<int>, int>(arrayInt!));
         return new(result[0], result[1], result[2], result[3]);
     }
 
@@ -75,7 +75,7 @@ public class Sum4DBenchmarks
     [Benchmark]
     public MyVector4<long> Tensor_Long()
     {
-        var result = Tensor.Sum<long>(MemoryMarshal.Cast<MyVector4<long>, long>(arrayLong!), 4);
+        var result = Tensor.Sum4D<long>(MemoryMarshal.Cast<MyVector4<long>, long>(arrayLong!));
         return new(result[0], result[1], result[2], result[3]);
     }
 
@@ -88,7 +88,7 @@ public class Sum4DBenchmarks
     [Benchmark]
     public MyVector4<Half> Tensor_Half()
     {
-        var result = Tensor.Sum<Half>(MemoryMarshal.Cast<MyVector4<Half>, Half>(arrayHalf!), 4);
+        var result = Tensor.Sum4D<Half>(MemoryMarshal.Cast<MyVector4<Half>, Half>(arrayHalf!));
         return new(result[0], result[1], result[2], result[3]);
     }
 
@@ -101,7 +101,7 @@ public class Sum4DBenchmarks
     [Benchmark]
     public MyVector4<float> Tensor_Float()
     {
-        var result = Tensor.Sum<float>(MemoryMarshal.Cast<MyVector4<float>, float>(arrayFloat!), 4);
+        var result = Tensor.Sum4D<float>(MemoryMarshal.Cast<MyVector4<float>, float>(arrayFloat!));
         return new(result[0], result[1], result[2], result[3]);
     }
 
@@ -114,7 +114,7 @@ public class Sum4DBenchmarks
     [Benchmark]
     public MyVector4<double> Tensor_Double()
     {
-        var result = Tensor.Sum<double>(MemoryMarshal.Cast<MyVector4<double>, double>(arrayDouble!), 4);
+        var result = Tensor.Sum4D<double>(MemoryMarshal.Cast<MyVector4<double>, double>(arrayDouble!));
         return new(result[0], result[1], result[2], result[3]);
     }
 }

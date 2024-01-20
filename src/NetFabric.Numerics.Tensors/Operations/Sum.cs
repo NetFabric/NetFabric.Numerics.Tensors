@@ -31,4 +31,7 @@ public static partial class Tensor
         where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
         => Aggregate3D<T, SumOperator<T>>(source);
 
+    public static ReadOnlySpan<T> Sum4D<T>(ReadOnlySpan<T> source)
+        where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
+        => Aggregate4D<T, SumOperator<T>>(source);
 }
