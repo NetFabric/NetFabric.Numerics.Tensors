@@ -30,7 +30,7 @@ namespace NetFabric.Numerics
                     }
 
                     // aggregate the aggregate vector into the aggregate
-                    aggregate = TOperator.ResultSelector(aggregate, resultVector);
+                    aggregate = TOperator.Invoke(aggregate, resultVector);
 
                     // skip the source elements already aggregated
                     sourceIndex = source.Length - (source.Length % Vector<T>.Count);

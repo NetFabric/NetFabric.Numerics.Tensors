@@ -19,7 +19,7 @@ public interface IUnaryOperator<T>
     /// </summary>
     /// <param name="x">The vector to apply the operator to.</param>
     /// <returns>The result of applying the operator to the vector.</returns>
-    static abstract Vector<T> Invoke(Vector<T> x);
+    static abstract Vector<T> Invoke(ref readonly Vector<T> x);
 }
 
 /// <summary>
@@ -69,7 +69,7 @@ public interface ITernaryOperator<T>
     /// <param name="y">The second vector to apply the operator to.</param>
     /// <param name="z">The third vector to apply the operator to.</param>
     /// <returns>The result of applying the operator to the vectors.</returns>
-    static abstract Vector<T> Invoke(Vector<T> x, Vector<T> y, Vector<T> z);
+    static abstract Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y, ref readonly Vector<T> z);
 }
 
 /// <summary>
@@ -92,5 +92,5 @@ public interface IAggregationOperator<T>
     /// <param name="value">The current value.</param>
     /// <param name="vector">The vector to combine with the value.</param>
     /// <returns>The result of combining the value with the vector.</returns>
-    static abstract T ResultSelector(T value, ref readonly Vector<T> vector);
+    static abstract T Invoke(T value, ref readonly Vector<T> vector);
 }

@@ -11,7 +11,8 @@ public readonly struct SumOperator<T>
     /// <summary>
     /// Gets the identiy value for the sum operation.
     /// </summary>
-    public static T Identity => T.AdditiveIdentity;
+    public static T Identity 
+        => T.AdditiveIdentity;
 
     /// <summary>
     /// Combines the specified value with the vector to produce a new value.
@@ -19,7 +20,7 @@ public readonly struct SumOperator<T>
     /// <param name="value">The current value.</param>
     /// <param name="vector">The vector to combine with the value.</param>
     /// <returns>The result of combining the value with the vector.</returns>
-    public static T ResultSelector(T value, ref readonly Vector<T> vector)
+    public static T Invoke(T value, ref readonly Vector<T> vector)
         => value + Vector.Sum(vector);
 
     /// <summary>

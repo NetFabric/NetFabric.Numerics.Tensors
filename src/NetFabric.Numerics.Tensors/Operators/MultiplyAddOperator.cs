@@ -25,6 +25,6 @@ public readonly struct MultiplyAddOperator<T>
     /// <param name="y">The second vector to multiply.</param>
     /// <param name="z">The vector to add.</param>
     /// <returns>The result of multiplying <paramref name="x"/> and <paramref name="y"/> element-wise and adding <paramref name="z"/> element-wise.</returns>
-    public static Vector<T> Invoke(Vector<T> x, Vector<T> y, Vector<T> z)
+    public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y, ref readonly Vector<T> z)
         => (x * y) + z;
 }
