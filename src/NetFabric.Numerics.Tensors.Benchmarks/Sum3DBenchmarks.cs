@@ -49,7 +49,7 @@ public class Sum3DBenchmarks
     [Benchmark]
     public MyVector3<short> Tensor_Short()
     {
-        var result = Tensor.Sum<short>(MemoryMarshal.Cast<MyVector3<short>, short>(arrayShort!), 3);
+        var result = Tensor.Sum3D<short>(MemoryMarshal.Cast<MyVector3<short>, short>(arrayShort!));
         return new(result[0], result[1], result[2]);
     }
 
@@ -62,7 +62,7 @@ public class Sum3DBenchmarks
     [Benchmark]
     public MyVector3<int> Tensor_Int()
     {
-        var result = Tensor.Sum<int>(MemoryMarshal.Cast<MyVector3<int>, int>(arrayInt!), 3);
+        var result = Tensor.Sum3D<int>(MemoryMarshal.Cast<MyVector3<int>, int>(arrayInt!));
         return new(result[0], result[1], result[2]);
     }
 
@@ -75,7 +75,7 @@ public class Sum3DBenchmarks
     [Benchmark]
     public MyVector3<long> Tensor_Long()
     {
-        var result = Tensor.Sum<long>(MemoryMarshal.Cast<MyVector3<long>, long>(arrayLong!), 3);
+        var result = Tensor.Sum3D<long>(MemoryMarshal.Cast<MyVector3<long>, long>(arrayLong!));
         return new(result[0], result[1], result[2]);
     }
 
@@ -88,7 +88,7 @@ public class Sum3DBenchmarks
     [Benchmark]
     public MyVector3<Half> Tensor_Half()
     {
-        var result = Tensor.Sum<Half>(MemoryMarshal.Cast<MyVector3<Half>, Half>(arrayHalf!), 3);
+        var result = Tensor.Sum3D<Half>(MemoryMarshal.Cast<MyVector3<Half>, Half>(arrayHalf!));
         return new(result[0], result[1], result[2]);
     }
 
@@ -101,7 +101,7 @@ public class Sum3DBenchmarks
     [Benchmark]
     public MyVector3<float> Tensor_Float()
     {
-        var result = Tensor.Sum<float>(MemoryMarshal.Cast<MyVector3<float>, float>(arrayFloat!), 3);
+        var result = Tensor.Sum3D<float>(MemoryMarshal.Cast<MyVector3<float>, float>(arrayFloat!));
         return new(result[0], result[1], result[2]);
     }
 
@@ -114,7 +114,7 @@ public class Sum3DBenchmarks
     [Benchmark]
     public MyVector3<double> Tensor_Double()
     {
-        var result = Tensor.Sum<double>(MemoryMarshal.Cast<MyVector3<double>, double>(arrayDouble!), 3);
+        var result = Tensor.Sum3D<double>(MemoryMarshal.Cast<MyVector3<double>, double>(arrayDouble!));
         return new(result[0], result[1], result[2]);
     }
 }
