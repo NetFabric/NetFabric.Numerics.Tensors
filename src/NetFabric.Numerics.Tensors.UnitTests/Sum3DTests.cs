@@ -41,7 +41,7 @@ public class Sum3DTests
         var result = Tensor.Sum3D<T>(MemoryMarshal.Cast<MyVector3<T>, T>(source));
 
         // assert
-        Assert.Equal(expected, new MyVector3<T>(result[0], result[1], result[2]));
+        Assert.Equal(expected, new MyVector3<T>(result));
     }
 
     [Theory]

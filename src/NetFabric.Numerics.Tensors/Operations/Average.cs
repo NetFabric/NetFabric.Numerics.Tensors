@@ -22,7 +22,7 @@ public static partial class Tensor
             ? Throw.InvalidOperationException<T>()
             : Sum(source) / T.CreateChecked(source.Length);
 
-    public static Span<T> Average2D<T>(ReadOnlySpan<T> source)
+    public static ValueTuple<T, T> Average2D<T>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
     {
         if (source.Length is 0)
@@ -30,12 +30,12 @@ public static partial class Tensor
 
         var result = Sum2D(source);
         var count = T.CreateChecked(source.Length);
-        result[0] /= count;
-        result[1] /= count;
+        result.Item1 /= count;
+        result.Item2 /= count;
         return result;
     }
 
-    public static Span<T> Average3D<T>(ReadOnlySpan<T> source)
+    public static ValueTuple<T, T, T> Average3D<T>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
     {
         if (source.Length is 0)
@@ -43,13 +43,13 @@ public static partial class Tensor
 
         var result = Sum3D(source);
         var count = T.CreateChecked(source.Length);
-        result[0] /= count;
-        result[1] /= count;
-        result[2] /= count;
+        result.Item1 /= count;
+        result.Item2 /= count;
+        result.Item3 /= count;
         return result;
     }
 
-    public static Span<T> Average4D<T>(ReadOnlySpan<T> source)
+    public static ValueTuple<T, T, T, T> Average4D<T>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
     {
         if (source.Length is 0)
@@ -57,10 +57,10 @@ public static partial class Tensor
 
         var result = Sum4D(source);
         var count = T.CreateChecked(source.Length);
-        result[0] /= count;
-        result[1] /= count;
-        result[2] /= count;
-        result[3] /= count;
+        result.Item1 /= count;
+        result.Item2 /= count;
+        result.Item3 /= count;
+        result.Item4 /= count;
         return result;
     }
 

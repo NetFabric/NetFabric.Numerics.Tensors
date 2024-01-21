@@ -50,7 +50,7 @@ public class Sum2DBenchmarks
     public MyVector2<short> Tensor_Short()
     {
         var result = Tensor.Sum2D<short>(MemoryMarshal.Cast<MyVector2<short>, short>(arrayShort!));
-        return new(result[0], result[1]);
+        return new(result);
     }
 
     [BenchmarkCategory("Int")]
@@ -68,7 +68,7 @@ public class Sum2DBenchmarks
     public MyVector2<int> Tensor_Int()
     {
         var result = Tensor.Sum2D<int>(MemoryMarshal.Cast<MyVector2<int>, int>(arrayInt!));
-        return new(result[0], result[1]);
+        return new(result);
     }
 
     [BenchmarkCategory("Long")]
@@ -86,7 +86,7 @@ public class Sum2DBenchmarks
     public MyVector2<long> Tensor_Long()
     {
         var result = Tensor.Sum2D<long>(MemoryMarshal.Cast<MyVector2<long>, long>(arrayLong!));
-        return new(result[0], result[1]);
+        return new(result);
     }
 
     [BenchmarkCategory("Half")]
@@ -99,7 +99,7 @@ public class Sum2DBenchmarks
     public MyVector2<Half> Tensor_Half()
     {
         var result = Tensor.Sum2D<Half>(MemoryMarshal.Cast<MyVector2<Half>, Half>(arrayHalf!));
-        return new(result[0], result[1]);
+        return new(result);
     }
 
     [BenchmarkCategory("Float")]
@@ -117,7 +117,7 @@ public class Sum2DBenchmarks
     public MyVector2<float> Tensor_Float()
     {
         var result = Tensor.Sum2D<float>(MemoryMarshal.Cast<MyVector2<float>, float>(arrayFloat!));
-        return new(result[0], result[1]);
+        return new(result);
     }
 
     [BenchmarkCategory("Double")]
@@ -135,6 +135,6 @@ public class Sum2DBenchmarks
     public MyVector2<double> Tensor_Double()
     {
         var result = Tensor.Sum2D<double>(MemoryMarshal.Cast<MyVector2<double>, double>(arrayDouble!));
-        return new(result[0], result[1]);
+        return new(result);
     }
 }

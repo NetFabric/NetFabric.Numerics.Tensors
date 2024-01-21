@@ -41,7 +41,7 @@ public class Sum4DTests
         var result = Tensor.Sum4D<T>(MemoryMarshal.Cast<MyVector4<T>, T>(source));
 
         // assert
-        Assert.Equal(expected, new MyVector4<T>(result[0], result[1], result[2], result[3]));
+        Assert.Equal(expected, new MyVector4<T>(result));
     }
 
     [Theory]

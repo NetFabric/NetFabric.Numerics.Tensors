@@ -41,7 +41,7 @@ public class Sum2DTests
         var result = Tensor.Sum2D<T>(MemoryMarshal.Cast<MyVector2<T>, T>(source));
 
         // assert
-        Assert.Equal(expected, new MyVector2<T>(result[0], result[1]));
+        Assert.Equal(expected, new MyVector2<T>(result));
     }
 
     [Theory]
