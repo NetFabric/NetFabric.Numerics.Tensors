@@ -4,7 +4,7 @@ This .NET tensors implementation maximizes the utilization of CPU SIMD features,
 
 Tensors are characterized as data stored in memory using a `ReadOnlySpan<T>`. This library supports the conventional approach of having each data element in a separate span, but it also accommodates storing them in the same array. This flexibility enables the use of tensors in object-oriented structures with multiple fields of the same type.
 
-This library utilizes generics to broaden its functionality for any type employing [generic math](https://aalmada.github.io/Generic-math-in-dotnet.html). For optimal performance, it is recommended to convert these types to native numeric types supported by `System.Numerics.Vector<T>`. This conversion is typically facilitated by using `MemoryMarshal.Cast<TFrom, TTo>()`.
+This library utilizes generics to broaden its functionality for any type employing [generic math](https://aalmada.github.io/Generic-math-in-dotnet.html). For optimal performance, it is recommended to convert these types to primitive numeric types supported by `System.Numerics.Vector<T>`. This conversion is typically facilitated by using `MemoryMarshal.Cast<TFrom, TTo>()`.
 
 The library offers a set of pre-defined operations, including `Square()`, `Negate()`, `Add()`, `Divide()`, `Multiply()`, `AddMultiply()`, `Sum()`, and `Average()`.
 
