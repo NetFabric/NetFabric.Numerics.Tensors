@@ -60,6 +60,11 @@ public class Sum2DBenchmarks
 
     [BenchmarkCategory("Int")]
     [Benchmark]
+    public MyVector2<int> LINQ_Int()
+        => Enumerable.Aggregate(arrayInt!, MyVector2<int>.AdditiveIdentity, (sum, item) => sum + item);
+
+    [BenchmarkCategory("Int")]
+    [Benchmark]
     public MyVector2<int> Tensor_Int()
     {
         var result = Tensor.Sum2D<int>(MemoryMarshal.Cast<MyVector2<int>, int>(arrayInt!));
@@ -70,6 +75,11 @@ public class Sum2DBenchmarks
     [Benchmark(Baseline = true)]
     public MyVector2<long> Baseline_Long()
         => Baseline.Sum<MyVector2<long>>(arrayLong!);
+
+    [BenchmarkCategory("Long")]
+    [Benchmark]
+    public MyVector2<long> LINQ_Long()
+        => Enumerable.Aggregate(arrayLong!, MyVector2<long>.AdditiveIdentity, (sum, item) => sum + item);
 
     [BenchmarkCategory("Long")]
     [Benchmark]
@@ -99,6 +109,11 @@ public class Sum2DBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
+    public MyVector2<float> LINQ_Float()
+        => Enumerable.Aggregate(arrayFloat!, MyVector2<float>.AdditiveIdentity, (sum, item) => sum + item);
+
+    [BenchmarkCategory("Float")]
+    [Benchmark]
     public MyVector2<float> Tensor_Float()
     {
         var result = Tensor.Sum2D<float>(MemoryMarshal.Cast<MyVector2<float>, float>(arrayFloat!));
@@ -109,6 +124,11 @@ public class Sum2DBenchmarks
     [Benchmark(Baseline = true)]
     public MyVector2<double> Baseline_Double()
         => Baseline.Sum<MyVector2<double>>(arrayDouble!);
+
+    [BenchmarkCategory("Double")]
+    [Benchmark]
+    public MyVector2<double> LINQ_Double()
+        => Enumerable.Aggregate(arrayDouble!, MyVector2<double>.AdditiveIdentity, (sum, item) => sum + item);
 
     [BenchmarkCategory("Double")]
     [Benchmark]

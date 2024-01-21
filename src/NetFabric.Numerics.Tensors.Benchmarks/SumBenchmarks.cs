@@ -1,6 +1,7 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
 using System.Runtime.InteropServices;
+using System.Linq;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
@@ -57,6 +58,11 @@ public class SumBenchmarks
 
     [BenchmarkCategory("Int")]
     [Benchmark]
+    public int LINQ_Int()
+        => Enumerable.Sum(arrayInt!);
+
+    [BenchmarkCategory("Int")]
+    [Benchmark]
     public int Tensor_Int()
         => Tensor.Sum<int>(arrayInt!);
 
@@ -64,6 +70,11 @@ public class SumBenchmarks
     [Benchmark(Baseline = true)]
     public long Baseline_Long()
         => Baseline.Sum<long>(arrayLong!);
+
+    [BenchmarkCategory("Long")]
+    [Benchmark]
+    public long LINQ_Long()
+        => Enumerable.Sum(arrayLong!);    
 
     [BenchmarkCategory("Long")]
     [Benchmark]
@@ -87,6 +98,11 @@ public class SumBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
+    public float LINQ_Float()
+        => Enumerable.Sum(arrayFloat!);
+
+    [BenchmarkCategory("Float")]
+    [Benchmark]
     public float Tensor_Float()
         => Tensor.Sum<float>(arrayFloat!);
 
@@ -94,6 +110,11 @@ public class SumBenchmarks
     [Benchmark(Baseline = true)]
     public double Baseline_Double()
         => Baseline.Sum<double>(arrayDouble!);
+
+    [BenchmarkCategory("Double")]
+    [Benchmark]
+    public double LINQ_Double()
+        => Enumerable.Sum(arrayDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]
