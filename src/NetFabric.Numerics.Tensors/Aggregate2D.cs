@@ -17,7 +17,7 @@ namespace NetFabric.Numerics
             // aggregate the remaining elements in the source
             ref var sourceRef = ref MemoryMarshal.GetReference(source);
             var remaining = source.Length;
-            if (remaining >= 8)
+            if (remaining >= 4)
             {
                 var partialX1 = TOperator.Identity;
                 var partialY1 = TOperator.Identity;
@@ -35,20 +35,6 @@ namespace NetFabric.Numerics
 
             switch(remaining)
             {
-                case 6:
-                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex));
-                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 1));
-                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex + 2));
-                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 3));
-                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex + 4));
-                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 5));
-                    break;
-                case 4:
-                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex));
-                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 1));
-                    aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex + 2));
-                    aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 3));
-                    break;
                 case 2:
                     aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref sourceRef, sourceIndex));
                     aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref sourceRef, sourceIndex + 1));

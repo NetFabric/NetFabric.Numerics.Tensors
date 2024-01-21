@@ -40,7 +40,7 @@ namespace NetFabric.Numerics
             // aggregate the remaining elements in the source
             ref var sourceRef = ref MemoryMarshal.GetReference(source);
             var remaining = source.Length - (int)sourceIndex;
-            if (remaining >= 8)
+            if (remaining >= 4)
             {
                 var partial1 = TOperator.Identity;
                 var partial2 = TOperator.Identity;
@@ -60,36 +60,6 @@ namespace NetFabric.Numerics
 
             switch(remaining)
             {
-                case 7:
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 1));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 2));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 3));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 4));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 5));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 6));
-                    break;
-                case 6:
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 1));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 2));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 3));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 4));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 5));
-                    break;
-                case 5:
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 1));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 2));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 3));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 4));
-                    break;
-                case 4:
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 1));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 2));
-                    aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 3));
-                    break;
                 case 3:
                     aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex));
                     aggregate = TOperator.Invoke(aggregate, Unsafe.Add(ref sourceRef, sourceIndex + 1));

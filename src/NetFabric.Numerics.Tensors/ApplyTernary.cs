@@ -216,12 +216,10 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, index + 3) = TOperator.Invoke(Unsafe.Add(ref xRef, index + 3), y.Item2, Unsafe.Add(ref zRef, index + 3));
         }
 
-        switch(x.Length - (int)index)
+        if(x.Length > (int)index)
         {
-            case 2:
-                Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(Unsafe.Add(ref xRef, index), y.Item1, Unsafe.Add(ref zRef, index));
-                Unsafe.Add(ref destinationRef, index + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, index + 1), y.Item2, Unsafe.Add(ref zRef, index + 1));
-                break;
+            Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(Unsafe.Add(ref xRef, index), y.Item1, Unsafe.Add(ref zRef, index));
+            Unsafe.Add(ref destinationRef, index + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, index + 1), y.Item2, Unsafe.Add(ref zRef, index + 1));
         }
     }
 
@@ -386,12 +384,10 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, index + 3) = TOperator.Invoke(Unsafe.Add(ref xRef, index + 3), Unsafe.Add(ref yRef, index + 3), z.Item2);
         }
 
-        switch(x.Length - (int)index)
+        if(x.Length > (int)index)
         {
-            case 2:
-                Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(Unsafe.Add(ref xRef, index), Unsafe.Add(ref yRef, index), z.Item1);
-                Unsafe.Add(ref destinationRef, index + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, index + 1), Unsafe.Add(ref yRef, index + 1), z.Item2);
-                break;
+            Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(Unsafe.Add(ref xRef, index), Unsafe.Add(ref yRef, index), z.Item1);
+            Unsafe.Add(ref destinationRef, index + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, index + 1), Unsafe.Add(ref yRef, index + 1), z.Item2);
         }
     }
 
@@ -544,12 +540,10 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, index + 3) = TOperator.Invoke(Unsafe.Add(ref xRef, index + 3), y.Item2, z.Item2);
         }
 
-        switch(x.Length - (int)index)
+        if(x.Length > (int)index)
         {
-            case 2:
-                Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(Unsafe.Add(ref xRef, index), y.Item1, z.Item1);
-                Unsafe.Add(ref destinationRef, index + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, index + 1), y.Item2, z.Item2);
-                break;
+            Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(Unsafe.Add(ref xRef, index), y.Item1, z.Item1);
+            Unsafe.Add(ref destinationRef, index + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, index + 1), y.Item2, z.Item2);
         }
     }
 
