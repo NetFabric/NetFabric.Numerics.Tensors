@@ -15,7 +15,7 @@ public class Sum3DBenchmarks
     MyVector3<float>[]? arrayFloat;
     MyVector3<double>[]? arrayDouble;
 
-    [Params(10_000)]
+    [Params(1_000)]
     public int Count { get; set; }
 
     [GlobalSetup]
@@ -44,6 +44,11 @@ public class Sum3DBenchmarks
     [Benchmark(Baseline = true)]
     public MyVector3<short> Baseline_Short()
         => Baseline.Sum<MyVector3<short>>(arrayShort!);
+
+    [BenchmarkCategory("Short")]
+    [Benchmark]
+    public MyVector3<short> LINQ_Short()
+        => Enumerable.Aggregate(arrayShort!, MyVector3<short>.AdditiveIdentity, (sum, item) => sum + item);
 
     [BenchmarkCategory("Short")]
     [Benchmark]
@@ -93,6 +98,11 @@ public class Sum3DBenchmarks
     [Benchmark(Baseline = true)]
     public MyVector3<Half> Baseline_Half()
         => Baseline.Sum<MyVector3<Half>>(arrayHalf!);
+
+    [BenchmarkCategory("Half")]
+    [Benchmark]
+    public MyVector3<Half> LINQ_Half()
+        => Enumerable.Aggregate(arrayHalf!, MyVector3<Half>.AdditiveIdentity, (sum, item) => sum + item);
 
     [BenchmarkCategory("Half")]
     [Benchmark]

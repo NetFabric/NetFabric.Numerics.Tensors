@@ -15,7 +15,7 @@ public class Sum2DBenchmarks
     MyVector2<float>[]? arrayFloat;
     MyVector2<double>[]? arrayDouble;
 
-    [Params(10_000)]
+    [Params(1_000)]
     public int Count { get; set; }
 
     [GlobalSetup]
@@ -44,6 +44,11 @@ public class Sum2DBenchmarks
     [Benchmark(Baseline = true)]
     public MyVector2<short> Baseline_Short()
         => Baseline.Sum<MyVector2<short>>(arrayShort!);
+
+    [BenchmarkCategory("Short")]
+    [Benchmark]
+    public MyVector2<short> LINQ_Short()
+        => Enumerable.Aggregate(arrayShort!, MyVector2<short>.AdditiveIdentity, (sum, item) => sum + item);
 
     [BenchmarkCategory("Short")]
     [Benchmark]
@@ -93,6 +98,11 @@ public class Sum2DBenchmarks
     [Benchmark(Baseline = true)]
     public MyVector2<Half> Baseline_Half()
         => Baseline.Sum<MyVector2<Half>>(arrayHalf!);
+
+    [BenchmarkCategory("Half")]
+    [Benchmark]
+    public MyVector2<Half> LINQ_Half()
+        => Enumerable.Aggregate(arrayHalf!, MyVector2<Half>.AdditiveIdentity, (sum, item) => sum + item);
 
     [BenchmarkCategory("Half")]
     [Benchmark]

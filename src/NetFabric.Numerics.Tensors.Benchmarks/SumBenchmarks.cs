@@ -16,7 +16,7 @@ public class SumBenchmarks
     float[]? arrayFloat;
     double[]? arrayDouble;
 
-    [Params(10_000)]
+    [Params(1_000)]
     public int Count { get; set; }
 
     [GlobalSetup]
@@ -45,6 +45,11 @@ public class SumBenchmarks
     [Benchmark(Baseline = true)]
     public short Baseline_Short()
         => Baseline.Sum<short>(arrayShort!);
+
+    [BenchmarkCategory("Short")]
+    [Benchmark]
+    public short LINQ_Short()
+        => Enumerable.Aggregate(arrayShort!, (short)0, (sum, item) => (short)(sum + item));
 
     [BenchmarkCategory("Short")]
     [Benchmark]
@@ -85,6 +90,11 @@ public class SumBenchmarks
     [Benchmark(Baseline = true)]
     public Half Baseline_Half()
         => Baseline.Sum<Half>(arrayHalf!);
+
+    [BenchmarkCategory("Half")]
+    [Benchmark]
+    public Half LINQ_Half()
+        => Enumerable.Aggregate(arrayHalf!, (Half)0, (sum, item) => (Half)(sum + item));
 
     [BenchmarkCategory("Half")]
     [Benchmark]
