@@ -1,12 +1,16 @@
 # NetFabric.Numerics.Tensors
 
-This library simplifies the optimization of processing large datasets stored in memory as `Span<T>`. Utilizing generics, it extends this functionality to all value-type numerics and harnesses intrinsics (SIMD) acceleration when available.
+This .NET tensors implementation maximizes the utilization of CPU SIMD features, providing an efficient solution for harnessing advanced CPU capabilities while avoiding the complexities of intricate and hard-to-maintain code.
 
-The library comes with pre-defined operations such as `Square()`, `Negate()`, `Add()`, `Divide()`, `Multiply()`, `AddMultiply()`, `Sum()`, and `Average()`.
+Tensors are characterized as data stored in memory using a `ReadOnlySpan<T>`. This library supports the conventional approach of having each data element in a separate span, but it also accommodates storing them in the same array. This flexibility enables the use of tensors in object-oriented structures with multiple fields of the same type.
 
-Custom operations can be defined by implementing operators based on interfaces like `IUnaryOperator<T>`, `IBinaryOperator<T>`, `ITernaryOperator<T>`, or `IAggregationOperator<T>`.
+This library utilizes generics to broaden its functionality for any type employing [generic math](https://aalmada.github.io/Generic-math-in-dotnet.html). For optimal performance, it is recommended to convert these types to native numeric types supported by `System.Numerics.Vector<T>`. This conversion is typically facilitated by using `MemoryMarshal.Cast<TFrom, TTo>()`.
 
-It supports the conventional approach of having each data element in a different span, but also accommodates having them in the same array. This flexibility allows the use of tensors in object-oriented structures with fields of the same type.
+The library offers a set of pre-defined operations, including `Square()`, `Negate()`, `Add()`, `Divide()`, `Multiply()`, `AddMultiply()`, `Sum()`, and `Average()`.
+
+For custom operations, developers can define them by implementing operators based on interfaces such as `IUnaryOperator<T>`, `IBinaryOperator<T>`, `ITernaryOperator<T>`, or `IAggregationOperator<T>`. These operators can then be applied using the `Apply()` or `Aggregate()` methods.
+
+Documentation for this library can be found at https://netfabric.github.io/NetFabric.Numerics.Tensors/
 
 ## Usage
 
