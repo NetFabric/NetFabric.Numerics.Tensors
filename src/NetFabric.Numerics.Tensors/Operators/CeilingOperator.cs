@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 public readonly struct CeilingSingleOperator
-    : IUnaryOperator<float>
+    : IUnaryOperator<float, float>
 {
     public static float Invoke(float x)
         => float.Ceiling(x);
@@ -11,7 +11,7 @@ public readonly struct CeilingSingleOperator
 }
 
 public readonly struct CeilingDoubleOperator
-    : IUnaryOperator<double>
+    : IUnaryOperator<double, double>
 {
     public static double Invoke(double x)
         => double.Ceiling(x);

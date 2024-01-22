@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 public readonly struct FloorSingleOperator
-    : IUnaryOperator<float>
+    : IUnaryOperator<float, float>
 {
     public static float Invoke(float x)
         => float.Floor(x);
@@ -11,7 +11,7 @@ public readonly struct FloorSingleOperator
 }
 
 public readonly struct FloorDoubleOperator
-    : IUnaryOperator<double>
+    : IUnaryOperator<double, double>
 {
     public static double Invoke(double x)
         => double.Floor(x);

@@ -4,7 +4,8 @@ namespace NetFabric.Numerics;
 /// Represents an operator that performs addition and multiplication operations on three operands.
 /// </summary>
 /// <typeparam name="T">The type of the operands.</typeparam>
-public readonly struct AddMultiplyOperator<T>: ITernaryOperator<T>
+public readonly struct AddMultiplyOperator<T>
+    : ITernaryOperator<T, T>
     where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
 {
     /// <summary>

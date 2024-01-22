@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 public readonly struct MaxOperator<T>
-    : IBinaryOperator<T>
+    : IBinaryOperator<T, T>
     where T : struct, INumberBase<T>
 {
     public static T Invoke(T x, T y)
