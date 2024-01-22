@@ -5,7 +5,7 @@ namespace NetFabric.Numerics;
 /// </summary>
 /// <typeparam name="T">The type of the values to add.</typeparam>
 public readonly struct AddOperator<T>
-    : IBinaryOperator<T>
+    : IBinaryOperator<T, T>
     where T : struct, IAdditionOperators<T, T, T>
 {
     /// <summary>

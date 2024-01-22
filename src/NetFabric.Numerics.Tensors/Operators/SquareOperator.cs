@@ -5,7 +5,7 @@ namespace NetFabric.Numerics;
 /// </summary>
 /// <typeparam name="T">The type of values to square.</typeparam>
 public readonly struct SquareOperator<T>
-    : IUnaryOperator<T>
+    : IUnaryOperator<T, T>
     where T : struct, IMultiplyOperators<T, T, T>
 {
     /// <summary>

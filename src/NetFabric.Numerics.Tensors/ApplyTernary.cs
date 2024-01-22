@@ -4,12 +4,8 @@ public static partial class Tensor
 {
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, ReadOnlySpan<T> z, Span<T> destination)
         where T : struct
-        where TOperator : struct, ITernaryOperator<T>
+        where TOperator : struct, ITernaryOperator<T, T>
     {
-        if (x.Length != y.Length || x.Length != z.Length)
-            Throw.ArgumentException(nameof(x), "x, y and z spans must have the same length.");
-        if (x.Length > destination.Length)
-            Throw.ArgumentException(nameof(destination), "Destination span is too small.");
         if (SpansOverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
         if (SpansOverlapAndAreNotSame(y, destination))
@@ -17,20 +13,34 @@ public static partial class Tensor
         if (SpansOverlapAndAreNotSame(z, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
+        Apply<T, T, TOperator>(x, y, z, destination);
+    }
+
+    public static void Apply<TSource, TResult, TOperator>(ReadOnlySpan<TSource> x, ReadOnlySpan<TSource> y, ReadOnlySpan<TSource> z, Span<TResult> destination)
+        where TSource : struct
+        where TResult : struct
+        where TOperator : struct, ITernaryOperator<TSource, TResult>
+    {
+        if (x.Length != y.Length || x.Length != z.Length)
+            Throw.ArgumentException(nameof(x), "x, y and z spans must have the same length.");
+        if (x.Length > destination.Length)
+            Throw.ArgumentException(nameof(destination), "Destination span is too small.");
+
         // Initialize the index to 0.
         var index = nint.Zero;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
         if (Vector.IsHardwareAccelerated &&
-            Vector<T>.IsSupported &&
-            x.Length >= Vector<T>.Count)
+            Vector<TSource>.IsSupported &&
+            Vector<TResult>.IsSupported &&
+            x.Length >= Vector<TSource>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
-            var xVectors = MemoryMarshal.Cast<T, Vector<T>>(x);
-            var yVectors = MemoryMarshal.Cast<T, Vector<T>>(y);
-            var zVectors = MemoryMarshal.Cast<T, Vector<T>>(z);
-            var destinationVectors = MemoryMarshal.Cast<T, Vector<T>>(destination);
+            var xVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(x);
+            var yVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(y);
+            var zVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(z);
+            var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
             // Iterate through the vectors.
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
@@ -46,7 +56,7 @@ public static partial class Tensor
             }
 
             // Update the index to the end of the last complete vector.
-            index = x.Length - (x.Length % Vector<T>.Count);
+            index = x.Length - (x.Length % Vector<TSource>.Count);
         }
 
         // Iterate through the remaining elements.
@@ -83,16 +93,25 @@ public static partial class Tensor
 
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, T y, ReadOnlySpan<T> z, Span<T> destination)
         where T : struct
-        where TOperator : struct, ITernaryOperator<T>
+        where TOperator : struct, ITernaryOperator<T, T>
+    {
+        if (SpansOverlapAndAreNotSame(x, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
+        if (SpansOverlapAndAreNotSame(z, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
+
+        Apply<T, T, TOperator>(x, y, z, destination);
+    }
+
+    public static void Apply<TSource, TResult, TOperator>(ReadOnlySpan<TSource> x, TSource y, ReadOnlySpan<TSource> z, Span<TResult> destination)
+        where TSource : struct
+        where TResult : struct
+        where TOperator : struct, ITernaryOperator<TSource, TResult>
     {
         if (x.Length != z.Length)
             Throw.ArgumentException(nameof(x), "x and z spans must have the same length.");
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
-        if (SpansOverlapAndAreNotSame(x, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(z, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         // Initialize the index to 0.
         var index = nint.Zero;
@@ -100,14 +119,15 @@ public static partial class Tensor
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
         if (Vector.IsHardwareAccelerated &&
-            Vector<T>.IsSupported &&
-            x.Length >= Vector<T>.Count)
+            Vector<TSource>.IsSupported &&
+            Vector<TResult>.IsSupported &&
+            x.Length >= Vector<TSource>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
-            var xVectors = MemoryMarshal.Cast<T, Vector<T>>(x);
-            var yVector = new Vector<T>(y);
-            var zVectors = MemoryMarshal.Cast<T, Vector<T>>(z);
-            var destinationVectors = MemoryMarshal.Cast<T, Vector<T>>(destination);
+            var xVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(x);
+            var yVector = new Vector<TSource>(y);
+            var zVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(z);
+            var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
             // Iterate through the vectors.
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
@@ -122,7 +142,7 @@ public static partial class Tensor
             }
 
             // Update the index to the end of the last complete vector.
-            index = x.Length - (x.Length % Vector<T>.Count);
+            index = x.Length - (x.Length % Vector<TSource>.Count);
         }
 
         // Iterate through the remaining elements.
@@ -158,7 +178,20 @@ public static partial class Tensor
 
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ValueTuple<T, T> y, ReadOnlySpan<T> z, Span<T> destination)
         where T : struct
-        where TOperator : struct, ITernaryOperator<T>
+        where TOperator : struct, ITernaryOperator<T, T>
+    {
+        if (SpansOverlapAndAreNotSame(x, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
+        if (SpansOverlapAndAreNotSame(z, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
+
+        Apply<T, T, TOperator>(x, y, z, destination);
+    }
+
+    public static void Apply<TSource, TResult, TOperator>(ReadOnlySpan<TSource> x, ValueTuple<TSource, TSource> y, ReadOnlySpan<TSource> z, Span<TResult> destination)
+        where TSource : struct
+        where TResult : struct
+        where TOperator : struct, ITernaryOperator<TSource, TResult>
     {
         if (x.Length % 2 is not 0)
             Throw.ArgumentException(nameof(x), "x span must have an even size.");
@@ -166,10 +199,6 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(x), "x and z spans must have the same length.");
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
-        if (SpansOverlapAndAreNotSame(x, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(z, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         // Initialize the index to 0.
         var index = nint.Zero;
@@ -177,16 +206,17 @@ public static partial class Tensor
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
         if (Vector.IsHardwareAccelerated &&
-            Vector<T>.IsSupported &&
-            Vector<T>.Count > 2 &&
-            Vector<T>.Count % 2 is 0 &&
-            x.Length >= Vector<T>.Count)
+            Vector<TSource>.IsSupported &&
+            Vector<TResult>.IsSupported &&
+            Vector<TSource>.Count > 2 &&
+            Vector<TSource>.Count % 2 is 0 &&
+            x.Length >= Vector<TSource>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
-            var xVectors = MemoryMarshal.Cast<T, Vector<T>>(x);
+            var xVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(x);
             var yVector = GetVector(y);
-            var zVectors = MemoryMarshal.Cast<T, Vector<T>>(z);
-            var destinationVectors = MemoryMarshal.Cast<T, Vector<T>>(destination);
+            var zVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(z);
+            var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
             // Iterate through the vectors.
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
@@ -201,7 +231,7 @@ public static partial class Tensor
             }
 
             // Update the index to the end of the last complete vector.
-            index = x.Length - (x.Length % Vector<T>.Count);
+            index = x.Length - (x.Length % Vector<TSource>.Count);
         }
 
         // Iterate through the remaining elements.
@@ -225,7 +255,20 @@ public static partial class Tensor
 
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, ReadOnlySpan<T> z, Span<T> destination)
         where T : struct
-        where TOperator : struct, ITernaryOperator<T>
+        where TOperator : struct, ITernaryOperator<T, T>
+    {
+        if (SpansOverlapAndAreNotSame(x, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
+        if (SpansOverlapAndAreNotSame(z, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
+
+        Apply<T, T, TOperator>(x, y, z, destination);
+    }
+
+    public static void Apply<TSource, TResult, TOperator>(ReadOnlySpan<TSource> x, ValueTuple<TSource, TSource, TSource> y, ReadOnlySpan<TSource> z, Span<TResult> destination)
+        where TSource : struct
+        where TResult : struct
+        where TOperator : struct, ITernaryOperator<TSource, TResult>
     {
         if (x.Length % 3 is not 0)
             Throw.ArgumentException(nameof(x), "x span must have a size multiple of 3.");
@@ -233,10 +276,6 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(x), "x and z spans must have the same length.");
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
-        if (SpansOverlapAndAreNotSame(x, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(z, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var zRef = ref MemoryMarshal.GetReference(z);
@@ -251,16 +290,25 @@ public static partial class Tensor
 
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, T z, Span<T> destination)
         where T : struct
-        where TOperator : struct, ITernaryOperator<T>
+        where TOperator : struct, ITernaryOperator<T, T>
+    {
+        if (SpansOverlapAndAreNotSame(x, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
+        if (SpansOverlapAndAreNotSame(y, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
+
+        Apply<T, T, TOperator>(x, y, z, destination);
+    }
+
+    public static void Apply<TSource, TResult, TOperator>(ReadOnlySpan<TSource> x, ReadOnlySpan<TSource> y, TSource z, Span<TResult> destination)
+        where TSource : struct
+        where TResult : struct
+        where TOperator : struct, ITernaryOperator<TSource, TResult>
     {
         if (x.Length != y.Length)
             Throw.ArgumentException(nameof(x), "x and y spans must have the same length.");
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
-        if (SpansOverlapAndAreNotSame(x, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         // Initialize the index to 0.
         var index = nint.Zero;
@@ -268,14 +316,15 @@ public static partial class Tensor
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
         if (Vector.IsHardwareAccelerated &&
-            Vector<T>.IsSupported &&
-            x.Length >= Vector<T>.Count)
+            Vector<TSource>.IsSupported &&
+            Vector<TResult>.IsSupported &&
+            x.Length >= Vector<TSource>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
-            var xVectors = MemoryMarshal.Cast<T, Vector<T>>(x);
-            var yVectors = MemoryMarshal.Cast<T, Vector<T>>(y);
-            var zVector = new Vector<T>(z);
-            var destinationVectors = MemoryMarshal.Cast<T, Vector<T>>(destination);
+            var xVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(x);
+            var yVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(y);
+            var zVector = new Vector<TSource>(z);
+            var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
             // Iterate through the vectors.
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
@@ -290,7 +339,7 @@ public static partial class Tensor
             }
 
             // Update the index to the end of the last complete vector.
-            index = x.Length - (x.Length % Vector<T>.Count);
+            index = x.Length - (x.Length % Vector<TSource>.Count);
         }
 
         // Iterate through the remaining elements.
@@ -326,7 +375,20 @@ public static partial class Tensor
 
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, ValueTuple<T, T> z, Span<T> destination)
         where T : struct
-        where TOperator : struct, ITernaryOperator<T>
+        where TOperator : struct, ITernaryOperator<T, T>
+    {
+        if (SpansOverlapAndAreNotSame(x, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
+        if (SpansOverlapAndAreNotSame(y, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
+
+        Apply<T, T, TOperator>(x, y, z, destination);
+    }
+
+    public static void Apply<TSource, TResult, TOperator>(ReadOnlySpan<TSource> x, ReadOnlySpan<TSource> y, ValueTuple<TSource, TSource> z, Span<TResult> destination)
+        where TSource : struct
+        where TResult : struct
+        where TOperator : struct, ITernaryOperator<TSource, TResult>
     {
         if (x.Length % 2 is not 0)
             Throw.ArgumentException(nameof(x), "x span must have an even size.");
@@ -334,10 +396,6 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(x), "x and y spans must have the same length.");
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
-        if (SpansOverlapAndAreNotSame(x, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         // Initialize the index to 0.
         var index = nint.Zero;
@@ -345,16 +403,17 @@ public static partial class Tensor
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
         if (Vector.IsHardwareAccelerated &&
-            Vector<T>.IsSupported &&
-            Vector<T>.Count > 2 &&
-            Vector<T>.Count % 2 is 0 &&
-            x.Length >= Vector<T>.Count)
+            Vector<TSource>.IsSupported &&
+            Vector<TResult>.IsSupported &&
+            Vector<TSource>.Count > 2 &&
+            Vector<TSource>.Count % 2 is 0 &&
+            x.Length >= Vector<TSource>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
-            var xVectors = MemoryMarshal.Cast<T, Vector<T>>(x);
-            var yVectors = MemoryMarshal.Cast<T, Vector<T>>(y);
+            var xVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(x);
+            var yVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(y);
             var zVector = GetVector(z);
-            var destinationVectors = MemoryMarshal.Cast<T, Vector<T>>(destination);
+            var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
             // Iterate through the vectors.
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
@@ -369,7 +428,7 @@ public static partial class Tensor
             }
 
             // Update the index to the end of the last complete vector.
-            index = x.Length - (x.Length % Vector<T>.Count);
+            index = x.Length - (x.Length % Vector<TSource>.Count);
         }
 
         // Iterate through the remaining elements.
@@ -393,7 +452,20 @@ public static partial class Tensor
 
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, ValueTuple<T, T, T> z, Span<T> destination)
         where T : struct
-        where TOperator : struct, ITernaryOperator<T>
+        where TOperator : struct, ITernaryOperator<T, T>
+    {
+        if (SpansOverlapAndAreNotSame(x, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
+        if (SpansOverlapAndAreNotSame(y, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
+
+        Apply<T, T, TOperator>(x, y, z, destination);
+    }
+
+    public static void Apply<TSource, TResult, TOperator>(ReadOnlySpan<TSource> x, ReadOnlySpan<TSource> y, ValueTuple<TSource, TSource, TSource> z, Span<TResult> destination)
+        where TSource : struct
+        where TResult : struct
+        where TOperator : struct, ITernaryOperator<TSource, TResult>
     {
         if (x.Length % 3 is not 0)
             Throw.ArgumentException(nameof(x), "x span must have a size multiple of 3.");
@@ -401,10 +473,6 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(x), "x and y spans must have the same length.");
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
-        if (SpansOverlapAndAreNotSame(x, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var yRef = ref MemoryMarshal.GetReference(y);
@@ -419,12 +487,21 @@ public static partial class Tensor
 
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, T y, T z, Span<T> destination)
         where T : struct
-        where TOperator : struct, ITernaryOperator<T>
+        where TOperator : struct, ITernaryOperator<T, T>
+    {
+        if (SpansOverlapAndAreNotSame(x, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
+
+        Apply<T, T, TOperator>(x, y, z, destination);
+    }
+
+    public static void Apply<TSource, TResult, TOperator>(ReadOnlySpan<TSource> x, TSource y, TSource z, Span<TResult> destination)
+        where TSource : struct
+        where TResult : struct
+        where TOperator : struct, ITernaryOperator<TSource, TResult>
     {
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
-        if (SpansOverlapAndAreNotSame(x, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         // Initialize the index to 0.
         var index = nint.Zero;
@@ -432,14 +509,15 @@ public static partial class Tensor
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
         if (Vector.IsHardwareAccelerated &&
-            Vector<T>.IsSupported &&
-            x.Length >= Vector<T>.Count)
+            Vector<TSource>.IsSupported &&
+            Vector<TResult>.IsSupported &&
+            x.Length >= Vector<TSource>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
-            var xVectors = MemoryMarshal.Cast<T, Vector<T>>(x);
-            var yVector = new Vector<T>(y);
-            var zVector = new Vector<T>(z);
-            var destinationVectors = MemoryMarshal.Cast<T, Vector<T>>(destination);
+            var xVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(x);
+            var yVector = new Vector<TSource>(y);
+            var zVector = new Vector<TSource>(z);
+            var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
             // Iterate through the vectors.
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
@@ -453,7 +531,7 @@ public static partial class Tensor
             }
 
             // Update the index to the end of the last complete vector.
-            index = x.Length - (x.Length % Vector<T>.Count);
+            index = x.Length - (x.Length % Vector<TSource>.Count);
         }
 
         // Iterate through the remaining elements.
@@ -488,14 +566,23 @@ public static partial class Tensor
 
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ValueTuple<T, T> y, ValueTuple<T, T> z, Span<T> destination)
         where T : struct
-        where TOperator : struct, ITernaryOperator<T>
+        where TOperator : struct, ITernaryOperator<T, T>
+    {
+        if (SpansOverlapAndAreNotSame(x, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
+
+        Apply<T, T, TOperator>(x, y, z, destination);
+    }
+
+    public static void Apply<TSource, TResult, TOperator>(ReadOnlySpan<TSource> x, ValueTuple<TSource, TSource> y, ValueTuple<TSource, TSource> z, Span<TResult> destination)
+        where TSource : struct
+        where TResult : struct
+        where TOperator : struct, ITernaryOperator<TSource, TResult>
     {
         if (x.Length % 2 is not 0)
             Throw.ArgumentException(nameof(x), "x span must have an even size.");
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
-        if (SpansOverlapAndAreNotSame(x, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         // Initialize the index to 0.
         var index = nint.Zero;
@@ -503,16 +590,17 @@ public static partial class Tensor
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
         if (Vector.IsHardwareAccelerated &&
-            Vector<T>.IsSupported &&
-            Vector<T>.Count > 2 &&
-            Vector<T>.Count % 2 is 0 &&
-            x.Length >= Vector<T>.Count)
+            Vector<TSource>.IsSupported &&
+            Vector<TResult>.IsSupported &&
+            Vector<TSource>.Count > 2 &&
+            Vector<TSource>.Count % 2 is 0 &&
+            x.Length >= Vector<TSource>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
-            var xVectors = MemoryMarshal.Cast<T, Vector<T>>(x);
+            var xVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(x);
             var yVector = GetVector(y);
             var zVector = GetVector(z);
-            var destinationVectors = MemoryMarshal.Cast<T, Vector<T>>(destination);
+            var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
             // Iterate through the vectors.
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
@@ -526,7 +614,7 @@ public static partial class Tensor
             }
 
             // Update the index to the end of the last complete vector.
-            index = x.Length - (x.Length % Vector<T>.Count);
+            index = x.Length - (x.Length % Vector<TSource>.Count);
         }
 
         // Iterate through the remaining elements.
@@ -549,14 +637,23 @@ public static partial class Tensor
 
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, ValueTuple<T, T, T> z, Span<T> destination)
         where T : struct
-        where TOperator : struct, ITernaryOperator<T>
+        where TOperator : struct, ITernaryOperator<T, T>
+    {
+        if (SpansOverlapAndAreNotSame(x, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
+
+        Apply<T, T, TOperator>(x, y, z, destination);
+    }
+
+    public static void Apply<TSource, TResult, TOperator>(ReadOnlySpan<TSource> x, ValueTuple<TSource, TSource, TSource> y, ValueTuple<TSource, TSource, TSource> z, Span<TResult> destination)
+        where TSource : struct
+        where TResult : struct
+        where TOperator : struct, ITernaryOperator<TSource, TResult>
     {
         if (x.Length % 3 is not 0)
             Throw.ArgumentException(nameof(x), "x span must have a size multiple of 3.");
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
-        if (SpansOverlapAndAreNotSame(x, destination))
-            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);

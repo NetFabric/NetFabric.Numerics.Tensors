@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 public readonly struct SquareRootOperator<T>
-    : IUnaryOperator<T>
+    : IUnaryOperator<T, T>
     where T : struct, IRootFunctions<T>
 {
     public static T Invoke(T x)

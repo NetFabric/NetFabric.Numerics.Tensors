@@ -4,30 +4,32 @@ namespace NetFabric.Numerics;
 /// Represents a unary operator that operates on a single value or vector.
 /// </summary>
 /// <typeparam name="T">The type of the value or vector.</typeparam>
-public interface IUnaryOperator<T>
-    where T : struct
+public interface IUnaryOperator<TSource, TResult>
+    where TSource : struct
+    where TResult : struct
 {
     /// <summary>
     /// Applies the unary operator to the specified value.
     /// </summary>
     /// <param name="x">The value to apply the operator to.</param>
     /// <returns>The result of applying the operator to the value.</returns>
-    static abstract T Invoke(T x);
+    static abstract TResult Invoke(TSource x);
 
     /// <summary>
     /// Applies the unary operator to the specified vector.
     /// </summary>
     /// <param name="x">The vector to apply the operator to.</param>
     /// <returns>The result of applying the operator to the vector.</returns>
-    static abstract Vector<T> Invoke(ref readonly Vector<T> x);
+    static abstract Vector<TResult> Invoke(ref readonly Vector<TSource> x);
 }
 
 /// <summary>
 /// Represents a binary operator that operates on two values or vectors.
 /// </summary>
 /// <typeparam name="T">The type of the values or vectors.</typeparam>
-public interface IBinaryOperator<T>
-    where T : struct
+public interface IBinaryOperator<TSource, TResult>
+    where TSource : struct
+    where TResult : struct
 {
     /// <summary>
     /// Applies the binary operator to the specified values.
@@ -35,7 +37,7 @@ public interface IBinaryOperator<T>
     /// <param name="x">The first value to apply the operator to.</param>
     /// <param name="y">The second value to apply the operator to.</param>
     /// <returns>The result of applying the operator to the values.</returns>
-    static abstract T Invoke(T x, T y);
+    static abstract TResult Invoke(TSource x, TSource y);
 
     /// <summary>
     /// Applies the binary operator to the specified vectors.
@@ -43,15 +45,16 @@ public interface IBinaryOperator<T>
     /// <param name="x">The first vector to apply the operator to.</param>
     /// <param name="y">The second vector to apply the operator to.</param>
     /// <returns>The result of applying the operator to the vectors.</returns>
-    static abstract Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y);
+    static abstract Vector<TResult> Invoke(ref readonly Vector<TSource> x, ref readonly Vector<TSource> y);
 }
 
 /// <summary>
 /// Represents a ternary operator that operates on three values or vectors.
 /// </summary>
 /// <typeparam name="T">The type of the values or vectors.</typeparam>
-public interface ITernaryOperator<T>
-    where T : struct
+public interface ITernaryOperator<TSource, TResult>
+    where TSource : struct
+    where TResult : struct
 {
     /// <summary>
     /// Applies the ternary operator to the specified values.
@@ -60,7 +63,7 @@ public interface ITernaryOperator<T>
     /// <param name="y">The second value to apply the operator to.</param>
     /// <param name="z">The third value to apply the operator to.</param>
     /// <returns>The result of applying the operator to the values.</returns>
-    static abstract T Invoke(T x, T y, T z);
+    static abstract TResult Invoke(TSource x, TSource y, TSource z);
 
     /// <summary>
     /// Applies the ternary operator to the specified vectors.
@@ -69,7 +72,7 @@ public interface ITernaryOperator<T>
     /// <param name="y">The second vector to apply the operator to.</param>
     /// <param name="z">The third vector to apply the operator to.</param>
     /// <returns>The result of applying the operator to the vectors.</returns>
-    static abstract Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y, ref readonly Vector<T> z);
+    static abstract Vector<TResult> Invoke(ref readonly Vector<TSource> x, ref readonly Vector<TSource> y, ref readonly Vector<TSource> z);
 }
 
 /// <summary>
@@ -77,7 +80,7 @@ public interface ITernaryOperator<T>
 /// </summary>
 /// <typeparam name="T">The type of the values or vectors.</typeparam>
 public interface IAggregationOperator<T>
-    : IBinaryOperator<T>
+    : IBinaryOperator<T, T>
     where T : struct
 {
     /// <summary>

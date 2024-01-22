@@ -5,7 +5,7 @@ namespace NetFabric.Numerics;
 /// </summary>
 /// <typeparam name="T">The type of the values.</typeparam>
 public readonly struct MultiplyAddOperator<T>
-    : ITernaryOperator<T>
+    : ITernaryOperator<T, T>
     where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
 {
     /// <summary>

@@ -5,7 +5,7 @@ namespace NetFabric.Numerics;
 /// </summary>
 /// <typeparam name="T">The type of the operand.</typeparam>
 public readonly struct NegateOperator<T>
-    : IUnaryOperator<T>
+    : IUnaryOperator<T, T>
     where T : struct, IUnaryNegationOperators<T, T>
 {
     /// <summary>

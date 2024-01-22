@@ -5,7 +5,7 @@ namespace NetFabric.Numerics;
 /// </summary>
 /// <typeparam name="T">The type of the operands.</typeparam>
 public readonly struct DivideOperator<T>
-    : IBinaryOperator<T>
+    : IBinaryOperator<T, T>
     where T : struct, IDivisionOperators<T, T, T>
 {
     /// <summary>

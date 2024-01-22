@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 public readonly struct AbsOperator<T>
-    : IUnaryOperator<T>
+    : IUnaryOperator<T, T>
     where T : struct, INumberBase<T>
 {
     public static T Invoke(T x)
