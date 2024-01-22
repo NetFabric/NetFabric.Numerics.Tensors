@@ -43,18 +43,19 @@ public class AddBenchmarks
         var random = new Random(42);
         for(var index = 0; index < Count; index++)
         {
-            sourceShort[index] = (short)random.Next(10);
-            otherShort[index] = (short)random.Next(10);
-            sourceInt[index] = random.Next(10);
-            otherInt[index] = random.Next(10);
-            sourceLong[index] = random.Next(10);
-            otherLong[index] = random.Next(10);
-            sourceHalf[index] = (Half)random.Next(10);
-            otherHalf[index] = (Half)random.Next(10);
-            sourceFloat[index] = random.Next(10);
-            otherFloat[index] = random.Next(10);
-            sourceDouble[index] = random.Next(10);
-            otherDouble[index] = random.Next(10);
+            var value = random.Next(10);
+            sourceShort[index] = (short)value;
+            otherShort[index] = (short)value;
+            sourceInt[index] = value;
+            otherInt[index] = value;
+            sourceLong[index] = value;
+            otherLong[index] = value;
+            sourceHalf[index] = (Half)value;
+            otherHalf[index] = (Half)value;
+            sourceFloat[index] = value;
+            otherFloat[index] = value;
+            sourceDouble[index] = value;
+            otherDouble[index] = value;
         }
     }
 

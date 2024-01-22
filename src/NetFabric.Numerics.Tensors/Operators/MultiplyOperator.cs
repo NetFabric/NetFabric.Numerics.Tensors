@@ -1,9 +1,9 @@
 namespace NetFabric.Numerics;
 
 /// <summary>
-/// Represents a multiply operator for a specified type.
+/// Represents an operator that computes the multiplication of two tensors.
 /// </summary>
-/// <typeparam name="T">The type of the operands and result.</typeparam>
+/// <typeparam name="T">The type of the tensor elements.</typeparam>
 public readonly struct MultiplyOperator<T>
     : IBinaryOperator<T, T>
     where T : struct, IMultiplyOperators<T, T, T>

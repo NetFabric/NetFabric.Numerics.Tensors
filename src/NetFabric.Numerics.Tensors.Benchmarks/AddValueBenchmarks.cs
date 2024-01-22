@@ -37,12 +37,13 @@ public class AddValueBenchmarks
         var random = new Random(42);
         for(var index = 0; index < Count; index++)
         {
-            sourceShort[index] = (short)random.Next(10);
-            sourceInt[index] = random.Next(10);
-            sourceLong[index] = random.Next(10);
-            sourceHalf[index] = (Half)random.Next(10);
-            sourceFloat[index] = random.Next(10);
-            sourceDouble[index] = random.Next(10);
+            var value = random.Next(10);
+            sourceShort[index] = (short)value;
+            sourceInt[index] = value;
+            sourceLong[index] = value;
+            sourceHalf[index] = (Half)value;
+            sourceFloat[index] = value;
+            sourceDouble[index] = value;
         }
     }
 

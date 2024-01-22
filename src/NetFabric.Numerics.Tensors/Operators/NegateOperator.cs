@@ -1,15 +1,15 @@
 namespace NetFabric.Numerics;
 
 /// <summary>
-/// Represents a unary negate operator.
+/// Represents an operator that computes the unary negation of a tensor.
 /// </summary>
-/// <typeparam name="T">The type of the operand.</typeparam>
+/// <typeparam name="T">The type of the tensor elements.</typeparam>
 public readonly struct NegateOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IUnaryNegationOperators<T, T>
 {
     /// <summary>
-    /// Negates the specified value.
+    /// Negates a value of type T.
     /// </summary>
     /// <param name="x">The value to negate.</param>
     /// <returns>The negated value.</returns>
@@ -17,7 +17,7 @@ public readonly struct NegateOperator<T>
         => -x;
 
     /// <summary>
-    /// Negates the specified vector.
+    /// Negates a vector.
     /// </summary>
     /// <param name="x">The vector to negate.</param>
     /// <returns>The negated vector.</returns>

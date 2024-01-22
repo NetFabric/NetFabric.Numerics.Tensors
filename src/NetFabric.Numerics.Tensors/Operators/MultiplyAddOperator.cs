@@ -1,15 +1,15 @@
 namespace NetFabric.Numerics;
 
 /// <summary>
-/// Represents a multiply-add operator for a given type.
+/// Represents an operator that computes multipolication followed by the addition of three tensors.
 /// </summary>
-/// <typeparam name="T">The type of the values.</typeparam>
+/// <typeparam name="T">The type of the tensor elements.</typeparam>
 public readonly struct MultiplyAddOperator<T>
     : ITernaryOperator<T, T>
     where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
 {
     /// <summary>
-    /// Computes the result of multiplying two values and adding a third value.
+    /// Multiplies two values and adds a third value.
     /// </summary>
     /// <param name="x">The first value to multiply.</param>
     /// <param name="y">The second value to multiply.</param>
@@ -19,7 +19,7 @@ public readonly struct MultiplyAddOperator<T>
         => (x * y) + z;
 
     /// <summary>
-    /// Computes the result of multiplying two vectors element-wise and adding a third vector element-wise.
+    /// Multiplies two vectors element-wise and adds a third vector element-wise.
     /// </summary>
     /// <param name="x">The first vector to multiply.</param>
     /// <param name="y">The second vector to multiply.</param>
