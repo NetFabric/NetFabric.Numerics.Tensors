@@ -25,7 +25,8 @@ public static partial class Tensor
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
-        if (Vector.IsHardwareAccelerated &&
+        if (TOperator.IsVectorizable &&
+            Vector.IsHardwareAccelerated &&
             Vector<TSource>.IsSupported &&
             Vector<TResult>.IsSupported &&
             x.Length >= Vector<TSource>.Count)
@@ -39,7 +40,7 @@ public static partial class Tensor
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
             for (var indexVector = nint.Zero; indexVector < sourceVectors.Length; indexVector++)
             {
-                Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(Unsafe.Add(ref sourceVectorsRef, indexVector));
+                Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
             }
 
             // Update the index to the end of the last complete vector.

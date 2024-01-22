@@ -31,12 +31,14 @@ public class Sum2DBenchmarks
         var random = new Random(42);
         for(var index = 0; index + 1 < Count; index += 2)
         {
-            arrayShort[index] = new((short)random.Next(10), (short)random.Next(10));
-            arrayInt[index] = new(random.Next(10), random.Next(10)); 
-            arrayLong[index] = new(random.Next(10), random.Next(10));
-            arrayHalf[index] = new((Half)random.Next(10), (Half)random.Next(10));
-            arrayFloat[index] = new(random.Next(10), random.Next(10));
-            arrayDouble[index] = new(random.Next(10), random.Next(10));           
+            var x = random.Next(10);
+            var y = random.Next(10);
+            arrayShort[index] = new((short)x, (short)y);
+            arrayInt[index] = new(x, y); 
+            arrayLong[index] = new(x, y);
+            arrayHalf[index] = new((Half)x, (Half)y);
+            arrayFloat[index] = new(x, y);
+            arrayDouble[index] = new(x, y);           
         }
     }
 

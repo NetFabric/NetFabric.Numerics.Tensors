@@ -10,8 +10,7 @@ public static partial class Tensor
     /// <param name="y">The scalar value to add.</param>
     /// <param name="z">The scalar value to multiply.</param>
     /// <param name="destination">The destination span.</param>
-    /// <exception cref="ArgumentException">Thrown when the source and destination spans have different lengths.</exception>
-    /// <exception cref="InvalidOperationException">Thrown when the addition operation is not defined for the type <typeparamref name="T"/>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the length of the destination is less than the length of the source.</exception>
     public static void AddMultiply<T>(ReadOnlySpan<T> x, T y, T z, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => Apply<T, T, AddMultiplyOperator<T>>(x, y, z, destination);
@@ -24,8 +23,7 @@ public static partial class Tensor
     /// <param name="y">The tuple of two values to add.</param>
     /// <param name="z">The tuple of two values to multiply.</param>
     /// <param name="destination">The destination span.</param>
-    /// <exception cref="ArgumentException">Thrown when the source and destination spans have different lengths.</exception>
-    /// <exception cref="InvalidOperationException">Thrown when the addition operation is not defined for the type <typeparamref name="T"/>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the length of the destination is less than the length of the source.</exception>
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 2D vectors.
     /// </remarks>
@@ -41,8 +39,7 @@ public static partial class Tensor
     /// <param name="y">The tuple of three values to add.</param>
     /// <param name="z">The tuple of three values to multiply.</param>
     /// <param name="destination">The destination span.</param>
-    /// <exception cref="ArgumentException">Thrown when the source and destination spans have different lengths.</exception>
-    /// <exception cref="InvalidOperationException">Thrown when the addition operation is not defined for the type <typeparamref name="T"/>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the length of the destination is less than the length of the source.</exception>
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 3D vectors.
     /// </remarks>
@@ -58,8 +55,7 @@ public static partial class Tensor
     /// <param name="y">The scalar value to add.</param>
     /// <param name="z">The span of values to multiply.</param>
     /// <param name="destination">The destination span.</param>
-    /// <exception cref="ArgumentException">Thrown when the source and destination spans have different lengths.</exception>
-    /// <exception cref="InvalidOperationException">Thrown when the addition operation is not defined for the type <typeparamref name="T"/>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the length of the destination is less than the length of the source.</exception>
     public static void AddMultiply<T>(ReadOnlySpan<T> x, T y, ReadOnlySpan<T> z, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => Apply<T, T, AddMultiplyOperator<T>>(x, y, z, destination);
@@ -72,8 +68,7 @@ public static partial class Tensor
     /// <param name="y">The tuple of two values to add.</param>
     /// <param name="z">The span of values to multiply.</param>
     /// <param name="destination">The destination span.</param>
-    /// <exception cref="ArgumentException">Thrown when the source and destination spans have different lengths.</exception>
-    /// <exception cref="InvalidOperationException">Thrown when the addition operation is not defined for the type <typeparamref name="T"/>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the length of the destination is less than the length of the source.</exception>
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 2D vectors.
     /// </remarks>
@@ -89,8 +84,7 @@ public static partial class Tensor
     /// <param name="y">The tuple of three values to add.</param>
     /// <param name="z">The span of values to multiply.</param>
     /// <param name="destination">The destination span.</param>
-    /// <exception cref="ArgumentException">Thrown when the source and destination spans have different lengths.</exception>
-    /// <exception cref="InvalidOperationException">Thrown when the addition operation is not defined for the type <typeparamref name="T"/>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the length of the destination is less than the length of the source.</exception>
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 3D vectors.
     /// </remarks>
@@ -106,8 +100,7 @@ public static partial class Tensor
     /// <param name="y">The span of values to add.</param>
     /// <param name="z">The scalar value to multiply.</param>
     /// <param name="destination">The destination span.</param>
-    /// <exception cref="ArgumentException">Thrown when the source and destination spans have different lengths.</exception>
-    /// <exception cref="InvalidOperationException">Thrown when the addition operation is not defined for the type <typeparamref name="T"/>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the length of the destination is less than the length of the source.</exception>
     public static void AddMultiply<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, T z, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => Apply<T, T, AddMultiplyOperator<T>>(x, y, z, destination);
@@ -120,8 +113,7 @@ public static partial class Tensor
     /// <param name="y">The span of values to add.</param>
     /// <param name="z">The tuple of two values to multiply.</param>
     /// <param name="destination">The destination span.</param>
-    /// <exception cref="ArgumentException">Thrown when the source and destination spans have different lengths.</exception>
-    /// <exception cref="InvalidOperationException">Thrown when the addition operation is not defined for the type <typeparamref name="T"/>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the length of the destination is less than the length of the source.</exception>
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 2D vectors.
     /// </remarks>
@@ -137,8 +129,7 @@ public static partial class Tensor
     /// <param name="y">The span of values to add.</param>
     /// <param name="z">The tuple of three values to multiply.</param>
     /// <param name="destination">The destination span.</param>
-    /// <exception cref="ArgumentException">Thrown when the source and destination spans have different lengths.</exception>
-    /// <exception cref="InvalidOperationException">Thrown when the addition operation is not defined for the type <typeparamref name="T"/>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the length of the destination is less than the length of the source.</exception>
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 3D vectors.
     /// </remarks>
@@ -154,8 +145,7 @@ public static partial class Tensor
     /// <param name="y">The span of values to add.</param>
     /// <param name="z">The span of values to multiply.</param>
     /// <param name="destination">The destination span.</param>
-    /// <exception cref="ArgumentException">Thrown when the source and destination spans have different lengths.</exception>
-    /// <exception cref="InvalidOperationException">Thrown when the addition operation is not defined for the type <typeparamref name="T"/>.</exception>
+    /// <exception cref="ArgumentException">Thrown when the length of the destination is less than the length of the source.</exception>
     public static void AddMultiply<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, ReadOnlySpan<T> z, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => Apply<T, AddMultiplyOperator<T>>(x, y, z, destination);

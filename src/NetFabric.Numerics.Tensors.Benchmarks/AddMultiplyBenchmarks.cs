@@ -49,24 +49,25 @@ public class AddMultiplyBenchmarks
         var random = new Random(42);
         for(var index = 0; index < Count; index++)
         {
-            sourceShort[index] = (short)random.Next(10);
-            otherShort[index] = (short)random.Next(10);
-            anotherShort[index] = (short)random.Next(10);
-            sourceInt[index] = random.Next(10);
-            otherInt[index] = random.Next(10);
-            anotherInt[index] = random.Next(10);
-            sourceLong[index] = random.Next(10);
-            otherLong[index] = random.Next(10);
-            anotherLong[index] = random.Next(10);
-            sourceHalf[index] = (Half)random.Next(10);
-            otherHalf[index] = (Half)random.Next(10);
-            anotherHalf[index] = (Half)random.Next(10);
-            sourceFloat[index] = random.Next(10);
-            otherFloat[index] = random.Next(10);
-            anotherFloat[index] = random.Next(10);
-            sourceDouble[index] = random.Next(10);
-            otherDouble[index] = random.Next(10);
-            anotherDouble[index] = random.Next(10);
+            var value = random.Next(10);
+            sourceShort[index] = (short)value;
+            otherShort[index] = (short)value;
+            anotherShort[index] = (short)value;
+            sourceInt[index] = value;
+            otherInt[index] = value;
+            anotherInt[index] = value;
+            sourceLong[index] = value;
+            otherLong[index] = value;
+            anotherLong[index] = value;
+            sourceHalf[index] = (Half)value;
+            otherHalf[index] = (Half)value;
+            anotherHalf[index] = (Half)value;
+            sourceFloat[index] = value;
+            otherFloat[index] = value;
+            anotherFloat[index] = value;
+            sourceDouble[index] = value;
+            otherDouble[index] = value;
+            anotherDouble[index] = value;
         }
     }
 
