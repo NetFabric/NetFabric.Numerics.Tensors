@@ -1,28 +1,12 @@
 namespace NetFabric.Numerics;
 
-/// <summary>
-/// Represents an operator that computes the multiplication of two tensors.
-/// </summary>
-/// <typeparam name="T">The type of the tensor elements.</typeparam>
-public readonly struct MultiplyOperator<T>
+readonly struct MultiplyOperator<T>
     : IBinaryOperator<T, T>
     where T : struct, IMultiplyOperators<T, T, T>
 {
-    /// <summary>
-    /// Multiplies two values of type <typeparamref name="T"/>.
-    /// </summary>
-    /// <param name="x">The first value.</param>
-    /// <param name="y">The second value.</param>
-    /// <returns>The result of multiplying <paramref name="x"/> and <paramref name="y"/>.</returns>
     public static T Invoke(T x, T y)
         => x * y;
 
-    /// <summary>
-    /// Multiplies two vectors of type <typeparamref name="T"/>.
-    /// </summary>
-    /// <param name="x">The first vector.</param>
-    /// <param name="y">The second vector.</param>
-    /// <returns>The result of multiplying <paramref name="x"/> and <paramref name="y"/>.</returns>
     public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
         => x * y;
 }
