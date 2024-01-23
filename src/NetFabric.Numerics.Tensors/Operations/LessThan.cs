@@ -49,29 +49,29 @@ public static partial class Tensor
     // float
 
     public static void LessThan(ReadOnlySpan<float> x, float y, Span<int> destination)
-        => Apply<float, int, LessThanSingleOperator>(x, y, destination);
+        => Apply<float, float, int, LessThanSingleOperator>(x, y, destination);
 
     public static void LessThan(ReadOnlySpan<float> x, ValueTuple<float, float> y, Span<int> destination)
-        => Apply<float, int, LessThanSingleOperator>(x, y, destination);
+        => Apply<float, float, int, LessThanSingleOperator>(x, y, destination);
 
     public static void LessThan(ReadOnlySpan<float> x, ValueTuple<float, float, float> y, Span<int> destination)
-        => Apply<float, int, LessThanSingleOperator>(x, y, destination);
+        => Apply<float, float, int, LessThanSingleOperator>(x, y, destination);
 
     public static void LessThan(ReadOnlySpan<float> x, ReadOnlySpan<float> y, Span<int> destination)
-        => Apply<float, int, LessThanSingleOperator>(x, y, destination);
+        => Apply<float, float, int, LessThanSingleOperator>(x, y, destination);
 
     // double
 
     public static void LessThan(ReadOnlySpan<double> x, double y, Span<long> destination)
-        => Apply<double, long, LessThanDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, LessThanDoubleOperator>(x, y, destination);
 
     public static void LessThan(ReadOnlySpan<double> x, ValueTuple<double, double> y, Span<long> destination)
-        => Apply<double, long, LessThanDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, LessThanDoubleOperator>(x, y, destination);
 
     public static void LessThan(ReadOnlySpan<double> x, ValueTuple<double, double, double> y, Span<long> destination)
-        => Apply<double, long, LessThanDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, LessThanDoubleOperator>(x, y, destination);
 
     public static void LessThan(ReadOnlySpan<double> x, ReadOnlySpan<double> y, Span<long> destination)
-        => Apply<double, long, LessThanDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, LessThanDoubleOperator>(x, y, destination);
 
 }

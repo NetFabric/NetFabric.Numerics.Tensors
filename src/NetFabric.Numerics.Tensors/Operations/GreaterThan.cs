@@ -49,29 +49,29 @@ public static partial class Tensor
     // float
 
     public static void GreaterThan(ReadOnlySpan<float> x, float y, Span<int> destination)
-        => Apply<float, int, GreaterThanSingleOperator>(x, y, destination);
+        => Apply<float, float, int, GreaterThanSingleOperator>(x, y, destination);
 
     public static void GreaterThan(ReadOnlySpan<float> x, ValueTuple<float, float> y, Span<int> destination)
-        => Apply<float, int, GreaterThanSingleOperator>(x, y, destination);
+        => Apply<float, float, int, GreaterThanSingleOperator>(x, y, destination);
 
     public static void GreaterThan(ReadOnlySpan<float> x, ValueTuple<float, float, float> y, Span<int> destination)
-        => Apply<float, int, GreaterThanSingleOperator>(x, y, destination);
+        => Apply<float, float, int, GreaterThanSingleOperator>(x, y, destination);
 
     public static void GreaterThan(ReadOnlySpan<float> x, ReadOnlySpan<float> y, Span<int> destination)
-        => Apply<float, int, GreaterThanSingleOperator>(x, y, destination);
+        => Apply<float, float, int, GreaterThanSingleOperator>(x, y, destination);
 
     // double
 
     public static void GreaterThan(ReadOnlySpan<double> x, double y, Span<long> destination)
-        => Apply<double, long, GreaterThanDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, GreaterThanDoubleOperator>(x, y, destination);
 
     public static void GreaterThan(ReadOnlySpan<double> x, ValueTuple<double, double> y, Span<long> destination)
-        => Apply<double, long, GreaterThanDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, GreaterThanDoubleOperator>(x, y, destination);
 
     public static void GreaterThan(ReadOnlySpan<double> x, ValueTuple<double, double, double> y, Span<long> destination)
-        => Apply<double, long, GreaterThanDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, GreaterThanDoubleOperator>(x, y, destination);
 
     public static void GreaterThan(ReadOnlySpan<double> x, ReadOnlySpan<double> y, Span<long> destination)
-        => Apply<double, long, GreaterThanDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, GreaterThanDoubleOperator>(x, y, destination);
 
 }

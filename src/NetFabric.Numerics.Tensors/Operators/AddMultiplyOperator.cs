@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 readonly struct AddMultiplyOperator<T>
-    : ITernaryOperator<T, T>
+    : ITernaryOperator<T, T, T, T>
     where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
 {
     public static T Invoke(T x, T y, T z)

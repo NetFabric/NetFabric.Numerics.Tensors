@@ -49,29 +49,29 @@ public static partial class Tensor
     // float
 
     public static void LessThanOrEqual(ReadOnlySpan<float> x, float y, Span<int> destination)
-        => Apply<float, int, LessThanOrEqualSingleOperator>(x, y, destination);
+        => Apply<float, float, int, LessThanOrEqualSingleOperator>(x, y, destination);
 
     public static void LessThanOrEqual(ReadOnlySpan<float> x, ValueTuple<float, float> y, Span<int> destination)
-        => Apply<float, int, LessThanOrEqualSingleOperator>(x, y, destination);
+        => Apply<float, float, int, LessThanOrEqualSingleOperator>(x, y, destination);
 
     public static void LessThanOrEqual(ReadOnlySpan<float> x, ValueTuple<float, float, float> y, Span<int> destination)
-        => Apply<float, int, LessThanOrEqualSingleOperator>(x, y, destination);
+        => Apply<float, float, int, LessThanOrEqualSingleOperator>(x, y, destination);
 
     public static void LessThanOrEqual(ReadOnlySpan<float> x, ReadOnlySpan<float> y, Span<int> destination)
-        => Apply<float, int, LessThanOrEqualSingleOperator>(x, y, destination);
+        => Apply<float, float, int, LessThanOrEqualSingleOperator>(x, y, destination);
 
     // double
 
     public static void LessThanOrEqual(ReadOnlySpan<double> x, double y, Span<long> destination)
-        => Apply<double, long, LessThanOrEqualDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, LessThanOrEqualDoubleOperator>(x, y, destination);
 
     public static void LessThanOrEqual(ReadOnlySpan<double> x, ValueTuple<double, double> y, Span<long> destination)
-        => Apply<double, long, LessThanOrEqualDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, LessThanOrEqualDoubleOperator>(x, y, destination);
 
     public static void LessThanOrEqual(ReadOnlySpan<double> x, ValueTuple<double, double, double> y, Span<long> destination)
-        => Apply<double, long, LessThanOrEqualDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, LessThanOrEqualDoubleOperator>(x, y, destination);
 
     public static void LessThanOrEqual(ReadOnlySpan<double> x, ReadOnlySpan<double> y, Span<long> destination)
-        => Apply<double, long, LessThanOrEqualDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, LessThanOrEqualDoubleOperator>(x, y, destination);
 
 }

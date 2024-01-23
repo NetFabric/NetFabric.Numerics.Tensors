@@ -3,7 +3,7 @@ using NetFabric.Numerics.Tensors;
 namespace NetFabric.Numerics;
 
 readonly struct LessThanOrEqualOperator<T>
-    : IBinaryOperator<T, T>
+    : IBinaryOperator<T, T, T>
     where T : struct, IComparisonOperators<T, T, bool>
 {
     public static T Invoke(T x, T y)
@@ -14,7 +14,7 @@ readonly struct LessThanOrEqualOperator<T>
 }
 
 readonly struct LessThanOrEqualInt32Operator
-    : IBinaryOperator<int, int>
+    : IBinaryOperator<int, int, int>
 {
     public static int Invoke(int x, int y)
         => x <= y ? -1 : 0;
@@ -24,7 +24,7 @@ readonly struct LessThanOrEqualInt32Operator
 }
 
 readonly struct LessThanOrEqualInt64Operator
-    : IBinaryOperator<long, long>
+    : IBinaryOperator<long, long, long>
 {
     public static long Invoke(long x, long y)
         => x <= y ? -1 : 0;
@@ -34,7 +34,7 @@ readonly struct LessThanOrEqualInt64Operator
 }
 
 readonly struct LessThanOrEqualSingleOperator
-    : IBinaryOperator<float, int>
+    : IBinaryOperator<float, float, int>
 {
     public static int Invoke(float x, float y)
         => x <= y ? -1 : 0;
@@ -44,7 +44,7 @@ readonly struct LessThanOrEqualSingleOperator
 }
 
 readonly struct LessThanOrEqualDoubleOperator
-    : IBinaryOperator<double, long>
+    : IBinaryOperator<double, double, long>
 {
     public static long Invoke(double x, double y)
         => x <= y ? -1 : 0;

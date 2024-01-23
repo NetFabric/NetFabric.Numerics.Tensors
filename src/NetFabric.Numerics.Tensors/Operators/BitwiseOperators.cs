@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 readonly struct BitwiseAndOperator<T>
-    : IBinaryOperator<T, T>
+    : IBinaryOperator<T, T, T>
     where T : struct, IBitwiseOperators<T, T, T>
 {
     public static T Invoke(T x, T y)
@@ -12,7 +12,7 @@ readonly struct BitwiseAndOperator<T>
 }
 
 readonly struct BitwiseOrOperator<T>
-    : IBinaryOperator<T, T>
+    : IBinaryOperator<T, T, T>
     where T : struct, IBitwiseOperators<T, T, T>
 {
     public static T Invoke(T x, T y)
@@ -23,7 +23,7 @@ readonly struct BitwiseOrOperator<T>
 }
 
 readonly struct BitwiseAndNotOperator<T>
-    : IBinaryOperator<T, T>
+    : IBinaryOperator<T, T, T>
     where T : struct, IBitwiseOperators<T, T, T>
 {
     public static T Invoke(T x, T y)

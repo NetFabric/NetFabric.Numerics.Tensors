@@ -12,10 +12,10 @@ public static partial class Tensor
         Apply<T, T, TOperator>(x, destination);
     }
 
-    public static void Apply<TSource, TResult, TOperator>(ReadOnlySpan<TSource> x, Span<TResult> destination)
-        where TSource : struct
+    public static void Apply<T, TResult, TOperator>(ReadOnlySpan<T> x, Span<TResult> destination)
+        where T : struct
         where TResult : struct
-        where TOperator : struct, IUnaryOperator<TSource, TResult>
+        where TOperator : struct, IUnaryOperator<T, TResult>
     {
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
@@ -27,12 +27,12 @@ public static partial class Tensor
         // and if the length of the x is greater than the Vector<T>.Count.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
-            Vector<TSource>.IsSupported &&
+            Vector<T>.IsSupported &&
             Vector<TResult>.IsSupported &&
-            x.Length >= Vector<TSource>.Count)
+            x.Length >= Vector<T>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
-            var sourceVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(x);
+            var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(x);
             var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
             // Iterate through the vectors.
@@ -44,7 +44,7 @@ public static partial class Tensor
             }
 
             // Update the index to the end of the last complete vector.
-            index = x.Length - (x.Length % Vector<TSource>.Count);
+            index = x.Length - (x.Length % Vector<T>.Count);
         }
 
         // Iterate through the remaining elements.

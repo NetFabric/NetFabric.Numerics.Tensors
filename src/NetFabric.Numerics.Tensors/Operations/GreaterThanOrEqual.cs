@@ -49,29 +49,29 @@ public static partial class Tensor
     // float
 
     public static void GreaterThanOrEqual(ReadOnlySpan<float> x, float y, Span<int> destination)
-        => Apply<float, int, GreaterThanOrEqualSingleOperator>(x, y, destination);
+        => Apply<float, float, int, GreaterThanOrEqualSingleOperator>(x, y, destination);
 
     public static void GreaterThanOrEqual(ReadOnlySpan<float> x, ValueTuple<float, float> y, Span<int> destination)
-        => Apply<float, int, GreaterThanOrEqualSingleOperator>(x, y, destination);
+        => Apply<float, float, int, GreaterThanOrEqualSingleOperator>(x, y, destination);
 
     public static void GreaterThanOrEqual(ReadOnlySpan<float> x, ValueTuple<float, float, float> y, Span<int> destination)
-        => Apply<float, int, GreaterThanOrEqualSingleOperator>(x, y, destination);
+        => Apply<float, float, int, GreaterThanOrEqualSingleOperator>(x, y, destination);
 
     public static void GreaterThanOrEqual(ReadOnlySpan<float> x, ReadOnlySpan<float> y, Span<int> destination)
-        => Apply<float, int, GreaterThanOrEqualSingleOperator>(x, y, destination);
+        => Apply<float, float, int, GreaterThanOrEqualSingleOperator>(x, y, destination);
 
     // double
 
     public static void GreaterThanOrEqual(ReadOnlySpan<double> x, double y, Span<long> destination)
-        => Apply<double, long, GreaterThanOrEqualDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, GreaterThanOrEqualDoubleOperator>(x, y, destination);
 
     public static void GreaterThanOrEqual(ReadOnlySpan<double> x, ValueTuple<double, double> y, Span<long> destination)
-        => Apply<double, long, GreaterThanOrEqualDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, GreaterThanOrEqualDoubleOperator>(x, y, destination);
 
     public static void GreaterThanOrEqual(ReadOnlySpan<double> x, ValueTuple<double, double, double> y, Span<long> destination)
-        => Apply<double, long, GreaterThanOrEqualDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, GreaterThanOrEqualDoubleOperator>(x, y, destination);
 
     public static void GreaterThanOrEqual(ReadOnlySpan<double> x, ReadOnlySpan<double> y, Span<long> destination)
-        => Apply<double, long, GreaterThanOrEqualDoubleOperator>(x, y, destination);
+        => Apply<double, double, long, GreaterThanOrEqualDoubleOperator>(x, y, destination);
 
 }

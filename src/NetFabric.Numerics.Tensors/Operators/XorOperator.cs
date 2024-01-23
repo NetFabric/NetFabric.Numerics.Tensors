@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 readonly struct XorOperator<T>
-    : IBinaryOperator<T, T>
+    : IBinaryOperator<T, T, T>
     where T : struct, IBitwiseOperators<T, T, T>
 {
     public static T Invoke(T x, T y)

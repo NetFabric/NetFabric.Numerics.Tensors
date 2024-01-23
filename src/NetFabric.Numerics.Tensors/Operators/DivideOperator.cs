@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 readonly struct DivideOperator<T>
-    : IBinaryOperator<T, T>
+    : IBinaryOperator<T, T, T>
     where T : struct, IDivisionOperators<T, T, T>
 {
     public static T Invoke(T x, T y)
