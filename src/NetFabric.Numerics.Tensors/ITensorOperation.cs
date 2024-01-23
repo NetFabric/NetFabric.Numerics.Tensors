@@ -17,7 +17,8 @@ namespace NetFabric.Numerics
     /// </summary>
     /// <typeparam name="TSource">The type of the value.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
-    public interface IUnaryOperator<TSource, TResult> : IOperator
+    public interface IUnaryOperator<TSource, TResult> 
+        : IOperator
         where TSource : struct
         where TResult : struct
     {
@@ -41,7 +42,8 @@ namespace NetFabric.Numerics
     /// </summary>
     /// <typeparam name="TSource">The type of the values.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
-    public interface IBinaryOperator<TSource, TResult> : IOperator
+    public interface IBinaryOperator<TSource, TResult> 
+        : IOperator
         where TSource : struct
         where TResult : struct
     {
@@ -67,7 +69,8 @@ namespace NetFabric.Numerics
     /// </summary>
     /// <typeparam name="TSource">The type of the values.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
-    public interface ITernaryOperator<TSource, TResult> : IOperator
+    public interface ITernaryOperator<TSource, TResult> 
+        : IOperator
         where TSource : struct
         where TResult : struct
     {
@@ -93,22 +96,37 @@ namespace NetFabric.Numerics
     /// <summary>
     /// Represents an aggregation operator that operates on two values.
     /// </summary>
-    /// <typeparam name="T">The type of the values.</typeparam>
-    public interface IAggregationOperator<T> : IBinaryOperator<T, T>
-        where T : struct
+    /// <typeparam name="TSource">The type of the values.</typeparam>
+    /// <typeparam name="TResult">The type of the result.</typeparam>
+    public interface IAggregationOperator<TSource, TResult> 
+        : IOperator
+        where TSource : struct
+        where TResult : struct
     {
         /// <summary>
         /// Gets the identity value for the type and operation to be performed.
         /// </summary>
-        static virtual T Identity
-            => Throw.NotSupportedException<T>();
+        static virtual TResult Identity
+            => Throw.NotSupportedException<TResult>();
 
         /// <summary>
-        /// Combines the specified value with the vector to produce a new value.
+        /// Applies the binary operator to the specified values.
         /// </summary>
-        /// <param name="value">The current value.</param>
-        /// <param name="vector">The vector to combine with the value.</param>
-        /// <returns>The result of combining the value with the vector.</returns>
-        static abstract T Invoke(T value, ref readonly Vector<T> vector);
+        /// <param name="x">The first value to apply the operator to.</param>
+        /// <param name="y">The second value to apply the operator to.</param>
+        /// <returns>The result of applying the operator to the values.</returns>
+        static abstract TResult Invoke(TResult x, TSource y);
+
+        /// <summary>
+        /// Applies the binary operator to the specified vectors.
+        /// </summary>
+        /// <param name="x">The first vector to apply the operator to.</param>
+        /// <param name="y">The second vector to apply the operator to.</param>
+        /// <returns>The result of applying the operator to the vectors.</returns>
+        static abstract Vector<TResult> Invoke(ref readonly Vector<TResult> x, ref readonly Vector<TSource> y);
+
+        static abstract TResult Invoke(TResult x, TResult y);
+
+        static abstract TResult Invoke(TResult value, ref readonly Vector<TResult> vector);
     }
 }

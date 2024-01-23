@@ -4,7 +4,13 @@ namespace NetFabric.Numerics
     {
         public static ValueTuple<T, T> Aggregate2D<T, TOperator>(ReadOnlySpan<T> source)
             where T : struct
-            where TOperator : struct, IAggregationOperator<T>
+            where TOperator : struct, IAggregationOperator<T, T>
+            => Aggregate2D<T, T, TOperator>(source);
+
+        public static ValueTuple<TResult, TResult> Aggregate2D<TSource, TResult, TOperator>(ReadOnlySpan<TSource> source)
+            where TSource : struct
+            where TResult : struct
+            where TOperator : struct, IAggregationOperator<TSource, TResult>
         {
             if (source.Length % 2 is not 0)
                 Throw.ArgumentException(nameof(source), "source span must have a size multiple of 2.");

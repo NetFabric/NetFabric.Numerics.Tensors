@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 readonly struct SumOperator<T>
-    : IAggregationOperator<T>
+    : IAggregationOperator<T, T>
     where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
 {
     public static T Identity 

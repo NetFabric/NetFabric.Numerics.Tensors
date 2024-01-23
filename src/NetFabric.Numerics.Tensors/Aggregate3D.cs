@@ -4,7 +4,13 @@ namespace NetFabric.Numerics
     {
         public static ValueTuple<T, T, T> Aggregate3D<T, TOperator>(ReadOnlySpan<T> source)
             where T : struct
-            where TOperator : struct, IAggregationOperator<T>
+            where TOperator : struct, IAggregationOperator<T, T>
+            => Aggregate3D<T, T, TOperator>(source);
+
+        public static ValueTuple<TResult, TResult, TResult> Aggregate3D<TSource, TResult, TOperator>(ReadOnlySpan<TSource> source)
+            where TSource : struct
+            where TResult : struct
+            where TOperator : struct, IAggregationOperator<TSource, TResult>
         {
             if (source.Length % 3 is not 0)
                 Throw.ArgumentException(nameof(source), "source span must have a size multiple of 3.");

@@ -4,7 +4,13 @@ public static partial class Tensor
 {
     public static T Aggregate<T, TOperator>(ReadOnlySpan<T> source)
         where T : struct
-        where TOperator : struct, IAggregationOperator<T>
+        where TOperator : struct, IAggregationOperator<T, T>
+        => Aggregate<T, T, TOperator>(source);
+
+    public static TResult Aggregate<TSource, TResult, TOperator>(ReadOnlySpan<TSource> source)
+        where TSource : struct
+        where TResult : struct
+        where TOperator : struct, IAggregationOperator<TSource, TResult>
     {
         // initialize aggregate
         var aggregate = TOperator.Identity;
@@ -13,16 +19,17 @@ public static partial class Tensor
         // aggregate using hardware acceleration if available
         if (TOperator.IsVectorizable && 
             Vector.IsHardwareAccelerated && 
-            Vector<T>.IsSupported)
+            Vector<TSource>.IsSupported &&
+            Vector<TResult>.IsSupported)
         {
             // convert source span to vector span without copies
-            var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(source);
+            var sourceVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(source);
 
             // check if there are multiple vectors to aggregate
             if (sourceVectors.Length > 1)
             {
                 // initialize aggregate vector
-                var resultVector = new Vector<T>(TOperator.Identity);
+                var resultVector = new Vector<TResult>(TOperator.Identity);
 
                 // aggregate the source vectors into the aggregate vector
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
@@ -35,7 +42,7 @@ public static partial class Tensor
                 aggregate = TOperator.Invoke(aggregate, ref resultVector);
 
                 // skip the source elements already aggregated
-                sourceIndex = source.Length - (source.Length % Vector<T>.Count);
+                sourceIndex = source.Length - (source.Length % Vector<TSource>.Count);
             }
         }
 
