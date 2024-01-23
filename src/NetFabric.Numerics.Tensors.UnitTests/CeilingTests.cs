@@ -21,7 +21,7 @@ public class CeilingTests
         }
 
         // act
-        Tensor.Ceiling<T>(source, result);
+        Tensor.Ceiling(source.AsSpan(), result.AsSpan());
 
         // assert
         Assert.Equal(expected, result);

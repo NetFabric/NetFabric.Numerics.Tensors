@@ -21,7 +21,7 @@ public class FloorTests
         }
 
         // act
-        Tensor.Floor<T>(source, result);
+        Tensor.Floor(source.AsSpan(), result.AsSpan());
 
         // assert
         Assert.Equal(expected, result);
