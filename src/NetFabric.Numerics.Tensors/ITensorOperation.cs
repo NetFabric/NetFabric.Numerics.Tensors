@@ -75,7 +75,6 @@ public interface IBinaryOperator<T1, T2, TResult>
 public interface IGenericBinaryOperator<T1, T2, TResult> 
     : IOperator
     where T1 : struct
-    where T2 : struct
     where TResult : struct
 {
     /// <summary>
