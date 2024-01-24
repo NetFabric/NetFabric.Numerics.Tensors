@@ -1,4 +1,4 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics;
 
 static class AllBitsSet<T>
 {

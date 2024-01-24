@@ -20,7 +20,11 @@ public class LessThanTests
             source[index] = first;
             var second = T.CreateChecked(random.Next(10));
             other[index] = second;
-            expected[index] = first < second ? AllBitsSet<T>.Value : default!;
+            expected[index] = first < second 
+                ? Vector<T>.IsSupported 
+                    ? AllBitsSet<T>.Value 
+                    : T.MultiplicativeIdentity
+                : default!;
         }
 
         // act

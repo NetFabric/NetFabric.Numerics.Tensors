@@ -1,13 +1,15 @@
-using NetFabric.Numerics.Tensors;
-
 namespace NetFabric.Numerics;
 
 readonly struct GreaterThanOrEqualOperator<T>
     : IBinaryOperator<T, T, T>
-    where T : struct, IComparisonOperators<T, T, bool>
+    where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
 {
     public static T Invoke(T x, T y)
-        =>  x >= y ? AllBitsSet<T>.Value : default!;
+        =>  x >= y 
+            ? Vector<T>.IsSupported 
+                ? AllBitsSet<T>.Value 
+                : T.MultiplicativeIdentity
+            : default!;
 
     public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
         => Vector.GreaterThanOrEqual(x, y);
