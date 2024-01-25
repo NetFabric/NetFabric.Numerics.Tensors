@@ -54,8 +54,8 @@ public static partial class Tensor
         where T : struct, IFloatingPointIeee754<T>
         => Apply<T, LerpOperator<T>>(value1, value2, amount, destination);
     
-    public static void ILogB<T>(ReadOnlySpan<T> x, Span<int> destination)
+    public static void ScaleB<T>(ReadOnlySpan<T> x, int n, Span<T> destination)
         where T : struct, IFloatingPointIeee754<T>
-        => Apply<T, int, ILogBOperator<T>>(x, destination);
+        => ApplyGeneric<T, int, T, ScaleBOperator<T>>(x, n, destination);
 
 }
