@@ -1,14 +1,14 @@
 namespace NetFabric.Numerics;
 
-readonly struct ExpOperator<T>
+readonly struct LogOperator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, ILogarithmicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.Exp(x);
+        => T.Log(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
@@ -16,15 +16,31 @@ readonly struct ExpOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct ExpM1Operator<T>
+readonly struct LogBaseOperator<T>
+    : IGenericBinaryOperator<T, T, T>
+    where T : struct, ILogarithmicFunctions<T>
+{
+    public static bool IsVectorizable
+        => false; 
+
+    public static T Invoke(T x, T newBase)
+        => T.Log(x, newBase);
+
+#pragma warning disable IDE0060 // Remove unused parameter
+    public static Vector<T> Invoke(ref readonly Vector<T> x, T newBase)
+#pragma warning restore IDE0060 // Remove unused parameter
+        => Throw.InvalidOperationException<Vector<T>>();
+}
+
+readonly struct LogP1Operator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, ILogarithmicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.ExpM1(x);
+        => T.LogP1(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
@@ -32,15 +48,15 @@ readonly struct ExpM1Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp2Operator<T>
+readonly struct Log2Operator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, ILogarithmicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.Exp2(x);
+        => T.Log2(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
@@ -48,15 +64,15 @@ readonly struct Exp2Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp2M1Operator<T>
+readonly struct Log2P1Operator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, ILogarithmicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.Exp2M1(x);
+        => T.Log2P1(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
@@ -64,15 +80,15 @@ readonly struct Exp2M1Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp10Operator<T>
+readonly struct Log10Operator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, ILogarithmicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.Exp10(x);
+        => T.Log10(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
@@ -80,15 +96,15 @@ readonly struct Exp10Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp10M1Operator<T>
+readonly struct Log10P1Operator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, ILogarithmicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.Exp10M1(x);
+        => T.Log10P1(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)

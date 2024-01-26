@@ -1,5 +1,3 @@
-using System.Numerics;
-
 namespace NetFabric.Numerics;
 
 readonly struct DecrementOperator<T>

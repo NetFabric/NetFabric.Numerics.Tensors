@@ -54,7 +54,7 @@ public class Sum2DBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
-    public MyVector2<short> Tensor_Short()
+    public MyVector2<short> NetFabric_Short()
     {
         var result = Tensor.Sum2D<short>(MemoryMarshal.Cast<MyVector2<short>, short>(arrayShort!));
         return new(result);
@@ -72,7 +72,7 @@ public class Sum2DBenchmarks
 
     [BenchmarkCategory("Int")]
     [Benchmark]
-    public MyVector2<int> Tensor_Int()
+    public MyVector2<int> NetFabric_Int()
     {
         var result = Tensor.Sum2D<int>(MemoryMarshal.Cast<MyVector2<int>, int>(arrayInt!));
         return new(result);
@@ -90,7 +90,7 @@ public class Sum2DBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
-    public MyVector2<long> Tensor_Long()
+    public MyVector2<long> NetFabric_Long()
     {
         var result = Tensor.Sum2D<long>(MemoryMarshal.Cast<MyVector2<long>, long>(arrayLong!));
         return new(result);
@@ -108,7 +108,7 @@ public class Sum2DBenchmarks
 
     [BenchmarkCategory("Half")]
     [Benchmark]
-    public MyVector2<Half> Tensor_Half()
+    public MyVector2<Half> NetFabric_Half()
     {
         var result = Tensor.Sum2D<Half>(MemoryMarshal.Cast<MyVector2<Half>, Half>(arrayHalf!));
         return new(result);
@@ -126,7 +126,7 @@ public class Sum2DBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
-    public MyVector2<float> Tensor_Float()
+    public MyVector2<float> NetFabric_Float()
     {
         var result = Tensor.Sum2D<float>(MemoryMarshal.Cast<MyVector2<float>, float>(arrayFloat!));
         return new(result);
@@ -144,7 +144,7 @@ public class Sum2DBenchmarks
 
     [BenchmarkCategory("Double")]
     [Benchmark]
-    public MyVector2<double> Tensor_Double()
+    public MyVector2<double> NetFabric_Double()
     {
         var result = Tensor.Sum2D<double>(MemoryMarshal.Cast<MyVector2<double>, double>(arrayDouble!));
         return new(result);

@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
-using System.Runtime.InteropServices;
+using System.Numerics.Tensors;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
@@ -15,7 +15,7 @@ public class AddBenchmarks
     float[]? sourceFloat, otherFloat, resultFloat;
     double[]? sourceDouble, otherDouble, resultDouble;
 
-    [Params(10_000)]
+    [Params(1_000)]
     public int Count { get; set; }
 
     [GlobalSetup]
@@ -66,7 +66,7 @@ public class AddBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
-    public void Tensor_Short()
+    public void NetFabric_Short()
         => Tensor.Add<short>(sourceShort!, otherShort!, resultShort!);
 
     [BenchmarkCategory("Int")]
@@ -76,7 +76,7 @@ public class AddBenchmarks
 
     [BenchmarkCategory("Int")]
     [Benchmark]
-    public void Tensor_Int()
+    public void NetFabric_Int()
         => Tensor.Add<int>(sourceInt!, otherInt!, resultInt!);
 
     [BenchmarkCategory("Long")]
@@ -86,7 +86,7 @@ public class AddBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
-    public void Tensor_Long()
+    public void NetFabric_Long()
         => Tensor.Add<long>(sourceLong!, otherLong!, resultLong!);
 
     [BenchmarkCategory("Half")]
@@ -96,7 +96,7 @@ public class AddBenchmarks
 
     [BenchmarkCategory("Half")]
     [Benchmark]
-    public void Tensor_Half()
+    public void NetFabric_Half()
         => Tensor.Add<Half>(sourceHalf!, otherHalf!, resultHalf!);
 
     [BenchmarkCategory("Float")]
@@ -106,7 +106,12 @@ public class AddBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
-    public void Tensor_Float()
+    public void System_Float()
+        => TensorPrimitives.Add(sourceFloat!, otherFloat!, resultFloat!);
+
+    [BenchmarkCategory("Float")]
+    [Benchmark]
+    public void NetFabric_Float()
         => Tensor.Add<float>(sourceFloat!, otherFloat!, resultFloat!);
 
     [BenchmarkCategory("Double")]
@@ -116,6 +121,6 @@ public class AddBenchmarks
 
     [BenchmarkCategory("Double")]
     [Benchmark]
-    public void Tensor_Double()
+    public void NetFabric_Double()
         => Tensor.Add<double>(sourceDouble!, otherDouble!, resultDouble!);
 }

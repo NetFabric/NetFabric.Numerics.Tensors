@@ -52,7 +52,7 @@ public class Sum4DBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
-    public MyVector4<short> Tensor_Short()
+    public MyVector4<short> NetFabric_Short()
     {
         var result = Tensor.Sum4D<short>(MemoryMarshal.Cast<MyVector4<short>, short>(arrayShort!));
         return new(result);
@@ -70,7 +70,7 @@ public class Sum4DBenchmarks
 
     [BenchmarkCategory("Int")]
     [Benchmark]
-    public MyVector4<int> Tensor_Int()
+    public MyVector4<int> NetFabric_Int()
     {
         var result = Tensor.Sum4D<int>(MemoryMarshal.Cast<MyVector4<int>, int>(arrayInt!));
         return new(result);
@@ -88,7 +88,7 @@ public class Sum4DBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
-    public MyVector4<long> Tensor_Long()
+    public MyVector4<long> NetFabric_Long()
     {
         var result = Tensor.Sum4D<long>(MemoryMarshal.Cast<MyVector4<long>, long>(arrayLong!));
         return new(result);
@@ -106,7 +106,7 @@ public class Sum4DBenchmarks
 
     [BenchmarkCategory("Half")]
     [Benchmark]
-    public MyVector4<Half> Tensor_Half()
+    public MyVector4<Half> NetFabric_Half()
     {
         var result = Tensor.Sum4D<Half>(MemoryMarshal.Cast<MyVector4<Half>, Half>(arrayHalf!));
         return new(result);
@@ -124,7 +124,7 @@ public class Sum4DBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
-    public MyVector4<float> Tensor_Float()
+    public MyVector4<float> NetFabric_Float()
     {
         var result = Tensor.Sum4D<float>(MemoryMarshal.Cast<MyVector4<float>, float>(arrayFloat!));
         return new(result);
@@ -142,7 +142,7 @@ public class Sum4DBenchmarks
     
     [BenchmarkCategory("Double")]
     [Benchmark]
-    public MyVector4<double> Tensor_Double()
+    public MyVector4<double> NetFabric_Double()
     {
         var result = Tensor.Sum4D<double>(MemoryMarshal.Cast<MyVector4<double>, double>(arrayDouble!));
         return new(result);

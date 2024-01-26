@@ -1,36 +1,59 @@
 # NetFabric.Numerics.Tensors
 
-This .NET tensors implementation maximizes the utilization of CPU SIMD features, providing an efficient solution for harnessing advanced CPU capabilities while avoiding the complexities of intricate and hard-to-maintain code.
+Dealing with SIMD in .NET for optimized code can be complex, but this library offers a practical solution. It provides a reusable and highly-optimized iterations on `Span<T>`, enabling the application of both pre-defined and custom operations to each element.
 
-Tensors are characterized as data stored in memory using a `ReadOnlySpan<T>`. This library supports the conventional approach of having each data element in a separate span, but it also accommodates storing them in the same array. This flexibility enables the use of tensors in object-oriented structures with multiple fields of the same type.
+Using generics, the library accommodates any type embracing [generic math](https://aalmada.github.io/Generic-math-in-dotnet.html).
 
-This library utilizes generics to broaden its functionality for any type employing [generic math](https://aalmada.github.io/Generic-math-in-dotnet.html). For optimal performance, it is recommended to convert these types to primitive numeric types supported by `System.Numerics.Vector<T>`. This conversion is typically facilitated by using `MemoryMarshal.Cast<TFrom, TTo>()`.
+Within the library, you'll find pre-defined operations such as `Sqrt()`, `Sin()`, `Negate()`, `Add()`, `Divide()`, `Multiply()`, `AddMultiply()`, `Sum()`, `Average()`, and many more.
 
-The library offers a set of pre-defined operations, including `Square()`, `Negate()`, `Add()`, `Divide()`, `Multiply()`, `AddMultiply()`, `Sum()`, and `Average()`.
+For custom operations, the library allows the definition of operators through interfaces like `IUnaryOperator<T>`, `IBinaryOperator<T>`, `ITernaryOperator<T>`, or `IAggregationOperator<T>`. These operators can be applied seamlessly using the `Apply()` or `Aggregate()` methods.
 
-For custom operations, developers can define them by implementing operators based on interfaces such as `IUnaryOperator<T>`, `IBinaryOperator<T>`, `ITernaryOperator<T>`, or `IAggregationOperator<T>`. These operators can then be applied using the `Apply()` or `Aggregate()` methods.
-
-Documentation for this library can be found at https://netfabric.github.io/NetFabric.Numerics.Tensors/
+Documentation for this library is available at [NetFabric.Numerics.Tensors Documentation](https://netfabric.github.io/NetFabric.Numerics.Tensors/).
 
 ## Usage
 
-To use the `NetFabric.Numerics.Tensors` library, follow these steps:
+To use the `NetFabric.Numerics.Tensors` library:
 
 1. Install the library via NuGet: `dotnet add package NetFabric.Numerics.Tensors`
 2. Import the library in your code: `using NetFabric.Numerics.Tensors;`
-3. Start using the library's functions to execute mathematical operations on tensors represented as spans.
+3. Utilize the library's functions for mathematical operations on tensors represented as spans.
 
-> **Note:** The `NetFabric.Numerics.Tensors` library requires .NET 8 or later.
+> **Note:** Ensure you're on .NET 8 or a later version for compatibility with the `NetFabric.Numerics.Tensors` library.
+
+The library includes methods tailored for operations involving one, two, or three `ReadOnlySpan<T>`. Results are provided in a `Span<T>`, with the condition that the destination `Span<T>` must be of the same size or larger than the sources. Inplace operations are supported when the destination parameter matches any of the sources.
+
+For example, given a variable `data` of type `Span<int>`, the following code snippet replaces each element of the span with its square root:
+
+```csharp
+Tensor.Sqrt(data, data);
+```
+
+Note that since `data` serves as both the source and destination, the operation is performed inplace.
+
+For variables `x`, `y`, and `result`, all of type `Span<float>` and of the same size, the following example updates each element in `result` with the sum of the corresponding elements in `x` and `y`:
+
+```csharp
+Tensor.Add(x, y, result);
+```
+
+The library also supports aggregation operations. For a variable `values` of type `Span<float>`, the following snippet calculates the sum of all its elements:
+
+```csharp
+var sum = Tensor.Sum(values);
+```
+
+### Custom Operations
+
+While `NetFabric.Numerics.Tensors` provides various primitive operations, combining them might not be efficient. Custom operators can be implemented, allowing the definition of specific operations for each element of the source, while still benefiting from high-performance reusable iteration code.
 
 ## Credits
 
-The following open-source projects are used to build and test this project:
+This project relies on the following open-source projects:
 
 - [.NET](https://github.com/dotnet)
 - [BenchmarkDotNet](https://github.com/dotnet/BenchmarkDotNet)
-- [coverlet](https://github.com/coverlet-coverage/coverlet)
 - [xUnit](https://github.com/xunit/xunit)
 
 ## License
 
-This project is licensed under the MIT license. See the [LICENSE](LICENSE) file for more info.
+This project is licensed under the MIT license. Refer to the [LICENSE](LICENSE) file for details.

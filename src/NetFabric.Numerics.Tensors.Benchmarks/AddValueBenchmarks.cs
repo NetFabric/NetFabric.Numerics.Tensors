@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
-using System.Runtime.InteropServices;
+using System.Numerics.Tensors;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
@@ -15,7 +15,7 @@ public class AddValueBenchmarks
     float[]? sourceFloat, resultFloat;
     double[]? sourceDouble, resultDouble;
 
-    [Params(10_000)]
+    [Params(1_000)]
     public int Count { get; set; }
 
     [GlobalSetup]
@@ -54,7 +54,7 @@ public class AddValueBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
-    public void Tensor_Short()
+    public void NetFabric_Short()
         => Tensor.Add<short>(sourceShort!, 42, resultShort!);
 
     [BenchmarkCategory("Int")]
@@ -64,7 +64,7 @@ public class AddValueBenchmarks
 
     [BenchmarkCategory("Int")]
     [Benchmark]
-    public void Tensor_Int()
+    public void NetFabric_Int()
         => Tensor.Add<int>(sourceInt!, 42, resultInt!);
 
     [BenchmarkCategory("Long")]
@@ -74,7 +74,7 @@ public class AddValueBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
-    public void Tensor_Long()
+    public void NetFabric_Long()
         => Tensor.Add<long>(sourceLong!, 42, resultLong!);
 
     [BenchmarkCategory("Half")]
@@ -84,7 +84,7 @@ public class AddValueBenchmarks
 
     [BenchmarkCategory("Half")]
     [Benchmark]
-    public void Tensor_Half()
+    public void NetFabric_Half()
         => Tensor.Add<Half>(sourceHalf!, (Half)42, resultHalf!);
 
     [BenchmarkCategory("Float")]
@@ -94,7 +94,12 @@ public class AddValueBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
-    public void Tensor_Float()
+    public void System_Float()
+        => TensorPrimitives.Add(sourceFloat!, 42, resultFloat!);
+
+    [BenchmarkCategory("Float")]
+    [Benchmark]
+    public void NetFabric_Float()
         => Tensor.Add<float>(sourceFloat!, 42, resultFloat!);
 
     [BenchmarkCategory("Double")]
@@ -104,6 +109,6 @@ public class AddValueBenchmarks
 
     [BenchmarkCategory("Double")]
     [Benchmark]
-    public void Tensor_Double()
+    public void NetFabric_Double()
         => Tensor.Add<double>(sourceDouble!, 42, resultDouble!);
 }

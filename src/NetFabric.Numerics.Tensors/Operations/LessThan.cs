@@ -3,19 +3,19 @@ namespace NetFabric.Numerics;
 public static partial class Tensor
 {
     public static void LessThan<T>(ReadOnlySpan<T> x, T y, Span<T> destination)
-        where T : struct, INumberBase<T>, IComparisonOperators<T, T, bool>
+        where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
         => Apply<T, LessThanOperator<T>>(x, y, destination);
 
     public static void LessThan<T>(ReadOnlySpan<T> x, ValueTuple<T, T> y, Span<T> destination)
-        where T : struct, INumberBase<T>, IComparisonOperators<T, T, bool>
+        where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
         => Apply<T, LessThanOperator<T>>(x, y, destination);
 
     public static void LessThan<T>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, Span<T> destination)
-        where T : struct, INumberBase<T>, IComparisonOperators<T, T, bool>
+        where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
         => Apply<T, LessThanOperator<T>>(x, y, destination);
 
     public static void LessThan<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> destination)
-        where T : struct, INumberBase<T>, IComparisonOperators<T, T, bool>
+        where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
         => Apply<T, LessThanOperator<T>>(x, y, destination);
 
     // int
@@ -29,7 +29,7 @@ public static partial class Tensor
     public static void LessThan(ReadOnlySpan<int> x, ValueTuple<int, int, int> y, Span<int> destination)
         => Apply<int, LessThanInt32Operator>(x, y, destination);
 
-   public static void LessThan(ReadOnlySpan<int> x, ReadOnlySpan<int> y, Span<int> destination)
+    public static void LessThan(ReadOnlySpan<int> x, ReadOnlySpan<int> y, Span<int> destination)
         => Apply<int, LessThanInt32Operator>(x, y, destination);
 
     // long

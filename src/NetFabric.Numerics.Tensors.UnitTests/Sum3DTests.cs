@@ -1,5 +1,4 @@
 ﻿using System.Runtime.InteropServices;
-using System.Runtime.CompilerServices;
 
 namespace NetFabric.Numerics.Tensors.UnitTests;
 

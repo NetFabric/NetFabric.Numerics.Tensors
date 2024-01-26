@@ -1,6 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
-using System.Runtime.InteropServices;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
@@ -42,7 +41,7 @@ public class CeilingBenchmarks
 
     [BenchmarkCategory("Half")]
     [Benchmark]
-    public void Tensor_Half()
+    public void NetFabric_Half()
         => Tensor.Ceiling<Half>(sourceHalf!, resultHalf!);
 
     [BenchmarkCategory("Float")]
@@ -52,7 +51,7 @@ public class CeilingBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
-    public void Tensor_Float()
+    public void NetFabric_Float()
         => Tensor.Ceiling<float>(sourceFloat!, resultFloat!);
 
     [BenchmarkCategory("Double")]
@@ -62,6 +61,6 @@ public class CeilingBenchmarks
 
     [BenchmarkCategory("Double")]
     [Benchmark]
-    public void Tensor_Double()
+    public void NetFabric_Double()
         => Tensor.Ceiling<double>(sourceDouble!, resultDouble!);
 }

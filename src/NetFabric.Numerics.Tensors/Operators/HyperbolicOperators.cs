@@ -1,14 +1,14 @@
 namespace NetFabric.Numerics;
 
-readonly struct ExpOperator<T>
+readonly struct AcoshOperator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, IHyperbolicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.Exp(x);
+        => T.Acosh(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
@@ -16,15 +16,15 @@ readonly struct ExpOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct ExpM1Operator<T>
+readonly struct AsinhOperator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, IHyperbolicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.ExpM1(x);
+        => T.Asinh(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
@@ -32,15 +32,15 @@ readonly struct ExpM1Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp2Operator<T>
+readonly struct AtanhOperator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, IHyperbolicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.Exp2(x);
+        => T.Atanh(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
@@ -48,15 +48,15 @@ readonly struct Exp2Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp2M1Operator<T>
+readonly struct CoshOperator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, IHyperbolicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.Exp2M1(x);
+        => T.Cosh(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
@@ -64,15 +64,15 @@ readonly struct Exp2M1Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp10Operator<T>
+readonly struct SinhOperator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, IHyperbolicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.Exp10(x);
+        => T.Sinh(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
@@ -80,19 +80,18 @@ readonly struct Exp10Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp10M1Operator<T>
+readonly struct TanhOperator<T>
     : IUnaryOperator<T, T>
-    where T : struct, IExponentialFunctions<T>
+    where T : struct, IHyperbolicFunctions<T>
 {
     public static bool IsVectorizable
         => false; 
 
     public static T Invoke(T x)
-        => T.Exp10M1(x);
+        => T.Tanh(x);
 
 #pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
 #pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
-

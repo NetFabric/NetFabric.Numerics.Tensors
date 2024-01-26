@@ -1,6 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
-using System.Runtime.InteropServices;
+using System.Numerics.Tensors;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
@@ -15,7 +15,7 @@ public class AddMultiplyBenchmarks
     float[]? sourceFloat, otherFloat, anotherFloat, resultFloat;
     double[]? sourceDouble, otherDouble, anotherDouble, resultDouble;
 
-    [Params(10_000)]
+    [Params(1_000)]
     public int Count { get; set; }
 
     [GlobalSetup]
@@ -78,7 +78,7 @@ public class AddMultiplyBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
-    public void Tensor_Short()
+    public void NetFabric_Short()
         => Tensor.AddMultiply<short>(sourceShort!, otherShort!, anotherShort!, resultShort!);
 
     [BenchmarkCategory("Int")]
@@ -88,7 +88,7 @@ public class AddMultiplyBenchmarks
 
     [BenchmarkCategory("Int")]
     [Benchmark]
-    public void Tensor_Int()
+    public void NetFabric_Int()
         => Tensor.AddMultiply<int>(sourceInt!, otherInt!, anotherInt!, resultInt!);
 
     [BenchmarkCategory("Long")]
@@ -98,7 +98,7 @@ public class AddMultiplyBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
-    public void Tensor_Long()
+    public void NetFabric_Long()
         => Tensor.AddMultiply<long>(sourceLong!, otherLong!, anotherLong!, resultLong!);
 
     [BenchmarkCategory("Half")]
@@ -108,7 +108,7 @@ public class AddMultiplyBenchmarks
 
     [BenchmarkCategory("Half")]
     [Benchmark]
-    public void Tensor_Half()
+    public void NetFabric_Half()
         => Tensor.AddMultiply<Half>(sourceHalf!, otherHalf!, anotherHalf!, resultHalf!);
 
     [BenchmarkCategory("Float")]
@@ -118,7 +118,12 @@ public class AddMultiplyBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
-    public void Tensor_Float()
+    public void Syatem_Float()
+        => TensorPrimitives.AddMultiply(sourceFloat!, otherFloat!, anotherFloat!, resultFloat!);
+
+    [BenchmarkCategory("Float")]
+    [Benchmark]
+    public void NetFabric_Float()
         => Tensor.AddMultiply<float>(sourceFloat!, otherFloat!, anotherFloat!, resultFloat!);
 
     [BenchmarkCategory("Double")]
@@ -128,6 +133,6 @@ public class AddMultiplyBenchmarks
 
     [BenchmarkCategory("Double")]
     [Benchmark]
-    public void Tensor_Double()
+    public void NetFabric_Double()
         => Tensor.AddMultiply<double>(sourceDouble!, otherDouble!, anotherDouble!, resultDouble!);
 }

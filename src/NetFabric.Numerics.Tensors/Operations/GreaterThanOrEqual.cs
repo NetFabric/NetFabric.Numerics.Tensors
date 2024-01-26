@@ -3,19 +3,19 @@ namespace NetFabric.Numerics;
 public static partial class Tensor
 {
     public static void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, T y, Span<T> destination)
-        where T : struct, INumberBase<T>, IComparisonOperators<T, T, bool>
+        where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
         => Apply<T, GreaterThanOrEqualOperator<T>>(x, y, destination);
 
     public static void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, ValueTuple<T, T> y, Span<T> destination)
-        where T : struct, INumberBase<T>, IComparisonOperators<T, T, bool>
+        where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
         => Apply<T, GreaterThanOrEqualOperator<T>>(x, y, destination);
 
     public static void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, Span<T> destination)
-        where T : struct, INumberBase<T>, IComparisonOperators<T, T, bool>
+        where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
         => Apply<T, GreaterThanOrEqualOperator<T>>(x, y, destination);
 
     public static void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> destination)
-        where T : struct, INumberBase<T>, IComparisonOperators<T, T, bool>
+        where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
         => Apply<T, GreaterThanOrEqualOperator<T>>(x, y, destination);
 
     // int

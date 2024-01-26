@@ -52,7 +52,7 @@ public class Sum3DBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
-    public MyVector3<short> Tensor_Short()
+    public MyVector3<short> NetFabric_Short()
     {
         var result = Tensor.Sum3D<short>(MemoryMarshal.Cast<MyVector3<short>, short>(arrayShort!));
         return new(result);
@@ -70,7 +70,7 @@ public class Sum3DBenchmarks
 
     [BenchmarkCategory("Int")]
     [Benchmark]
-    public MyVector3<int> Tensor_Int()
+    public MyVector3<int> NetFabric_Int()
     {
         var result = Tensor.Sum3D<int>(MemoryMarshal.Cast<MyVector3<int>, int>(arrayInt!));
         return new(result);
@@ -88,7 +88,7 @@ public class Sum3DBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
-    public MyVector3<long> Tensor_Long()
+    public MyVector3<long> NetFabric_Long()
     {
         var result = Tensor.Sum3D<long>(MemoryMarshal.Cast<MyVector3<long>, long>(arrayLong!));
         return new(result);
@@ -106,7 +106,7 @@ public class Sum3DBenchmarks
 
     [BenchmarkCategory("Half")]
     [Benchmark]
-    public MyVector3<Half> Tensor_Half()
+    public MyVector3<Half> NetFabric_Half()
     {
         var result = Tensor.Sum3D<Half>(MemoryMarshal.Cast<MyVector3<Half>, Half>(arrayHalf!));
         return new(result);
@@ -124,7 +124,7 @@ public class Sum3DBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
-    public MyVector3<float> Tensor_Float()
+    public MyVector3<float> NetFabric_Float()
     {
         var result = Tensor.Sum3D<float>(MemoryMarshal.Cast<MyVector3<float>, float>(arrayFloat!));
         return new(result);
@@ -142,7 +142,7 @@ public class Sum3DBenchmarks
     
     [BenchmarkCategory("Double")]
     [Benchmark]
-    public MyVector3<double> Tensor_Double()
+    public MyVector3<double> NetFabric_Double()
     {
         var result = Tensor.Sum3D<double>(MemoryMarshal.Cast<MyVector3<double>, double>(arrayDouble!));
         return new(result);
