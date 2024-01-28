@@ -26,16 +26,16 @@ public static partial class Tensor
             var sourceVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(source);
 
             // check if there are multiple vectors to aggregate
-            if (sourceVectors.Length > 1)
+            if (sourceVectors.Length is >1)
             {
                 // initialize aggregate vector
                 var resultVector = new Vector<TResult>(TOperator.Identity);
 
                 // aggregate the source vectors into the aggregate vector
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
-                for (var indexVector = nint.Zero; indexVector < sourceVectors.Length; indexVector++)
+                for (var index = nint.Zero; index < sourceVectors.Length; index++)
                 {
-                    resultVector = TOperator.Invoke(ref resultVector, ref Unsafe.Add(ref sourceVectorsRef, indexVector));
+                    resultVector = TOperator.Invoke(ref resultVector, ref Unsafe.Add(ref sourceVectorsRef, index));
                 }
 
                 // aggregate the aggregate vector into the aggregate
@@ -49,7 +49,7 @@ public static partial class Tensor
         // aggregate the remaining elements in the source
         ref var sourceRef = ref MemoryMarshal.GetReference(source);
         var remaining = source.Length - (int)sourceIndex;
-        if (remaining >= 4)
+        if (remaining is >=4)
         {
             var partial1 = TOperator.Identity;
             var partial2 = TOperator.Identity;

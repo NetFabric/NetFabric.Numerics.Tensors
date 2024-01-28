@@ -196,7 +196,7 @@ public static partial class Tensor
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
             Vector<TResult>.IsSupported &&
-            Vector<T1>.Count > 2 &&
+            Vector<T1>.Count is >2 &&
             Vector<T1>.Count % 2 is 0 &&
             x.Length >= Vector<T1>.Count)
         {
