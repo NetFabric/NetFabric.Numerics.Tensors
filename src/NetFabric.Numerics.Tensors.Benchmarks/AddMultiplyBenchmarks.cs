@@ -4,6 +4,7 @@ using System.Numerics.Tensors;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
+[Config(typeof(VectorizationConfig))]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
 public class AddMultiplyBenchmarks

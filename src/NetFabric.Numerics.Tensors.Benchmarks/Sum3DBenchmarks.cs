@@ -4,6 +4,7 @@ using System.Runtime.InteropServices;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
+[Config(typeof(VectorizationConfig))]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
 public class Sum3DBenchmarks

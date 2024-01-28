@@ -3,6 +3,7 @@ using BenchmarkDotNet.Configs;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
+[Config(typeof(VectorizationConfig))]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
 public class CeilingBenchmarks

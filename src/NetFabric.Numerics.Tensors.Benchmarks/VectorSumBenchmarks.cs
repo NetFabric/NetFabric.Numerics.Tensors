@@ -106,6 +106,11 @@ public class VectorSumBenchmarks
     public double Unsafe_Double()
         => SumUnsafe(vectorDouble);
 
+
+    static T Sum<T>(Vector<T> vector)
+        where T : struct
+        => Vector.Sum<T>(vector);
+        
     static T SumElement<T>(Vector<T> vector)
         where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
     {
