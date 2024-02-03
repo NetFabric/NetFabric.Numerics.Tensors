@@ -52,7 +52,7 @@ public static partial class Tensor
 
                 // aggregate the values from the aggregate vectors into the aggregates
                 ref var resultValuesRef = ref MemoryMarshal.GetReference(resultValues);
-                for(var index = nint.Zero; index + 2 < resultValues.Length; index += 3)
+                for(var index = nint.Zero; index + 2 < Vector<TResult>.Count * 3; index += 3)
                 {
                     aggregateX = TOperator.Invoke(aggregateX, Unsafe.Add(ref resultValuesRef, index));
                     aggregateY = TOperator.Invoke(aggregateY, Unsafe.Add(ref resultValuesRef, index + 1));

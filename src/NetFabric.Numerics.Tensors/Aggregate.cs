@@ -26,7 +26,7 @@ public static partial class Tensor
             var sourceVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(source);
 
             // check if there are multiple vectors to aggregate
-            if (sourceVectors.Length is >1)
+            if (sourceVectors.Length is >=2)
             {
                 // initialize aggregate vector
                 var resultVector = new Vector<TResult>(TOperator.Identity);

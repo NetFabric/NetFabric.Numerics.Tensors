@@ -5,6 +5,7 @@ using System.Runtime.InteropServices;
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
 [Config(typeof(VectorizationConfig))]
+//[DisassemblyDiagnoser(printSource: true)]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
 public class Sum2DBenchmarks

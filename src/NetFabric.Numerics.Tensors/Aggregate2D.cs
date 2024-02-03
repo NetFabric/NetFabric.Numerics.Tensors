@@ -58,7 +58,7 @@ public static partial class Tensor
 
         // aggregate the remaining elements in the source
         ref var sourceRef = ref MemoryMarshal.GetReference(source);
-        var remaining = source.Length;
+        var remaining = source.Length - (int)sourceIndex;
         if (remaining is >=4)
         {
             var partialX1 = TOperator.Identity;
