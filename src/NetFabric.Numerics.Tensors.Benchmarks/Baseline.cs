@@ -24,6 +24,16 @@ public static class Baseline
             result[index] = T.Ceiling(source[index]);
     }
 
+    public static void DegreesToRadians<T>(ReadOnlySpan<T> source, Span<T> result)
+        where T : struct, ITrigonometricFunctions<T>
+    {
+        if (source.Length > result.Length)
+            Throw.ArgumentException(nameof(source), "result spans is too small.");
+
+        for(var index = 0; index < source.Length; index++)
+            result[index] = T.DegreesToRadians(source[index]);
+    }
+
     public static void Add<T>(ReadOnlySpan<T> source, ReadOnlySpan<T> other, Span<T> result)
         where T : struct, IAdditionOperators<T, T, T>
     {

@@ -224,38 +224,6 @@ readonly struct SinCosPiOperator<T>
         => Throw.InvalidOperationException<Vector<(T SinPi, T CosPi)>>();
 }
 
-readonly struct DegreesToRadiansOperator<T>
-    : IUnaryOperator<T, T>
-    where T : struct, ITrigonometricFunctions<T>
-{
-    public static bool IsVectorizable
-        => false; 
-
-    public static T Invoke(T x)
-        => T.DegreesToRadians(x);
-
-#pragma warning disable IDE0060 // Remove unused parameter
-    public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
-        => Throw.InvalidOperationException<Vector<T>>();
-}
-
-readonly struct RadiansToDegreesOperator<T>
-    : IUnaryOperator<T, T>
-    where T : struct, ITrigonometricFunctions<T>
-{
-    public static bool IsVectorizable
-        => false; 
-
-    public static T Invoke(T x)
-        => T.RadiansToDegrees(x);
-
-#pragma warning disable IDE0060 // Remove unused parameter
-    public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
-        => Throw.InvalidOperationException<Vector<T>>();
-}
-
 
 
 
