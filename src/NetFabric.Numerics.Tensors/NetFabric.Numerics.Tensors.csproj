@@ -5,16 +5,18 @@
     <TargetFrameworks>net8.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Description>
-      Provides methods for performing mathematical operations over tensors represented as spans. 
-      These methods are accelerated to use SIMD (Single instruction, multiple data) operations supported by the CPU where available.
+      Provides methods for performing mathematical operations over spans of value types. 
+      These methods can be accelerated to use SIMD operations supported by the CPU where available.
     </Description>
-    <Version>2.0.0</Version>
+    <Version>2.1.0</Version>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>intrinsics, tensors</PackageTags>
+    <PackageTags>intrinsics, tensors, simd, span</PackageTags>
     <PackageProjectUrl>https://netfabric.github.io/NetFabric.Numerics.Tensors/</PackageProjectUrl>
     <PackageReleaseNotes>
+      - Add MultiplyDivide operation.
+      - Vectorize angle unit conversion.
     </PackageReleaseNotes>
     <RootNamespace>NetFabric.Numerics</RootNamespace>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
