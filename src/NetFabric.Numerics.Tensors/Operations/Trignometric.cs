@@ -60,50 +60,50 @@ public static partial class Tensor
 
     public static void DegreesToRadians<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>, IFloatingPointConstants<T>
-        => Apply<T, MultiplyDivideOperator<T>>(left, T.Pi, T.CreateChecked(180), destination);
+        => MultiplyDivide(left, T.Pi, T.CreateChecked(180), destination);
 
     public static void DegreesToGradians<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>
-        => Apply<T, MultiplyDivideOperator<T>>(left, T.CreateChecked(200), T.CreateChecked(180), destination);
+        => MultiplyDivide(left, T.CreateChecked(200), T.CreateChecked(180), destination);
 
     public static void DegreesToRevolutions<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>, IFloatingPointConstants<T>
-        => Apply<T, DivideOperator<T>>(left, T.CreateChecked(360), destination);
+        => Divide(left, T.CreateChecked(360), destination);
 
     public static void RadiansToDegrees<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>, IFloatingPointConstants<T>
-        => Apply<T, MultiplyDivideOperator<T>>(left, T.CreateChecked(180), T.Pi, destination);
+        => MultiplyDivide(left, T.CreateChecked(180), T.Pi, destination);
 
     public static void RadiansToGradians<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>, IFloatingPointConstants<T>
-        => Apply<T, MultiplyDivideOperator<T>>(left, T.CreateChecked(200), T.Pi, destination);
+        => MultiplyDivide(left, T.CreateChecked(200), T.Pi, destination);
 
     public static void RadiansToRevolutions<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>, IFloatingPointConstants<T>
-        => Apply<T, DivideOperator<T>>(left, T.CreateChecked(2) * T.Pi, destination);
+        => Divide(left, T.CreateChecked(2) * T.Pi, destination);
 
     public static void GradiansToDegrees<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>
-        => Apply<T, MultiplyDivideOperator<T>>(left, T.CreateChecked(180), T.CreateChecked(200), destination);
+        => MultiplyDivide(left, T.CreateChecked(180), T.CreateChecked(200), destination);
 
     public static void GradiansToRadians<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>, IFloatingPointConstants<T>
-        => Apply<T, MultiplyDivideOperator<T>>(left, T.Pi, T.CreateChecked(200), destination);
+        => MultiplyDivide(left, T.Pi, T.CreateChecked(200), destination);
 
     public static void GradiansToRevolutions<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>
-        => Apply<T, DivideOperator<T>>(left, T.CreateChecked(400), destination);
+        => Divide(left, T.CreateChecked(400), destination);
 
     public static void RevolutionsToDegrees<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>
-        => Apply<T, MultiplyOperator<T>>(left, T.CreateChecked(360), destination);
+        => Multiply(left, T.CreateChecked(360), destination);
 
     public static void RevolutionsToRadians<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>, IFloatingPointConstants<T>
-        => Apply<T, MultiplyOperator<T>>(left, T.CreateChecked(2) * T.Pi, destination);
+        => Multiply(left, T.CreateChecked(2) * T.Pi, destination);
 
     public static void RevolutionsToGradians<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>
-        => Apply<T, MultiplyOperator<T>>(left, T.CreateChecked(400), destination);
+        => Multiply(left, T.CreateChecked(400), destination);
 
 }
