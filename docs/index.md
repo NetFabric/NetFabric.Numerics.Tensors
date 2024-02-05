@@ -40,6 +40,4 @@ The library also supports aggregation operations. For a variable `values` of typ
 var sum = Tensor.Sum(values);
 ```
 
-### Custom Operations
-
-While `NetFabric.Numerics.Tensors` provides various primitive operations, combining them might not be efficient. Custom operators can be implemented, allowing the definition of specific operations for each element of the source, while still benefiting from high-performance reusable iteration code.
+While `NetFabric.Numerics.Tensors` provides various primitive operations, combining them might not be efficient. Custom operators can be implemented, allowing the definition of specific operations for each element of the source, while still benefiting from high-performance reusable iteration code. Check the articles to find how to implement custom operations.

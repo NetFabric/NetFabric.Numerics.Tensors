@@ -1,2 +1,11 @@
 - name: Introduction
   href: intro.md
+- name: Getting started
+  href: Getting-started.md
+- name: Extending the library
+  href: Extending-the-library.md
+- name: Working with tensors for structured data
+  href: Working-structured-data.md
+- name: Benchmarks
+  href: Benchmarks.md
+
