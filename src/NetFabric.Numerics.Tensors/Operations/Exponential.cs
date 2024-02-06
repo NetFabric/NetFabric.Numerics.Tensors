@@ -26,4 +26,8 @@ public static partial class Tensor
         where T : struct, IExponentialFunctions<T>
         => Apply<T, Exp10M1Operator<T>>(left, destination);
 
+    public static void Sigmoid<T>(ReadOnlySpan<T> left, Span<T> destination)
+        where T : struct, IExponentialFunctions<T>
+        => Apply<T, SigmoidOperator<T>>(left, destination);
+
 }

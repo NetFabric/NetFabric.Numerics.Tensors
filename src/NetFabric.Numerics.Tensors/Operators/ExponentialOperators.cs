@@ -96,3 +96,18 @@ readonly struct Exp10M1Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
+readonly struct SigmoidOperator<T>
+    : IUnaryOperator<T, T>
+    where T : struct, IExponentialFunctions<T>
+{
+    public static bool IsVectorizable
+        => false; 
+
+    public static T Invoke(T x)
+        => T.CreateChecked(1) / (T.CreateChecked(1) + T.Exp(-x));
+
+#pragma warning disable IDE0060 // Remove unused parameter
+    public static Vector<T> Invoke(ref readonly Vector<T> x)
+#pragma warning restore IDE0060 // Remove unused parameter
+        => Throw.InvalidOperationException<Vector<T>>();
+}
