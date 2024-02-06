@@ -65,11 +65,13 @@ public interface ITernaryOperator<T1, T2, T3, TResult>
 
 It's essential to note that these interfaces make use of [static virtual members](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/static-virtual-interface-members), a feature introduced in .NET 7. No instance of the operator is required to utilize the methods, and operators are pure, devoid of internal state.
 
-Each operator must implement two methods that define the operation between elements of type `T` or vectors of type `Vector<T>`. Each interface specifies a different number of parameters.
-Consider the square operator as an example, which functions as a unary operator designed to operate on a single source. The generic type `T` is restricted to `struct` and must implement `IMultiplyOperators<T, T, T`, indicating that only value types with the `*` operator implemented are suitable. The `Invoke` methods straightforwardly execute the square operation for either a single `T` value or a `Vector<T>` of values:
+Each operator must implement two `Invoke` methods that define the operation between elements of type `T` or vectors of type `Vector<T>`. Each interface specifies a different number of parameters.
+
+Consider the square operator as an example, which functions as a unary operator designed to operate on a single source. It implements the `IUnaryOperator<T>` interface. The generic type `T` is restricted to `struct` and must implement `IMultiplyOperators<T, T, T`, indicating that only value types with the `*` operator implemented are suitable. The `Invoke` methods straightforwardly execute the square operation for either a single `T` value or a `Vector<T>` of values:
 
 ```csharp
-public readonly struct SquareOperator<T> : IUnaryOperator<T>
+public readonly struct SquareOperator<T> 
+    : IUnaryOperator<T>
     where T : struct, IMultiplyOperators<T, T, T>
 {
     public static T Invoke(T x)
@@ -80,10 +82,11 @@ public readonly struct SquareOperator<T> : IUnaryOperator<T>
 }
 ```
 
-Similarly, consider an addition operator, a binary operator that works on two sources, the addends. The generic type `T` is confined to `struct` and must implement `IAdditionOperators<T, T, T>`, indicating that only value types with the `+` operator implemented are eligible. The `Invoke` methods straightforwardly perform the addition operation for either a single `T` value or a `Vector<T>` of values:
+Similarly, consider an addition operator, a binary operator that works on two sources, the addends. It implements the `IBinaryOperator<T, T, T>` interface. The generic type `T` is confined to `struct` and must implement `IAdditionOperators<T, T, T>`, indicating that only value types with the `+` operator implemented are eligible. The `Invoke` methods straightforwardly perform the addition operation for either a single `T` value or a `Vector<T>` of values:
 
 ```csharp
-readonly struct AddOperator<T> : IBinaryOperator<T, T, T>
+readonly struct AddOperator<T> 
+    : IBinaryOperator<T, T, T>
     where T : struct, IAdditionOperators<T, T, T>
 {
     public static T Invoke(T x, T y)
@@ -94,10 +97,11 @@ readonly struct AddOperator<T> : IBinaryOperator<T, T, T>
 }
 ```
 
-Furthermore, consider an operator calculating the addition followed by multiplication of values. This is a ternary operator that handles three sources: the addends plus the multiplier. The generic type `T` is constrained to `struct`, `IAdditionOperators<T, T, T>`, and `IMultiplyOperators<T, T, T>`, indicating that only value types with the `+` and `*` operators implemented are applicable. The `Invoke` methods straightforwardly perform the addition operation followed by multiplication for either a single `T` value or a `Vector<T>` of values:
+Furthermore, consider an operator calculating the addition followed by multiplication of values. This is a ternary operator that handles three sources: the two addends plus the multiplier. it implements the `ITernaryOperator<T, T, T, T>` interface. The generic type `T` is constrained to `struct`, `IAdditionOperators<T, T, T>`, and `IMultiplyOperators<T, T, T>`, indicating that only value types with the `+` and `*` operators implemented are applicable. The `Invoke` methods straightforwardly perform the addition operation followed by multiplication for either a single `T` value or a `Vector<T>` of values:
 
 ```csharp
-readonly struct AddMultiplyOperator<T> : ITernaryOperator<T, T, T, T>
+readonly struct AddMultiplyOperator<T> 
+    : ITernaryOperator<T, T, T, T>
     where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
 {
     public static T Invoke(T x, T y, T z)
@@ -126,9 +130,9 @@ public interface IAggregationOperator<T, TResult>
 }
 ```
 
-Each operator must implement a property that returns the identity value for the operation, which initializes the aggregation process. Additionally, operators must implement the two methods required by the `IBinaryOperator` interface, along with two additional methods that aggregate the final result.
+Each operator must implement a property that returns the identity value for the operation, which initializes the aggregation process. Additionally, operators must implement the two `Invoke` methods required by the `IBinaryOperator<T, T, T>` interface, along with two additional `Invoke` methods that aggregate the final result.
 
-Consider, for instance, an operator that calculates the sum of all elements in the source. This serves as an aggregation operator, providing a value. The generic type `T` is restricted to `struct`, `IAdditiveIdentity<T, T>`, and `IAdditionOperators<T, T, T>`, signifying that only value types with both the additive identity and the `+` operator implemented are suitable. The `Identity` initializes the sum using the additive identity. The `Invoke` methods handle the addition of `T` and `Vector<T>` values.
+Consider, for instance, an operator that calculates the sum of all elements in the source. This serves as an aggregation operator, providing a value. It implements the `IAggregationOperator<T, T>` interface. The generic type `T` is restricted to `struct`, `IAdditiveIdentity<T, T>`, and `IAdditionOperators<T, T, T>`, signifying that only value types with both the additive identity and the `+` operator implemented are suitable. The `Identity` initializes the sum using the additive identity. The `Invoke` methods handle the addition of `T` and `Vector<T>` values.
 
 ```csharp
 readonly struct SumOperator<T> : IAggregationOperator<T, T>
@@ -148,9 +152,9 @@ readonly struct SumOperator<T> : IAggregationOperator<T, T>
 }
 ```
 
-## Operators Incompatible with Vectorization
+## Operators Unsuitable for Vectorization
 
-It's essential to recognize that specific operators may have partial or no support when it comes to `Vector<T>`.
+It's crucial to acknowledge that certain operators may lack full compatibility or support with `Vector<T>`. While alternative optimizations can still be applied, vectorization will have to be disabled for these operations.
 
 All operator interfaces inherit from the following interface:
 

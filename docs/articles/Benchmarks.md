@@ -13,25 +13,25 @@ AMD Ryzen 9 7940HS w/ Radeon 780M Graphics, 1 CPU, 16 logical and 8 physical cor
   Vector512 : .NET 8.0.1 (8.0.123.58001), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
 ```
 
-It performs the following bechmarks
-
-- `Baseline_*` - using a simple iteration without explicit optimizations.
-- `LINQ_*` - using LINQ (when available).
-- `System_*` - using `System.Numerics.Tensors` (only for `Single`; `float` in C#, or `float32` in F#).
-- `NetFabric_*` - using `NetFabric.Numerics.Tensors`.
-
-Every benchmark encompassed four distinct jobs:
+Notice that this sytem supports vectorization up to 512 bits. The benchmarks will be performed without vectorization and for each vectorization size. Every benchmark encompassed four distinct jobs:
 
 - `Scalar` - without any SIMD support
 - `Vector128` - utilizing 128-bit SIMD support
 - `Vector256` - utilizing 256-bit SIMD support
 - `Vector512` - utilizing 512-bit SIMD support
 
+It performs the following bechmarks:
+
+- `Baseline_*` - using a simple iteration without explicit optimizations.
+- `LINQ_*` - using LINQ (when available).
+- `System_*` - using `System.Numerics.Tensors` (only for `Single`; `float` in C#, or `float32` in F#).
+- `NetFabric_*` - using `NetFabric.Numerics.Tensors`.
+
 The full benchmarking source code can be found [here](https://github.com/NetFabric/NetFabric.Numerics.Tensors/tree/main/src/NetFabric.Numerics.Tensors.Benchmarks).
 
-### Add
+### Addition
 
-Benchmarks performing addition on two spans (tensors), each containing 1,000 items,
+Benchmarks performing addition on two spans, each containing 1,000 items, outputing to another span.
 
 The following serves as the baseline against which performance is evaluated:
 
@@ -214,7 +214,7 @@ It additionally compares with the performance of LINQ's `Sum()`. However, it's w
 
 ### Sum2D
 
-Benchmarks performing the sum of the 2D vectors in a span (tensor), containing 1,000 vectors. The vector is a value type containing two fields of the same type.
+Benchmarks performing the sum of the 2D vectors in a span, containing 1,000 vectors. The vector is a value type containing two fields of the same type.
 
 It uses the same baseline as for the `Sum` benchmarks as it uses generics math to support any of these cases.
 

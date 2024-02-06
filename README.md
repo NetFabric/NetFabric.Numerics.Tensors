@@ -2,7 +2,7 @@
 
 Dealing with SIMD in .NET for optimized code can be complex, but this library offers a practical solution. It provides a reusable and highly-optimized iterations on `Span<T>`, enabling the application of both pre-defined and custom operations to each element.
 
-Using generics, the library accommodates any type embracing [generic math](https://aalmada.github.io/Generic-math-in-dotnet.html).
+Using generics, the library accommodates any type embracing [generic math](https://learn.microsoft.com/en-us/dotnet/standard/generics/math).
 
 Within the library, you'll find pre-defined operations such as `Sqrt()`, `Sin()`, `Negate()`, `Add()`, `Divide()`, `Multiply()`, `AddMultiply()`, `Sum()`, `Average()`, and many more.
 

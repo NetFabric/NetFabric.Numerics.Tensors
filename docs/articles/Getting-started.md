@@ -1,6 +1,6 @@
 # Getting Started with NetFabric.Numerics.Tensors
 
-To kick off your exploration of NetFabric.Numerics.Tensors, grab it conveniently from NuGet. Embed it as a dependency in your project, either by executing the command line steps (outlined on the NuGet page) or through your preferred dependency manager.
+To kick off your exploration of NetFabric.Numerics.Tensors, grab it from [NuGet](https://www.nuget.org/packages/NetFabric.Numerics.Tensors). Embed it as a dependency in your project, either by executing the command line steps ([outlined on the NuGet page](https://www.nuget.org/packages/NetFabric.Numerics.Tensors)) or through your preferred dependency manager.
 
 Import the library into your source code files as needed – include `using NetFabric.Numerics.Tensors;` in your C# files or `open NetFabric.Numerics.Tensors` if you're working in F#.
 
