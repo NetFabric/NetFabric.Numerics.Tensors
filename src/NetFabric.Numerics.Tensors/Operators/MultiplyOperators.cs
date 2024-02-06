@@ -27,4 +27,15 @@ readonly struct CheckedMultiplyOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
+readonly struct MultiplyGenericOperator<T>
+    : IGenericBinaryOperator<T, T, T>
+    where T : struct, IMultiplyOperators<T, T, T>
+{
+    public static T Invoke(T x, T y)
+        => x * y;
+
+    public static Vector<T> Invoke(ref readonly Vector<T> x, T y)
+        => x * y;
+}
+
 

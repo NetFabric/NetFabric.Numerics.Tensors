@@ -154,20 +154,3 @@ readonly struct ReciprocalSqrtEstimateOperator<T>
 #pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
-
-readonly struct ScaleBOperator<T>
-    : IGenericBinaryOperator<T, int, T>
-    where T : struct, IFloatingPointIeee754<T>
-{
-    public static bool IsVectorizable
-        => false; 
-
-    public static T Invoke(T x, int y)
-        => T.ScaleB(x, y);
-
-#pragma warning disable IDE0060 // Remove unused parameter
-    public static Vector<T> Invoke(ref readonly Vector<T> x, int y)
-#pragma warning restore IDE0060 // Remove unused parameter
-        => Throw.InvalidOperationException<Vector<T>>();
-}
-

@@ -4,7 +4,6 @@ public static partial class Tensor
 {
     public static void ApplyGeneric<T1, T2, TResult, TOperator>(ReadOnlySpan<T1> x, T2 y, Span<TResult> destination)
         where T1 : struct
-        where T2 : struct
         where TResult : struct
         where TOperator : struct, IGenericBinaryOperator<T1, T2, TResult>
     {
