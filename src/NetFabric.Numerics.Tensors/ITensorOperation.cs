@@ -151,12 +151,4 @@ public interface IAggregationOperator<T, TResult>
     /// <param name="y">The second value.</param>
     /// <returns>The result of applying the operator to the values.</returns>
     static abstract TResult Invoke(TResult x, TResult y);
-
-    /// <summary>
-    /// Applies the binary operator to the specified value and vector.
-    /// </summary>
-    /// <param name="value">The value to apply the operator to.</param>
-    /// <param name="vector">The vector to apply the operator to.</param>
-    /// <returns>The result of applying the operator to the value and vector.</returns>
-    static abstract TResult Invoke(TResult value, ref readonly Vector<TResult> vector);
 }

@@ -49,7 +49,10 @@ public static partial class Tensor
                 }
 
                 // aggregate the aggregate vector into the aggregate
-                aggregate = TAggregateOperator.Invoke(aggregate, ref resultVector);
+                for(var index = 0; index < Vector<TResult>.Count; index++)
+                {
+                    aggregate = TAggregateOperator.Invoke(aggregate, resultVector[index]);
+                }
 
                 // skip the source elements already aggregated
                 sourceIndex = source.Length - (source.Length % Vector<T1>.Count);
@@ -137,7 +140,10 @@ public static partial class Tensor
                 }
 
                 // aggregate the aggregate vector into the aggregate
-                aggregate = TAggregateOperator.Invoke(aggregate, ref resultVector);
+                for(var index = 0; index < Vector<TResult>.Count; index++)
+                {
+                    aggregate = TAggregateOperator.Invoke(aggregate, resultVector[index]);
+                }
 
                 // skip the source elements already aggregated
                 sourceIndex = x.Length - (x.Length % Vector<T1>.Count);
