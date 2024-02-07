@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace NetFabric.Numerics.Tensors.UnitTests;
+﻿namespace NetFabric.Numerics.Tensors.UnitTests;
 
 public class AddMultiplyValuePairsTests
 {
@@ -11,18 +9,21 @@ public class AddMultiplyValuePairsTests
         where T : struct, INumber<T>
     {
         // arrange
-        var source = Enumerable.Range(0, count);
-        var x = source
-            .Select(value => new MyVector2<T>(T.CreateChecked(value), T.CreateChecked(value + 1)))
-            .ToArray();
+        var x = new MyVector2<T>[count];
         var y = (T.CreateChecked(24), T.CreateChecked(25));
-        var z = source
-            .Select(value => new MyVector2<T>(T.CreateChecked(value + 2), T.CreateChecked(value + 3)))
-            .ToArray();
+        var z = new MyVector2<T>[count];
         var result = new MyVector2<T>[count];
-        var expected = source
-            .Select(value => new MyVector2<T>(T.CreateChecked((value + 24) * (value + 2)), T.CreateChecked((value + 26) * (value + 3))))
-            .ToArray();
+        var expected = new MyVector2<T>[count];
+        var random = new Random(42);
+        for (var index = 0; index < count; index++)
+        { 
+            var value = random.Next(100);
+            x[index] = new(T.CreateChecked(value), T.CreateChecked(value + 1));
+            z[index] = new(T.CreateChecked(value + 2), T.CreateChecked(value + 3));
+            expected[index] = new(
+                T.CreateChecked((value + 24) * (value + 2)), 
+                T.CreateChecked((value + 26) * (value + 3)));
+        }
 
         // act
         Tensor.AddMultiply(
@@ -40,18 +41,21 @@ public class AddMultiplyValuePairsTests
         where T : struct, INumber<T>
     {
         // arrange
-        var source = Enumerable.Range(0, count);
-        var x = source
-            .Select(value => new MyVector2<T>(T.CreateChecked(value), T.CreateChecked(value + 1)))
-            .ToArray();
-        var y = source
-            .Select(value => new MyVector2<T>(T.CreateChecked(value + 2), T.CreateChecked(value + 3)))
-            .ToArray();
+        var x = new MyVector2<T>[count];
+        var y = new MyVector2<T>[count];
         var z = (T.CreateChecked(42), T.CreateChecked(43));
         var result = new MyVector2<T>[count];
-        var expected = source
-            .Select(value => new MyVector2<T>(T.CreateChecked((value + value + 2) * 42), T.CreateChecked((value + value + 4) * 43)))
-            .ToArray();
+        var expected = new MyVector2<T>[count];
+        var random = new Random(42);
+        for (var index = 0; index < count; index++)
+        { 
+            var value = random.Next(100);
+            x[index] = new(T.CreateChecked(value), T.CreateChecked(value + 1));
+            y[index] = new(T.CreateChecked(value + 2), T.CreateChecked(value + 3));
+            expected[index] = new(
+                T.CreateChecked((value + value + 2) * 42), 
+                T.CreateChecked((value + value + 4) * 43));
+        }
 
         // act
         Tensor.AddMultiply(

@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace NetFabric.Numerics.Tensors.UnitTests;
+﻿namespace NetFabric.Numerics.Tensors.UnitTests;
 
 public class Sum2DTests
 {

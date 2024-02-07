@@ -9,15 +9,17 @@ public class AddValueTests
         where T : struct, INumber<T>
     {
         // arrange
-        var source = Enumerable.Range(0, count);
-        var x = source
-            .Select(value => T.CreateChecked(value))
-            .ToArray();
+        var x = new T[count];
         var y = T.CreateChecked(42);
         var result = new T[count];
-        var expected = source
-            .Select(value => T.CreateChecked(value) + y)
-            .ToArray();
+        var expected = new T[count];
+        var random = new Random(42);
+        for (var index = 0; index < count; index++)
+        { 
+            var value = random.Next(100);
+            x[index] = T.CreateChecked(value);
+            expected[index] = T.CreateChecked(value + 42);
+        }
 
         // act
         Tensor.Add(x, y, result);

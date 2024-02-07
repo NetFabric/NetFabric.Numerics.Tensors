@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace NetFabric.Numerics.Tensors.UnitTests;
+﻿namespace NetFabric.Numerics.Tensors.UnitTests;
 
 public class AddValueTripletsTests
 {
@@ -11,15 +9,20 @@ public class AddValueTripletsTests
         where T : struct, INumber<T>
     {
         // arrange
-        var source = Enumerable.Range(0, count);
-        var x = source
-            .Select(value => new MyVector3<T>(T.CreateChecked(value), T.CreateChecked(value + 1), T.CreateChecked(value + 2)))
-            .ToArray();
+        var x = new MyVector3<T>[count];
         var y = (T.CreateChecked(42), T.CreateChecked(43), T.CreateChecked(44));
         var result = new MyVector3<T>[count];
-        var expected = source
-            .Select(value => new MyVector3<T>(T.CreateChecked(value) + y.Item1, T.CreateChecked(value + 1) + y.Item2, T.CreateChecked(value + 2) + y.Item3))
-            .ToArray();
+        var expected = new MyVector3<T>[count];
+        var random = new Random(42);
+        for (var index = 0; index < count; index++)
+        { 
+            var value = random.Next(100);
+            x[index] = new(T.CreateChecked(value), T.CreateChecked(value + 1), T.CreateChecked(value + 2));
+            expected[index] = new(
+                T.CreateChecked(value + 42), 
+                T.CreateChecked(value + 44),
+                T.CreateChecked(value + 46));
+        }
 
         // act
         Tensor.Add(MemoryMarshal.Cast<MyVector3<T>, T>(x), y, MemoryMarshal.Cast<MyVector3<T>, T>(result));

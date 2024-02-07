@@ -10,6 +10,8 @@
 
   <ItemGroup>
     <Using Include="System.Numerics" />
+    <Using Include="System.Runtime.CompilerServices" />
+    <Using Include="System.Runtime.InteropServices" />
     <Using Include="Xunit" />
   </ItemGroup>
 

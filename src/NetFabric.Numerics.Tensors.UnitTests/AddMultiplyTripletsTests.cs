@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace NetFabric.Numerics.Tensors.UnitTests;
+﻿namespace NetFabric.Numerics.Tensors.UnitTests;
 
 public class AddMultiplyTripletsTests
 {
@@ -11,20 +9,23 @@ public class AddMultiplyTripletsTests
         where T : struct, INumber<T>
     {
         // arrange
-        var source = Enumerable.Range(0, count);
-        var x = source
-            .Select(value => new MyVector3<T>(T.CreateChecked(value), T.CreateChecked(value + 1), T.CreateChecked(value + 2)))
-            .ToArray();
-        var y = source
-            .Select(value => new MyVector3<T>(T.CreateChecked(value + 2), T.CreateChecked(value + 3), T.CreateChecked(value + 4)))
-            .ToArray();
-        var z = source
-            .Select(value => new MyVector3<T>(T.CreateChecked(value + 4), T.CreateChecked(value + 5), T.CreateChecked(value + 6)))
-            .ToArray();
+        var x = new MyVector3<T>[count];
+        var y = new MyVector3<T>[count];
+        var z = new MyVector3<T>[count];
         var result = new MyVector3<T>[count];
-        var expected = source
-            .Select(value => new MyVector3<T>(T.CreateChecked((value + value + 2) * (value + 4)), T.CreateChecked((value + value + 4) * (value + 5)), T.CreateChecked((value + value + 6) * (value + 6))))
-            .ToArray();
+        var expected = new MyVector3<T>[count];
+        var random = new Random(42);
+        for (var index = 0; index < count; index++)
+        { 
+            var value = random.Next(100);
+            x[index] = new(T.CreateChecked(value), T.CreateChecked(value + 1), T.CreateChecked(value + 2));
+            y[index] = new(T.CreateChecked(value + 3), T.CreateChecked(value + 4), T.CreateChecked(value + 5));
+            z[index] = new(T.CreateChecked(value + 6), T.CreateChecked(value + 7), T.CreateChecked(value + 8));
+            expected[index] = new(
+                T.CreateChecked((value + value + 3) * (value + 6)), 
+                T.CreateChecked((value + value + 5) * (value + 7)),
+                T.CreateChecked((value + value + 7) * (value + 8)));
+        }
 
         // act
         Tensor.AddMultiply(

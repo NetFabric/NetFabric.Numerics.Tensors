@@ -9,14 +9,20 @@ public class ScaleBTests
         where T : struct, IFloatingPointIeee754<T>
     {
         // arrange
-        var source = Enumerable.Range(0, count);
         var n = 2;
-        var x = source.Select(value => T.CreateChecked(value)).ToArray();
+        var source = new T[count];
         var result = new T[count];
-        var expected = x.Select(value => T.ScaleB(value, n)).ToArray();
+        var expected = new T[count];
+        var random = new Random(42);
+        for (var index = 0; index < source.Length; index++)
+        {
+            var value = T.CreateChecked(random.Next(100));
+            source[index] = value;
+            expected[index] = T.ScaleB(value, n);
+        }
 
         // act
-        Tensor.ScaleB<T>(x, n, result);
+        Tensor.ScaleB<T>(source, n, result);
 
         // assert
         Assert.Equal(expected, result);

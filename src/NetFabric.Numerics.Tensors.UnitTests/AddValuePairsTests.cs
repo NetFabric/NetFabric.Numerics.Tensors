@@ -1,6 +1,4 @@
-﻿using System.Runtime.InteropServices;
-
-namespace NetFabric.Numerics.Tensors.UnitTests;
+﻿namespace NetFabric.Numerics.Tensors.UnitTests;
 
 public class AddValuePairsTests
 {
@@ -11,15 +9,19 @@ public class AddValuePairsTests
         where T : struct, INumber<T>
     {
         // arrange
-        var source = Enumerable.Range(0, count);
-        var x = source
-            .Select(value => new MyVector2<T>(T.CreateChecked(value), T.CreateChecked(value + 1)))
-            .ToArray();
+        var x = new MyVector2<T>[count];
         var y = (T.CreateChecked(42), T.CreateChecked(24));
         var result = new MyVector2<T>[count];
-        var expected = source
-            .Select(value => new MyVector2<T>(T.CreateChecked(value) + y.Item1, T.CreateChecked(value + 1) + y.Item2))
-            .ToArray();
+        var expected = new MyVector2<T>[count];
+        var random = new Random(42);
+        for (var index = 0; index < count; index++)
+        { 
+            var value = random.Next(100);
+            x[index] = new(T.CreateChecked(value), T.CreateChecked(value + 1));
+            expected[index] = new(
+                T.CreateChecked(value + 42), 
+                T.CreateChecked(value + 25));
+        }
 
         // act
         Tensor.Add(MemoryMarshal.Cast<MyVector2<T>, T>(x), y, MemoryMarshal.Cast<MyVector2<T>, T>(result));
