@@ -2,9 +2,23 @@
 
 public class ProductOfAdditionsTests
 {
+    [Fact]
+    public static void ProductOfAdditions_Empty_Should_Return_Null()
+    {
+        // arrange
+        var x = Array.Empty<int>();
+        var y = Array.Empty<int>();
+
+        // act
+        var result = Tensor.ProductOfAdditions<int>(x, y);
+
+        // assert
+        Assert.Null(result);
+    }
+
     public static TheoryData<int> ProductOfAdditionsData
         => new() { 
-            { 0 }, { 1 }, { 2 }, { 3 }, { 4 }, { 5 }, { 6 }, { 7 }, { 8 }, { 9 }, { 10 }, { 100 },
+            { 1 }, { 2 }, { 3 }, { 4 }, { 5 }, { 6 }, { 7 }, { 8 }, { 9 }, { 10 }, { 100 },
         };
 
     static void ProductOfAdditions_Should_Succeed<T>(int count)

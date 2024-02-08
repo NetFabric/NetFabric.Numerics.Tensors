@@ -2,9 +2,22 @@
 
 public class ProductTests
 {
+    [Fact]
+    public static void Product_Empty_Should_Return_Null()
+    {
+        // arrange
+        var source = Array.Empty<int>();
+
+        // act
+        var result = Tensor.Product<int>(source);
+
+        // assert
+        Assert.Null(result);
+    }
+
     public static TheoryData<int> ProductData
         => new() { 
-            { 0 }, { 1 }, { 2 }, { 3 }, { 4 }, { 5 }, { 6 }, { 7 }, { 8 }, { 9 }, { 10 }, { 100 },
+            { 1 }, { 2 }, { 3 }, { 4 }, { 5 }, { 6 }, { 7 }, { 8 }, { 9 }, { 10 }, { 100 },
         };
 
     static void Product_Should_Succeed<T>(int count)
