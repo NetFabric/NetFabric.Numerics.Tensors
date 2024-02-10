@@ -7,6 +7,7 @@ readonly struct ExpOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Exp(x);
 
@@ -23,6 +24,7 @@ readonly struct ExpM1Operator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.ExpM1(x);
 
@@ -39,6 +41,7 @@ readonly struct Exp2Operator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Exp2(x);
 
@@ -55,6 +58,7 @@ readonly struct Exp2M1Operator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Exp2M1(x);
 
@@ -71,6 +75,7 @@ readonly struct Exp10Operator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Exp10(x);
 
@@ -87,6 +92,7 @@ readonly struct Exp10M1Operator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Exp10M1(x);
 
@@ -103,6 +109,7 @@ readonly struct SigmoidOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.CreateChecked(1) / (T.CreateChecked(1) + T.Exp(-x));
 

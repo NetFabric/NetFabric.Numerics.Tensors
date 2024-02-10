@@ -7,6 +7,7 @@ readonly struct Atan2Operator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
         => T.Atan2(x, y);
 
@@ -23,6 +24,7 @@ readonly struct Atan2PiOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
         => T.Atan2Pi(x, y);
 
@@ -39,6 +41,7 @@ readonly struct BitDecrementOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.BitDecrement(x);
 
@@ -55,6 +58,7 @@ readonly struct BitIncrementOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.BitIncrement(x);
 
@@ -68,9 +72,11 @@ readonly struct FusedMultiplyAddOperator<T>
     : ITernaryOperator<T, T, T, T>
     where T : struct, IFloatingPointIeee754<T>
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y, T z)
         => T.FusedMultiplyAdd(x, y, z);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y, ref readonly Vector<T> z)
         => (x * y) + z;
 }
@@ -82,6 +88,7 @@ readonly struct Ieee754RemainderOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
         => T.Ieee754Remainder(x, y);
 
@@ -98,6 +105,7 @@ readonly struct ILogBOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Invoke(T x)
         => T.ILogB(x);
 
@@ -114,6 +122,7 @@ readonly struct LerpOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y, T z)
         => T.Lerp(x, y, z);
 
@@ -130,6 +139,7 @@ readonly struct ReciprocalEstimateOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.ReciprocalEstimate(x);
 
@@ -146,6 +156,7 @@ readonly struct ReciprocalSqrtEstimateOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.ReciprocalSqrtEstimate(x);
 

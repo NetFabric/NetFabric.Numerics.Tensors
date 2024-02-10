@@ -7,6 +7,7 @@ readonly struct LogOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Log(x);
 
@@ -23,6 +24,7 @@ readonly struct LogBaseOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T newBase)
         => T.Log(x, newBase);
 
@@ -39,6 +41,7 @@ readonly struct LogP1Operator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.LogP1(x);
 
@@ -55,6 +58,7 @@ readonly struct Log2Operator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Log2(x);
 
@@ -71,6 +75,7 @@ readonly struct Log2P1Operator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Log2P1(x);
 
@@ -87,6 +92,7 @@ readonly struct Log10Operator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Log10(x);
 
@@ -103,6 +109,7 @@ readonly struct Log10P1Operator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Log10P1(x);
 

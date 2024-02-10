@@ -124,21 +124,20 @@ public interface IAggregationOperator<T, TResult>
     where T : struct
     where TResult : struct
 {
-    static virtual TResult Identity => Throw.NotSupportedException<TResult>();
-    static abstract TResult Invoke(TResult x, TResult y);
-    static abstract TResult Invoke(TResult value, ref readonly Vector<TResult> vector);
+    static virtual TResult Seed 
+        => Throw.NotSupportedException<TResult>();
 }
 ```
 
 Each operator must implement a property that returns the identity value for the operation, which initializes the aggregation process. Additionally, operators must implement the two `Invoke` methods required by the `IBinaryOperator<T, T, T>` interface, along with two additional `Invoke` methods that aggregate the final result.
 
-Consider, for instance, an operator that calculates the sum of all elements in the source. This serves as an aggregation operator, providing a value. It implements the `IAggregationOperator<T, T>` interface. The generic type `T` is restricted to `struct`, `IAdditiveIdentity<T, T>`, and `IAdditionOperators<T, T, T>`, signifying that only value types with both the additive identity and the `+` operator implemented are suitable. The `Identity` initializes the sum using the additive identity. The `Invoke` methods handle the addition of `T` and `Vector<T>` values.
+Consider, for instance, an operator that calculates the sum of all elements in the source. This serves as an aggregation operator, providing a value. It implements the `IAggregationOperator<T, T>` interface. The generic type `T` is restricted to `struct`, `IAdditiveIdentity<T, T>`, and `IAdditionOperators<T, T, T>`, signifying that only value types with both the additive identity and the `+` operator implemented are suitable. The `Seed` initializes the sum using the additive identity. The `Invoke` methods handle the addition of `T` and `Vector<T>` values.
 
 ```csharp
 readonly struct SumOperator<T> : IAggregationOperator<T, T>
     where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
 {
-    public static T Identity
+    public static T Seed
         => T.AdditiveIdentity;
 
     public static T Invoke(T x, ref readonly Vector<T> y)

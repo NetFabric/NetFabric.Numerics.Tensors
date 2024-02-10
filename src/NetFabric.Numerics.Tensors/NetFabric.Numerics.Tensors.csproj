@@ -8,15 +8,21 @@
       Provides methods for performing mathematical operations over spans of value types. 
       These methods can be accelerated to use SIMD operations supported by the CPU where available.
     </Description>
-    <Version>2.1.0</Version>
+    <Version>3.0.0</Version>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>intrinsics, tensors, simd, span</PackageTags>
+    <PackageTags>math, performance, intrinsics, simd, span</PackageTags>
     <PackageProjectUrl>https://netfabric.github.io/NetFabric.Numerics.Tensors/</PackageProjectUrl>
     <PackageReleaseNotes>
-      - Add MultiplyDivide operation.
-      - Vectorize angle unit conversion.
+- Refactoring of the IAggregationOperation interface.
+- Added support for transform operation on Aggregate.
+- Added AggreagatePropagateNaN.
+- Rnamed IGenericBinaryOperation to IBinaryScalarOperation.
+- Fixed Min and Max behavior.
+- Added operations: MinMagnitude, MaxMagnitude, and Sigmoid.
+- Added aggregation operations: Sum, Product, Min, and Max.
+- Vectorized ScaleB.
     </PackageReleaseNotes>
     <RootNamespace>NetFabric.Numerics</RootNamespace>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

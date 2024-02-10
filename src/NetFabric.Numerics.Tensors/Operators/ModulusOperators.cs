@@ -7,6 +7,7 @@ readonly struct ModulusOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
         => x % y;
 

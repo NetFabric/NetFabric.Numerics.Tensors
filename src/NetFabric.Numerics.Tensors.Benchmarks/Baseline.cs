@@ -1,4 +1,6 @@
 using System.Numerics;
+using System.Runtime.CompilerServices;
+using System.Runtime.InteropServices;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
@@ -74,5 +76,20 @@ public static class Baseline
         foreach (var item in source)
             sum += item;
         return sum;
+    }
+
+    public static T Min<T>(ReadOnlySpan<T> source)
+        where T : struct, INumber<T>, IMinMaxValue<T>
+    {
+        var min = T.MaxValue;
+        foreach (var item in source)
+        {
+            if (T.IsNaN(item))
+                return item;
+
+            if (item < min)
+                min = item; 
+        }
+        return min;
     }
 }

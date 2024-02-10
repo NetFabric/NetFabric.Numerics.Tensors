@@ -7,6 +7,7 @@ readonly struct AcosOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Acos(x);
 
@@ -23,6 +24,7 @@ readonly struct AcosPiOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.AcosPi(x);
 
@@ -39,6 +41,7 @@ readonly struct AsinOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Asin(x);
 
@@ -55,6 +58,7 @@ readonly struct AsinPiOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.AsinPi(x);
 
@@ -71,6 +75,7 @@ readonly struct AtanOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Atan(x);
 
@@ -87,6 +92,7 @@ readonly struct AtanPiOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.AtanPi(x);
 
@@ -103,6 +109,7 @@ readonly struct CosOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Cos(x);
 
@@ -119,6 +126,7 @@ readonly struct CosPiOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.CosPi(x);
 
@@ -135,6 +143,7 @@ readonly struct SinOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Sin(x);
 
@@ -151,6 +160,7 @@ readonly struct SinPiOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.SinPi(x);
 
@@ -167,6 +177,7 @@ readonly struct TanOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Sin(x);
 
@@ -183,6 +194,7 @@ readonly struct TanPiOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.SinPi(x);
 
@@ -199,6 +211,7 @@ readonly struct SinCosOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static (T Sin, T Cos) Invoke(T x)
         => T.SinCos(x);
 
@@ -215,6 +228,7 @@ readonly struct SinCosPiOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static (T SinPi, T CosPi) Invoke(T x)
         => T.SinCosPi(x);
 

@@ -18,7 +18,7 @@ class VectorizationConfig : ManualConfig
             _ = AddJob(Job.Default.WithId("Vector128")
                     .WithEnvironmentVariable("DOTNET_EnableAVX2", "0")
                     .WithEnvironmentVariable("DOTNET_EnableAVX512F", "0"));
-        }    
+        }
         if (Vector256.IsHardwareAccelerated)
         {
             _ = AddJob(Job.Default.WithId("Vector256")

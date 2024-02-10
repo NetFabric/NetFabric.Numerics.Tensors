@@ -4,9 +4,11 @@ readonly struct SubtractOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, ISubtractionOperators<T, T, T>
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
         => x - y;
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
         => x - y;
 }
@@ -18,6 +20,7 @@ readonly struct CheckedSubtractOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
         => checked(x - y);
 

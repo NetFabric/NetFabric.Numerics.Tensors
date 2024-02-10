@@ -17,4 +17,10 @@
     <ProjectReference Include="..\NetFabric.Numerics.Tensors\NetFabric.Numerics.Tensors.csproj" />
   </ItemGroup>
 
+  <PropertyGroup>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <DebugSymbols>true</DebugSymbols>
+  </PropertyGroup>
+
 </Project>

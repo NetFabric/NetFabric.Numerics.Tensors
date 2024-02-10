@@ -7,6 +7,7 @@ readonly struct CbrtOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Cbrt(x);
 
@@ -23,6 +24,7 @@ readonly struct HypotOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
         => T.Hypot(x, y);
 
@@ -39,6 +41,7 @@ readonly struct RootNOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, int y)
         => T.RootN(x, y);
 
@@ -52,9 +55,11 @@ readonly struct SqrtOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IRootFunctions<T>
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Sqrt(x);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<T> Invoke(ref readonly Vector<T> x)
         => Vector.SquareRoot(x);
 }

@@ -138,10 +138,10 @@ public interface IAggregationOperator<T, TResult>
     where TResult : struct
 {
     /// <summary>
-    /// Gets the identity value for the type and operation to be performed.
+    /// Gets the seed value used to initialize the aggregation.
     /// </summary>
-    /// <returns>The identity value.</returns>
-    static virtual TResult Identity
+    /// <returns>The seed value.</returns>
+    static virtual TResult Seed
         => Throw.NotSupportedException<TResult>();
 
     /// <summary>

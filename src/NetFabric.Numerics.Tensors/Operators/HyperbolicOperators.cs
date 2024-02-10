@@ -7,6 +7,7 @@ readonly struct AcoshOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Acosh(x);
 
@@ -23,6 +24,7 @@ readonly struct AsinhOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Asinh(x);
 
@@ -39,6 +41,7 @@ readonly struct AtanhOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Atanh(x);
 
@@ -55,6 +58,7 @@ readonly struct CoshOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Cosh(x);
 
@@ -71,6 +75,7 @@ readonly struct SinhOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Sinh(x);
 
@@ -87,6 +92,7 @@ readonly struct TanhOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Tanh(x);
 

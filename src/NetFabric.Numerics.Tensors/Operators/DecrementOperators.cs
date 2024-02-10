@@ -7,6 +7,7 @@ readonly struct DecrementOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => --x;
 
@@ -21,6 +22,7 @@ readonly struct CheckedDecrementOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => checked(--x);
 

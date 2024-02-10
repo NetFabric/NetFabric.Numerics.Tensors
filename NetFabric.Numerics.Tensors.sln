@@ -28,8 +28,12 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Docs", "Docs", "{762517CA-3
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Articles", "Articles", "{A04C4E36-5F33-43F8-A7EE-15D81C7F8A58}"
 	ProjectSection(SolutionItems) = preProject
+		docs\articles\Benchmarks.md = docs\articles\Benchmarks.md
+		docs\articles\Extending-the-library.md = docs\articles\Extending-the-library.md
+		docs\articles\Getting-started.md = docs\articles\Getting-started.md
 		docs\articles\intro.md = docs\articles\intro.md
 		docs\articles\toc.yml = docs\articles\toc.yml
+		docs\articles\Working-structured-data.md = docs\articles\Working-structured-data.md
 	EndProjectSection
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "namespaces", "namespaces", "{BA0837F2-730C-4537-B08B-5FFD2D91AF30}"

@@ -7,6 +7,7 @@ readonly struct FloorOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Floor(x);
 
@@ -19,9 +20,11 @@ readonly struct FloorOperator<T>
 readonly struct FloorSingleOperator
     : IUnaryOperator<float, float>
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float Invoke(float x)
         => float.Floor(x);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<float> Invoke(ref readonly Vector<float> x)
         => Vector.Floor(x);
 }
@@ -29,9 +32,11 @@ readonly struct FloorSingleOperator
 readonly struct FloorDoubleOperator
     : IUnaryOperator<double, double>
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double Invoke(double x)
         => double.Floor(x);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<double> Invoke(ref readonly Vector<double> x)
         => Vector.Floor(x);
 }
@@ -43,6 +48,7 @@ readonly struct CeilingOperator<T>
     public static bool IsVectorizable
         => false; 
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Ceiling(x);
 
@@ -55,9 +61,11 @@ readonly struct CeilingOperator<T>
 readonly struct CeilingSingleOperator
     : IUnaryOperator<float, float>
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static float Invoke(float x)
         => float.Ceiling(x);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<float> Invoke(ref readonly Vector<float> x)
         => Vector.Ceiling(x);
 }
@@ -65,9 +73,11 @@ readonly struct CeilingSingleOperator
 readonly struct CeilingDoubleOperator
     : IUnaryOperator<double, double>
 {
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static double Invoke(double x)
         => double.Ceiling(x);
 
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<double> Invoke(ref readonly Vector<double> x)
         => Vector.Ceiling(x);
 }
@@ -76,6 +86,10 @@ readonly struct RoundOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IFloatingPoint<T>
 {
+    public static bool IsVectorizable
+        => false; 
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Round(x);
 
@@ -89,6 +103,10 @@ readonly struct RoundDigitsOperator<T>
     : IGenericBinaryOperator<T, int, T>
     where T : struct, IFloatingPoint<T>
 {
+    public static bool IsVectorizable
+        => false; 
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, int digits)
         => T.Round(x, digits);
 
@@ -102,6 +120,10 @@ readonly struct RoundModeOperator<T>
     : IGenericBinaryOperator<T, MidpointRounding, T>
     where T : struct, IFloatingPoint<T>
 {
+    public static bool IsVectorizable
+        => false; 
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, MidpointRounding mode)
         => T.Round(x, mode);
 
@@ -115,6 +137,10 @@ readonly struct RoundDigitModeOperator<T>
     : IGenericBinaryOperator<T, (int digits, MidpointRounding mode), T>
     where T : struct, IFloatingPoint<T>
 {
+    public static bool IsVectorizable
+        => false; 
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, (int digits, MidpointRounding mode) param)
         => T.Round(x, param.digits, param.mode);
 
@@ -128,6 +154,10 @@ readonly struct TruncateOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IFloatingPoint<T>
 {
+    public static bool IsVectorizable
+        => false; 
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
         => T.Truncate(x);
 

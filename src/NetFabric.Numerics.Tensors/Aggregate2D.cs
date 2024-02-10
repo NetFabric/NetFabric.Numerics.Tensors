@@ -24,34 +24,34 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(source), "source span must have a size multiple of 2.");
 
         // initialize aggregate
-        var aggregateX = TAggregateOperator.Identity;
-        var aggregateY = TAggregateOperator.Identity;
-        var sourceIndex = nint.Zero;
+        var aggregateX = TAggregateOperator.Seed;
+        var aggregateY = TAggregateOperator.Seed;
+        var indexSource = nint.Zero;
 
         // aggregate the remaining elements in the source
         ref var sourceRef = ref MemoryMarshal.GetReference(source);
         var remaining = source.Length;
         if (remaining >= 4)
         {
-            var partialX1 = TAggregateOperator.Identity;
-            var partialY1 = TAggregateOperator.Identity;
-            for (; sourceIndex + 3 < source.Length; sourceIndex += 4)
+            var partialX1 = TAggregateOperator.Seed;
+            var partialY1 = TAggregateOperator.Seed;
+            for (; indexSource + 3 < source.Length; indexSource += 4)
             {
-                aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, sourceIndex)));
-                aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, sourceIndex + 1)));
-                partialX1 = TAggregateOperator.Invoke(partialX1, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, sourceIndex + 2)));
-                partialY1 = TAggregateOperator.Invoke(partialY1, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, sourceIndex + 3)));
+                aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource)));
+                aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 1)));
+                partialX1 = TAggregateOperator.Invoke(partialX1, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 2)));
+                partialY1 = TAggregateOperator.Invoke(partialY1, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 3)));
             }
             aggregateX = TAggregateOperator.Invoke(aggregateX, partialX1);
             aggregateY = TAggregateOperator.Invoke(aggregateY, partialY1);
-            remaining = source.Length - (int)sourceIndex;
+            remaining = source.Length - (int)indexSource;
         }
 
         switch(remaining)
         {
             case 2:
-                aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, sourceIndex)));
-                aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, sourceIndex + 1)));
+                aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource)));
+                aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 1)));
                 break;
         }
 
@@ -71,9 +71,9 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(y), "source spans must have the same size.");
 
         // initialize aggregate
-        var aggregateX = TAggregateOperator.Identity;
-        var aggregateY = TAggregateOperator.Identity;
-        var sourceIndex = nint.Zero;
+        var aggregateX = TAggregateOperator.Seed;
+        var aggregateY = TAggregateOperator.Seed;
+        var indexSource = nint.Zero;
 
         // aggregate the remaining elements in the source
         ref var xRef = ref MemoryMarshal.GetReference(x);
@@ -81,25 +81,25 @@ public static partial class Tensor
         var remaining = x.Length;
         if (remaining >= 4)
         {
-            var partialX1 = TAggregateOperator.Identity;
-            var partialY1 = TAggregateOperator.Identity;
-            for (; sourceIndex + 3 < x.Length; sourceIndex += 4)
+            var partialX1 = TAggregateOperator.Seed;
+            var partialY1 = TAggregateOperator.Seed;
+            for (; indexSource + 3 < x.Length; indexSource += 4)
             {
-                aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref xRef, sourceIndex), Unsafe.Add(ref yRef, sourceIndex)));
-                aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref xRef, sourceIndex + 1), Unsafe.Add(ref yRef, sourceIndex + 1)));
-                partialX1 = TAggregateOperator.Invoke(partialX1, TTransformOperator.Invoke(Unsafe.Add(ref xRef, sourceIndex + 2), Unsafe.Add(ref yRef, sourceIndex + 2)));
-                partialY1 = TAggregateOperator.Invoke(partialY1, TTransformOperator.Invoke(Unsafe.Add(ref xRef, sourceIndex + 3), Unsafe.Add(ref yRef, sourceIndex + 3)));
+                aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource)));
+                aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1)));
+                partialX1 = TAggregateOperator.Invoke(partialX1, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), Unsafe.Add(ref yRef, indexSource + 2)));
+                partialY1 = TAggregateOperator.Invoke(partialY1, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 3), Unsafe.Add(ref yRef, indexSource + 3)));
             }
             aggregateX = TAggregateOperator.Invoke(aggregateX, partialX1);
             aggregateY = TAggregateOperator.Invoke(aggregateY, partialY1);
-            remaining = x.Length - (int)sourceIndex;
+            remaining = x.Length - (int)indexSource;
         }
 
         switch(remaining)
         {
             case 2:
-                aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref xRef, sourceIndex), Unsafe.Add(ref yRef, sourceIndex)));
-                aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref xRef, sourceIndex + 1), Unsafe.Add(ref yRef, sourceIndex + 1)));
+                aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource)));
+                aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1)));
                 break;
         }
 
