@@ -18,7 +18,7 @@
 - Refactoring of the IAggregationOperation interface.
 - Added support for transform operation on Aggregate.
 - Added AggreagatePropagateNaN.
-- Rnamed IGenericBinaryOperation to IBinaryScalarOperation.
+- Renamed IGenericBinaryOperation to IBinaryScalarOperation and ApplyGeneric to ApplyScalar.
 - Fixed Min and Max behavior.
 - Added operations: MinMagnitude, MaxMagnitude, and Sigmoid.
 - Added aggregation operations: Sum, Product, Min, and Max.

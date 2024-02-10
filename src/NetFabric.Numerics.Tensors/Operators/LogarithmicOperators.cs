@@ -18,7 +18,7 @@ readonly struct LogOperator<T>
 }
 
 readonly struct LogBaseOperator<T>
-    : IGenericBinaryOperator<T, T, T>
+    : IBinaryScalarOperator<T, T, T>
     where T : struct, ILogarithmicFunctions<T>
 {
     public static bool IsVectorizable

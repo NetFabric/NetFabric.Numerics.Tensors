@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 readonly struct ShiftRightArithmeticOperator<T, TResult>
-    : IGenericBinaryOperator<T, int, TResult>
+    : IBinaryScalarOperator<T, int, TResult>
     where T : struct, IShiftOperators<T, int, TResult>
     where TResult : struct
 {
@@ -17,7 +17,7 @@ readonly struct ShiftRightArithmeticOperator<T, TResult>
 }
 
 readonly struct ShiftRightArithmeticSByteOperator
-    : IGenericBinaryOperator<sbyte, int, sbyte>
+    : IBinaryScalarOperator<sbyte, int, sbyte>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static sbyte Invoke(sbyte value, int count)
@@ -29,7 +29,7 @@ readonly struct ShiftRightArithmeticSByteOperator
 }
 
 readonly struct ShiftRightArithmeticInt16Operator
-    : IGenericBinaryOperator<short, int, short>
+    : IBinaryScalarOperator<short, int, short>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static short Invoke(short value, int count)
@@ -41,7 +41,7 @@ readonly struct ShiftRightArithmeticInt16Operator
 }
 
 readonly struct ShiftRightArithmeticInt32Operator
-    : IGenericBinaryOperator<int, int, int>
+    : IBinaryScalarOperator<int, int, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Invoke(int value, int count)
@@ -53,7 +53,7 @@ readonly struct ShiftRightArithmeticInt32Operator
 }
 
 readonly struct ShiftRightArithmeticInt64Operator
-    : IGenericBinaryOperator<long, int, long>
+    : IBinaryScalarOperator<long, int, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long Invoke(long value, int count)
@@ -65,7 +65,7 @@ readonly struct ShiftRightArithmeticInt64Operator
 }
 
 readonly struct ShiftRightArithmeticIntPtrOperator
-    : IGenericBinaryOperator<IntPtr, int, IntPtr>
+    : IBinaryScalarOperator<IntPtr, int, IntPtr>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IntPtr Invoke(IntPtr value, int count)

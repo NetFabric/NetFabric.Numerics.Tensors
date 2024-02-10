@@ -28,15 +28,15 @@ public static partial class Tensor
 
     public static void Round<T>(ReadOnlySpan<T> left, int digits, Span<T> destination)
         where T : struct, IFloatingPoint<T>
-        => ApplyGeneric<T, int, T, RoundDigitsOperator<T>>(left, digits, destination);
+        => ApplyScalar<T, int, T, RoundDigitsOperator<T>>(left, digits, destination);
 
     public static void Round<T>(ReadOnlySpan<T> left, MidpointRounding mode, Span<T> destination)
         where T : struct, IFloatingPoint<T>
-        => ApplyGeneric<T, MidpointRounding, T, RoundModeOperator<T>>(left, mode, destination);
+        => ApplyScalar<T, MidpointRounding, T, RoundModeOperator<T>>(left, mode, destination);
 
     public static void Round<T>(ReadOnlySpan<T> left, int digits, MidpointRounding mode, Span<T> destination)
         where T : struct, IFloatingPoint<T>
-        => ApplyGeneric<T, (int digits, MidpointRounding mode), T, RoundDigitModeOperator<T>>(left, (digits, mode), destination);
+        => ApplyScalar<T, (int digits, MidpointRounding mode), T, RoundDigitModeOperator<T>>(left, (digits, mode), destination);
 
     public static void Truncate<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, IFloatingPoint<T>

@@ -35,7 +35,7 @@ readonly struct HypotOperator<T>
 }
 
 readonly struct RootNOperator<T>
-    : IGenericBinaryOperator<T, int, T>
+    : IBinaryScalarOperator<T, int, T>
     where T : struct, IRootFunctions<T>
 {
     public static bool IsVectorizable

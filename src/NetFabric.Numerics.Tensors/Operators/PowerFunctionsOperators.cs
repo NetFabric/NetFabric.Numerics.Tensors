@@ -27,7 +27,7 @@ readonly struct CubeOperator<T>
 }
 
 readonly struct PowOperator<T>
-    : IGenericBinaryOperator<T, T, T>
+    : IBinaryScalarOperator<T, T, T>
     where T : struct, IPowerFunctions<T>
 {
     public static bool IsVectorizable

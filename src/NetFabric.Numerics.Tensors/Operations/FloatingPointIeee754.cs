@@ -56,6 +56,6 @@ public static partial class Tensor
     
     public static void ScaleB<T>(ReadOnlySpan<T> x, int n, Span<T> destination)
         where T : struct, IFloatingPointIeee754<T>
-        => ApplyGeneric<T, T, T, MultiplyGenericOperator<T>>(x, T.CreateChecked(float.Pow(2, n)), destination);
+        => ApplyScalar<T, T, T, MultiplyScalarOperator<T>>(x, T.CreateChecked(float.Pow(2, n)), destination);
 
 }

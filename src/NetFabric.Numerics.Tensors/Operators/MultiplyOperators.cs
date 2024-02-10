@@ -30,8 +30,8 @@ readonly struct CheckedMultiplyOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct MultiplyGenericOperator<T>
-    : IGenericBinaryOperator<T, T, T>
+readonly struct MultiplyScalarOperator<T>
+    : IBinaryScalarOperator<T, T, T>
     where T : struct, IMultiplyOperators<T, T, T>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

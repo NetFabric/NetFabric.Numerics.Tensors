@@ -42,7 +42,7 @@ public interface IBinaryOperator<T1, T2, TResult>
     static abstract Vector<TResult> Invoke(ref readonly Vector<T1> x, ref readonly Vector<T2> y);
 }
 
-public interface IGenericBinaryOperator<T1, T2, TResult> 
+public interface IBinaryScalar<T1, T2, TResult> 
     : IOperator
     where T1 : struct
     where TResult : struct
@@ -126,10 +126,12 @@ public interface IAggregationOperator<T, TResult>
 {
     static virtual TResult Seed 
         => Throw.NotSupportedException<TResult>();
+
+    static abstract TResult Invoke(TResult x, TResult y);
 }
 ```
 
-Each operator must implement a property that returns the identity value for the operation, which initializes the aggregation process. Additionally, operators must implement the two `Invoke` methods required by the `IBinaryOperator<T, T, T>` interface, along with two additional `Invoke` methods that aggregate the final result.
+Each operator must implement a property that returns the seed value for the operation, which initializes the aggregation process. Additionally, operators must implement the two `Invoke` methods required by the `IBinaryOperator<T, T, T>` interface, along with an additional one `Invoke` methods that aggregate the final result.
 
 Consider, for instance, an operator that calculates the sum of all elements in the source. This serves as an aggregation operator, providing a value. It implements the `IAggregationOperator<T, T>` interface. The generic type `T` is restricted to `struct`, `IAdditiveIdentity<T, T>`, and `IAdditionOperators<T, T, T>`, signifying that only value types with both the additive identity and the `+` operator implemented are suitable. The `Seed` initializes the sum using the additive identity. The `Invoke` methods handle the addition of `T` and `Vector<T>` values.
 
@@ -170,7 +172,7 @@ This signifies that all operator interfaces include a boolean property indicatin
 Consider the left shift operation (`<<`) as an example. While `Vector<T>` supports it only for signed and unsigned integer primitives, any type implementing `IShiftOperators<TSelf, TOther, TResult>` can support left shift, including third-party-developed types. To cover all scenarios, a generic non-vectorizable operator can be implemented, alongside specific operators for each vectorizable type. The following example illustrates this approach, focusing on the `sbyte` type:
 
 ```csharp
-readonly struct ShiftLeftOperator<T, TResult> : IGenericBinaryOperator<T, int, TResult>
+readonly struct ShiftLeftOperator<T, TResult> : IBinaryScalar<T, int, TResult>
     where T : struct, IShiftOperators<T, int, TResult>
     where TResult : struct
 {
@@ -184,7 +186,7 @@ readonly struct ShiftLeftOperator<T, TResult> : IGenericBinaryOperator<T, int, T
         => Throw.NotSupportedException<Vector<TResult>>();
 }
 
-readonly struct ShiftLeftSByteOperator : IGenericBinaryOperator<sbyte, int, sbyte>
+readonly struct ShiftLeftSByteOperator : IBinaryScalar<sbyte, int, sbyte>
 {
     public static sbyte Invoke(sbyte value, int count)
         => (sbyte)(value << count);
@@ -194,7 +196,7 @@ readonly struct ShiftLeftSByteOperator : IGenericBinaryOperator<sbyte, int, sbyt
 }
 ```
 
-Note that the operator implements `IGenericBinaryOperator<T1, T2, TResult`. This signifies a binary operator where the vectorization method accepts a value instead of a vector as the second parameter.
+Note that the operator implements `IBinaryScalar<T1, T2, TResult`. This signifies a binary operator where the vectorization method accepts a value instead of a vector as the second parameter.
 
 ## Using Custom Operators
 
@@ -252,10 +254,10 @@ public static void ShiftLeft<T>(ReadOnlySpan<T> value, int count, Span<T> destin
 public static void ShiftLeft<T, TResult>(ReadOnlySpan<T> value, int count, Span<TResult> destination)
     where T : struct, IShiftOperators<T, int, TResult>
     where TResult : struct
-    => ApplyGeneric<T, int, TResult, ShiftLeftOperator<T, TResult>>(value, count, destination);
+    => ApplyScalar<T, int, TResult, ShiftLeftOperator<T, TResult>>(value, count, destination);
 
 public static void ShiftLeft(ReadOnlySpan<sbyte> value, int count, Span<sbyte> destination)
-    => ApplyGeneric<sbyte, int, sbyte, ShiftLeftSByteOperator>(value, count, destination);
+    => ApplyScalar<sbyte, int, sbyte, ShiftLeftSByteOperator>(value, count, destination);
 ```
 
 For brevity, only the overload for the `sbyte` type is presented here.

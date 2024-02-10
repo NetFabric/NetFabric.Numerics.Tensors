@@ -12,5 +12,5 @@ public static partial class Tensor
 
     public static void Pow<T>(ReadOnlySpan<T> x, T y, Span<T> destination)
         where T : struct, IPowerFunctions<T>
-        => ApplyGeneric<T, T, T, PowOperator<T>>(x, y, destination);
+        => ApplyScalar<T, T, T, PowOperator<T>>(x, y, destination);
 }

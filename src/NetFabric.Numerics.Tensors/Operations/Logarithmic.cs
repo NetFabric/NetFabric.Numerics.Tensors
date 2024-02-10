@@ -8,7 +8,7 @@ public static partial class Tensor
 
     public static void Log<T>(ReadOnlySpan<T> left, T newBase, Span<T> destination)
         where T : struct, ILogarithmicFunctions<T>
-        => ApplyGeneric<T, T, T, LogBaseOperator<T>>(left, newBase, destination);
+        => ApplyScalar<T, T, T, LogBaseOperator<T>>(left, newBase, destination);
 
     public static void LogP1<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ILogarithmicFunctions<T>

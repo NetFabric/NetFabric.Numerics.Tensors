@@ -1,7 +1,7 @@
 namespace NetFabric.Numerics;
 
 readonly struct ShiftRightLogicalOperator<T, TResult>
-    : IGenericBinaryOperator<T, int, TResult>
+    : IBinaryScalarOperator<T, int, TResult>
     where T : struct, IShiftOperators<T, int, TResult>
     where TResult : struct
 {
@@ -17,7 +17,7 @@ readonly struct ShiftRightLogicalOperator<T, TResult>
 }
 
 readonly struct ShiftRightLogicalByteOperator
-    : IGenericBinaryOperator<byte, int, byte>
+    : IBinaryScalarOperator<byte, int, byte>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static byte Invoke(byte value, int count)
@@ -29,7 +29,7 @@ readonly struct ShiftRightLogicalByteOperator
 }
 
 readonly struct ShiftRightLogicalUInt16Operator
-    : IGenericBinaryOperator<ushort, int, ushort>
+    : IBinaryScalarOperator<ushort, int, ushort>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ushort Invoke(ushort value, int count)
@@ -41,7 +41,7 @@ readonly struct ShiftRightLogicalUInt16Operator
 }
 
 readonly struct ShiftRightLogicalUInt32Operator
-    : IGenericBinaryOperator<uint, int, uint>
+    : IBinaryScalarOperator<uint, int, uint>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static uint Invoke(uint value, int count)
@@ -53,7 +53,7 @@ readonly struct ShiftRightLogicalUInt32Operator
 }
 
 readonly struct ShiftRightLogicalUInt64Operator
-    : IGenericBinaryOperator<ulong, int, ulong>
+    : IBinaryScalarOperator<ulong, int, ulong>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static ulong Invoke(ulong value, int count)
@@ -65,7 +65,7 @@ readonly struct ShiftRightLogicalUInt64Operator
 }
 
 readonly struct ShiftRightLogicalUIntPtrOperator
-    : IGenericBinaryOperator<UIntPtr, int, UIntPtr>
+    : IBinaryScalarOperator<UIntPtr, int, UIntPtr>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static UIntPtr Invoke(UIntPtr value, int count)
@@ -77,7 +77,7 @@ readonly struct ShiftRightLogicalUIntPtrOperator
 }
 
 readonly struct ShiftRightLogicalSByteOperator
-    : IGenericBinaryOperator<sbyte, int, sbyte>
+    : IBinaryScalarOperator<sbyte, int, sbyte>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static sbyte Invoke(sbyte value, int count)
@@ -89,7 +89,7 @@ readonly struct ShiftRightLogicalSByteOperator
 }
 
 readonly struct ShiftRightLogicalInt16Operator
-    : IGenericBinaryOperator<short, int, short>
+    : IBinaryScalarOperator<short, int, short>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static short Invoke(short value, int count)
@@ -101,7 +101,7 @@ readonly struct ShiftRightLogicalInt16Operator
 }
 
 readonly struct ShiftRightLogicalInt32Operator
-    : IGenericBinaryOperator<int, int, int>
+    : IBinaryScalarOperator<int, int, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static int Invoke(int value, int count)
@@ -113,7 +113,7 @@ readonly struct ShiftRightLogicalInt32Operator
 }
 
 readonly struct ShiftRightLogicalInt64Operator
-    : IGenericBinaryOperator<long, int, long>
+    : IBinaryScalarOperator<long, int, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static long Invoke(long value, int count)
@@ -125,7 +125,7 @@ readonly struct ShiftRightLogicalInt64Operator
 }
 
 readonly struct ShiftRightLogicalIntPtrOperator
-    : IGenericBinaryOperator<IntPtr, int, IntPtr>
+    : IBinaryScalarOperator<IntPtr, int, IntPtr>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static IntPtr Invoke(IntPtr value, int count)

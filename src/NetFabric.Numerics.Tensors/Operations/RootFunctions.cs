@@ -12,7 +12,7 @@ public static partial class Tensor
 
     public static void RootN<T>(ReadOnlySpan<T> x, int n, Span<T> destination)
         where T : struct, IRootFunctions<T>
-        => ApplyGeneric<T, int, T, RootNOperator<T>>(x, n, destination);
+        => ApplyScalar<T, int, T, RootNOperator<T>>(x, n, destination);
 
     public static void Sqrt<T>(ReadOnlySpan<T> x, Span<T> destination)
         where T : struct, IRootFunctions<T>

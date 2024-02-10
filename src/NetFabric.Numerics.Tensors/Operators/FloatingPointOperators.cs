@@ -100,7 +100,7 @@ readonly struct RoundOperator<T>
 }
 
 readonly struct RoundDigitsOperator<T>
-    : IGenericBinaryOperator<T, int, T>
+    : IBinaryScalarOperator<T, int, T>
     where T : struct, IFloatingPoint<T>
 {
     public static bool IsVectorizable
@@ -117,7 +117,7 @@ readonly struct RoundDigitsOperator<T>
 }
 
 readonly struct RoundModeOperator<T>
-    : IGenericBinaryOperator<T, MidpointRounding, T>
+    : IBinaryScalarOperator<T, MidpointRounding, T>
     where T : struct, IFloatingPoint<T>
 {
     public static bool IsVectorizable
@@ -134,7 +134,7 @@ readonly struct RoundModeOperator<T>
 }
 
 readonly struct RoundDigitModeOperator<T>
-    : IGenericBinaryOperator<T, (int digits, MidpointRounding mode), T>
+    : IBinaryScalarOperator<T, (int digits, MidpointRounding mode), T>
     where T : struct, IFloatingPoint<T>
 {
     public static bool IsVectorizable

@@ -36,10 +36,12 @@ For variables `x`, `y`, and `result`, all of type `Span<float>` and of the same 
 Tensor.Add(x, y, result);
 ```
 
-The library also supports aggregation operations. For a variable `values` of type `Span<float>`, the following snippet calculates the sum of all its elements:
+Beyond per element operations, the library extends support to aggregations. For a `values` variable of type `Span<float>`, the following code snippet calculates the sum, the minimum and the minimum magnitude of all its elements:
 
 ```csharp
 var sum = Tensor.Sum(values);
+var min = Tensor.Min(values);
+var minMagnitude = Tensor.MinMagnitude(values);
 ```
 
 ### Custom Operations
