@@ -78,6 +78,18 @@ public static class Baseline
         return sum;
     }
 
+    public static void Min<T>(ReadOnlySpan<T> source, ReadOnlySpan<T> other, Span<T> result)
+        where T : struct, INumber<T>
+    {
+        if (source.Length != other.Length)
+            Throw.ArgumentException(nameof(source), "source and other spans must have the same length.");
+        if (source.Length > result.Length)
+            Throw.ArgumentException(nameof(source), "result spans is too small.");
+
+        for (var index = 0; index < source.Length; index++)
+            result[index] = T.Min(source[index], other[index]);
+    }
+
     public static T Min<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
     {
