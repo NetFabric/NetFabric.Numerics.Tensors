@@ -35,8 +35,8 @@ public static partial class Tensor
             // convert source span to vector span without copies
             var sourceVectors = MemoryMarshal.Cast<T1, Vector<T1>>(source);
 
-            // check if there are multiple vectors to aggregate
-            if (sourceVectors.Length > 1)
+            // check if there is at least one vector to aggregate
+            if (sourceVectors.Length > 0)
             {
                 // initialize aggregate vector
                 var resultVector = new Vector<TResult>(TAggregateOperator.Seed);
@@ -128,8 +128,8 @@ public static partial class Tensor
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
             var yVectors = MemoryMarshal.Cast<T1, Vector<T1>>(y);
 
-            // check if there are multiple vectors to aggregate
-            if (xVectors.Length > 1)
+            // check if there is at least one vector to aggregate
+            if (xVectors.Length > 0)
             {
                 // initialize aggregate vector
                 var resultVector = new Vector<TResult>(TAggregateOperator.Seed);
@@ -213,8 +213,8 @@ public static partial class Tensor
             // convert source span to vector span without copies
             var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(source);
 
-            // check if there are multiple vectors to aggregate
-            if (sourceVectors.Length > 1)
+            // check if there is at least one vector to aggregate
+            if (sourceVectors.Length > 0)
             {
                 // initialize aggregate vector
                 var resultVector = new Vector<T>(TOperator.Seed);
