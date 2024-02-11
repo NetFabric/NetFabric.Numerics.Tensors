@@ -1,4 +1,4 @@
-namespace NetFabric.Numerics;
+namespace NetFabric.Numerics.Tensors;
 
 readonly struct MinOperator<T>
     : IAggregationOperator<T, T>

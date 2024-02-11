@@ -15,6 +15,7 @@
     <PackageTags>math, performance, intrinsics, simd, span</PackageTags>
     <PackageProjectUrl>https://netfabric.github.io/NetFabric.Numerics.Tensors/</PackageProjectUrl>
     <PackageReleaseNotes>
+- Changed the namespace to NetFabric.Numerics.Tensors.
 - Refactoring of the IAggregationOperation interface.
 - Added support for transform operation on Aggregate.
 - Added AggreagatePropagateNaN.
@@ -25,7 +26,7 @@
 - Added aggregation operations: Sum, Product, Min, and Max.
 - Vectorized ScaleB.
     </PackageReleaseNotes>
-    <RootNamespace>NetFabric.Numerics</RootNamespace>
+    <RootNamespace>NetFabric.Numerics.Tensors</RootNamespace>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
     <IncludeSymbols>true</IncludeSymbols>
     <SymbolPackageFormat>snupkg</SymbolPackageFormat>

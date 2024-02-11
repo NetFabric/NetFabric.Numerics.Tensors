@@ -1,4 +1,4 @@
-namespace NetFabric.Numerics;
+namespace NetFabric.Numerics.Tensors;
 
 readonly struct ShiftRightArithmeticOperator<T, TResult>
     : IBinaryScalarOperator<T, int, TResult>

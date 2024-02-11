@@ -1,4 +1,4 @@
-namespace NetFabric.Numerics;
+namespace NetFabric.Numerics.Tensors;
 
 readonly struct DecrementOperator<T>
     : IUnaryOperator<T, T>

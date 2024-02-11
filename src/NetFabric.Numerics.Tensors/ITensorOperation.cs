@@ -1,4 +1,4 @@
-namespace NetFabric.Numerics;
+namespace NetFabric.Numerics.Tensors;
 
 /// <summary>
 /// Represents an operator that can receive values or vectors.

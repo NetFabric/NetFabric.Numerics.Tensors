@@ -1,4 +1,4 @@
-namespace NetFabric.Numerics;
+namespace NetFabric.Numerics.Tensors;
 
 readonly struct GreaterThanOperator<T>
     : IBinaryOperator<T, T, T>
