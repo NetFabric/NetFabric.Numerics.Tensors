@@ -53,6 +53,11 @@ public static partial class Tensor
                 aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource)));
                 aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 1)));
                 break;
+            case 0:
+                break;
+            default:
+                Throw.Exception("Should not happen!");
+                break;
         }
 
         return (aggregateX, aggregateY);
@@ -100,6 +105,11 @@ public static partial class Tensor
             case 2:
                 aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource)));
                 aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1)));
+                break;
+            case 0:
+                break;
+            default:
+                Throw.Exception("Should not happen!");
                 break;
         }
 

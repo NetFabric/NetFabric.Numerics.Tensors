@@ -62,18 +62,18 @@ public static partial class Tensor
         switch(x.Length - (int)indexSource)
         {
             case 3:
-                Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource));
-                Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 1));
                 Unsafe.Add(ref destinationRef, indexSource + 2) = TOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 2));
-                break;
-
+                goto case 2;
             case 2:
-                Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource));
                 Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 1));
-                break;
-
+                goto case 1;
             case 1:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource));
+                break;
+            case 0:
+                break;
+            default:
+                Throw.Exception("Should not happen!");
                 break;
         }
     }
@@ -154,6 +154,11 @@ public static partial class Tensor
             case 1:
                 Unsafe.Add(ref destination1Ref, indexSource) = TOperator1.Invoke(Unsafe.Add(ref sourceRef, indexSource));
                 Unsafe.Add(ref destination2Ref, indexSource) = TOperator2.Invoke(Unsafe.Add(ref sourceRef, indexSource));
+                break;
+            case 0:
+                break;
+            default:
+                Throw.Exception("Should not happen!");
                 break;
         }
     }
