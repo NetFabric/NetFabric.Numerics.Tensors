@@ -46,7 +46,8 @@ public static partial class Tensor
                 var indexVector = nint.Zero;
                 for (; indexVector < sourceVectors.Length; indexVector++)
                 {
-                    resultVector = TAggregateOperator.Invoke(ref resultVector, TTransformOperator.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector)));
+                    var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
+                    resultVector = TAggregateOperator.Invoke(ref resultVector, ref transformedVector);
                 }
 
                 // aggregate the aggregate vector into the aggregate
@@ -140,7 +141,8 @@ public static partial class Tensor
                 var indexVector = nint.Zero;
                 for (; indexVector < xVectors.Length; indexVector++)
                 {
-                    resultVector = TAggregateOperator.Invoke(ref resultVector, TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector)));
+                    var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
+                    resultVector = TAggregateOperator.Invoke(ref resultVector, ref transformedVector);
                 }
 
                 // aggregate the aggregate vector into the aggregate
