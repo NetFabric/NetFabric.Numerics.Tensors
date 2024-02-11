@@ -54,6 +54,10 @@ public static partial class Tensor
         where T : struct, ITrigonometricFunctions<T>
         => Apply<T, (T Sin, T Cos), SinCosOperator<T>>(left, destination);
 
+    public static void SinCos<T>(ReadOnlySpan<T> left, Span<T> sinDestination, Span<T> cosDestination)
+        where T : struct, ITrigonometricFunctions<T>
+        => Apply2<T, SinOperator<T>, CosOperator<T>>(left, sinDestination, cosDestination);
+
     public static void SinCosPi<T>(ReadOnlySpan<T> left, Span<(T SinPi, T CosPi)> destination)
         where T : struct, ITrigonometricFunctions<T>
         => Apply<T, (T SinPi, T CosPi), SinCosPiOperator<T>>(left, destination);

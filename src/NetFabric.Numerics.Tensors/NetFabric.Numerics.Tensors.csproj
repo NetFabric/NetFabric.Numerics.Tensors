@@ -20,6 +20,7 @@
 - Added AggreagatePropagateNaN.
 - Renamed IGenericBinaryOperation to IBinaryScalarOperation and ApplyGeneric to ApplyScalar.
 - Fixed Min and Max behavior.
+- Added SinCos operations returning the result in two separate span
 - Added operations: MinMagnitude, MaxMagnitude, and Sigmoid.
 - Added aggregation operations: Sum, Product, Min, and Max.
 - Vectorized ScaleB.

@@ -262,4 +262,18 @@ public static void ShiftLeft(ReadOnlySpan<sbyte> value, int count, Span<sbyte> d
 
 For brevity, only the overload for the `sbyte` type is presented here.
 
+Performing multiple operations in a single iteration of the source can enhance efficiency. For instance, you might want to compute both the sine and cosine of an angle simultaneously. The `Apply2<T, TOperator1, TOperator2>` method facilitates applying two different operators to the source. This library offers two options for returning the result:
+
+```csharp
+public static void SinCos<T>(ReadOnlySpan<T> left, Span<(T Sin, T Cos)> destination)
+    where T : struct, ITrigonometricFunctions<T>
+    => Apply<T, (T Sin, T Cos), SinCosOperator<T>>(left, destination);
+
+public static void SinCos<T>(ReadOnlySpan<T> left, Span<T> sinDestination, Span<T> cosDestination)
+    where T : struct, ITrigonometricFunctions<T>
+    => Apply2<T, SinOperator<T>, CosOperator<T>>(left, sinDestination, cosDestination);
+```
+
+The first method returns a tuple of sine and cosine results, while the second method returns the results separately in designated spans.
+
 `NetFabric.Numerics.Tensors` provides the overloads for these operators, but you can effortlessly implement your own operator and apply it in a similar manner.
