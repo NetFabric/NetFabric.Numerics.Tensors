@@ -78,6 +78,15 @@ public static class Baseline
         return sum;
     }
 
+    public static T Product<T>(ReadOnlySpan<T> source)
+        where T : struct, IMultiplicativeIdentity<T, T>, IMultiplyOperators<T, T, T>
+    {
+        var sum = T.MultiplicativeIdentity;
+        foreach (var item in source)
+            sum *= item;
+        return sum;
+    }
+
     public static void Min<T>(ReadOnlySpan<T> source, ReadOnlySpan<T> other, Span<T> result)
         where T : struct, INumber<T>
     {

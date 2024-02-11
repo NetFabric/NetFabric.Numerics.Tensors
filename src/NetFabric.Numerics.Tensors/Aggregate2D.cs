@@ -28,6 +28,44 @@ public static partial class Tensor
         var aggregateY = TAggregateOperator.Seed;
         var indexSource = nint.Zero;
 
+        // aggregate using hardware acceleration if available
+        if (TTransformOperator.IsVectorizable &&
+            TAggregateOperator.IsVectorizable &&
+            Vector.IsHardwareAccelerated &&
+            Vector<T1>.IsSupported &&
+            Vector<T2>.IsSupported &&
+            Vector<TResult>.IsSupported)
+        {
+            // convert source span to vector span without copies
+            var sourceVectors = MemoryMarshal.Cast<T1, Vector<T1>>(source);
+
+            // check if there is at least one vector to aggregate
+            if (sourceVectors.Length > 0)
+            {
+                // initialize aggregate vector
+                var resultVector = new Vector<TResult>(TAggregateOperator.Seed);
+
+                // aggregate the source vectors into the aggregate vector
+                ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
+                var indexVector = nint.Zero;
+                for (; indexVector < sourceVectors.Length; indexVector++)
+                {
+                    var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
+                    resultVector = TAggregateOperator.Invoke(ref resultVector, ref transformedVector);
+                }
+
+                // aggregate the aggregate vector into the aggregate
+                for (var index = 0; index + 1 < Vector<TResult>.Count; index += 2)
+                {
+                    aggregateX = TAggregateOperator.Invoke(aggregateX, resultVector[index]);
+                    aggregateY = TAggregateOperator.Invoke(aggregateY, resultVector[index + 1]);
+                }
+
+                // skip the source elements already aggregated
+                indexSource = indexVector * Vector<T1>.Count;
+            }
+        }
+
         // aggregate the remaining elements in the source
         ref var sourceRef = ref MemoryMarshal.GetReference(source);
         var remaining = source.Length;
@@ -79,6 +117,46 @@ public static partial class Tensor
         var aggregateX = TAggregateOperator.Seed;
         var aggregateY = TAggregateOperator.Seed;
         var indexSource = nint.Zero;
+
+        // aggregate using hardware acceleration if available
+        if (TTransformOperator.IsVectorizable &&
+            TAggregateOperator.IsVectorizable &&
+            Vector.IsHardwareAccelerated &&
+            Vector<T1>.IsSupported &&
+            Vector<T2>.IsSupported &&
+            Vector<TResult>.IsSupported)
+        {
+            // convert source span to vector span without copies
+            var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
+            var yVectors = MemoryMarshal.Cast<T1, Vector<T1>>(y);
+
+            // check if there is at least one vector to aggregate
+            if (xVectors.Length > 0)
+            {
+                // initialize aggregate vector
+                var resultVector = new Vector<TResult>(TAggregateOperator.Seed);
+
+                // aggregate the source vectors into the aggregate vector
+                ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
+                ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
+                var indexVector = nint.Zero;
+                for (; indexVector < xVectors.Length; indexVector++)
+                {
+                    var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
+                    resultVector = TAggregateOperator.Invoke(ref resultVector, ref transformedVector);
+                }
+
+                // aggregate the aggregate vector into the aggregate
+                for (var index = 0; index + 1 < Vector<TResult>.Count; index += 2)
+                {
+                    aggregateX = TAggregateOperator.Invoke(aggregateX, resultVector[index]);
+                    aggregateY = TAggregateOperator.Invoke(aggregateY, resultVector[index + 1]);
+                }
+
+                // skip the source elements already aggregated
+                indexSource = indexVector * Vector<T1>.Count;
+            }
+        }
 
         // aggregate the remaining elements in the source
         ref var xRef = ref MemoryMarshal.GetReference(x);
