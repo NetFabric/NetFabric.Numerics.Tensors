@@ -24,7 +24,7 @@
 - Added SinCos operations returning the result in two separate span
 - Added operations: MinMagnitude, MaxMagnitude, and Sigmoid.
 - Added aggregation operations: Sum, Product, Min, and Max.
-- Vectorize Aggregate2D.
+- Vectorize Aggregate2D, Aggregate3D.
 - Vectorized operators: ScaleB.
     </PackageReleaseNotes>
     <RootNamespace>NetFabric.Numerics.Tensors</RootNamespace>
