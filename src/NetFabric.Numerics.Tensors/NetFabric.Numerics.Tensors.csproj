@@ -23,7 +23,7 @@
 - Fixed Min and Max behavior.
 - Added SinCos operations returning the result in two separate span
 - Added operations: MinMagnitude, MaxMagnitude, and Sigmoid.
-- Added aggregation operations: Sum, Product, Min, and Max.
+- Added aggregation operations: Sum, Product, Min, Max, and MinMax.
 - Vectorized Aggregate2D, Aggregate3D, and Aggregate4D.
 - Vectorized operators: ScaleB.
     </PackageReleaseNotes>
