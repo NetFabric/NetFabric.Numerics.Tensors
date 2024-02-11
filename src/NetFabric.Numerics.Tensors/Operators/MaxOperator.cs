@@ -20,9 +20,6 @@ readonly struct MaxPropagateNaNOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, INumber<T>, IMinMaxValue<T>
 {
-    public static T Seed
-        => T.MinValue;
-
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
         => T.Max(x, y);
@@ -44,9 +41,6 @@ readonly struct MaxMagnitudeOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, INumberBase<T>, IMinMaxValue<T>
 {
-    public static T Seed
-        => T.MinValue;
-
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
         => T.MaxMagnitudeNumber(x, y);
@@ -67,9 +61,6 @@ readonly struct MaxMagnitudePropagateNaNOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, INumberBase<T>, IMinMaxValue<T>
 {
-    public static T Seed
-        => T.MinValue;
-
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
         => T.MaxMagnitude(x, y);
@@ -87,6 +78,8 @@ readonly struct MaxMagnitudePropagateNaNOperator<T>
                         Vector.ConditionalSelect(Vector.GreaterThan(xMag, yMag), x, y)),
                     y),
                 x)
-            : Vector.Max(xMag, yMag);
+            : Vector.ConditionalSelect(Vector.Equals(xMag, yMag),
+                Vector.ConditionalSelect(Vector.LessThan(x, Vector<T>.Zero), y, x),
+                Vector.ConditionalSelect(Vector.GreaterThan(xMag, yMag), x, y));
     }
 }
