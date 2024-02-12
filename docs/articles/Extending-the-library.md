@@ -368,6 +368,23 @@ readonly struct MinPropagateNaNOperator<T>
 
 It uses the `Min()` method provided by the `INumber<T>` interface, which handles the propagation of `NaN` values. The `Invoke()` method for `Vector<T>` values is more complex, as it needs to explicitly handle the propagation of `NaN` values for floating-point types. The method `Vector.ConditionalSelect()` is an equivalent to an `if` statement when dealing with vectors.
 
+
+### AggregatePropagateNaN2
+
+The `AggregatePropagateNaN2()` method streamlines the execution of two distinct operations within a single iteration of the source, returning the results in a tuple.
+
+This method requires three generic parameters. The first specifies the type of elements within the source span, while the second and third parameters specify the operators to be applied.
+
+For example, let's consider the `MinMax()` method, which computes the minimum and maximum in a span simultaneously. This library provides the following operation:
+
+```csharp
+public static (T Min, T Max) MinMax<T>(ReadOnlySpan<T> left)
+    where T : struct, INumber<T>, IMinMaxValue<T>
+    => Tensor.AggregatePropagateNaN2<T, MinOperator<T>, MaxOperator<T>>(left);
+```
+
+The `MinOperator<T>` and `MaxOperator<T>` operators used are the ones previously described in the `Aggregate()` method.
+
 ## Operators Unsuitable for Vectorization
 
 It's important to mention that certain operators cannot be vectorized when using `Vector<T>`. While this library can still enhance processing performance through alternative optimizations, vectorization must be disabled for these specific operations.
