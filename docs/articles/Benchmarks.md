@@ -13,14 +13,14 @@ AMD Ryzen 9 7940HS w/ Radeon 780M Graphics, 1 CPU, 16 logical and 8 physical cor
   Vector512 : .NET 8.0.1 (8.0.123.58001), X64 RyuJIT AVX-512F+CD+BW+DQ+VL+VBMI
 ```
 
-Notice that this sytem supports vectorization up to 512 bits. The benchmarks will be performed without vectorization and for each vectorization size. Every benchmark encompassed four distinct jobs:
+Notice that this system supports vectorization up to 512 bits. The benchmarks will be performed without vectorization and for each vectorization size. Every benchmark encompassed four distinct jobs:
 
 - `Scalar` - without any SIMD support
 - `Vector128` - utilizing 128-bit SIMD support
 - `Vector256` - utilizing 256-bit SIMD support
 - `Vector512` - utilizing 512-bit SIMD support
 
-It performs the following bechmarks:
+It performs the following benchmarks:
 
 - `Baseline_*` - using a simple iteration without explicit optimizations.
 - `LINQ_*` - using LINQ (when available).
@@ -28,6 +28,10 @@ It performs the following bechmarks:
 - `NetFabric_*` - using `NetFabric.Numerics.Tensors`.
 
 The full benchmarking source code can be found [here](https://github.com/NetFabric/NetFabric.Numerics.Tensors/tree/main/src/NetFabric.Numerics.Tensors.Benchmarks).
+
+Please note that the benchmarks are not exhaustive and are not intended to be a comprehensive performance analysis. They are intended to provide a general idea of the performance characteristics of the library.
+
+## Results
 
 ### Addition
 

@@ -4,32 +4,39 @@ To kick off your exploration of NetFabric.Numerics.Tensors, grab it from [NuGet]
 
 Import the library into your source code files as needed – include `using NetFabric.Numerics.Tensors;` in your C# files or `open NetFabric.Numerics.Tensors` if you're working in F#.
 
-This library simplifies operations with one, two, or three `ReadOnlySpan<T>`, designed for specific use cases. The outcomes are presented in a `Span<T>`, specified as the last parameter. Keep in mind that the destination `Span<T>` must match or exceed the size of the sources. Inplace operations are supported when the destination aligns with any of the sources.
+This library simplifies operations with one, two, or three `ReadOnlySpan<T>`, designed for specific use cases. The outcomes are presented in a `Span<T>`, specified as the last parameter. Keep in mind that the destination `Span<T>` must match or exceed the size of the sources. In-place operations are supported when the destination aligns with any of the sources.
 
+All predefined operations can be found in the static class `TensorOperations`. The following examples showcase the library's capabilities`.
+`
 > NOTE: While the examples showcase C#, the underlying concepts should remain accessible to developers using other languages.
 
 For instance, if you have a `data` variable of type `Span<int>`, the following snippet efficiently replaces each element with its square root:
 
 ```csharp
-Tensor.Sqrt(data, data);
+TensorOperations.Sqrt(data, data);
 ```
 
-Given that `data` serves as both the source and destination, the operation unfolds inplace.
+Given that `data` serves as both the source and destination, the operation unfolds in-place.
 
 Consider variables `x`, `y`, and `result`, all of type `Span<float>` and equal size. This example populates each element in `result` with the sum of corresponding elements from `x` and `y`:
 
 ```csharp
-Tensor.Add(x, y, result);
+TensorOperations.Add(x, y, result);
 ```
 
-In addition to per-element operations, the library also facilitates aggregations. For a values variable of type Span<float>, the following code snippet efficiently calculates the sum, minimum value, minimum magnitude, and simultaneously the minimum and maximum values of all its elements:
+> **NOTE**: The operations do not allocate any memory, ensuring optimal performance. The library is designed to be memory-efficient and performant. All the spans have to be allocated and managed by the user.
+
+In addition to per-element operations, the library also supports various aggregation operations, including:
+
 ```csharp
-var sum = Tensor.Sum(values);
-var min = Tensor.Min(values);
-var minMagnitude = Tensor.MinMagnitude(values);
-(var min, var max) = Tensor.MinMax(values);
+var sum = TensorOperations.Sum(values);
+var average = TensorOperations.Average(values);
+var product = TensorOperations.Product(values);
+var min = TensorOperations.Min(values);
+var max = TensorOperations.Max(values);
+(var min, var max) = TensorOperations.MinMax(values);
 ```
 
-Dive deeper into the library's capabilities by exploring the API documentation, especially the section under the `Tensor` type, for an exhaustive list of available functionalities.
+Dive deeper into the library's capabilities by exploring the API documentation, especially the section under the `TensorOperations` type, for an exhaustive list of available functionalities.
 
 Moreover, this library caters to customization and extensibility, ensuring it aligns seamlessly with your unique scenarios. Uncover the nuances in the following sections to tailor the library to your needs.

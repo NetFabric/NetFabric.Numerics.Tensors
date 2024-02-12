@@ -28,7 +28,7 @@ For example, given a variable `data` of type `Span<int>`, the following code sni
 Tensor.Sqrt(data, data);
 ```
 
-Note that since `data` serves as both the source and destination, the operation is performed inplace.
+Note that since `data` serves as both the source and destination, the operation is performed in-place.
 
 For variables `x`, `y`, and `result`, all of type `Span<float>` and of the same size, the following example updates each element in `result` with the sum of the corresponding elements in `x` and `y`:
 
