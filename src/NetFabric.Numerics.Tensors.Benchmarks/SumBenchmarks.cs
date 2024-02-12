@@ -54,7 +54,7 @@ public class SumBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark]
     public short NetFabric_Short()
-        => Tensor.Sum<short>(arrayShort!);
+        => TensorOperations.Sum<short>(arrayShort!);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
@@ -69,7 +69,7 @@ public class SumBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark]
     public int NetFabric_Int()
-        => Tensor.Sum<int>(arrayInt!);
+        => TensorOperations.Sum<int>(arrayInt!);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
@@ -84,7 +84,7 @@ public class SumBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark]
     public long NetFabric_Long()
-        => Tensor.Sum<long>(arrayLong!);
+        => TensorOperations.Sum<long>(arrayLong!);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
@@ -99,7 +99,7 @@ public class SumBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark]
     public Half NetFabric_Half()
-        => Tensor.Sum<Half>(arrayHalf!);
+        => TensorOperations.Sum<Half>(arrayHalf!);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
@@ -119,7 +119,7 @@ public class SumBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark]
     public float NetFabric_Float()
-        => Tensor.Sum<float>(arrayFloat!);
+        => TensorOperations.Sum<float>(arrayFloat!);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
@@ -134,5 +134,5 @@ public class SumBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark]
     public double NetFabric_Double()
-        => Tensor.Sum<double>(arrayDouble!);
+        => TensorOperations.Sum<double>(arrayDouble!);
 }

@@ -10,7 +10,7 @@ public class ProductOfAdditionsTests
         var y = Array.Empty<int>();
 
         // act
-        var result = Tensor.ProductOfAdditions<int>(x, y);
+        var result = TensorOperations.ProductOfAdditions<int>(x, y);
 
         // assert
         Assert.Null(result);
@@ -38,7 +38,7 @@ public class ProductOfAdditionsTests
         }
 
         // act
-        var result = Tensor.ProductOfAdditions<T>(x, y);
+        var result = TensorOperations.ProductOfAdditions<T>(x, y);
 
         // assert
         Assert.Equal(expected, result);

@@ -22,7 +22,7 @@ public class ScaleBTests
         }
 
         // act
-        Tensor.ScaleB<T>(source, n, result);
+        TensorOperations.ScaleB<T>(source, n, result);
 
         // assert
         Assert.Equal(expected, result);

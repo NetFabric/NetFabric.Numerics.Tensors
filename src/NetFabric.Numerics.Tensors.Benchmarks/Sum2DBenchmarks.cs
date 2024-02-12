@@ -57,7 +57,7 @@ public class Sum2DBenchmarks
     [Benchmark]
     public MyVector2<short> NetFabric_Short()
     {
-        var result = Tensor.Sum2D<short>(MemoryMarshal.Cast<MyVector2<short>, short>(arrayShort!));
+        var result = TensorOperations.Sum2D<short>(MemoryMarshal.Cast<MyVector2<short>, short>(arrayShort!));
         return new(result);
     }
 
@@ -75,7 +75,7 @@ public class Sum2DBenchmarks
     [Benchmark]
     public MyVector2<int> NetFabric_Int()
     {
-        var result = Tensor.Sum2D<int>(MemoryMarshal.Cast<MyVector2<int>, int>(arrayInt!));
+        var result = TensorOperations.Sum2D<int>(MemoryMarshal.Cast<MyVector2<int>, int>(arrayInt!));
         return new(result);
     }
 
@@ -93,7 +93,7 @@ public class Sum2DBenchmarks
     [Benchmark]
     public MyVector2<long> NetFabric_Long()
     {
-        var result = Tensor.Sum2D<long>(MemoryMarshal.Cast<MyVector2<long>, long>(arrayLong!));
+        var result = TensorOperations.Sum2D<long>(MemoryMarshal.Cast<MyVector2<long>, long>(arrayLong!));
         return new(result);
     }
 
@@ -111,7 +111,7 @@ public class Sum2DBenchmarks
     [Benchmark]
     public MyVector2<Half> NetFabric_Half()
     {
-        var result = Tensor.Sum2D<Half>(MemoryMarshal.Cast<MyVector2<Half>, Half>(arrayHalf!));
+        var result = TensorOperations.Sum2D<Half>(MemoryMarshal.Cast<MyVector2<Half>, Half>(arrayHalf!));
         return new(result);
     }
 
@@ -129,7 +129,7 @@ public class Sum2DBenchmarks
     [Benchmark]
     public MyVector2<float> NetFabric_Float()
     {
-        var result = Tensor.Sum2D<float>(MemoryMarshal.Cast<MyVector2<float>, float>(arrayFloat!));
+        var result = TensorOperations.Sum2D<float>(MemoryMarshal.Cast<MyVector2<float>, float>(arrayFloat!));
         return new(result);
     }
 
@@ -147,7 +147,7 @@ public class Sum2DBenchmarks
     [Benchmark]
     public MyVector2<double> NetFabric_Double()
     {
-        var result = Tensor.Sum2D<double>(MemoryMarshal.Cast<MyVector2<double>, double>(arrayDouble!));
+        var result = TensorOperations.Sum2D<double>(MemoryMarshal.Cast<MyVector2<double>, double>(arrayDouble!));
         return new(result);
     }
 }

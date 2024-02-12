@@ -25,7 +25,7 @@ public class AddValueTripletsTests
         }
 
         // act
-        Tensor.Add(MemoryMarshal.Cast<MyVector3<T>, T>(x), y, MemoryMarshal.Cast<MyVector3<T>, T>(result));
+        TensorOperations.Add(MemoryMarshal.Cast<MyVector3<T>, T>(x), y, MemoryMarshal.Cast<MyVector3<T>, T>(result));
 
         // assert
         Assert.Equal(expected, result);

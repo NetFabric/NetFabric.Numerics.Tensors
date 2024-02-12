@@ -25,7 +25,7 @@ public class AddMultiplyTests
         }
 
         // act
-        Tensor.AddMultiply<T>(x, y, z, result);
+        TensorOperations.AddMultiply<T>(x, y, z, result);
 
         // assert
         Assert.Equal(expected, result);

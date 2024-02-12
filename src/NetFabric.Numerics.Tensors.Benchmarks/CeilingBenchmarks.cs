@@ -43,7 +43,7 @@ public class CeilingBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark]
     public void NetFabric_Half()
-        => Tensor.Ceiling<Half>(sourceHalf!, resultHalf!);
+        => TensorOperations.Ceiling<Half>(sourceHalf!, resultHalf!);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
@@ -53,7 +53,7 @@ public class CeilingBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark]
     public void NetFabric_Float()
-        => Tensor.Ceiling<float>(sourceFloat!, resultFloat!);
+        => TensorOperations.Ceiling<float>(sourceFloat!, resultFloat!);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
@@ -63,5 +63,5 @@ public class CeilingBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark]
     public void NetFabric_Double()
-        => Tensor.Ceiling<double>(sourceDouble!, resultDouble!);
+        => TensorOperations.Ceiling<double>(sourceDouble!, resultDouble!);
 }

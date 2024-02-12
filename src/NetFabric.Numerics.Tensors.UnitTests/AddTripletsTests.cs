@@ -26,7 +26,7 @@ public class AddTripletsTests
         }
 
         // act
-        Tensor.Add(
+        TensorOperations.Add(
             MemoryMarshal.Cast<MyVector3<T>, T>(x),
             MemoryMarshal.Cast<MyVector3<T>, T>(y),
             MemoryMarshal.Cast<MyVector3<T>, T>(result));

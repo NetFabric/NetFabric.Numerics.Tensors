@@ -56,7 +56,7 @@ public class AddValueBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark]
     public void NetFabric_Short()
-        => Tensor.Add<short>(sourceShort!, 42, resultShort!);
+        => TensorOperations.Add<short>(sourceShort!, 42, resultShort!);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
@@ -66,7 +66,7 @@ public class AddValueBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark]
     public void NetFabric_Int()
-        => Tensor.Add<int>(sourceInt!, 42, resultInt!);
+        => TensorOperations.Add<int>(sourceInt!, 42, resultInt!);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
@@ -76,7 +76,7 @@ public class AddValueBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark]
     public void NetFabric_Long()
-        => Tensor.Add<long>(sourceLong!, 42, resultLong!);
+        => TensorOperations.Add<long>(sourceLong!, 42, resultLong!);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
@@ -86,7 +86,7 @@ public class AddValueBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark]
     public void NetFabric_Half()
-        => Tensor.Add<Half>(sourceHalf!, (Half)42, resultHalf!);
+        => TensorOperations.Add<Half>(sourceHalf!, (Half)42, resultHalf!);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
@@ -101,7 +101,7 @@ public class AddValueBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark]
     public void NetFabric_Float()
-        => Tensor.Add<float>(sourceFloat!, 42, resultFloat!);
+        => TensorOperations.Add<float>(sourceFloat!, 42, resultFloat!);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
@@ -111,5 +111,5 @@ public class AddValueBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark]
     public void NetFabric_Double()
-        => Tensor.Add<double>(sourceDouble!, 42, resultDouble!);
+        => TensorOperations.Add<double>(sourceDouble!, 42, resultDouble!);
 }

@@ -9,7 +9,7 @@ public class Sum4DTests
         var source = new short[5];
 
         // act
-        void action() => Tensor.Sum3D<short>(source);
+        void action() => TensorOperations.Sum3D<short>(source);
 
         // assert
         Assert.Throws<ArgumentException>("source", action);
@@ -35,7 +35,7 @@ public class Sum4DTests
         }
 
         // act
-        var result = Tensor.Sum4D<T>(MemoryMarshal.Cast<MyVector4<T>, T>(source));
+        var result = TensorOperations.Sum4D<T>(MemoryMarshal.Cast<MyVector4<T>, T>(source));
 
         // assert
         Assert.Equal(expected, new MyVector4<T>(result));

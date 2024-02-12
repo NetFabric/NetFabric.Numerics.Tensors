@@ -28,7 +28,7 @@ public class LessThanOrEqualTests
         }
 
         // act
-        Tensor.LessThanOrEqual(source.AsSpan(), other, result.AsSpan());
+        TensorOperations.LessThanOrEqual(source.AsSpan(), other, result.AsSpan());
 
         // assert
         Assert.Equal(expected, result);

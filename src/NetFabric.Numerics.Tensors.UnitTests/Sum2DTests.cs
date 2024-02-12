@@ -9,7 +9,7 @@ public class Sum2DTests
         var source = new short[3];
 
         // act
-        void action() => Tensor.Sum2D<short>(source);
+        void action() => TensorOperations.Sum2D<short>(source);
 
         // assert
         Assert.Throws<ArgumentException>("source", action);
@@ -35,7 +35,7 @@ public class Sum2DTests
         }
 
         // act
-        var result = Tensor.Sum2D<T>(MemoryMarshal.Cast<MyVector2<T>, T>(source));
+        var result = TensorOperations.Sum2D<T>(MemoryMarshal.Cast<MyVector2<T>, T>(source));
 
         // assert
         Assert.Equal(expected, new MyVector2<T>(result));

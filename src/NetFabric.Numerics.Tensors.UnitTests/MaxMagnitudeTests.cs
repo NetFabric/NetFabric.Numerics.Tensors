@@ -45,8 +45,8 @@ public class MaxMagnitudeTests
         TensorPrimitives.MaxMagnitude(thresholdArray, source, reversedExpected);
 
         // act
-        Tensor.MaxMagnitude(source, threshold, result);
-        Tensor.MaxMagnitude<float>(thresholdArray, source, reversedResult);
+        TensorOperations.MaxMagnitude(source, threshold, result);
+        TensorOperations.MaxMagnitude<float>(thresholdArray, source, reversedResult);
 
         // assert
         Assert.Equal(expected, result);
@@ -73,7 +73,7 @@ public class MaxMagnitudeTests
         }
 
         // act
-        Tensor.MaxMagnitude<T>(source, threshold, result);
+        TensorOperations.MaxMagnitude<T>(source, threshold, result);
 
         // assert
         Assert.Equal(expected, result);

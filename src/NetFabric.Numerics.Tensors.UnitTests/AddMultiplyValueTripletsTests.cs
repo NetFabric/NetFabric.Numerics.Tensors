@@ -27,7 +27,7 @@ public class AddMultiplyValueTripletsTests
         }
 
         // act
-        Tensor.AddMultiply(
+        TensorOperations.AddMultiply(
             MemoryMarshal.Cast<MyVector3<T>, T>(x),
             y,
             MemoryMarshal.Cast<MyVector3<T>, T>(z),
@@ -59,7 +59,7 @@ public class AddMultiplyValueTripletsTests
         }
 
         // act
-        Tensor.AddMultiply(
+        TensorOperations.AddMultiply(
             MemoryMarshal.Cast<MyVector3<T>, T>(x),
             MemoryMarshal.Cast<MyVector3<T>, T>(y),
             z,
@@ -91,7 +91,7 @@ public class AddMultiplyValueTripletsTests
 
 
         // act
-        Tensor.AddMultiply(
+        TensorOperations.AddMultiply(
             MemoryMarshal.Cast<MyVector3<T>, T>(x),
             y,
             z,

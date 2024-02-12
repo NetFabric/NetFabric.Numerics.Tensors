@@ -23,7 +23,7 @@ public class ShiftLeftTests
         }
 
         // act
-        Tensor.ShiftLeft(source.AsSpan(), amount, result.AsSpan());
+        TensorOperations.ShiftLeft(source.AsSpan(), amount, result.AsSpan());
 
         // assert
         Assert.Equal(expected, result);
@@ -47,7 +47,7 @@ public class ShiftLeftTests
         }
 
         // act
-        Tensor.ShiftLeft(source.AsSpan(), amount, result.AsSpan());
+        TensorOperations.ShiftLeft(source.AsSpan(), amount, result.AsSpan());
 
         // assert
         Assert.Equal(expected, result);
@@ -71,7 +71,7 @@ public class ShiftLeftTests
         }
 
         // act
-        Tensor.ShiftLeft(source.AsSpan(), amount, result.AsSpan());
+        TensorOperations.ShiftLeft(source.AsSpan(), amount, result.AsSpan());
 
         // assert
         Assert.Equal(expected, result);

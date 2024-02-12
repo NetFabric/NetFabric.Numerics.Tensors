@@ -1,12 +1,12 @@
 namespace NetFabric.Numerics.Tensors;
 
-public static partial class Tensor
+public static partial class TensorOperations
 {
     public static void Decrement<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, IDecrementOperators<T>
-        => Apply<T, DecrementOperator<T>>(left, destination);
+        => Tensor.Apply<T, DecrementOperator<T>>(left, destination);
 
     public static void CheckedDecrement<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, IDecrementOperators<T>
-        => Apply<T, CheckedDecrementOperator<T>>(left, destination);
+        => Tensor.Apply<T, CheckedDecrementOperator<T>>(left, destination);
 }

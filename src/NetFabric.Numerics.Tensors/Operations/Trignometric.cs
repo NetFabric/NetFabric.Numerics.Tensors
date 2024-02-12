@@ -1,66 +1,66 @@
 namespace NetFabric.Numerics.Tensors;
 
-public static partial class Tensor
+public static partial class TensorOperations
 {
     public static void Acos<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, AcosOperator<T>>(left, destination);
+        => Tensor.Apply<T, AcosOperator<T>>(left, destination);
 
     public static void AcosPi<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, AcosPiOperator<T>>(left, destination);
+        => Tensor.Apply<T, AcosPiOperator<T>>(left, destination);
 
     public static void Asin<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, AsinOperator<T>>(left, destination);
+        => Tensor.Apply<T, AsinOperator<T>>(left, destination);
 
     public static void AsinPi<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, AsinPiOperator<T>>(left, destination);
+        => Tensor.Apply<T, AsinPiOperator<T>>(left, destination);
 
     public static void Atan<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, AtanOperator<T>>(left, destination);
+        => Tensor.Apply<T, AtanOperator<T>>(left, destination);
 
     public static void AtanPi<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T>    
-        => Apply<T, AtanPiOperator<T>>(left, destination);
+        => Tensor.Apply<T, AtanPiOperator<T>>(left, destination);
 
     public static void Cos<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, CosOperator<T>>(left, destination);
+        => Tensor.Apply<T, CosOperator<T>>(left, destination);
 
     public static void CosPi<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T> 
-        => Apply<T, CosPiOperator<T>>(left, destination);
+        => Tensor.Apply<T, CosPiOperator<T>>(left, destination);
 
     public static void Sin<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, SinOperator<T>>(left, destination);
+        => Tensor.Apply<T, SinOperator<T>>(left, destination);
 
     public static void SinPi<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, SinPiOperator<T>>(left, destination);
+        => Tensor.Apply<T, SinPiOperator<T>>(left, destination);
 
     public static void Tan<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, TanOperator<T>>(left, destination);
+        => Tensor.Apply<T, TanOperator<T>>(left, destination);
 
     public static void TanPi<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, TanPiOperator<T>>(left, destination);
+        => Tensor.Apply<T, TanPiOperator<T>>(left, destination);
 
     public static void SinCos<T>(ReadOnlySpan<T> left, Span<(T Sin, T Cos)> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, (T Sin, T Cos), SinCosOperator<T>>(left, destination);
+        => Tensor.Apply<T, (T Sin, T Cos), SinCosOperator<T>>(left, destination);
 
     public static void SinCos<T>(ReadOnlySpan<T> left, Span<T> sinDestination, Span<T> cosDestination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply2<T, SinOperator<T>, CosOperator<T>>(left, sinDestination, cosDestination);
+        => Tensor.Apply2<T, SinOperator<T>, CosOperator<T>>(left, sinDestination, cosDestination);
 
     public static void SinCosPi<T>(ReadOnlySpan<T> left, Span<(T SinPi, T CosPi)> destination)
         where T : struct, ITrigonometricFunctions<T>
-        => Apply<T, (T SinPi, T CosPi), SinCosPiOperator<T>>(left, destination);
+        => Tensor.Apply<T, (T SinPi, T CosPi), SinCosPiOperator<T>>(left, destination);
 
     public static void DegreesToRadians<T>(ReadOnlySpan<T> left, Span<T> destination)
         where T : struct, INumberBase<T>, IFloatingPointConstants<T>

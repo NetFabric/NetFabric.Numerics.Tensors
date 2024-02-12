@@ -25,7 +25,7 @@ public class AddPairsTests
         }
 
         // act
-        Tensor.Add(
+        TensorOperations.Add(
             MemoryMarshal.Cast<MyVector2<T>, T>(x),
             MemoryMarshal.Cast<MyVector2<T>, T>(y),
             MemoryMarshal.Cast<MyVector2<T>, T>(result));

@@ -9,7 +9,7 @@ public class ProductTests
         var source = Array.Empty<int>();
 
         // act
-        var result = Tensor.Product<int>(source);
+        var result = TensorOperations.Product<int>(source);
 
         // assert
         Assert.Null(result);
@@ -35,7 +35,7 @@ public class ProductTests
         }
 
         // act
-        var result = Tensor.Product<T>(source);
+        var result = TensorOperations.Product<T>(source);
 
         // assert
         Assert.Equal(expected, result);

@@ -21,7 +21,7 @@ public class SquareTests
         }
 
         // act
-        Tensor.Square<T>(source, result);
+        TensorOperations.Square<T>(source, result);
 
         // assert
         Assert.Equal(expected, result);

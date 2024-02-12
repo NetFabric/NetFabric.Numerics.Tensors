@@ -24,7 +24,7 @@ public class BitwiseAndNotTests
         }
 
         // act
-        Tensor.BitwiseAndNot(source.AsSpan(), other, result.AsSpan());
+        TensorOperations.BitwiseAndNot(source.AsSpan(), other, result.AsSpan());
 
         // assert
         Assert.Equal(expected, result);

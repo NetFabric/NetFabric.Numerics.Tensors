@@ -56,7 +56,7 @@ public class NegateBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark]
     public void NetFabric_Short()
-        => Tensor.Negate<short>(sourceShort!, resultShort!);
+        => TensorOperations.Negate<short>(sourceShort!, resultShort!);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
@@ -66,7 +66,7 @@ public class NegateBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark]
     public void NetFabric_Int()
-        => Tensor.Negate<int>(sourceInt!, resultInt!);
+        => TensorOperations.Negate<int>(sourceInt!, resultInt!);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
@@ -76,7 +76,7 @@ public class NegateBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark]
     public void NetFabric_Long()
-        => Tensor.Negate<long>(sourceLong!, resultLong!);
+        => TensorOperations.Negate<long>(sourceLong!, resultLong!);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
@@ -86,7 +86,7 @@ public class NegateBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark]
     public void NetFabric_Half()
-        => Tensor.Negate<Half>(sourceHalf!, resultHalf!);
+        => TensorOperations.Negate<Half>(sourceHalf!, resultHalf!);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
@@ -101,7 +101,7 @@ public class NegateBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark]
     public void NetFabric_Float()
-        => Tensor.Negate<float>(sourceFloat!, resultFloat!);
+        => TensorOperations.Negate<float>(sourceFloat!, resultFloat!);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
@@ -111,5 +111,5 @@ public class NegateBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark]
     public void NetFabric_Double()
-        => Tensor.Negate<double>(sourceDouble!, resultDouble!);
+        => TensorOperations.Negate<double>(sourceDouble!, resultDouble!);
 }

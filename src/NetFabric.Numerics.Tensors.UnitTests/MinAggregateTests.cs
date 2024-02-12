@@ -21,7 +21,7 @@ public class MinAggregateTests
         }
 
         // act
-        var result = Tensor.Min<T>(source);
+        var result = TensorOperations.Min<T>(source);
 
         // assert
         Assert.Equal(expected, result);

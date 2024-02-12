@@ -21,7 +21,7 @@ public class MaxAggregateTests
         }
 
         // act
-        var result = Tensor.Max<T>(source);
+        var result = TensorOperations.Max<T>(source);
 
         // assert
         Assert.Equal(expected, result);

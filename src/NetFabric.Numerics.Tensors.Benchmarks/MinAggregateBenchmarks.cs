@@ -57,7 +57,7 @@ public class MinAggregateBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark]
     public short NetFabric_Short()
-        => Tensor.Min<short>(arrayShort!);
+        => TensorOperations.Min<short>(arrayShort!);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
@@ -72,7 +72,7 @@ public class MinAggregateBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark]
     public int NetFabric_Int()
-        => Tensor.Min<int>(arrayInt!);
+        => TensorOperations.Min<int>(arrayInt!);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
@@ -87,7 +87,7 @@ public class MinAggregateBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark]
     public long NetFabric_Long()
-        => Tensor.Min<long>(arrayLong!);
+        => TensorOperations.Min<long>(arrayLong!);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
@@ -102,7 +102,7 @@ public class MinAggregateBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark]
     public Half NetFabric_Half()
-        => Tensor.Min<Half>(arrayHalf!);
+        => TensorOperations.Min<Half>(arrayHalf!);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
@@ -122,7 +122,7 @@ public class MinAggregateBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark]
     public float NetFabric_Float()
-        => Tensor.Min<float>(arrayFloat!);
+        => TensorOperations.Min<float>(arrayFloat!);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
@@ -137,5 +137,5 @@ public class MinAggregateBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark]
     public double NetFabric_Double()
-        => Tensor.Min<double>(arrayDouble!);
+        => TensorOperations.Min<double>(arrayDouble!);
 }

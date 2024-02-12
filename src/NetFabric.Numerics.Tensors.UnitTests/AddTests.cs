@@ -23,7 +23,7 @@ public class AddTests
         }
 
         // act
-        Tensor.Add<T>(x, y, result);
+        TensorOperations.Add<T>(x, y, result);
 
         // assert
         Assert.Equal(expected, result);

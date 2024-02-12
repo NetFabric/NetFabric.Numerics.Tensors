@@ -24,7 +24,7 @@ public class SinCosTests
         }
 
         // act
-        Tensor.SinCos(source.AsSpan(), sinResult.AsSpan(), cosResult.AsSpan());
+        TensorOperations.SinCos(source.AsSpan(), sinResult.AsSpan(), cosResult.AsSpan());
 
         // assert
         Assert.Equal(sinExpected, sinResult);

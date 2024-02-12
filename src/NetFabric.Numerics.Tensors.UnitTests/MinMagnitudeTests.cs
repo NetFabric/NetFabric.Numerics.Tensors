@@ -45,8 +45,8 @@ public class MinMagnitudeTests
         TensorPrimitives.MinMagnitude(thresholdArray, source, reversedExpected);
 
         // act
-        Tensor.MinMagnitude(source, threshold, result);
-        Tensor.MinMagnitude<float>(thresholdArray, source, reversedResult);
+        TensorOperations.MinMagnitude(source, threshold, result);
+        TensorOperations.MinMagnitude<float>(thresholdArray, source, reversedResult);
 
         // assert
         Assert.Equal(expected, result);
@@ -73,7 +73,7 @@ public class MinMagnitudeTests
         }
 
         // act
-        Tensor.MinMagnitude<T>(source, threshold, result);
+        TensorOperations.MinMagnitude<T>(source, threshold, result);
 
         // assert
         Assert.Equal(expected, result);

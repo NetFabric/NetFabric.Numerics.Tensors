@@ -21,7 +21,7 @@ public class OnesComplementTests
         }
 
         // act
-        Tensor.OnesComplement(source.AsSpan(), result.AsSpan());
+        TensorOperations.OnesComplement(source.AsSpan(), result.AsSpan());
 
         // assert
         Assert.Equal(expected, result);

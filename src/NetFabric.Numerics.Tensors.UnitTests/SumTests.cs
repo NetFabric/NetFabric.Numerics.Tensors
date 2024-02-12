@@ -22,7 +22,7 @@ public class SumTests
         }
 
         // act
-        var result = Tensor.Sum<T>(source);
+        var result = TensorOperations.Sum<T>(source);
 
         // assert
         Assert.Equal(expected, result);

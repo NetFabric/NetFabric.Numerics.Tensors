@@ -24,7 +24,7 @@ public class AddMultiplyValueTests
         }
 
         // act
-        Tensor.AddMultiply(x, y, z, result);
+        TensorOperations.AddMultiply(x, y, z, result);
 
         // assert
         Assert.Equal(expected, result);
@@ -50,7 +50,7 @@ public class AddMultiplyValueTests
 
 
         // act
-        Tensor.AddMultiply(x, y, z, result);
+        TensorOperations.AddMultiply(x, y, z, result);
 
         // assert
         Assert.Equal(expected, result);
@@ -72,7 +72,7 @@ public class AddMultiplyValueTests
             .ToArray();
 
         // act
-        Tensor.AddMultiply(x, y, z, result);
+        TensorOperations.AddMultiply(x, y, z, result);
 
         // assert
         Assert.Equal(expected, result);

@@ -54,7 +54,7 @@ public class ProductBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark]
     public short? NetFabric_Short()
-        => Tensor.Product<short>(arrayShort!);
+        => TensorOperations.Product<short>(arrayShort!);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
@@ -69,7 +69,7 @@ public class ProductBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark]
     public int? NetFabric_Int()
-        => Tensor.Product<int>(arrayInt!);
+        => TensorOperations.Product<int>(arrayInt!);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
@@ -84,7 +84,7 @@ public class ProductBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark]
     public long? NetFabric_Long()
-        => Tensor.Product<long>(arrayLong!);
+        => TensorOperations.Product<long>(arrayLong!);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
@@ -99,7 +99,7 @@ public class ProductBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark]
     public Half? NetFabric_Half()
-        => Tensor.Product<Half>(arrayHalf!);
+        => TensorOperations.Product<Half>(arrayHalf!);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
@@ -119,7 +119,7 @@ public class ProductBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark]
     public float? NetFabric_Float()
-        => Tensor.Product<float>(arrayFloat!);
+        => TensorOperations.Product<float>(arrayFloat!);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
@@ -134,5 +134,5 @@ public class ProductBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark]
     public double? NetFabric_Double()
-        => Tensor.Product<double>(arrayDouble!);
+        => TensorOperations.Product<double>(arrayDouble!);
 }

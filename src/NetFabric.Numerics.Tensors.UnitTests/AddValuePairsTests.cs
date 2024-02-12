@@ -24,7 +24,7 @@ public class AddValuePairsTests
         }
 
         // act
-        Tensor.Add(MemoryMarshal.Cast<MyVector2<T>, T>(x), y, MemoryMarshal.Cast<MyVector2<T>, T>(result));
+        TensorOperations.Add(MemoryMarshal.Cast<MyVector2<T>, T>(x), y, MemoryMarshal.Cast<MyVector2<T>, T>(result));
 
         // assert
         Assert.Equal(expected, result);

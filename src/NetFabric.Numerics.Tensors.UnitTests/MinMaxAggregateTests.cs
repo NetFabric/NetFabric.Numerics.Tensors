@@ -25,7 +25,7 @@ public class MinMaxAggregateTests
         var expected = (expectedMin, expectedMax);
 
         // act
-        var result = Tensor.MinMax<T>(source);
+        var result = TensorOperations.MinMax<T>(source);
 
         // assert
         Assert.Equal(expected, result);

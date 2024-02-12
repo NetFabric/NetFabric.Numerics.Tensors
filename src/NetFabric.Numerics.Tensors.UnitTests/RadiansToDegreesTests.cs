@@ -21,7 +21,7 @@ public class RadiansToDegreesTests
         }
 
         // act
-        Tensor.RadiansToDegrees(source.AsSpan(), result.AsSpan());
+        TensorOperations.RadiansToDegrees(source.AsSpan(), result.AsSpan());
 
         // assert
         AssertCollection.AreEqual(expected, result, T.CreateChecked(0.0001));

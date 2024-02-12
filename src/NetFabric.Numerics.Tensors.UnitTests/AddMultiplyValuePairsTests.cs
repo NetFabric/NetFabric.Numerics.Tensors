@@ -26,7 +26,7 @@ public class AddMultiplyValuePairsTests
         }
 
         // act
-        Tensor.AddMultiply(
+        TensorOperations.AddMultiply(
             MemoryMarshal.Cast<MyVector2<T>, T>(x),
             y,
             MemoryMarshal.Cast<MyVector2<T>, T>(z),
@@ -58,7 +58,7 @@ public class AddMultiplyValuePairsTests
         }
 
         // act
-        Tensor.AddMultiply(
+        TensorOperations.AddMultiply(
             MemoryMarshal.Cast<MyVector2<T>, T>(x),
             MemoryMarshal.Cast<MyVector2<T>, T>(y),
             z,
@@ -84,7 +84,7 @@ public class AddMultiplyValuePairsTests
             .ToArray();
 
         // act
-        Tensor.AddMultiply(
+        TensorOperations.AddMultiply(
             MemoryMarshal.Cast<MyVector2<T>, T>(x),
             y,
             z,

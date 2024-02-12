@@ -28,7 +28,7 @@ public class GreaterThanTests
         }
 
         // act
-        Tensor.GreaterThan(source.AsSpan(), other, result.AsSpan());
+        TensorOperations.GreaterThan(source.AsSpan(), other, result.AsSpan());
 
         // assert
         Assert.Equal(expected, result);
