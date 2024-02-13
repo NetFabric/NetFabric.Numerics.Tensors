@@ -284,7 +284,7 @@ readonly struct SumOperator<T>
 
 It implements the `IAggregationOperator<T, T>` interface. The generic type `T` is restricted to `struct`, `IAdditiveIdentity<T, T>`, and `IAdditionOperators<T, T, T>`, signifying that only value types with both the additive identity and the `+` operator implemented are suitable. The `Seed` initializes the sum using the additive identity. The `Invoke()` methods straightforwardly perform the addition operation for either a single `T` value or a `Vector<T>` of values.
 
-The transform operator is utilized to apply a transformation to the source elements before aggregation. For instance, consider an operation that calculates the sum of the squares of all elements in the source. This operation can be used to find the length of a vector with n dimensions. It can be implemented as follows:
+The transform operator is utilized to apply a transformation to the source elements before aggregation. For instance, consider an operation that calculates the sum of the squares of all elements in the source. This operation can be employed to compute the square of the length of any n-dimensional vector. It can be implemented as follows:
 
 ```csharp
 public static T SumOfSquares<T>(ReadOnlySpan<T> source)
