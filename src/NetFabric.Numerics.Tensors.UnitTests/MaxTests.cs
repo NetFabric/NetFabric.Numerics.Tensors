@@ -5,25 +5,23 @@ namespace NetFabric.Numerics.Tensors.UnitTests;
 public class MaxTests
 {
     public static TheoryData<float[]> MaxNaNData
-        => new() { 
-            new[] { float.NaN },
-            new[] { float.NaN, float.NaN },
-            new[] { float.NaN, 1.0f },
-            new[] { float.NaN, 1.0f, float.NaN },
-            new[] { 1.0f, float.NaN, 1.0f, float.NaN },
-            new[] { 2.0f, float.NaN, 2.0f, float.NaN },
-            new[] { 1.0f, 1.0f, float.NaN, 1.0f, float.NaN },
-            new[] { 2.0f, 2.0f, float.NaN, 2.0f, float.NaN },
-            new[] { 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, float.NaN },
-            new[] { 2.0f, 2.0f, 2.0f, float.NaN, 2.0f, float.NaN },
-            new[] { 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, float.NaN },
-            new[] { 2.0f, 2.0f, 2.0f, 2.0f, float.NaN, 2.0f, float.NaN },
-            new[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, float.NaN },
-            new[] { 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, float.NaN, 2.0f, float.NaN },
-            new[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, float.NaN },
-            new[] { 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, float.NaN, 2.0f, float.NaN },
-            new[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, float.NaN },
-            new[] { 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, float.NaN, 2.0f, float.NaN },
+        => new() {
+            new[] { float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { float.NaN, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f },
+            new[] { 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 2.0f, float.NaN, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f },
+            new[] { 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 2.0f, 2.0f, float.NaN, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f },
+            new[] { 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 2.0f, 2.0f, 2.0f, float.NaN, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f },
+            new[] { 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 2.0f, 2.0f, 2.0f, 2.0f, float.NaN, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f },
+            new[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, float.NaN, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f },
+            new[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, float.NaN, 2.0f, 2.0f, 2.0f, 2.0f },
+            new[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f },
+            new[] { 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, 2.0f, float.NaN, 2.0f, 2.0f, 2.0f },
         };
 
     [Theory]

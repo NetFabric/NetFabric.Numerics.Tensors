@@ -32,7 +32,7 @@ public static partial class Tensor
                     var currentVector = Unsafe.Add(ref sourceVectorsRef, indexVector);
                     if (Vector.EqualsAll(currentVector, currentVector)) // check if vector contains NaN
                     {
-                        resultVector = TOperator.Invoke(ref resultVector, ref Unsafe.Add(ref sourceVectorsRef, indexVector));
+                        resultVector = TOperator.Invoke(ref resultVector, ref currentVector);
                     }
                     else
                     {
@@ -59,7 +59,7 @@ public static partial class Tensor
 
         // aggregate the remaining elements in the source
         ref var sourceRef = ref MemoryMarshal.GetReference(source);
-        for (; (nuint)indexSource < (nuint)source.Length; indexSource++)
+        for (; indexSource < source.Length; indexSource++)
         {
             var current = Unsafe.Add(ref sourceRef, indexSource);
             if (T.IsNaN(current))
@@ -105,8 +105,8 @@ public static partial class Tensor
                     var currentVector = Unsafe.Add(ref sourceVectorsRef, indexVector);
                     if (Vector.EqualsAll(currentVector, currentVector)) // check if vector contains NaN
                     {
-                        resultVector1 = TOperator1.Invoke(ref resultVector1, ref Unsafe.Add(ref sourceVectorsRef, indexVector));
-                        resultVector2 = TOperator2.Invoke(ref resultVector2, ref Unsafe.Add(ref sourceVectorsRef, indexVector));
+                        resultVector1 = TOperator1.Invoke(ref resultVector1, ref currentVector);
+                        resultVector2 = TOperator2.Invoke(ref resultVector2, ref currentVector);
                     }
                     else
                     {
@@ -134,7 +134,7 @@ public static partial class Tensor
 
         // aggregate the remaining elements in the source
         ref var sourceRef = ref MemoryMarshal.GetReference(source);
-        for (; (nuint)indexSource < (nuint)source.Length; indexSource++)
+        for (; indexSource < source.Length; indexSource++)
         {
             var current = Unsafe.Add(ref sourceRef, indexSource);
             if (T.IsNaN(current))
