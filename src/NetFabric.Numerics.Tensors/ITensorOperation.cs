@@ -1,21 +1,20 @@
 namespace NetFabric.Numerics.Tensors;
 
 /// <summary>
-/// Represents an operator that can receive values or vectors.
+/// Represents an operator that can be applied to the elements of a tensor.
 /// </summary>
 public interface IOperator
 {
     /// <summary>
-    /// Gets a value indicating whether the operator can be vectorized.
+    /// Gets a value indicating whether the operation can be vectorized.
     /// </summary>
-    static virtual bool IsVectorizable
-        => true;
+    static virtual bool IsVectorizable => true;
 }
 
 /// <summary>
-/// Represents a unary operator that receives a single value.
+/// Represents an operator that performs an operation with a single parameter.
 /// </summary>
-/// <typeparam name="T">The type of the value.</typeparam>
+/// <typeparam name="T">The type of the parameter.</typeparam>
 /// <typeparam name="TResult">The type of the result.</typeparam>
 public interface IUnaryOperator<T, TResult> 
     : IOperator
@@ -23,25 +22,25 @@ public interface IUnaryOperator<T, TResult>
     where TResult : struct
 {
     /// <summary>
-    /// Invokes the unary operator using the specified value.
+    /// Performs the unary operation using the specified value.
     /// </summary>
     /// <param name="x">The value to use.</param>
-    /// <returns>The result of using the operator.</returns>
+    /// <returns>The result of using the operation.</returns>
     static abstract TResult Invoke(T x);
 
     /// <summary>
-    /// Invokes the unary operator using the specified vector.
+    /// Performs the unary operation using the specified vector.
     /// </summary>
     /// <param name="x">The vector to use.</param>
-    /// <returns>The result of using the operator.</returns>
+    /// <returns>The result of using the operation.</returns>
     static abstract Vector<TResult> Invoke(ref readonly Vector<T> x);
 }
 
 /// <summary>
-/// Represents a binary operator that receives two values.
+/// Represents an operator that performs an operation with two parameters.
 /// </summary>
-/// <typeparam name="T1">The type of the first value.</typeparam>
-/// <typeparam name="T2">The type of the second value.</typeparam>
+/// <typeparam name="T1">The type of the first parameter.</typeparam>
+/// <typeparam name="T2">The type of the second parameter.</typeparam>
 /// <typeparam name="TResult">The type of the result.</typeparam>
 public interface IBinaryOperator<T1, T2, TResult> 
     : IOperator
@@ -50,27 +49,27 @@ public interface IBinaryOperator<T1, T2, TResult>
     where TResult : struct
 {
     /// <summary>
-    /// Invokes the binary operator using the specified values.
+    /// Performs the binary operation using the specified values.
     /// </summary>
     /// <param name="x">The first value to use.</param>
     /// <param name="y">The second value to use.</param>
-    /// <returns>The result of using the operator.</returns>
+    /// <returns>The result of using the operation.</returns>
     static abstract TResult Invoke(T1 x, T2 y);
 
     /// <summary>
-    /// Invokes the binary operator using the specified vectors.
+    /// Performs the binary operation using the specified vectors.
     /// </summary>
     /// <param name="x">The first vector to use.</param>
     /// <param name="y">The second vector to use.</param>
-    /// <returns>The result of using the operator.</returns>
+    /// <returns>The result of using the operation.</returns>
     static abstract Vector<TResult> Invoke(ref readonly Vector<T1> x, ref readonly Vector<T2> y);
 }
 
 /// <summary>
-/// Represents a binary operator that receives two values where the second is always a scalar.
+/// Represents an operator that performs an operation with a vector and a scalar.
 /// </summary>
-/// <typeparam name="T1">The type of the first value.</typeparam>
-/// <typeparam name="T2">The type of the second value.</typeparam>
+/// <typeparam name="T1">The type of the vector elements.</typeparam>
+/// <typeparam name="T2">The type of the scalar.</typeparam>
 /// <typeparam name="TResult">The type of the result.</typeparam>
 public interface IBinaryScalarOperator<T1, T2, TResult> 
     : IOperator
@@ -78,28 +77,28 @@ public interface IBinaryScalarOperator<T1, T2, TResult>
     where TResult : struct
 {
     /// <summary>
-    /// Invokes the binary operator using the specified values.
-    /// </summary>
-    /// <param name="x">The first value to use.</param>
-    /// <param name="y">The second value to use.</param>
-    /// <returns>The result of using the operator.</returns>
-    static abstract TResult Invoke(T1 x, T2 y);
-
-    /// <summary>
-    /// Invokes the binary operator using the specified vector and scalar.
+    /// Performs the binary operation using the specified values.
     /// </summary>
     /// <param name="x">The vector to use.</param>
     /// <param name="y">The scalar to use.</param>
-    /// <returns>The result of using the operator.</returns>
+    /// <returns>The result of using the operation.</returns>
+    static abstract TResult Invoke(T1 x, T2 y);
+
+    /// <summary>
+    /// Performs the binary operation using the specified vector and scalar.
+    /// </summary>
+    /// <param name="x">The vector to use.</param>
+    /// <param name="y">The scalar to use.</param>
+    /// <returns>The result of using the operation.</returns>
     static abstract Vector<TResult> Invoke(ref readonly Vector<T1> x, T2 y);
 }
 
 /// <summary>
-/// Represents a ternary operator that receives three values.
+/// Represents an operator that performs an operation with three parameters.
 /// </summary>
-/// <typeparam name="T1">The type of the first value.</typeparam>
-/// <typeparam name="T2">The type of the second value.</typeparam>
-/// <typeparam name="T3">The type of the third value.</typeparam>
+/// <typeparam name="T1">The type of the first parameter.</typeparam>
+/// <typeparam name="T2">The type of the second parameter.</typeparam>
+/// <typeparam name="T3">The type of the third parameter.</typeparam>
 /// <typeparam name="TResult">The type of the result.</typeparam>
 public interface ITernaryOperator<T1, T2, T3, TResult> 
     : IOperator
@@ -109,29 +108,29 @@ public interface ITernaryOperator<T1, T2, T3, TResult>
     where TResult : struct
 {
     /// <summary>
-    /// Invokes the ternary operator using the specified values.
+    /// Performs the ternary operation using the specified values.
     /// </summary>
     /// <param name="x">The first value to use.</param>
     /// <param name="y">The second value to use.</param>
     /// <param name="z">The third value to use.</param>
-    /// <returns>The result of using the operator.</returns>
+    /// <returns>The result of using the operation.</returns>
     static abstract TResult Invoke(T1 x, T2 y, T3 z);
 
     /// <summary>
-    /// Invokes the ternary operator using the specified vectors.
+    /// Performs the ternary operation using the specified vectors.
     /// </summary>
     /// <param name="x">The first vector to use.</param>
     /// <param name="y">The second vector to use.</param>
     /// <param name="z">The third vector to use.</param>
-    /// <returns>The result of using the operator.</returns>
+    /// <returns>The result of using the operation.</returns>
     static abstract Vector<TResult> Invoke(ref readonly Vector<T1> x, ref readonly Vector<T2> y, ref readonly Vector<T3> z);
 }
 
 /// <summary>
-/// Represents an aggregation operator that receives two values.
+/// Represents an aggregation operator that returns a value.
 /// </summary>
-/// <typeparam name="T">The type of the values.</typeparam>
-/// <typeparam name="TResult">The type of the result.</typeparam>
+/// <typeparam name="T">The type of the source elements.</typeparam>
+/// <typeparam name="TResult">The type of the result value.</typeparam>
 public interface IAggregationOperator<T, TResult> 
     : IBinaryOperator<TResult, T, TResult>
     where T : struct
@@ -141,14 +140,13 @@ public interface IAggregationOperator<T, TResult>
     /// Gets the seed value used to initialize the aggregation.
     /// </summary>
     /// <returns>The seed value.</returns>
-    static virtual TResult Seed
-        => Throw.NotSupportedException<TResult>();
+    static virtual TResult Seed => Throw.NotSupportedException<TResult>();
 
     /// <summary>
-    /// Invokes the binary operator using the specified values.
+    /// Performs the binary operatorion using the specified values.
     /// </summary>
     /// <param name="x">The first value.</param>
     /// <param name="y">The second value.</param>
-    /// <returns>The result of using the operator.</returns>
+    /// <returns>The result of using the operation.</returns>
     static abstract TResult Invoke(TResult x, TResult y);
 }
