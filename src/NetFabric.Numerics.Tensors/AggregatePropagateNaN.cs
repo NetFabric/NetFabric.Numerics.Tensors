@@ -2,16 +2,24 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class Tensor
 {
-    public static T AggregatePropagateNaN<T, TOperator>(ReadOnlySpan<T> source)
-        where T : struct, INumber<T>
-        where TOperator : struct, IAggregationOperator<T, T>
+    /// <summary>
+    /// Aggregates the elements of a <see cref="ReadOnlySpan{T}"/> using the specified operator propagating NaN values.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source span that must implement the <see cref="INumberBase{T}"/> interface.</typeparam>
+    /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
+    /// <param name="source">The span of elements to aggregate.</param>
+    /// <returns>The result of the aggregation.</returns>
+    /// <remarks>If any of the elements is NaN, the result is NaN.</remarks>
+    public static T AggregatePropagateNaN<T, TAggregateOperator>(ReadOnlySpan<T> source)
+        where T : struct, INumberBase<T>
+        where TAggregateOperator : struct, IAggregationOperator<T, T>
     {
         // initialize aggregate
-        var aggregate = TOperator.Seed;
+        var aggregate = TAggregateOperator.Seed;
         var indexSource = nint.Zero;
 
         // aggregate using hardware acceleration if available
-        if (TOperator.IsVectorizable &&
+        if (TAggregateOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T>.IsSupported)
         {
@@ -22,7 +30,7 @@ public static partial class Tensor
             if (sourceVectors.Length > 0)
             {
                 // initialize aggregate vector
-                var resultVector = new Vector<T>(TOperator.Seed);
+                var resultVector = new Vector<T>(TAggregateOperator.Seed);
 
                 // aggregate the source vectors into the aggregate vector
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
@@ -32,7 +40,7 @@ public static partial class Tensor
                     var currentVector = Unsafe.Add(ref sourceVectorsRef, indexVector);
                     if (Vector.EqualsAll(currentVector, currentVector)) // check if vector contains NaN
                     {
-                        resultVector = TOperator.Invoke(ref resultVector, ref currentVector);
+                        resultVector = TAggregateOperator.Invoke(ref resultVector, ref currentVector);
                     }
                     else
                     {
@@ -49,7 +57,7 @@ public static partial class Tensor
                 // aggregate the aggregate vector into the aggregate
                 for (var index = 0; index < Vector<T>.Count; index++)
                 {
-                    aggregate = TOperator.Invoke(aggregate, resultVector[index]);
+                    aggregate = TAggregateOperator.Invoke(aggregate, resultVector[index]);
                 }
 
                 // skip the source elements already aggregated
@@ -65,25 +73,37 @@ public static partial class Tensor
             if (T.IsNaN(current))
                 return current;
 
-            aggregate = TOperator.Invoke(aggregate, current);
+            aggregate = TAggregateOperator.Invoke(aggregate, current);
         }
 
         return aggregate;
     }
 
-    public static ValueTuple<T, T> AggregatePropagateNaN2<T, TOperator1, TOperator2>(ReadOnlySpan<T> source)
-        where T : struct, INumber<T>
-        where TOperator1 : struct, IAggregationOperator<T, T>
-        where TOperator2 : struct, IAggregationOperator<T, T>
+    /// <summary>
+    /// Aggregates the elements of a <see cref="ReadOnlySpan{T}"/> using the specified two operators propagating NaN values.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source span that must implement the <see cref="INumberBase{T}"/> interface.</typeparam>
+    /// <typeparam name="TAggregateOperator1">The type of the first aggregation operator.</typeparam>
+    /// <typeparam name="TAggregateOperator2">The type of the second aggregation operator.</typeparam>
+    /// <param name="source">The span of elements to aggregate.</param>
+    /// <returns>A tuple containing the two aggregated results.</returns>
+    /// <remarks>
+    /// The two operators are applied in parallel to the source elements, allowing two operations to be performed on a single pass of the source elements.
+    /// If any of the elements is NaN, the result is NaN.
+    /// </remarks>
+    public static ValueTuple<T, T> AggregatePropagateNaN2<T, TAggregateOperator1, TAggregateOperator2>(ReadOnlySpan<T> source)
+        where T : struct, INumberBase<T>
+        where TAggregateOperator1 : struct, IAggregationOperator<T, T>
+        where TAggregateOperator2 : struct, IAggregationOperator<T, T>
     {
         // initialize aggregate
-        var aggregate1 = TOperator1.Seed;
-        var aggregate2 = TOperator2.Seed;
+        var aggregate1 = TAggregateOperator1.Seed;
+        var aggregate2 = TAggregateOperator2.Seed;
         var indexSource = nint.Zero;
 
         // aggregate using hardware acceleration if available
-        if (TOperator1.IsVectorizable &&
-            TOperator2.IsVectorizable &&
+        if (TAggregateOperator1.IsVectorizable &&
+            TAggregateOperator2.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T>.IsSupported)
         {
@@ -94,8 +114,8 @@ public static partial class Tensor
             if (sourceVectors.Length > 0)
             {
                 // initialize aggregate vector
-                var resultVector1 = new Vector<T>(TOperator1.Seed);
-                var resultVector2 = new Vector<T>(TOperator2.Seed);
+                var resultVector1 = new Vector<T>(TAggregateOperator1.Seed);
+                var resultVector2 = new Vector<T>(TAggregateOperator2.Seed);
 
                 // aggregate the source vectors into the aggregate vector
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
@@ -105,8 +125,8 @@ public static partial class Tensor
                     var currentVector = Unsafe.Add(ref sourceVectorsRef, indexVector);
                     if (Vector.EqualsAll(currentVector, currentVector)) // check if vector contains NaN
                     {
-                        resultVector1 = TOperator1.Invoke(ref resultVector1, ref currentVector);
-                        resultVector2 = TOperator2.Invoke(ref resultVector2, ref currentVector);
+                        resultVector1 = TAggregateOperator1.Invoke(ref resultVector1, ref currentVector);
+                        resultVector2 = TAggregateOperator2.Invoke(ref resultVector2, ref currentVector);
                     }
                     else
                     {
@@ -123,8 +143,8 @@ public static partial class Tensor
                 // aggregate the aggregate vector into the aggregate
                 for (var index = 0; index < Vector<T>.Count; index++)
                 {
-                    aggregate1 = TOperator1.Invoke(aggregate1, resultVector1[index]);
-                    aggregate2 = TOperator2.Invoke(aggregate2, resultVector2[index]);
+                    aggregate1 = TAggregateOperator1.Invoke(aggregate1, resultVector1[index]);
+                    aggregate2 = TAggregateOperator2.Invoke(aggregate2, resultVector2[index]);
                 }
 
                 // skip the source elements already aggregated
@@ -140,8 +160,8 @@ public static partial class Tensor
             if (T.IsNaN(current))
                 return (current, current);
 
-            aggregate1 = TOperator1.Invoke(aggregate1, current);
-            aggregate2 = TOperator2.Invoke(aggregate2, current);
+            aggregate1 = TAggregateOperator1.Invoke(aggregate1, current);
+            aggregate2 = TAggregateOperator2.Invoke(aggregate2, current);
         }
 
         return (aggregate1, aggregate2);

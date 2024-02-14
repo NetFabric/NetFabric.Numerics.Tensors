@@ -2,23 +2,35 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class Tensor
 {
-    public static ValueTuple<T, T> Aggregate2D<T, TOperator>(ReadOnlySpan<T> source)
+    /// <summary>
+    /// Aggregates the elements of a source <see cref="ReadOnlySpan{T}"/> containing contiguous 2D data using the specified aggregation operator.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="TOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
+    /// <param name="source">The source span containing contiguous 2D data to aggregate.</param>
+    /// <returns>A tuple containing the aggregated results.</returns>
+    public static ValueTuple<T, T> Aggregate2D<T, TAggregateOperator>(ReadOnlySpan<T> source)
         where T : struct
-        where TOperator : struct, IAggregationOperator<T, T>
-        => Aggregate2D<T, T, T, IdentityOperator<T>, TOperator>(source);
+        where TAggregateOperator : struct, IAggregationOperator<T, T>
+        => Aggregate2D<T, T, T, IdentityOperator<T>, TAggregateOperator>(source);
 
-    public static ValueTuple<TResult, TResult> Aggregate2D<T, TResult, TOperator>(ReadOnlySpan<T> source)
-        where T : struct
+    /// <summary>
+    /// Transforms and aggregates a source <see cref="ReadOnlySpan{T}"/> containing contiguous 2D data using the specified transform and aggregation operators.
+    /// </summary>
+    /// <typeparam name="TSource">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="TTransformed">The type of the elements in the transformed data.</typeparam>
+    /// <typeparam name="TResult">The type of the result.</typeparam>
+    /// <typeparam name="TTransformOperator">The type of the transform operator that must implement the <see cref="IUnaryOperator{TSource, TTransformed}"/> interface.</typeparam>
+    /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{TTransformed, TResult}"/> interface.</typeparam>
+    /// <param name="source">The source span containing contiguous 2D data to transform and aggregate.</param>
+    /// <returns>A tuple containing the transformed and aggregated results.</returns>
+    /// <remarks>The transform operator is applied to the source elements before the aggregation operator.</remarks>
+    public static ValueTuple<TResult, TResult> Aggregate2D<TSource, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<TSource> source)
+        where TSource : struct
+        where TTransformed : struct
         where TResult : struct
-        where TOperator : struct, IAggregationOperator<T, TResult>
-        => Aggregate2D<T, T, TResult, IdentityOperator<T>, TOperator>(source);
-
-    public static ValueTuple<TResult, TResult> Aggregate2D<T1, T2, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T1> source)
-        where T1 : struct
-        where T2 : struct
-        where TResult : struct
-        where TTransformOperator : struct, IUnaryOperator<T1, T2>
-        where TAggregateOperator : struct, IAggregationOperator<T2, TResult>
+        where TTransformOperator : struct, IUnaryOperator<TSource, TTransformed>
+        where TAggregateOperator : struct, IAggregationOperator<TTransformed, TResult>
     {
         if (source.Length % 2 is not 0)
             Throw.ArgumentException(nameof(source), "source span must have a size multiple of 2.");
@@ -32,12 +44,12 @@ public static partial class Tensor
         if (TTransformOperator.IsVectorizable &&
             TAggregateOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
-            Vector<T1>.IsSupported &&
-            Vector<T2>.IsSupported &&
+            Vector<TSource>.IsSupported &&
+            Vector<TTransformed>.IsSupported &&
             Vector<TResult>.IsSupported)
         {
             // convert source span to vector span without copies
-            var sourceVectors = MemoryMarshal.Cast<T1, Vector<T1>>(source);
+            var sourceVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(source);
 
             // check if there is at least one vector to aggregate
             if (sourceVectors.Length > 0)
@@ -62,7 +74,7 @@ public static partial class Tensor
                 }
 
                 // skip the source elements already aggregated
-                indexSource = indexVector * Vector<T1>.Count;
+                indexSource = indexVector * Vector<TSource>.Count;
             }
         }
 
@@ -101,12 +113,42 @@ public static partial class Tensor
         return (aggregateX, aggregateY);
     }
 
-    public static ValueTuple<TResult, TResult> Aggregate2D<T1, T2, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T1> y)
-        where T1 : struct
-        where T2 : struct
+    /// <summary>
+    /// Aggregates the elements of two <see cref="ReadOnlySpan{T}"/> using the specified transform and aggregation operators.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source spans.</typeparam>
+    /// <typeparam name="TTransformOperator">The type of the transform operator that must implement the <see cref="IBinaryOperator{T, T, T}"/> interface.</typeparam>
+    /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
+    /// <param name="x">The source span containing the first set of contiguous 2D data to transform and aggregate.</param>
+    /// <param name="y">The source span containing the second set of contiguous 2D data to transform and aggregate.</param>
+    /// <returns>The result of the aggregation.</returns>
+    /// <remarks>The transform operator is applied to the source elements before the aggregation operator.</remarks>
+    public static ValueTuple<T, T> Aggregate2D<T, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
+        where T : struct
+        where TTransformOperator : struct, IBinaryOperator<T, T, T>
+        where TAggregateOperator : struct, IAggregationOperator<T, T>
+        => Aggregate2D<T, T, T, T, TTransformOperator, TAggregateOperator>(x, y);
+
+    /// <summary>
+    /// Transforms and aggregates the elements of two source <see cref="ReadOnlySpan{T}"/> containing contiguous 2D data using the specified transform and aggregation operators.
+    /// </summary>
+    /// <typeparam name="TSource1">The type of the elements in the first source span.</typeparam>
+    /// <typeparam name="TSource2">The type of the elements in the second source span.</typeparam>
+    /// <typeparam name="TTransformed">The type of the elements in the transformed data.</typeparam>
+    /// <typeparam name="TResult">The type of the result.</typeparam>
+    /// <typeparam name="TTransformOperator">The type of the transform operator that must implement the <see cref="IBinaryOperator{T, T, T}"/> interface.</typeparam>
+    /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
+    /// <param name="x">The source span containing the first set of contiguous 2D data to transform and aggregate.</param>
+    /// <param name="y">The source span containing the second set of contiguous 2D data to transform and aggregate.</param>
+    /// <returns>A tuple containing the transformed and aggregated results.</returns>
+    /// <remarks>The transform operator is applied to the source elements before the aggregation operator.</remarks>
+    public static ValueTuple<TResult, TResult> Aggregate2D<TSource1, TSource2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<TSource1> x, ReadOnlySpan<TSource2> y)
+        where TSource1 : struct
+        where TSource2 : struct
+        where TTransformed : struct
         where TResult : struct
-        where TTransformOperator : struct, IBinaryOperator<T1, T1, T2>
-        where TAggregateOperator : struct, IAggregationOperator<T2, TResult>
+        where TTransformOperator : struct, IBinaryOperator<TSource1, TSource2, TTransformed>
+        where TAggregateOperator : struct, IAggregationOperator<TTransformed, TResult>
     {
         if (x.Length % 2 is not 0)
             Throw.ArgumentException(nameof(x), "source spans must have a size multiple of 2.");
@@ -122,13 +164,14 @@ public static partial class Tensor
         if (TTransformOperator.IsVectorizable &&
             TAggregateOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
-            Vector<T1>.IsSupported &&
-            Vector<T2>.IsSupported &&
+            Vector<TSource1>.IsSupported &&
+            Vector<TSource2>.IsSupported &&
+            Vector<TTransformed>.IsSupported &&
             Vector<TResult>.IsSupported)
         {
             // convert source span to vector span without copies
-            var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
-            var yVectors = MemoryMarshal.Cast<T1, Vector<T1>>(y);
+            var xVectors = MemoryMarshal.Cast<TSource1, Vector<TSource1>>(x);
+            var yVectors = MemoryMarshal.Cast<TSource2, Vector<TSource2>>(y);
 
             // check if there is at least one vector to aggregate
             if (xVectors.Length > 0)
@@ -154,7 +197,7 @@ public static partial class Tensor
                 }
 
                 // skip the source elements already aggregated
-                indexSource = indexVector * Vector<T1>.Count;
+                indexSource = indexVector * Vector<TSource1>.Count;
             }
         }
 
