@@ -2,6 +2,16 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class Tensor
 {
+    /// <summary>
+    /// Applies the specified operator to the elements of two <see cref="ReadOnlySpan{T}"/> and stores the result in the destination <see cref="Span{T}"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source and destination spans.</typeparam>
+    /// <typeparam name="TOperator">The type of the operator that must implement the <see cref="IBinaryOperator{T, T, T}"/> interface.</typeparam>
+    /// <param name="x">The first span of elements to apply the operator.</param>
+    /// <param name="y">The second span of elements to apply the operator.</param>
+    /// <param name="destination">The span to store the result of the operation.</param>
+    /// <exception cref="ArgumentException">The source spans do not have the same length, or the destination is too small, or at least one source span overlaps with the destination but they are not identical.</exception>
+    /// <remarks>If the destination is the same as one of the source spans, the operation is performed in-place.</remarks>
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, Span<T> destination)
         where T : struct
         where TOperator : struct, IBinaryOperator<T, T, T>
@@ -14,6 +24,18 @@ public static partial class Tensor
         Apply<T, T, T, TOperator>(x, y, destination);
     }
 
+    /// <summary>
+    /// Applies the specified operator to the elements of two <see cref="ReadOnlySpan{T}"/> and stores the result in the destination <see cref="Span{T}"/>.
+    /// </summary>
+    /// <typeparam name="T1">The type of the elements in the first source span.</typeparam>
+    /// <typeparam name="T2">The type of the elements in the second source span.</typeparam>
+    /// <typeparam name="TResult">The type of the elements in the destination span.</typeparam>
+    /// <typeparam name="TOperator">The type of the operator that must implement the <see cref="IBinaryOperator{T1, T2, TResult}"/> interface.</typeparam>
+    /// <param name="x">The first span of elements to apply the operator.</param>
+    /// <param name="y">The second span of elements to apply the operator.</param>
+    /// <param name="destination">The span to store the result of the operation.</param>
+    /// <exception cref="ArgumentException">The source spans do not have the same length, or the destination is too small.</exception>
+    /// <remarks>If the destination is the same as one of the source spans, the operation is performed in-place.</remarks>
     public static void Apply<T1, T2, TResult, TOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y, Span<TResult> destination)
         where T1 : struct
         where T2 : struct
@@ -89,6 +111,17 @@ public static partial class Tensor
         }
     }
 
+
+    /// <summary>
+    /// Applies the specified operator to the elements of a <see cref="ReadOnlySpan{T}"/> and a scalar value, storing the result in the destination <see cref="Span{T}"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="TOperator">The type of the operator that must implement the <see cref="IBinaryOperator{T, T, T}"/> interface.</typeparam>
+    /// <param name="x">The span of elements to apply the operator.</param>
+    /// <param name="y">The scalar value to apply the operator.</param>
+    /// <param name="destination">The span to store the result of the operation.</param>
+    /// <exception cref="ArgumentException">The destination is too small, or the source span overlaps with the destination but they are not identical.</exception>
+    /// <remarks>If the destination is the same as the source span, the operation is performed in-place.</remarks>
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, T y, Span<T> destination)
         where T : struct
         where TOperator : struct, IBinaryOperator<T, T, T>
@@ -99,6 +132,18 @@ public static partial class Tensor
         Apply<T, T, T, TOperator>(x, y, destination);
     }
 
+    /// <summary>
+    /// Applies the specified operator to the elements of a <see cref="ReadOnlySpan{T}"/> and a scalar value, storing the result in the destination <see cref="Span{T}"/>.
+    /// </summary>
+    /// <typeparam name="T1">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="T2">The type of the scalar value to apply the operator.</typeparam>
+    /// <typeparam name="TResult">The type of the elements in the destination span.</typeparam>
+    /// <typeparam name="TOperator">The type of the operator that must implement the <see cref="IBinaryOperator{T1, T2, TResult}"/> interface.</typeparam>
+    /// <param name="x">The span of elements to apply the operator.</param>
+    /// <param name="y">The scalar value to apply the operator.</param>
+    /// <param name="destination">The span to store the result of the operation.</param>
+    /// <exception cref="ArgumentException">The destination is too small.</exception>
+    /// <remarks>If the destination is the same as the source span, the operation is performed in-place.</remarks>
     public static void Apply<T1, T2, TResult, TOperator>(ReadOnlySpan<T1> x, T2 y, Span<TResult> destination)
         where T1 : struct
         where T2 : struct
@@ -116,6 +161,7 @@ public static partial class Tensor
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
+            Vector<T2>.IsSupported &&
             Vector<TResult>.IsSupported &&
             x.Length >= Vector<T1>.Count)
         {
@@ -169,6 +215,16 @@ public static partial class Tensor
         }
     }
 
+    /// <summary>
+    /// Applies the specified operator to the elements of a <see cref="ReadOnlySpan{T}"/> and a tuple of two scalar values, storing the result in the destination <see cref="Span{T}"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="TOperator">The type of the operator that must implement the <see cref="IBinaryOperator{T, T, T}"/> interface.</typeparam>
+    /// <param name="x">The span of elements to apply the operator.</param>
+    /// <param name="y">The tuple of scalar values to apply the operator.</param>
+    /// <param name="destination">The span to store the result of the operation.</param>
+    /// <exception cref="ArgumentException">The destination is too small, or the length of the source span is not even, or the source span overlaps with the destination but they are not identical.</exception>
+    /// <remarks>If the destination is the same as the source span, the operation is performed in-place.</remarks>
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ValueTuple<T, T> y, Span<T> destination)
         where T : struct
         where TOperator : struct, IBinaryOperator<T, T, T>
@@ -179,6 +235,18 @@ public static partial class Tensor
         Apply<T, T, T, TOperator>(x, y, destination);
     }
 
+    /// <summary>
+    /// Applies the specified operator to the elements of a <see cref="ReadOnlySpan{T}"/> and a tuple of two scalar values, storing the result in the destination <see cref="Span{T}"/>.
+    /// </summary>
+    /// <typeparam name="T1">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="T2">The type of the scalar values to apply the operator.</typeparam>
+    /// <typeparam name="TResult">The type of the elements in the destination span.</typeparam>
+    /// <typeparam name="TOperator">The type of the operator that must implement the <see cref="IBinaryOperator{T1, T2, TResult}"/> interface.</typeparam>
+    /// <param name="x">The span of elements to apply the operator.</param>
+    /// <param name="y">The tuple of scalar values to apply the operator.</param>
+    /// <param name="destination">The span to store the result of the operation.</param>
+    /// <exception cref="ArgumentException">The destination is too small or the length of the source span is not even.</exception>
+    /// <remarks>If the destination is the same as the source span, the operation is performed in-place.</remarks>
     public static void Apply<T1, T2, TResult, TOperator>(ReadOnlySpan<T1> x, ValueTuple<T2, T2> y, Span<TResult> destination)
         where T1 : struct
         where T2 : struct
@@ -186,7 +254,7 @@ public static partial class Tensor
         where TOperator : struct, IBinaryOperator<T1, T2, TResult>
     {
         if (x.Length % 2 is not 0)
-            Throw.ArgumentException(nameof(x), "x span must have an even size.");
+            Throw.ArgumentException(nameof(x), "x span must have an even length.");
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
 
@@ -198,6 +266,7 @@ public static partial class Tensor
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
+            Vector<T2>.IsSupported &&
             Vector<TResult>.IsSupported &&
             Vector<T1>.Count > 2 &&
             Vector<T1>.Count % 2 is 0 &&
@@ -249,6 +318,16 @@ public static partial class Tensor
 
     }
 
+    /// <summary>
+    /// Applies the specified operator to the elements of a <see cref="ReadOnlySpan{T}"/> and a tuple of three scalar values, storing the result in the destination <see cref="Span{T}"/>.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="TOperator">The type of the operator that must implement the <see cref="IBinaryOperator{T, T, T}"/> interface.</typeparam>
+    /// <param name="x">The span of elements to apply the operator.</param>
+    /// <param name="y">The tuple of scalar values to apply the operator.</param>
+    /// <param name="destination">The span to store the result of the operation.</param>
+    /// <exception cref="ArgumentException">The destination is too small, or the length of the source span is not a multiple of 3, or the source span overlaps with the destination but they are not identical.</exception>
+    /// <remarks>If the destination is the same as the source span, the operation is performed in-place.</remarks>
     public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, Span<T> destination)
         where T : struct
         where TOperator : struct, IBinaryOperator<T, T, T>
@@ -259,6 +338,18 @@ public static partial class Tensor
         Apply<T, T, T, TOperator>(x, y, destination);
     }
 
+    /// <summary>
+    /// Applies the specified operator to the elements of a <see cref="ReadOnlySpan{T}"/> and a tuple of three scalar values, storing the result in the destination <see cref="Span{T}"/>.
+    /// </summary>
+    /// <typeparam name="T1">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="T2">The type of the scalar values to apply the operator.</typeparam>
+    /// <typeparam name="TResult">The type of the elements in the destination span.</typeparam>
+    /// <typeparam name="TOperator">The type of the operator that must implement the <see cref="IBinaryOperator{T1, T2, TResult}"/> interface.</typeparam>
+    /// <param name="x">The span of elements to apply the operator.</param>
+    /// <param name="y">The tuple of scalar values to apply the operator.</param>
+    /// <param name="destination">The span to store the result of the operation.</param>
+    /// <exception cref="ArgumentException">The destination is too small or the length of the source span is not a multiple of 3.</exception>
+    /// <remarks>If the destination is the same as the source span, the operation is performed in-place.</remarks>
     public static void Apply<T1, T2, TResult, TOperator>(ReadOnlySpan<T1> x, ValueTuple<T2, T2, T2> y, Span<TResult> destination)
         where T1 : struct
         where T2 : struct
@@ -266,7 +357,7 @@ public static partial class Tensor
         where TOperator : struct, IBinaryOperator<T1, T2, TResult>
     {
         if (x.Length % 3 is not 0)
-            Throw.ArgumentException(nameof(x), "x span must have a size multiple of 3.");
+            Throw.ArgumentException(nameof(x), "x span must have a length multiple of 3.");
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
 

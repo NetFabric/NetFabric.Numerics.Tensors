@@ -2,8 +2,21 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class Tensor
 {
+    /// <summary>
+    /// Applies the specified operator to the elements of a <see cref="ReadOnlySpan{T}"/> and a scalar value, storing the result in the destination span.
+    /// </summary>
+    /// <typeparam name="T1">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="T2">The type of the scalar value.</typeparam>
+    /// <typeparam name="TResult">The type of the elements in the destination span.</typeparam>
+    /// <typeparam name="TOperator">The type of the operator that must implement the <see cref="IBinaryScalarOperator{T1, T2, TResult}"/> interface.</typeparam>
+    /// <param name="x">The span of elements to apply the operator to.</param>
+    /// <param name="y">The scalar value to apply the operator to.</param>
+    /// <param name="destination">The span to store the result of the operation.</param>
+    /// <exception cref="ArgumentException">The destination is too small.</exception>
+    /// <remarks>If the destination is the same as one of the source spans, the operation is performed in-place.</remarks>
     public static void ApplyScalar<T1, T2, TResult, TOperator>(ReadOnlySpan<T1> x, T2 y, Span<TResult> destination)
         where T1 : struct
+        where T2 : struct
         where TResult : struct
         where TOperator : struct, IBinaryScalarOperator<T1, T2, TResult>
     {
