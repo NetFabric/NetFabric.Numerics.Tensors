@@ -16,7 +16,7 @@ public class Sum2DBenchmarks
     MyVector2<float>[]? arrayFloat;
     MyVector2<double>[]? arrayDouble;
 
-    [Params(1_000)]
+    [Params(5, 100)]
     public int Count { get; set; }
 
     [GlobalSetup]

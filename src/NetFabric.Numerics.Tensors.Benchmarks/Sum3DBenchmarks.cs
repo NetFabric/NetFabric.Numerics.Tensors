@@ -16,7 +16,7 @@ public class Sum3DBenchmarks
     MyVector3<float>[]? arrayFloat;
     MyVector3<double>[]? arrayDouble;
 
-    [Params(1_000)]
+    [Params(5, 100)]
     public int Count { get; set; }
 
     [GlobalSetup]

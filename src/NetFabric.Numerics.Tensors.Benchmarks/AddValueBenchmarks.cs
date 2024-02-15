@@ -16,7 +16,7 @@ public class AddValueBenchmarks
     float[]? sourceFloat, resultFloat;
     double[]? sourceDouble, resultDouble;
 
-    [Params(1_000)]
+    [Params(5, 100)]
     public int Count { get; set; }
 
     [GlobalSetup]

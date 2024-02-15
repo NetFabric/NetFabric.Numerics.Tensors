@@ -16,7 +16,7 @@ public class MinBenchmarks
     float[]? sourceFloat, otherFloat, resultFloat;
     double[]? sourceDouble, otherDouble, resultDouble;
 
-    [Params(1_000)]
+    [Params(5, 100)]
     public int Count { get; set; }
 
     [GlobalSetup]

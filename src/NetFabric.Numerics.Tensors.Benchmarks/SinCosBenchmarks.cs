@@ -13,7 +13,7 @@ public class SinCosBenchmarks
     float[]? sourceFloat, sinResultFloat, cosResultFloat;
     double[]? sourceDouble, sinResultDouble, cosResultDouble;
 
-    [Params(1_000)]
+    [Params(5, 100)]
     public int Count { get; set; }
 
     [GlobalSetup]
