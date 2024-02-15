@@ -91,6 +91,7 @@ public static partial class Tensor
             aggregate = TAggregateOperator.Invoke(aggregate, partial1);
             aggregate = TAggregateOperator.Invoke(aggregate, partial2);
             aggregate = TAggregateOperator.Invoke(aggregate, partial3);
+            
             remaining = source.Length - (int)indexSource;
         }
 
