@@ -8,7 +8,6 @@ namespace NetFabric.Numerics.Tensors.Benchmarks;
 [Config(typeof(VectorizationConfig))]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
-[DisassemblyDiagnoser(printInstructionAddresses: true, syntax: DisassemblySyntax.Masm)]
 public class MinAggregateBenchmarks
 {
     short[]? arrayShort;

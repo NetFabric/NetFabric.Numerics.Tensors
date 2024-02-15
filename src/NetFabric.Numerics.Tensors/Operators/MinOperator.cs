@@ -1,6 +1,6 @@
 namespace NetFabric.Numerics.Tensors;
 
-readonly struct MinOperator<T>
+readonly struct MinAggregationOperator<T>
     : IAggregationOperator<T, T>
     where T : struct, INumber<T>, IMinMaxValue<T>
 {
@@ -18,7 +18,7 @@ readonly struct MinOperator<T>
 
 readonly struct MinPropagateNaNOperator<T>
     : IBinaryOperator<T, T, T>
-    where T : struct, INumber<T>, IMinMaxValue<T>
+    where T : struct, INumber<T>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
@@ -37,10 +37,13 @@ readonly struct MinPropagateNaNOperator<T>
             : Vector.Min(x, y);
 }
 
-readonly struct MinMagnitudeOperator<T>
-    : IBinaryOperator<T, T, T>
+readonly struct MinMagnitudeAggregationOperator<T>
+    : IAggregationOperator<T, T>
     where T : struct, INumberBase<T>, IMinMaxValue<T>
 {
+    public static T Seed
+        => T.MaxValue;
+
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)
         => T.MinMagnitudeNumber(x, y);
@@ -59,7 +62,7 @@ readonly struct MinMagnitudeOperator<T>
 
 readonly struct MinMagnitudePropagateNaNOperator<T>
     : IBinaryOperator<T, T, T>
-    where T : struct, INumberBase<T>, IMinMaxValue<T>
+    where T : struct, INumberBase<T>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x, T y)

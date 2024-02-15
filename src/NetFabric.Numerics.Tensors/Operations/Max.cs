@@ -4,7 +4,7 @@ public static partial class TensorOperations
 {
     public static T Max<T>(ReadOnlySpan<T> left)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.AggregatePropagateNaN<T, MaxOperator<T>>(left);
+        => Tensor.AggregatePropagateNaN<T, MaxAggregationOperator<T>>(left);
 
     public static void Max<T>(ReadOnlySpan<T> left, T right, Span<T> destination)
         where T : struct, INumber<T>, IMinMaxValue<T> 

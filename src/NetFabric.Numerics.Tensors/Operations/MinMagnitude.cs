@@ -2,6 +2,10 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class TensorOperations
 {
+    public static T MinMagnitude<T>(ReadOnlySpan<T> left)
+        where T : struct, INumber<T>, IMinMaxValue<T>
+        => Tensor.AggregatePropagateNaN<T, MinMagnitudeAggregationOperator<T>>(left);
+
     public static void MinMagnitude<T>(ReadOnlySpan<T> left, T right, Span<T> destination)
         where T : struct, INumber<T>, IMinMaxValue<T> 
         => Tensor.Apply<T, MinMagnitudePropagateNaNOperator<T>>(left, right, destination);

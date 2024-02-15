@@ -113,4 +113,23 @@ public static class Baseline
         }
         return min;
     }
+
+    public static (T Min, T Max) MinMax<T>(ReadOnlySpan<T> source)
+        where T : struct, INumber<T>, IMinMaxValue<T>
+    {
+        var min = T.MaxValue;
+        var max = T.MinValue;
+        foreach (var item in source)
+        {
+            if (T.IsNaN(item))
+                return (item, item);
+
+            if (item < min)
+                min = item; 
+
+            if (item > max)
+                max = item;     
+        }
+        return (min, max);
+    }
 }
