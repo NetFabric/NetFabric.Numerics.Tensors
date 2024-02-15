@@ -31,7 +31,7 @@ This capability facilitates the implementation of the `Sum` operation for a span
 /// Computes the sum of 2D vectors in the span.
 /// </summary>
 public static MyVector2<T> Sum<T>(this ReadOnlySpan<MyVector2<T>> source)
-    where T : struct, INumber<T>, IMinMaxValue<T>
+    where T : struct, INumber<T>
     => new(Tensor.Sum2D(MemoryMarshal.Cast<MyVector2<T>, T>(source)));
 ```
 
@@ -43,15 +43,15 @@ Regarding the `Apply` operation, it is applied to each element while maintaining
 /// <summary>
 /// Adds a vector to each element in the span and stores the result in another span.
 /// </summary>
-public static void Add<T>(ReadOnlySpan<MyVector2<T>> angles, MyVector2<T> value, Span<MyVector2<T>> result)
-    where T : struct, INumber<T>, IMinMaxValue<T>
-    => Tensor.Add(MemoryMarshal.Cast<MyVector2<T>, T>(angles), (value.X, value.Y), MemoryMarshal.Cast<MyVector2<T>, T>(result));
+public static void Add<T>(ReadOnlySpan<MyVector2<T>> left, MyVector2<T> right, Span<MyVector2<T>> result)
+    where T : struct, INumber<T>
+    => Tensor.Add(MemoryMarshal.Cast<MyVector2<T>, T>(left), (right.X, right.Y), MemoryMarshal.Cast<MyVector2<T>, T>(result));
 
 /// <summary>
 /// Adds corresponding elements in two spans of vectors and stores the result in another span.
 /// </summary>
 public static void Add<T>(ReadOnlySpan<MyVector2<T>> left, ReadOnlySpan<MyVector2<T>> right, Span<MyVector2<T>> result)
-    where T : struct, INumber<T>, IMinMaxValue<T>
+    where T : struct, INumber<T>
     => Tensor.Add(MemoryMarshal.Cast<MyVector2<T>, T>(left), MemoryMarshal.Cast<MyVector2<T>, T>(right), MemoryMarshal.Cast<MyVector2<T>, T>(result));
 ```
 
