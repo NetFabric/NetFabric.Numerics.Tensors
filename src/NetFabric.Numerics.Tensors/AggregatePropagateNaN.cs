@@ -9,7 +9,7 @@ public static partial class Tensor
     /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
     /// <param name="source">The span of elements to aggregate.</param>
     /// <returns>The result of the aggregation.</returns>
-    /// <remarks>If any of the elements is NaN, the result is NaN.</remarks>
+    /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
     public static T AggregatePropagateNaN<T, TAggregateOperator>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>
         where TAggregateOperator : struct, IAggregationOperator<T, T>
