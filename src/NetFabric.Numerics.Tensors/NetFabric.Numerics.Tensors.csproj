@@ -5,8 +5,8 @@
     <TargetFrameworks>net8.0</TargetFrameworks>
     <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
     <Description>
-      Provides methods for performing mathematical operations over spans of value types. 
-      These methods can be accelerated to use SIMD operations supported by the CPU where available.
+      This library, based on .NET generic math, provides methods for performing mathematical operations over spans of value types. 
+      These operations can be accelerated using SIMD operations supported by the CPU where available.
     </Description>
     <Version>3.0.0</Version>
     <PackageIcon>Icon.png</PackageIcon>
@@ -21,7 +21,7 @@
 - Added AggreagatePropagateNaN.
 - Renamed IGenericBinaryOperation to IBinaryScalarOperation and ApplyGeneric to ApplyScalar.
 - Fixed Min and Max behavior.
-- Added SinCos operations returning the result in two separate span
+- Added SinCos operations returning the result in two separate spans.
 - Added operations: MinMagnitude, MaxMagnitude, and Sigmoid.
 - Added aggregation operations: Sum, Product, Min, Max, and MinMax.
 - Vectorized Aggregate2D, Aggregate3D, and Aggregate4D.
@@ -52,7 +52,7 @@
   <ItemGroup>
     <None Include="..\..\Icon.png" Pack="true" PackagePath="" />
     <None Include="..\..\LICENSE" Pack="true" PackagePath="" />
-    <None Include="..\..\README.md" Pack="true" PackagePath="" />
+    <None Include="README.md" Pack="true" PackagePath="" />
   </ItemGroup>
 
   <ItemGroup>
