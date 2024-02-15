@@ -55,6 +55,11 @@ public class NegateBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
+    public void System_Short()
+        => TensorPrimitives.Negate<short>(sourceShort!, resultShort!);
+
+    [BenchmarkCategory("Short")]
+    [Benchmark]
     public void NetFabric_Short()
         => TensorOperations.Negate<short>(sourceShort!, resultShort!);
 
@@ -62,6 +67,11 @@ public class NegateBenchmarks
     [Benchmark(Baseline = true)]
     public void Baseline_Int()
         => Baseline.Negate<int>(sourceInt!, resultInt!);
+
+    [BenchmarkCategory("Int")]
+    [Benchmark]
+    public void System_Int()
+        => TensorPrimitives.Negate<int>(sourceInt!, resultInt!);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
@@ -75,6 +85,11 @@ public class NegateBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
+    public void System_Long()
+        => TensorPrimitives.Negate<long>(sourceLong!, resultLong!);
+
+    [BenchmarkCategory("Long")]
+    [Benchmark]
     public void NetFabric_Long()
         => TensorOperations.Negate<long>(sourceLong!, resultLong!);
 
@@ -82,6 +97,11 @@ public class NegateBenchmarks
     [Benchmark(Baseline = true)]
     public void Baseline_Half()
         => Baseline.Negate<Half>(sourceHalf!, resultHalf!);
+
+    [BenchmarkCategory("Half")]
+    [Benchmark]
+    public void System_Half()
+        => TensorPrimitives.Negate<Half>(sourceHalf!, resultHalf!);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
@@ -107,6 +127,11 @@ public class NegateBenchmarks
     [Benchmark(Baseline = true)]
     public void Baseline_Double()
         => Baseline.Negate<double>(sourceDouble!, resultDouble!);
+
+    [BenchmarkCategory("Double")]
+    [Benchmark]
+    public void System_Double()
+        => TensorPrimitives.Negate<double>(sourceDouble!, resultDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]

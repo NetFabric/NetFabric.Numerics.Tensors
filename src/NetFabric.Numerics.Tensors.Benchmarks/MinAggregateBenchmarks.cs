@@ -55,6 +55,11 @@ public class MinAggregateBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
+    public short System_Short()
+        => TensorPrimitives.Min<short>(arrayShort!);
+
+    [BenchmarkCategory("Short")]
+    [Benchmark]
     public short NetFabric_Short()
         => TensorOperations.Min<short>(arrayShort!);
 
@@ -67,6 +72,11 @@ public class MinAggregateBenchmarks
     [Benchmark]
     public int LINQ_Int()
         => Enumerable.Min(arrayInt!);
+
+    [BenchmarkCategory("Int")]
+    [Benchmark]
+    public int System_Int()
+        => TensorPrimitives.Min<int>(arrayInt!);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
@@ -85,6 +95,11 @@ public class MinAggregateBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
+    public long System_Long()
+        => TensorPrimitives.Min<long>(arrayLong!);
+
+    [BenchmarkCategory("Long")]
+    [Benchmark]
     public long NetFabric_Long()
         => TensorOperations.Min<long>(arrayLong!);
 
@@ -97,6 +112,11 @@ public class MinAggregateBenchmarks
     [Benchmark]
     public Half LINQ_Half()
         => Enumerable.Aggregate(arrayHalf!, (Half)0, (sum, item) => (Half)(sum + item));
+
+    [BenchmarkCategory("Half")]
+    [Benchmark]
+    public Half System_Half()
+        => TensorPrimitives.Min<Half>(arrayHalf!);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
@@ -132,6 +152,11 @@ public class MinAggregateBenchmarks
     [Benchmark]
     public double LINQ_Double()
         => Enumerable.Min(arrayDouble!);
+
+    [BenchmarkCategory("Double")]
+    [Benchmark]
+    public double System_Double()
+        => TensorPrimitives.Min<double>(arrayDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]

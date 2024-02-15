@@ -1,5 +1,6 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
+using System.Numerics.Tensors;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
@@ -42,6 +43,11 @@ public class DegreesToRadiansBenchmarks
 
     [BenchmarkCategory("Half")]
     [Benchmark]
+    public void System_Half()
+        => TensorPrimitives.DegreesToRadians<Half>(sourceHalf!, resultHalf!);
+
+    [BenchmarkCategory("Half")]
+    [Benchmark]
     public void NetFabric_Half()
         => TensorOperations.DegreesToRadians<Half>(sourceHalf!, resultHalf!);
 
@@ -52,6 +58,11 @@ public class DegreesToRadiansBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
+    public void System_Float()
+        => TensorPrimitives.DegreesToRadians<float>(sourceFloat!, resultFloat!);
+
+    [BenchmarkCategory("Float")]
+    [Benchmark]
     public void NetFabric_Float()
         => TensorOperations.DegreesToRadians<float>(sourceFloat!, resultFloat!);
 
@@ -59,6 +70,11 @@ public class DegreesToRadiansBenchmarks
     [Benchmark(Baseline = true)]
     public void Baseline_Double()
         => Baseline.DegreesToRadians<double>(sourceDouble!, resultDouble!);
+
+    [BenchmarkCategory("Double")]
+    [Benchmark]
+    public void System_Double()
+        => TensorPrimitives.DegreesToRadians<double>(sourceDouble!, resultDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]

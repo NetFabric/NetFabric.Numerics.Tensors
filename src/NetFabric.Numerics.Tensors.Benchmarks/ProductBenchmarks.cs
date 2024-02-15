@@ -53,6 +53,11 @@ public class ProductBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
+    public short System_Short()
+        => TensorPrimitives.Product<short>(arrayShort!);
+
+    [BenchmarkCategory("Short")]
+    [Benchmark]
     public short? NetFabric_Short()
         => TensorOperations.Product<short>(arrayShort!);
 
@@ -65,6 +70,11 @@ public class ProductBenchmarks
     [Benchmark]
     public int LINQ_Int()
         => Enumerable.Aggregate(arrayInt!, 1, (sum, item) => sum * item);
+
+    [BenchmarkCategory("Int")]
+    [Benchmark]
+    public int System_Int()
+        => TensorPrimitives.Product<int>(arrayInt!);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
@@ -83,6 +93,11 @@ public class ProductBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
+    public long System_Long()
+        => TensorPrimitives.Product<long>(arrayLong!);
+
+    [BenchmarkCategory("Long")]
+    [Benchmark]
     public long? NetFabric_Long()
         => TensorOperations.Product<long>(arrayLong!);
 
@@ -95,6 +110,11 @@ public class ProductBenchmarks
     [Benchmark]
     public Half LINQ_Half()
         => Enumerable.Aggregate(arrayHalf!, (Half)1, (sum, item) => (Half)(sum * item));
+
+    [BenchmarkCategory("Half")]
+    [Benchmark]
+    public Half System_Half()
+        => TensorPrimitives.Product<Half>(arrayHalf!);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
@@ -114,7 +134,7 @@ public class ProductBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark]
     public float System_Float()
-        => TensorPrimitives.Product(arrayFloat!);
+        => TensorPrimitives.Product<float>(arrayFloat!);
 
     [BenchmarkCategory("Float")]
     [Benchmark]
@@ -130,6 +150,11 @@ public class ProductBenchmarks
     [Benchmark]
     public double LINQ_Double()
         => Enumerable.Aggregate(arrayDouble!, 1.0, (sum, item) => sum * item);
+
+    [BenchmarkCategory("Double")]
+    [Benchmark]
+    public double System_Double()
+        => TensorPrimitives.Product<double>(arrayDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]

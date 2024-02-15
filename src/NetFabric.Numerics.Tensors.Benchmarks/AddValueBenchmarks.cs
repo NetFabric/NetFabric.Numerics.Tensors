@@ -55,6 +55,11 @@ public class AddValueBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
+    public void System_Short()
+        => TensorPrimitives.Add<short>(sourceShort!, 42, resultShort!);
+
+    [BenchmarkCategory("Short")]
+    [Benchmark]
     public void NetFabric_Short()
         => TensorOperations.Add<short>(sourceShort!, 42, resultShort!);
 
@@ -62,6 +67,11 @@ public class AddValueBenchmarks
     [Benchmark(Baseline = true)]
     public void Baseline_Int()
         => Baseline.Add<int>(sourceInt!, 42, resultInt!);
+
+    [BenchmarkCategory("Int")]
+    [Benchmark]
+    public void System_Int()
+        => TensorPrimitives.Add<int>(sourceInt!, 42, resultInt!);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
@@ -75,6 +85,11 @@ public class AddValueBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
+    public void System_Long()
+        => TensorPrimitives.Add<long>(sourceLong!, 42, resultLong!);
+
+    [BenchmarkCategory("Long")]
+    [Benchmark]
     public void NetFabric_Long()
         => TensorOperations.Add<long>(sourceLong!, 42, resultLong!);
 
@@ -82,6 +97,11 @@ public class AddValueBenchmarks
     [Benchmark(Baseline = true)]
     public void Baseline_Half()
         => Baseline.Add<Half>(sourceHalf!, (Half)42, resultHalf!);
+
+    [BenchmarkCategory("Half")]
+    [Benchmark]
+    public void System_Half()
+        => TensorPrimitives.Add<Half>(sourceHalf!, (Half)42, resultHalf!);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
@@ -107,6 +127,11 @@ public class AddValueBenchmarks
     [Benchmark(Baseline = true)]
     public void Baseline_Double()
         => Baseline.Add<double>(sourceDouble!, 42, resultDouble!);
+
+    [BenchmarkCategory("Double")]
+    [Benchmark]
+    public void System_Double()
+        => TensorPrimitives.Add<double>(sourceDouble!, 42, resultDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]

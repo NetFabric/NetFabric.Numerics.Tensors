@@ -79,6 +79,11 @@ public class AddMultiplyBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
+    public void System_Short()
+        => TensorPrimitives.AddMultiply<short>(sourceShort!, otherShort!, anotherShort!, resultShort!);
+
+    [BenchmarkCategory("Short")]
+    [Benchmark]
     public void NetFabric_Short()
         => TensorOperations.AddMultiply<short>(sourceShort!, otherShort!, anotherShort!, resultShort!);
 
@@ -86,6 +91,11 @@ public class AddMultiplyBenchmarks
     [Benchmark(Baseline = true)]
     public void Baseline_Int()
         => Baseline.AddMultiply<int>(sourceInt!, otherInt!, anotherInt!, resultInt!);
+
+    [BenchmarkCategory("Int")]
+    [Benchmark]
+    public void System_Int()
+        => TensorPrimitives.AddMultiply<int>(sourceInt!, otherInt!, anotherInt!, resultInt!);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
@@ -99,6 +109,11 @@ public class AddMultiplyBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
+    public void System_Long()
+        => TensorPrimitives.AddMultiply<long>(sourceLong!, otherLong!, anotherLong!, resultLong!);
+
+    [BenchmarkCategory("Long")]
+    [Benchmark]
     public void NetFabric_Long()
         => TensorOperations.AddMultiply<long>(sourceLong!, otherLong!, anotherLong!, resultLong!);
 
@@ -106,6 +121,11 @@ public class AddMultiplyBenchmarks
     [Benchmark(Baseline = true)]
     public void Baseline_Half()
         => Baseline.AddMultiply<Half>(sourceHalf!, otherHalf!, anotherHalf!, resultHalf!);
+
+    [BenchmarkCategory("Half")]
+    [Benchmark]
+    public void System_Half()
+        => TensorPrimitives.AddMultiply<Half>(sourceHalf!, otherHalf!, anotherHalf!, resultHalf!);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
@@ -131,6 +151,11 @@ public class AddMultiplyBenchmarks
     [Benchmark(Baseline = true)]
     public void Baseline_Double()
         => Baseline.AddMultiply<double>(sourceDouble!, otherDouble!, anotherDouble!, resultDouble!);
+
+    [BenchmarkCategory("Double")]
+    [Benchmark]
+    public void System_Double()
+        => TensorPrimitives.AddMultiply<double>(sourceDouble!, otherDouble!, anotherDouble!, resultDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]
