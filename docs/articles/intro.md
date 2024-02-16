@@ -4,7 +4,7 @@ Efficiently managing large data spans is crucial for achieving optimal performan
 
 However, implementing these optimizations may introduce complexity to the codebase. Striking a balance between performance and maintainability is challenging, especially when optimizations are scattered across various methods. This library addresses this challenge by providing reusable and high-performance abstractions specifically designed for operations on data spans.
 
-This library in inspired on `System.Numerics.Tensors` but extending it to all value types.
+This library is inspired on `System.Numerics.Tensors` but extending it to all value types.
 
 The library seamlessly integrates parallelization and vectorization for optimal performance whenever applicable. Explore the subsequent sections to understand its usage and learn how to tailor it to your specific needs.
 

@@ -4,7 +4,7 @@
   href: Getting-started.md
 - name: Extending the library
   href: Extending-the-library.md
-- name: Working with List&lt;T&gt;
+- name: Working with List<T>
   href: Working-lists.md
 - name: Working with tensors for structured data
   href: Working-structured-data.md

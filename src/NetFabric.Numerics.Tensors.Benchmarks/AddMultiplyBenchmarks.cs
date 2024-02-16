@@ -139,7 +139,7 @@ public class AddMultiplyBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
-    public void Syatem_Float()
+    public void System_Float()
         => TensorPrimitives.AddMultiply(sourceFloat!, otherFloat!, anotherFloat!, resultFloat!);
 
     [BenchmarkCategory("Float")]

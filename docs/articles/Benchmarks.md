@@ -30,8 +30,8 @@ The benchmarks encompass the following scenarios:
 
 - Baseline_*: Simple iteration without explicit optimizations
 - LINQ_*: Utilizing LINQ (when available)
-- System_*: Utilizing System.Numerics.Tensors
-- NetFabric_*: Utilizing NetFabric.Numerics.Tensors
+- System_*: Utilizing `System.Numerics.Tensors`
+- NetFabric_*: Utilizing `NetFabric.Numerics.Tensors`
 
 The source code for the benchmarks can be accessed [here](https://github.com/NetFabric/NetFabric.Numerics.Tensors/tree/main/src/NetFabric.Numerics.Tensors.Benchmarks).
 
