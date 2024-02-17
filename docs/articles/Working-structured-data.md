@@ -19,9 +19,9 @@ public readonly record struct MyVector2<T>(T X, T Y)
         => new(left.X + right.X, left.Y + right.Y);
 }
 ```
-However, `NetFabric` relies on `Vector<T>` for vectorization, which supports only primitive numeric types. This limitation prevents vectorization when using other types.
+However, `NetFabric.Numerics.Tensors` relies on `Vector<T>` for vectorization, which supports only primitive numeric types. This limitation prevents vectorization when using other types.
 
-It's worth mentioning that because `MyVector2<T>` consists of two fields of the same type and is always a value type, the contiguous storage in memory facilitates easy conversion from a span of `MyVector2<T>` to a span of `T` using `MemoryMarshal.Cast<MyVector2<T>, T>()`. This operation returns a span containing all the vector coordinates laid out contiguously. The `Apply()` and `Aggregate()` methods offer overloads that accommodate up to 4 elements of the same type.
+It's worth mentioning that because `MyVector2<T>` consists of two fields of the same type and is always a value type, the contiguous storage in memory facilitates easy conversion from a span of `MyVector2<T>` to a span of `T` using `MemoryMarshal.Cast<MyVector2<T>, T>()`. This operation returns a span containing all the vector coordinates laid out contiguously. The `Apply()` and `Aggregate()` methods offer overloads that accommodate elements of up to 4 elements of the same type.
 
 This capability facilitates the implementation of the `Sum` operation for a span of `MyVector2<T>`:
 

@@ -10,7 +10,7 @@ public class AddValuePairsTests
     {
         // arrange
         var x = new MyVector2<T>[count];
-        var y = new MyVector2<T>(T.CreateChecked(42), T.CreateChecked(24));
+        var y = (T.CreateChecked(42), T.CreateChecked(24));
         var result = new MyVector2<T>[count];
         var expected = new MyVector2<T>[count];
         var random = new Random(42);
