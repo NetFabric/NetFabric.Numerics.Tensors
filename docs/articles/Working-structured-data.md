@@ -19,17 +19,13 @@ public readonly record struct MyVector2<T>(T X, T Y)
         => new(left.X + right.X, left.Y + right.Y);
 }
 ```
+However, `NetFabric` relies on `Vector<T>` for vectorization, which supports only primitive numeric types. This limitation prevents vectorization when using other types.
 
-However, when it comes to using `Vector<T>` for vectorization, direct support is lacking, preventing the tensor from optimizing the `Sum` operation using vectorization.
-
-It's important to note that since `MyVector2<T>` comprises two fields of the same type and is always a value type, the adjacent storage in memory allows effortless conversion from a span of `MyVector2<T>` to a span of `T` using `MemoryMarshal.Cast<MyVector2<T>, T>()`.
+It's worth mentioning that because `MyVector2<T>` consists of two fields of the same type and is always a value type, the contiguous storage in memory facilitates easy conversion from a span of `MyVector2<T>` to a span of `T` using `MemoryMarshal.Cast<MyVector2<T>, T>()`. This operation returns a span containing all the vector coordinates laid out contiguously. The `Apply()` and `Aggregate()` methods offer overloads that accommodate up to 4 elements of the same type.
 
 This capability facilitates the implementation of the `Sum` operation for a span of `MyVector2<T>`:
 
 ```csharp
-/// <summary>
-/// Computes the sum of 2D vectors in the span.
-/// </summary>
 public static MyVector2<T> Sum<T>(this ReadOnlySpan<MyVector2<T>> source)
     where T : struct, INumber<T>
     => new(Tensor.Sum2D(MemoryMarshal.Cast<MyVector2<T>, T>(source)));
@@ -37,22 +33,20 @@ public static MyVector2<T> Sum<T>(this ReadOnlySpan<MyVector2<T>> source)
 
 Here, the tensor efficiently leverages vectorization for improved performance in the `Sum` operation on a span of `MyVector2<T>`, treating it as a span of its internal values. The use of `Sum2D` specifically indicates the intention to calculate the sum of every other item in the span, returning a 2D tuple that is then converted into the result `MyVector2<T>` by using the constructor.
 
-Regarding the `Apply` operation, it is applied to each element while maintaining order in the destination span. Applying `MemoryMarshal.Cast()` to both the sources and the destination is appropriate:
+Regarding the `Apply` operation, it's used on each element while preserving order in the destination span. Employing `MemoryMarshal.Cast()` on both the sources and the destination is suitable:
 
 ```csharp
-/// <summary>
-/// Adds a vector to each element in the span and stores the result in another span.
-/// </summary>
 public static void Add<T>(ReadOnlySpan<MyVector2<T>> left, MyVector2<T> right, Span<MyVector2<T>> result)
     where T : struct, INumber<T>
     => Tensor.Add(MemoryMarshal.Cast<MyVector2<T>, T>(left), (right.X, right.Y), MemoryMarshal.Cast<MyVector2<T>, T>(result));
 
-/// <summary>
-/// Adds corresponding elements in two spans of vectors and stores the result in another span.
-/// </summary>
 public static void Add<T>(ReadOnlySpan<MyVector2<T>> left, ReadOnlySpan<MyVector2<T>> right, Span<MyVector2<T>> result)
     where T : struct, INumber<T>
     => Tensor.Add(MemoryMarshal.Cast<MyVector2<T>, T>(left), MemoryMarshal.Cast<MyVector2<T>, T>(right), MemoryMarshal.Cast<MyVector2<T>, T>(result));
 ```
 
-In these instances, the span of `MyVector2<T>` is converted to a span of `T` to enable the tensor to execute the `Add` operation. Subsequently, the outcome is re-cast to a span of `MyVector2<T>`. Each `MyVector2<T>` within the destination span will encapsulate the outcome of the operation applied to the corresponding `MyVector2<T>` within the source spans.
+The first method yields a `result` span of vectors, with each vector containing the sum of the corresponding vectors in the `left` span and a fixed vector `right`. To achieve this, it invokes the `Add` overload, passing a value tuple with two parameters as the second argument.
+
+The second method produces a `result` span where each vector holds the sum of the respective vectors in the `left` and `right` spans.
+
+In these scenarios, the spans of `MyVector2<T>` are transformed into spans of `T` to enable the tensor to perform the `Add` operation. Afterwards, the result is recast to spans of `MyVector2<T>`. Each `MyVector2<T>` within the destination span encapsulates the result of the operation applied to the corresponding `MyVector2<T>` within the source spans.

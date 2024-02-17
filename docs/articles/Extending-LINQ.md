@@ -75,12 +75,12 @@ public static class MyVector2
 }
 ```
 
-Note that the method taking a `IEnumerable<MyVector2<T>>` parameter checks if the source collection can be converted to a span using the `TryGetSpan()` method from the `NetFabric` package. If so, it calls the overload accepting a `ReadOnlySpan<MyVector2<T>>`, which in turn invokes the optimized `TensorOperations.Sum()`.
+Note that the method taking a `IEnumerable<MyVector2<T>>` parameter checks if the source collection can be converted to a span using the `TryGetSpan()` method provided by [the `NetFabric` NuGet package](https://www.nuget.org/packages/NetFabric). If so, it calls the overload accepting a `ReadOnlySpan<MyVector2<T>>`, which in turn invokes the optimized `TensorOperations.Sum()`.
 
 The overload for `List<MyVector2<T>>` uses `CollectionsMarshal.AsSpan()` to obtain its internal span, as explained in the `Working with List<T>` section.
 
 While explicit method calls automatically convert types `T[]` and `Span<T>` to `ReadOnlySpan<T>`, this conversion doesn't occur when calling extension methods. Therefore, providing all these overloads ensures users don't need to perform explicit conversions.
 
-By providing these overloads, the compiler can explicitly call the most suitable overload, bypassing type verifications and providing support for spans, which LINQ does not inherently support.
+By offering these overloads, the compiler can directly invoke the most appropriate one, skipping type checks conducted in the initial overload and adds support for spans, which LINQ doesn't inherently support as these don't implement `IEnumerable<T>`.
 
 Offering these overloads ensures that users accustomed to employing LINQ will consistently achieve optimal performance regardless of the scenario.
