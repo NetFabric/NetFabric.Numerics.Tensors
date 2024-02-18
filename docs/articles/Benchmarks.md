@@ -943,89 +943,211 @@ Applying a vectorizable aggregation operator on a span.
 
 It additionally compares with the performance of LINQ's `Sum()`. However, it's worth noting that this method lacks support for the types `short` and `Half`. In such instances, LINQ's `Aggregate()` is employed instead.
 
-| Method           | Job       | Categories | Count |         Mean |     StdDev |       Median |         Ratio |
-| ---------------- | --------- | ---------- | ----- | -----------: | ---------: | -----------: | ------------: |
-| Baseline_Double  | Scalar    | Double     | 1000  |    570.98 ns |   5.629 ns |    573.36 ns |      baseline |
-| LINQ_Double      | Scalar    | Double     | 1000  |    571.74 ns |   5.388 ns |    573.79 ns |  1.00x slower |
-| NetFabric_Double | Scalar    | Double     | 1000  |    147.88 ns |   2.157 ns |    148.22 ns |  3.86x faster |
-| Baseline_Double  | Vector128 | Double     | 1000  |    572.54 ns |   5.996 ns |    573.91 ns |  1.00x slower |
-| LINQ_Double      | Vector128 | Double     | 1000  |    570.89 ns |   5.926 ns |    571.20 ns |  1.00x faster |
-| NetFabric_Double | Vector128 | Double     | 1000  |    277.94 ns |   2.981 ns |    278.61 ns |  2.05x faster |
-| Baseline_Double  | Vector256 | Double     | 1000  |    572.45 ns |   5.287 ns |    573.21 ns |  1.00x slower |
-| LINQ_Double      | Vector256 | Double     | 1000  |    573.01 ns |   6.732 ns |    574.56 ns |  1.00x slower |
-| NetFabric_Double | Vector256 | Double     | 1000  |    128.70 ns |   1.034 ns |    128.53 ns |  4.44x faster |
-| Baseline_Double  | Vector512 | Double     | 1000  |    571.11 ns |   6.915 ns |    572.84 ns |  1.00x slower |
-| LINQ_Double      | Vector512 | Double     | 1000  |    570.82 ns |   4.606 ns |    572.51 ns |  1.00x faster |
-| NetFabric_Double | Vector512 | Double     | 1000  |    128.17 ns |   1.055 ns |    128.33 ns |  4.46x faster |
-|                  |           |            |       |              |            |              |               |
-| Baseline_Float   | Scalar    | Float      | 1000  |    570.56 ns |   4.612 ns |    572.98 ns |      baseline |
-| LINQ_Float       | Scalar    | Float      | 1000  |  1,014.42 ns |  10.750 ns |  1,018.47 ns |  1.78x slower |
-| System_Float     | Scalar    | Float      | 1000  |    574.55 ns |   5.687 ns |    575.36 ns |  1.01x slower |
-| NetFabric_Float  | Scalar    | Float      | 1000  |    145.22 ns |   1.107 ns |    145.80 ns |  3.93x faster |
-| Baseline_Float   | Vector128 | Float      | 1000  |    569.56 ns |   4.442 ns |    572.11 ns |  1.00x faster |
-| LINQ_Float       | Vector128 | Float      | 1000  |  1,207.31 ns |   8.692 ns |  1,209.80 ns |  2.12x slower |
-| System_Float     | Vector128 | Float      | 1000  |    115.47 ns |   0.658 ns |    115.61 ns |  4.94x faster |
-| NetFabric_Float  | Vector128 | Float      | 1000  |    127.75 ns |   1.536 ns |    126.71 ns |  4.46x faster |
-| Baseline_Float   | Vector256 | Float      | 1000  |    568.82 ns |   5.199 ns |    567.58 ns |  1.00x faster |
-| LINQ_Float       | Vector256 | Float      | 1000  |  1,210.59 ns |  10.939 ns |  1,213.35 ns |  2.12x slower |
-| System_Float     | Vector256 | Float      | 1000  |     43.05 ns |   0.335 ns |     43.16 ns | 13.25x faster |
-| NetFabric_Float  | Vector256 | Float      | 1000  |     52.75 ns |   0.238 ns |     52.77 ns | 10.82x faster |
-| Baseline_Float   | Vector512 | Float      | 1000  |    570.12 ns |   5.911 ns |    571.47 ns |  1.00x slower |
-| LINQ_Float       | Vector512 | Float      | 1000  |  1,401.84 ns |  10.311 ns |  1,405.26 ns |  2.46x slower |
-| System_Float     | Vector512 | Float      | 1000  |     20.96 ns |   0.204 ns |     20.99 ns | 27.23x faster |
-| NetFabric_Float  | Vector512 | Float      | 1000  |     52.38 ns |   0.445 ns |     52.32 ns | 10.89x faster |
-|                  |           |            |       |              |            |              |               |
-| Baseline_Half    | Scalar    | Half       | 1000  | 12,303.82 ns |  51.396 ns | 12,320.83 ns |      baseline |
-| LINQ_Half        | Scalar    | Half       | 1000  | 12,569.00 ns |  42.232 ns | 12,580.73 ns |  1.02x slower |
-| NetFabric_Half   | Scalar    | Half       | 1000  |  9,224.23 ns |  81.418 ns |  9,274.72 ns |  1.33x faster |
-| Baseline_Half    | Vector128 | Half       | 1000  | 11,958.97 ns |  44.551 ns | 11,980.43 ns |  1.03x faster |
-| LINQ_Half        | Vector128 | Half       | 1000  | 12,195.96 ns |  74.433 ns | 12,202.99 ns |  1.01x faster |
-| NetFabric_Half   | Vector128 | Half       | 1000  |  8,146.77 ns |  81.343 ns |  8,164.09 ns |  1.51x faster |
-| Baseline_Half    | Vector256 | Half       | 1000  | 11,973.93 ns | 108.398 ns | 11,984.58 ns |  1.03x faster |
-| LINQ_Half        | Vector256 | Half       | 1000  | 12,158.34 ns | 126.659 ns | 12,116.17 ns |  1.01x faster |
-| NetFabric_Half   | Vector256 | Half       | 1000  |  8,136.64 ns |  71.782 ns |  8,164.75 ns |  1.51x faster |
-| Baseline_Half    | Vector512 | Half       | 1000  | 11,966.10 ns |  63.814 ns | 11,992.15 ns |  1.03x faster |
-| LINQ_Half        | Vector512 | Half       | 1000  | 12,183.80 ns |  77.386 ns | 12,207.81 ns |  1.01x faster |
-| NetFabric_Half   | Vector512 | Half       | 1000  |  8,132.30 ns |  73.452 ns |  8,140.99 ns |  1.51x faster |
-|                  |           |            |       |              |            |              |               |
-| Baseline_Int     | Scalar    | Int        | 1000  |    209.13 ns |   1.815 ns |    209.57 ns |      baseline |
-| LINQ_Int         | Scalar    | Int        | 1000  |    207.11 ns |   1.197 ns |    207.26 ns |  1.01x faster |
-| NetFabric_Int    | Scalar    | Int        | 1000  |    106.23 ns |   0.707 ns |    106.22 ns |  1.97x faster |
-| Baseline_Int     | Vector128 | Int        | 1000  |    221.71 ns |   1.209 ns |    221.74 ns |  1.06x slower |
-| LINQ_Int         | Vector128 | Int        | 1000  |    106.27 ns |   3.544 ns |    105.34 ns |  1.96x faster |
-| NetFabric_Int    | Vector128 | Int        | 1000  |     59.76 ns |   0.899 ns |     60.06 ns |  3.50x faster |
-| Baseline_Int     | Vector256 | Int        | 1000  |    221.06 ns |   1.133 ns |    220.85 ns |  1.06x slower |
-| LINQ_Int         | Vector256 | Int        | 1000  |     50.87 ns |   0.211 ns |     50.88 ns |  4.11x faster |
-| NetFabric_Int    | Vector256 | Int        | 1000  |     33.41 ns |   0.293 ns |     33.41 ns |  6.26x faster |
-| Baseline_Int     | Vector512 | Int        | 1000  |    219.06 ns |   1.548 ns |    218.67 ns |  1.05x slower |
-| LINQ_Int         | Vector512 | Int        | 1000  |     50.72 ns |   0.320 ns |     50.70 ns |  4.12x faster |
-| NetFabric_Int    | Vector512 | Int        | 1000  |     33.69 ns |   0.330 ns |     33.72 ns |  6.21x faster |
-|                  |           |            |       |              |            |              |               |
-| Baseline_Long    | Scalar    | Long       | 1000  |    209.33 ns |   3.041 ns |    208.05 ns |      baseline |
-| LINQ_Long        | Scalar    | Long       | 1000  |    208.01 ns |   1.683 ns |    208.05 ns |  1.01x faster |
-| NetFabric_Long   | Scalar    | Long       | 1000  |    106.83 ns |   0.630 ns |    106.97 ns |  1.96x faster |
-| Baseline_Long    | Vector128 | Long       | 1000  |    220.86 ns |   1.267 ns |    220.79 ns |  1.06x slower |
-| LINQ_Long        | Vector128 | Long       | 1000  |    205.47 ns |   1.143 ns |    205.74 ns |  1.02x faster |
-| NetFabric_Long   | Vector128 | Long       | 1000  |    110.76 ns |   0.171 ns |    110.71 ns |  1.89x faster |
-| Baseline_Long    | Vector256 | Long       | 1000  |    220.38 ns |   1.423 ns |    220.08 ns |  1.05x slower |
-| LINQ_Long        | Vector256 | Long       | 1000  |    108.83 ns |   2.826 ns |    108.70 ns |  1.93x faster |
-| NetFabric_Long   | Vector256 | Long       | 1000  |     59.73 ns |   0.512 ns |     59.62 ns |  3.51x faster |
-| Baseline_Long    | Vector512 | Long       | 1000  |    220.13 ns |   2.014 ns |    220.33 ns |  1.05x slower |
-| LINQ_Long        | Vector512 | Long       | 1000  |    109.13 ns |   4.001 ns |    109.02 ns |  1.91x faster |
-| NetFabric_Long   | Vector512 | Long       | 1000  |     60.10 ns |   0.533 ns |     60.23 ns |  3.48x faster |
-|                  |           |            |       |              |            |              |               |
-| Baseline_Short   | Scalar    | Short      | 1000  |    398.96 ns |   4.568 ns |    397.85 ns |      baseline |
-| LINQ_Short       | Scalar    | Short      | 1000  |    747.23 ns |   4.973 ns |    746.78 ns |  1.87x slower |
-| NetFabric_Short  | Scalar    | Short      | 1000  |    217.72 ns |   1.566 ns |    217.20 ns |  1.83x faster |
-| Baseline_Short   | Vector128 | Short      | 1000  |    397.20 ns |   2.326 ns |    398.01 ns |  1.00x faster |
-| LINQ_Short       | Vector128 | Short      | 1000  |    743.73 ns |   3.997 ns |    744.50 ns |  1.86x slower |
-| NetFabric_Short  | Vector128 | Short      | 1000  |     33.28 ns |   0.324 ns |     33.35 ns | 12.00x faster |
-| Baseline_Short   | Vector256 | Short      | 1000  |    398.76 ns |   3.406 ns |    398.69 ns |  1.00x slower |
-| LINQ_Short       | Vector256 | Short      | 1000  |    745.48 ns |   6.354 ns |    745.06 ns |  1.87x slower |
-| NetFabric_Short  | Vector256 | Short      | 1000  |     17.16 ns |   0.238 ns |     17.16 ns | 23.25x faster |
-| Baseline_Short   | Vector512 | Short      | 1000  |    396.99 ns |   3.059 ns |    397.21 ns |  1.00x faster |
-| LINQ_Short       | Vector512 | Short      | 1000  |    754.52 ns |  12.566 ns |    752.41 ns |  1.89x slower |
-| NetFabric_Short  | Vector512 | Short      | 1000  |     20.55 ns |   1.059 ns |     20.91 ns | 18.86x faster |
+| Method           | Job       | Categories | Count | Mean         | StdDev     | Ratio        | 
+|----------------- |---------- |----------- |------ |-------------:|-----------:|-------------:|-
+| **Baseline_Double**  | **Scalar**    | **Double**     | **5**     |     **1.822 ns** |  **0.0117 ns** |     **baseline** | 
+| LINQ_Double      | Scalar    | Double     | 5     |     2.161 ns |  0.0333 ns | 1.19x slower | 
+| System_Double    | Scalar    | Double     | 5     |     1.815 ns |  0.0327 ns | 1.00x faster | 
+| NetFabric_Double | Scalar    | Double     | 5     |     1.737 ns |  0.0402 ns | 1.05x faster | 
+| Baseline_Double  | Vector128 | Double     | 5     |     1.847 ns |  0.0219 ns | 1.01x slower | 
+| LINQ_Double      | Vector128 | Double     | 5     |     2.176 ns |  0.0348 ns | 1.19x slower | 
+| System_Double    | Vector128 | Double     | 5     |     3.056 ns |  0.0610 ns | 1.68x slower | 
+| NetFabric_Double | Vector128 | Double     | 5     |     1.901 ns |  0.0149 ns | 1.04x slower | 
+| Baseline_Double  | Vector256 | Double     | 5     |     1.803 ns |  0.0406 ns | 1.01x faster | 
+| LINQ_Double      | Vector256 | Double     | 5     |     2.123 ns |  0.0224 ns | 1.17x slower | 
+| System_Double    | Vector256 | Double     | 5     |     3.094 ns |  0.0492 ns | 1.69x slower | 
+| NetFabric_Double | Vector256 | Double     | 5     |     1.909 ns |  0.0307 ns | 1.05x slower | 
+| Baseline_Double  | Vector512 | Double     | 5     |     1.831 ns |  0.0290 ns | 1.01x slower | 
+| LINQ_Double      | Vector512 | Double     | 5     |     2.103 ns |  0.0279 ns | 1.15x slower | 
+| System_Double    | Vector512 | Double     | 5     |     2.128 ns |  0.0321 ns | 1.17x slower | 
+| NetFabric_Double | Vector512 | Double     | 5     |     1.901 ns |  0.0251 ns | 1.04x slower | 
+|                  |           |            |       |              |            |              | 
+| **Baseline_Double**  | **Scalar**    | **Double**     | **100**   |    **38.398 ns** |  **0.6244 ns** |     **baseline** | 
+| LINQ_Double      | Scalar    | Double     | 100   |    40.192 ns |  0.3643 ns | 1.05x slower | 
+| System_Double    | Scalar    | Double     | 100   |    38.037 ns |  0.4424 ns | 1.01x faster | 
+| NetFabric_Double | Scalar    | Double     | 100   |    11.952 ns |  0.1045 ns | 3.21x faster | 
+| Baseline_Double  | Vector128 | Double     | 100   |    38.769 ns |  0.4172 ns | 1.01x slower | 
+| LINQ_Double      | Vector128 | Double     | 100   |    39.878 ns |  0.4100 ns | 1.04x slower | 
+| System_Double    | Vector128 | Double     | 100   |    11.814 ns |  0.1016 ns | 3.25x faster | 
+| NetFabric_Double | Vector128 | Double     | 100   |    18.230 ns |  0.2079 ns | 2.11x faster | 
+| Baseline_Double  | Vector256 | Double     | 100   |    38.863 ns |  0.3923 ns | 1.01x slower | 
+| LINQ_Double      | Vector256 | Double     | 100   |    39.572 ns |  0.3674 ns | 1.03x slower | 
+| System_Double    | Vector256 | Double     | 100   |     5.969 ns |  0.0699 ns | 6.43x faster | 
+| NetFabric_Double | Vector256 | Double     | 100   |     8.083 ns |  0.1000 ns | 4.75x faster | 
+| Baseline_Double  | Vector512 | Double     | 100   |    38.771 ns |  0.4015 ns | 1.01x slower | 
+| LINQ_Double      | Vector512 | Double     | 100   |    39.522 ns |  0.4529 ns | 1.03x slower | 
+| System_Double    | Vector512 | Double     | 100   |     5.668 ns |  0.0495 ns | 6.78x faster | 
+| NetFabric_Double | Vector512 | Double     | 100   |     8.247 ns |  0.0855 ns | 4.66x faster | 
+|                  |           |            |       |              |            |              | 
+| **Baseline_Float**   | **Scalar**    | **Float**      | **5**     |     **1.856 ns** |  **0.0284 ns** |     **baseline** | 
+| LINQ_Float       | Scalar    | Float      | 5     |     2.765 ns |  0.0696 ns | 1.49x slower | 
+| System_Float     | Scalar    | Float      | 5     |     1.820 ns |  0.0235 ns | 1.02x faster | 
+| NetFabric_Float  | Scalar    | Float      | 5     |     1.734 ns |  0.0292 ns | 1.07x faster | 
+| Baseline_Float   | Vector128 | Float      | 5     |     1.810 ns |  0.0304 ns | 1.03x faster | 
+| LINQ_Float       | Vector128 | Float      | 5     |     2.745 ns |  0.0475 ns | 1.48x slower | 
+| System_Float     | Vector128 | Float      | 5     |     3.286 ns |  0.0605 ns | 1.77x slower | 
+| NetFabric_Float  | Vector128 | Float      | 5     |     1.908 ns |  0.0242 ns | 1.03x slower | 
+| Baseline_Float   | Vector256 | Float      | 5     |     1.790 ns |  0.0287 ns | 1.04x faster | 
+| LINQ_Float       | Vector256 | Float      | 5     |     2.661 ns |  0.0502 ns | 1.43x slower | 
+| System_Float     | Vector256 | Float      | 5     |     2.318 ns |  0.0145 ns | 1.25x slower | 
+| NetFabric_Float  | Vector256 | Float      | 5     |     1.921 ns |  0.0251 ns | 1.04x slower | 
+| Baseline_Float   | Vector512 | Float      | 5     |     1.820 ns |  0.0176 ns | 1.02x faster | 
+| LINQ_Float       | Vector512 | Float      | 5     |     2.759 ns |  0.0537 ns | 1.49x slower | 
+| System_Float     | Vector512 | Float      | 5     |     2.313 ns |  0.0381 ns | 1.25x slower | 
+| NetFabric_Float  | Vector512 | Float      | 5     |     1.896 ns |  0.0266 ns | 1.02x slower | 
+|                  |           |            |       |              |            |              | 
+| **Baseline_Float**   | **Scalar**    | **Float**      | **100**   |    **38.293 ns** |  **0.2998 ns** |     **baseline** | 
+| LINQ_Float       | Scalar    | Float      | 100   |    59.372 ns |  0.8637 ns | 1.55x slower | 
+| System_Float     | Scalar    | Float      | 100   |    38.491 ns |  0.5265 ns | 1.01x slower | 
+| NetFabric_Float  | Scalar    | Float      | 100   |    12.650 ns |  0.1233 ns | 3.03x faster | 
+| Baseline_Float   | Vector128 | Float      | 100   |    38.962 ns |  0.3469 ns | 1.02x slower | 
+| LINQ_Float       | Vector128 | Float      | 100   |    58.546 ns |  0.6409 ns | 1.53x slower | 
+| System_Float     | Vector128 | Float      | 100   |     6.212 ns |  0.1246 ns | 6.17x faster | 
+| NetFabric_Float  | Vector128 | Float      | 100   |     7.835 ns |  0.1275 ns | 4.89x faster | 
+| Baseline_Float   | Vector256 | Float      | 100   |    38.674 ns |  0.4669 ns | 1.01x slower | 
+| LINQ_Float       | Vector256 | Float      | 100   |    58.555 ns |  0.7268 ns | 1.53x slower | 
+| System_Float     | Vector256 | Float      | 100   |     4.528 ns |  0.0678 ns | 8.46x faster | 
+| NetFabric_Float  | Vector256 | Float      | 100   |     5.540 ns |  0.0867 ns | 6.91x faster | 
+| Baseline_Float   | Vector512 | Float      | 100   |    38.833 ns |  0.6120 ns | 1.01x slower | 
+| LINQ_Float       | Vector512 | Float      | 100   |    59.147 ns |  0.8935 ns | 1.54x slower | 
+| System_Float     | Vector512 | Float      | 100   |     5.140 ns |  0.0444 ns | 7.44x faster | 
+| NetFabric_Float  | Vector512 | Float      | 100   |     5.351 ns |  0.0591 ns | 7.16x faster | 
+|                  |           |            |       |              |            |              | 
+| **Baseline_Half**    | **Scalar**    | **Half**       | **5**     |    **56.458 ns** |  **0.3452 ns** |     **baseline** | 
+| LINQ_Half        | Scalar    | Half       | 5     |    60.195 ns |  0.8510 ns | 1.07x slower | 
+| System_Half      | Scalar    | Half       | 5     |    57.177 ns |  0.3443 ns | 1.01x slower | 
+| NetFabric_Half   | Scalar    | Half       | 5     |    80.808 ns |  0.8092 ns | 1.43x slower | 
+| Baseline_Half    | Vector128 | Half       | 5     |    54.158 ns |  0.3541 ns | 1.04x faster | 
+| LINQ_Half        | Vector128 | Half       | 5     |    53.706 ns |  0.4653 ns | 1.05x faster | 
+| System_Half      | Vector128 | Half       | 5     |    54.635 ns |  0.3224 ns | 1.03x faster | 
+| NetFabric_Half   | Vector128 | Half       | 5     |    75.530 ns |  0.6711 ns | 1.34x slower | 
+| Baseline_Half    | Vector256 | Half       | 5     |    54.238 ns |  0.3315 ns | 1.04x faster | 
+| LINQ_Half        | Vector256 | Half       | 5     |    53.452 ns |  0.4575 ns | 1.06x faster | 
+| System_Half      | Vector256 | Half       | 5     |    54.773 ns |  0.3125 ns | 1.03x faster | 
+| NetFabric_Half   | Vector256 | Half       | 5     |    75.530 ns |  0.8565 ns | 1.34x slower | 
+| Baseline_Half    | Vector512 | Half       | 5     |    53.874 ns |  0.3144 ns | 1.05x faster | 
+| LINQ_Half        | Vector512 | Half       | 5     |    54.037 ns |  0.4998 ns | 1.04x faster | 
+| System_Half      | Vector512 | Half       | 5     |    54.891 ns |  0.4267 ns | 1.03x faster | 
+| NetFabric_Half   | Vector512 | Half       | 5     |    75.709 ns |  0.6150 ns | 1.34x slower | 
+|                  |           |            |       |              |            |              | 
+| **Baseline_Half**    | **Scalar**    | **Half**       | **100**   | **1,225.426 ns** |  **9.3214 ns** |     **baseline** | 
+| LINQ_Half        | Scalar    | Half       | 100   | 1,249.856 ns | 11.5072 ns | 1.02x slower | 
+| System_Half      | Scalar    | Half       | 100   | 1,240.706 ns | 12.4000 ns | 1.01x slower | 
+| NetFabric_Half   | Scalar    | Half       | 100   |   935.744 ns |  7.3476 ns | 1.31x faster | 
+| Baseline_Half    | Vector128 | Half       | 100   | 1,192.125 ns | 11.2919 ns | 1.03x faster | 
+| LINQ_Half        | Vector128 | Half       | 100   | 1,215.861 ns |  9.3963 ns | 1.01x faster | 
+| System_Half      | Vector128 | Half       | 100   | 1,214.100 ns | 11.7737 ns | 1.01x faster | 
+| NetFabric_Half   | Vector128 | Half       | 100   |   830.315 ns |  6.5206 ns | 1.48x faster | 
+| Baseline_Half    | Vector256 | Half       | 100   | 1,193.874 ns | 12.6771 ns | 1.03x faster | 
+| LINQ_Half        | Vector256 | Half       | 100   | 1,211.582 ns | 10.3818 ns | 1.01x faster | 
+| System_Half      | Vector256 | Half       | 100   | 1,214.548 ns | 13.9095 ns | 1.01x faster | 
+| NetFabric_Half   | Vector256 | Half       | 100   |   831.355 ns |  6.0017 ns | 1.47x faster | 
+| Baseline_Half    | Vector512 | Half       | 100   | 1,190.229 ns | 11.6075 ns | 1.03x faster | 
+| LINQ_Half        | Vector512 | Half       | 100   | 1,216.926 ns | 14.6224 ns | 1.01x faster | 
+| System_Half      | Vector512 | Half       | 100   | 1,207.944 ns | 11.2779 ns | 1.01x faster | 
+| NetFabric_Half   | Vector512 | Half       | 100   |   828.944 ns |  5.3115 ns | 1.48x faster | 
+|                  |           |            |       |              |            |              | 
+| **Baseline_Int**     | **Scalar**    | **Int**        | **5**     |     **1.837 ns** |  **0.0382 ns** |     **baseline** | 
+| LINQ_Int         | Scalar    | Int        | 5     |     1.858 ns |  0.0413 ns | 1.01x slower | 
+| System_Int       | Scalar    | Int        | 5     |     1.617 ns |  0.0285 ns | 1.14x faster | 
+| NetFabric_Int    | Scalar    | Int        | 5     |     1.906 ns |  0.0245 ns | 1.04x slower | 
+| Baseline_Int     | Vector128 | Int        | 5     |     1.811 ns |  0.0337 ns | 1.01x faster | 
+| LINQ_Int         | Vector128 | Int        | 5     |     1.819 ns |  0.0339 ns | 1.01x faster | 
+| System_Int       | Vector128 | Int        | 5     |     3.489 ns |  0.0671 ns | 1.90x slower | 
+| NetFabric_Int    | Vector128 | Int        | 5     |     2.133 ns |  0.0365 ns | 1.16x slower | 
+| Baseline_Int     | Vector256 | Int        | 5     |     1.822 ns |  0.0278 ns | 1.01x faster | 
+| LINQ_Int         | Vector256 | Int        | 5     |     1.803 ns |  0.0343 ns | 1.02x faster | 
+| System_Int       | Vector256 | Int        | 5     |     2.323 ns |  0.0208 ns | 1.27x slower | 
+| NetFabric_Int    | Vector256 | Int        | 5     |     2.510 ns |  0.0252 ns | 1.37x slower | 
+| Baseline_Int     | Vector512 | Int        | 5     |     1.826 ns |  0.0226 ns | 1.01x faster | 
+| LINQ_Int         | Vector512 | Int        | 5     |     2.021 ns |  0.0268 ns | 1.10x slower | 
+| System_Int       | Vector512 | Int        | 5     |     2.111 ns |  0.0266 ns | 1.15x slower | 
+| NetFabric_Int    | Vector512 | Int        | 5     |     2.510 ns |  0.0232 ns | 1.37x slower | 
+|                  |           |            |       |              |            |              | 
+| **Baseline_Int**     | **Scalar**    | **Int**        | **100**   |    **27.237 ns** |  **0.2286 ns** |     **baseline** | 
+| LINQ_Int         | Scalar    | Int        | 100   |    28.539 ns |  0.5145 ns | 1.05x slower | 
+| System_Int       | Scalar    | Int        | 100   |    28.771 ns |  0.4149 ns | 1.06x slower | 
+| NetFabric_Int    | Scalar    | Int        | 100   |    11.610 ns |  0.1033 ns | 2.35x faster | 
+| Baseline_Int     | Vector128 | Int        | 100   |    26.946 ns |  0.3698 ns | 1.01x faster | 
+| LINQ_Int         | Vector128 | Int        | 100   |     8.458 ns |  0.0746 ns | 3.22x faster | 
+| System_Int       | Vector128 | Int        | 100   |     5.594 ns |  0.0676 ns | 4.87x faster | 
+| NetFabric_Int    | Vector128 | Int        | 100   |     6.485 ns |  0.1132 ns | 4.20x faster | 
+| Baseline_Int     | Vector256 | Int        | 100   |    26.840 ns |  0.3518 ns | 1.01x faster | 
+| LINQ_Int         | Vector256 | Int        | 100   |     5.974 ns |  0.0593 ns | 4.56x faster | 
+| System_Int       | Vector256 | Int        | 100   |     4.477 ns |  0.0561 ns | 6.09x faster | 
+| NetFabric_Int    | Vector256 | Int        | 100   |     5.802 ns |  0.0658 ns | 4.69x faster | 
+| Baseline_Int     | Vector512 | Int        | 100   |    27.199 ns |  0.1354 ns | 1.00x faster | 
+| LINQ_Int         | Vector512 | Int        | 100   |     5.869 ns |  0.0614 ns | 4.64x faster | 
+| System_Int       | Vector512 | Int        | 100   |     4.434 ns |  0.0766 ns | 6.14x faster | 
+| NetFabric_Int    | Vector512 | Int        | 100   |     5.564 ns |  0.0544 ns | 4.90x faster | 
+|                  |           |            |       |              |            |              | 
+| **Baseline_Long**    | **Scalar**    | **Long**       | **5**     |     **1.846 ns** |  **0.0395 ns** |     **baseline** | 
+| LINQ_Long        | Scalar    | Long       | 5     |     1.866 ns |  0.0307 ns | 1.01x slower | 
+| System_Long      | Scalar    | Long       | 5     |     1.809 ns |  0.0211 ns | 1.02x faster | 
+| NetFabric_Long   | Scalar    | Long       | 5     |     1.923 ns |  0.0237 ns | 1.04x slower | 
+| Baseline_Long    | Vector128 | Long       | 5     |     1.817 ns |  0.0318 ns | 1.02x faster | 
+| LINQ_Long        | Vector128 | Long       | 5     |     2.303 ns |  0.0302 ns | 1.25x slower | 
+| System_Long      | Vector128 | Long       | 5     |     2.905 ns |  0.0492 ns | 1.57x slower | 
+| NetFabric_Long   | Vector128 | Long       | 5     |     2.112 ns |  0.0277 ns | 1.14x slower | 
+| Baseline_Long    | Vector256 | Long       | 5     |     1.808 ns |  0.0238 ns | 1.02x faster | 
+| LINQ_Long        | Vector256 | Long       | 5     |     1.819 ns |  0.0390 ns | 1.01x faster | 
+| System_Long      | Vector256 | Long       | 5     |     3.116 ns |  0.0266 ns | 1.69x slower | 
+| NetFabric_Long   | Vector256 | Long       | 5     |     2.309 ns |  0.0205 ns | 1.25x slower | 
+| Baseline_Long    | Vector512 | Long       | 5     |     1.621 ns |  0.0222 ns | 1.14x faster | 
+| LINQ_Long        | Vector512 | Long       | 5     |     1.844 ns |  0.0294 ns | 1.00x faster | 
+| System_Long      | Vector512 | Long       | 5     |     1.977 ns |  0.0314 ns | 1.07x slower | 
+| NetFabric_Long   | Vector512 | Long       | 5     |     2.314 ns |  0.0243 ns | 1.25x slower | 
+|                  |           |            |       |              |            |              | 
+| **Baseline_Long**    | **Scalar**    | **Long**       | **100**   |    **27.534 ns** |  **0.2307 ns** |     **baseline** | 
+| LINQ_Long        | Scalar    | Long       | 100   |    28.560 ns |  0.4371 ns | 1.04x slower | 
+| System_Long      | Scalar    | Long       | 100   |    28.036 ns |  0.1547 ns | 1.02x slower | 
+| NetFabric_Long   | Scalar    | Long       | 100   |    11.626 ns |  0.0533 ns | 2.37x faster | 
+| Baseline_Long    | Vector128 | Long       | 100   |    26.768 ns |  0.2953 ns | 1.03x faster | 
+| LINQ_Long        | Vector128 | Long       | 100   |    27.201 ns |  0.1725 ns | 1.01x faster | 
+| System_Long      | Vector128 | Long       | 100   |     8.497 ns |  0.1090 ns | 3.24x faster | 
+| NetFabric_Long   | Vector128 | Long       | 100   |    11.858 ns |  0.2852 ns | 2.32x faster | 
+| Baseline_Long    | Vector256 | Long       | 100   |    26.830 ns |  0.2212 ns | 1.03x faster | 
+| LINQ_Long        | Vector256 | Long       | 100   |     8.857 ns |  0.1082 ns | 3.11x faster | 
+| System_Long      | Vector256 | Long       | 100   |     6.613 ns |  0.1075 ns | 4.16x faster | 
+| NetFabric_Long   | Vector256 | Long       | 100   |     6.728 ns |  0.1269 ns | 4.09x faster | 
+| Baseline_Long    | Vector512 | Long       | 100   |    26.274 ns |  0.2442 ns | 1.05x faster | 
+| LINQ_Long        | Vector512 | Long       | 100   |     9.232 ns |  0.1009 ns | 2.98x faster | 
+| System_Long      | Vector512 | Long       | 100   |     7.156 ns |  0.0904 ns | 3.85x faster | 
+| NetFabric_Long   | Vector512 | Long       | 100   |     6.577 ns |  0.1011 ns | 4.19x faster | 
+|                  |           |            |       |              |            |              | 
+| **Baseline_Short**   | **Scalar**    | **Short**      | **5**     |     **2.620 ns** |  **0.0384 ns** |     **baseline** | 
+| LINQ_Short       | Scalar    | Short      | 5     |    10.246 ns |  0.0982 ns | 3.91x slower | 
+| System_Short     | Scalar    | Short      | 5     |     1.855 ns |  0.0286 ns | 1.41x faster | 
+| NetFabric_Short  | Scalar    | Short      | 5     |     2.321 ns |  0.0290 ns | 1.13x faster | 
+| Baseline_Short   | Vector128 | Short      | 5     |     2.793 ns |  0.0622 ns | 1.07x slower | 
+| LINQ_Short       | Vector128 | Short      | 5     |    10.268 ns |  0.1356 ns | 3.92x slower | 
+| System_Short     | Vector128 | Short      | 5     |     2.596 ns |  0.0318 ns | 1.01x faster | 
+| NetFabric_Short  | Vector128 | Short      | 5     |     2.709 ns |  0.0628 ns | 1.03x slower | 
+| Baseline_Short   | Vector256 | Short      | 5     |     2.755 ns |  0.0566 ns | 1.05x slower | 
+| LINQ_Short       | Vector256 | Short      | 5     |    10.290 ns |  0.0931 ns | 3.93x slower | 
+| System_Short     | Vector256 | Short      | 5     |     1.809 ns |  0.0306 ns | 1.45x faster | 
+| NetFabric_Short  | Vector256 | Short      | 5     |     2.892 ns |  0.0556 ns | 1.10x slower | 
+| Baseline_Short   | Vector512 | Short      | 5     |     1.930 ns |  0.0234 ns | 1.36x faster | 
+| LINQ_Short       | Vector512 | Short      | 5     |    10.212 ns |  0.1049 ns | 3.90x slower | 
+| System_Short     | Vector512 | Short      | 5     |     2.594 ns |  0.0368 ns | 1.01x faster | 
+| NetFabric_Short  | Vector512 | Short      | 5     |     2.933 ns |  0.0710 ns | 1.12x slower | 
+|                  |           |            |       |              |            |              | 
+| **Baseline_Short**   | **Scalar**    | **Short**      | **100**   |    **39.248 ns** |  **0.4102 ns** |     **baseline** | 
+| LINQ_Short       | Scalar    | Short      | 100   |    82.886 ns |  0.8979 ns | 2.11x slower | 
+| System_Short     | Scalar    | Short      | 100   |    40.645 ns |  0.3305 ns | 1.04x slower | 
+| NetFabric_Short  | Scalar    | Short      | 100   |    22.233 ns |  0.2044 ns | 1.77x faster | 
+| Baseline_Short   | Vector128 | Short      | 100   |    45.695 ns |  0.6245 ns | 1.16x slower | 
+| LINQ_Short       | Vector128 | Short      | 100   |    85.913 ns |  1.1258 ns | 2.19x slower | 
+| System_Short     | Vector128 | Short      | 100   |    44.696 ns |  0.7019 ns | 1.14x slower | 
+| NetFabric_Short  | Vector128 | Short      | 100   |     6.652 ns |  0.0870 ns | 5.90x faster | 
+| Baseline_Short   | Vector256 | Short      | 100   |    45.646 ns |  0.5105 ns | 1.16x slower | 
+| LINQ_Short       | Vector256 | Short      | 100   |    85.960 ns |  0.9053 ns | 2.19x slower | 
+| System_Short     | Vector256 | Short      | 100   |    41.389 ns |  0.4251 ns | 1.05x slower | 
+| NetFabric_Short  | Vector256 | Short      | 100   |     9.539 ns |  0.0913 ns | 4.11x faster | 
+| Baseline_Short   | Vector512 | Short      | 100   |    38.839 ns |  0.3668 ns | 1.01x faster | 
+| LINQ_Short       | Vector512 | Short      | 100   |    82.889 ns |  0.5251 ns | 2.11x slower | 
+| System_Short     | Vector512 | Short      | 100   |    44.664 ns |  0.3010 ns | 1.14x slower | 
+| NetFabric_Short  | Vector512 | Short      | 100   |     9.808 ns |  0.0945 ns | 4.00x faster | 
 
 ### Sum2D
 
