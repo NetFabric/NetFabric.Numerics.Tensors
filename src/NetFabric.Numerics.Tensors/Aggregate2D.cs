@@ -94,6 +94,7 @@ public static partial class Tensor
             }
             aggregateX = TAggregateOperator.Invoke(aggregateX, partialX1);
             aggregateY = TAggregateOperator.Invoke(aggregateY, partialY1);
+
             remaining = source.Length - (int)indexSource;
         }
 
@@ -218,6 +219,7 @@ public static partial class Tensor
             }
             aggregateX = TAggregateOperator.Invoke(aggregateX, partialX1);
             aggregateY = TAggregateOperator.Invoke(aggregateY, partialY1);
+
             remaining = x.Length - (int)indexSource;
         }
 

@@ -106,11 +106,14 @@ public static partial class Tensor
         switch(x.Length - (int)indexSource)
         {
             case 3:
-                Unsafe.Add(ref destinationRef, indexSource + 2) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), Unsafe.Add(ref yRef, indexSource + 2), Unsafe.Add(ref zRef, indexSource + 2));
-                goto case 2;
-            case 2:
+                Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), Unsafe.Add(ref zRef, indexSource));
                 Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1), Unsafe.Add(ref zRef, indexSource + 1));
-                goto case 1;
+                Unsafe.Add(ref destinationRef, indexSource + 2) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), Unsafe.Add(ref yRef, indexSource + 2), Unsafe.Add(ref zRef, indexSource + 2));
+                break;
+            case 2:
+                Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), Unsafe.Add(ref zRef, indexSource));
+                Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1), Unsafe.Add(ref zRef, indexSource + 1));
+                break;
             case 1:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), Unsafe.Add(ref zRef, indexSource));
                 break;
@@ -222,11 +225,14 @@ public static partial class Tensor
         switch(x.Length - (int)indexSource)
         {
             case 3:
-                Unsafe.Add(ref destinationRef, indexSource + 2) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), y, Unsafe.Add(ref zRef, indexSource + 2));
-                goto case 2;
-            case 2:
+                Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y, Unsafe.Add(ref zRef, indexSource));
                 Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), y, Unsafe.Add(ref zRef, indexSource + 1));
-                goto case 1;
+                Unsafe.Add(ref destinationRef, indexSource + 2) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), y, Unsafe.Add(ref zRef, indexSource + 2));
+                break;
+            case 2:
+                Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y, Unsafe.Add(ref zRef, indexSource));
+                Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), y, Unsafe.Add(ref zRef, indexSource + 1));
+                break;
             case 1:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y, Unsafe.Add(ref zRef, indexSource));
                 break;
@@ -339,10 +345,17 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, indexSource + 3) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 3), y.Item2, Unsafe.Add(ref zRef, indexSource + 3));
         }
 
-        if(x.Length > (int)indexSource)
+        switch (x.Length - (int)indexSource)
         {
-            Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y.Item1, Unsafe.Add(ref zRef, indexSource));
-            Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), y.Item2, Unsafe.Add(ref zRef, indexSource + 1));
+            case 2:
+                Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y.Item1, Unsafe.Add(ref zRef, indexSource));
+                Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), y.Item2, Unsafe.Add(ref zRef, indexSource + 1));
+                break;
+            case 0:
+                break;
+            default:
+                Throw.Exception("Should not happen!");
+                break;
         }
     }
 
@@ -508,11 +521,14 @@ public static partial class Tensor
         switch(x.Length - (int)indexSource)
         {
             case 3:
-                Unsafe.Add(ref destinationRef, indexSource + 2) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), Unsafe.Add(ref yRef, indexSource + 2), z);
-                goto case 2;
-            case 2:
+                Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), z);
                 Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1), z);
-                goto case 1;
+                Unsafe.Add(ref destinationRef, indexSource + 2) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), Unsafe.Add(ref yRef, indexSource + 2), z);
+                break;
+            case 2:
+                Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), z);
+                Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1), z);
+                break;
             case 1:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), z);
                 break;
@@ -805,11 +821,14 @@ public static partial class Tensor
         switch(x.Length - (int)indexSource)
         {
             case 3:
-                Unsafe.Add(ref destinationRef, indexSource + 2) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), y, z);
-                goto case 2;
-            case 2:
+                Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y, z);
                 Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), y, z);
-                goto case 1;
+                Unsafe.Add(ref destinationRef, indexSource + 2) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), y, z);
+                break;
+            case 2:
+                Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y, z);
+                Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), y, z);
+                break;
             case 1:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y, z);
                 break;
