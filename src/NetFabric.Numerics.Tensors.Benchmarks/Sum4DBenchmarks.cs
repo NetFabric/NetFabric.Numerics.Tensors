@@ -48,11 +48,6 @@ public class Sum4DBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
-    public MyVector4<short> LINQ_Short()
-        => Enumerable.Aggregate(arrayShort!, MyVector4<short>.AdditiveIdentity, (sum, item) => sum + item);
-
-    [BenchmarkCategory("Short")]
-    [Benchmark]
     public MyVector4<short> NetFabric_Short()
     {
         var result = TensorOperations.Sum4D<short>(MemoryMarshal.Cast<MyVector4<short>, short>(arrayShort!));
@@ -63,11 +58,6 @@ public class Sum4DBenchmarks
     [Benchmark(Baseline = true)]
     public MyVector4<int> Baseline_Int()
         => Baseline.Sum<MyVector4<int>>(arrayInt!);
-
-    [BenchmarkCategory("Int")]
-    [Benchmark]
-    public MyVector4<int> LINQ_Int()
-        => Enumerable.Aggregate(arrayInt!, MyVector4<int>.AdditiveIdentity, (sum, item) => sum + item);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
@@ -84,11 +74,6 @@ public class Sum4DBenchmarks
 
     [BenchmarkCategory("Long")]
     [Benchmark]
-    public MyVector4<long> LINQ_Long()
-        => Enumerable.Aggregate(arrayLong!, MyVector4<long>.AdditiveIdentity, (sum, item) => sum + item);
-
-    [BenchmarkCategory("Long")]
-    [Benchmark]
     public MyVector4<long> NetFabric_Long()
     {
         var result = TensorOperations.Sum4D<long>(MemoryMarshal.Cast<MyVector4<long>, long>(arrayLong!));
@@ -99,11 +84,6 @@ public class Sum4DBenchmarks
     [Benchmark(Baseline = true)]
     public MyVector4<Half> Baseline_Half()
         => Baseline.Sum<MyVector4<Half>>(arrayHalf!);
-
-    [BenchmarkCategory("Half")]
-    [Benchmark]
-    public MyVector4<Half> LINQ_Half()
-        => Enumerable.Aggregate(arrayHalf!, MyVector4<Half>.AdditiveIdentity, (sum, item) => sum + item);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
@@ -120,11 +100,6 @@ public class Sum4DBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
-    public MyVector4<float> LINQ_Float()
-        => Enumerable.Aggregate(arrayFloat!, MyVector4<float>.AdditiveIdentity, (sum, item) => sum + item);
-
-    [BenchmarkCategory("Float")]
-    [Benchmark]
     public MyVector4<float> NetFabric_Float()
     {
         var result = TensorOperations.Sum4D<float>(MemoryMarshal.Cast<MyVector4<float>, float>(arrayFloat!));
@@ -135,11 +110,6 @@ public class Sum4DBenchmarks
     [Benchmark(Baseline = true)]
     public MyVector4<double> Baseline_Double()
         => Baseline.Sum<MyVector4<double>>(arrayDouble!);
-
-    [BenchmarkCategory("Double")]
-    [Benchmark]
-    public MyVector4<double> LINQ_Double()
-        => Enumerable.Aggregate(arrayDouble!, MyVector4<double>.AdditiveIdentity, (sum, item) => sum + item);
     
     [BenchmarkCategory("Double")]
     [Benchmark]

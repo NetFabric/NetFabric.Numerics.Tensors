@@ -48,11 +48,6 @@ public class SumBenchmarks
 
     [BenchmarkCategory("Short")]
     [Benchmark]
-    public short LINQ_Short()
-        => Enumerable.Aggregate(arrayShort!, (short)0, (sum, item) => (short)(sum + item));
-
-    [BenchmarkCategory("Short")]
-    [Benchmark]
     public short System_Short()
         => TensorPrimitives.Sum<short>(arrayShort!);
 
@@ -108,11 +103,6 @@ public class SumBenchmarks
 
     [BenchmarkCategory("Half")]
     [Benchmark]
-    public Half LINQ_Half()
-        => Enumerable.Aggregate(arrayHalf!, (Half)0, (sum, item) => (Half)(sum + item));
-
-    [BenchmarkCategory("Half")]
-    [Benchmark]
     public Half System_Half()
         => TensorPrimitives.Sum<Half>(arrayHalf!);
 
@@ -128,11 +118,6 @@ public class SumBenchmarks
 
     [BenchmarkCategory("Float")]
     [Benchmark]
-    public float LINQ_Float()
-        => Enumerable.Sum(arrayFloat!);
-
-    [BenchmarkCategory("Float")]
-    [Benchmark]
     public float System_Float()
         => TensorPrimitives.Sum(arrayFloat!);
 
@@ -145,11 +130,6 @@ public class SumBenchmarks
     [Benchmark(Baseline = true)]
     public double Baseline_Double()
         => Baseline.Sum<double>(arrayDouble!);
-
-    [BenchmarkCategory("Double")]
-    [Benchmark]
-    public double LINQ_Double()
-        => Enumerable.Sum(arrayDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]

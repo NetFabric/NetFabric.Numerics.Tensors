@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RunSettings>
+    <RunConfiguration>
+        <EnvironmentVariables>
+            <DOTNET_EnableHWIntrinsic>1</DOTNET_EnableHWIntrinsic>
+            <DOTNET_EnableAVX2>0</DOTNET_EnableAVX2>
+            <DOTNET_EnableAVX512F>0</DOTNET_EnableAVX512F>
+        </EnvironmentVariables>
+    </RunConfiguration>
+</RunSettings>

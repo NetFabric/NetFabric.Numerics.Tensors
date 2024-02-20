@@ -12,7 +12,7 @@ public class Sum2DTests
         void action() => TensorOperations.Sum2D<short>(source);
 
         // assert
-        Assert.Throws<ArgumentException>("source", action);
+        _ = Assert.Throws<ArgumentException>("source", action);
     }
     
     public static TheoryData<int> SumData

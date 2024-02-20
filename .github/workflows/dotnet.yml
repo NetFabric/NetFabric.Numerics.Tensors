@@ -34,5 +34,11 @@ jobs:
     - name: Build Solution
       run: dotnet build --no-restore -c:Release
 
-    - name: Test Solution
-      run: dotnet test --no-build --verbosity normal -c:Release
+    - name: Test Scalar
+      run: dotnet test --no-build --verbosity normal -c:Release -e:DOTNET_EnableHWIntrinsic=0
+
+    - name: Test Vector128
+      run: dotnet test --no-build --verbosity normal -c:Release -e:DOTNET_EnableAVX2=0 -e:DOTNET_EnableAVX512F=0
+
+    - name: Test Vector256
+      run: dotnet test --no-build --verbosity normal -c:Release -e:DOTNET_EnableAVX512F=0
