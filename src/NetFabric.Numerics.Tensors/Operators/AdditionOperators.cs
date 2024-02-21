@@ -13,7 +13,7 @@ readonly struct AddOperator<T>
         => x + y;
 }
 
-readonly struct CheckedAddOperator<T>
+readonly struct AddCheckedOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IAdditionOperators<T, T, T>
 {

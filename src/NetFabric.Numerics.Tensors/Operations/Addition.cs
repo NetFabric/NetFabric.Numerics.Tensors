@@ -18,19 +18,19 @@ public static partial class TensorOperations
         where T : struct, IAdditionOperators<T, T, T>
         => Tensor.Apply<T, AddOperator<T>>(left, right, destination);
     
-    public static void CheckedAdd<T>(ReadOnlySpan<T> left, T right, Span<T> destination)
+    public static void AddChecked<T>(ReadOnlySpan<T> left, T right, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>
-        => Tensor.Apply<T, CheckedAddOperator<T>>(left, right, destination);
+        => Tensor.Apply<T, AddCheckedOperator<T>>(left, right, destination);
 
-    public static void CheckedAdd<T>(ReadOnlySpan<T> left, ValueTuple<T, T> right, Span<T> destination)
+    public static void AddChecked<T>(ReadOnlySpan<T> left, ValueTuple<T, T> right, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>
-        => Tensor.Apply<T, CheckedAddOperator<T>>(left, right, destination);
+        => Tensor.Apply<T, AddCheckedOperator<T>>(left, right, destination);
 
-    public static void CheckedAdd<T>(ReadOnlySpan<T> left, ValueTuple<T, T, T> right, Span<T> destination)
+    public static void AddChecked<T>(ReadOnlySpan<T> left, ValueTuple<T, T, T> right, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>
-        => Tensor.Apply<T, CheckedAddOperator<T>>(left, right, destination);
+        => Tensor.Apply<T, AddCheckedOperator<T>>(left, right, destination);
 
-    public static void CheckedAdd<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right, Span<T> destination)
+    public static void AddChecked<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>
-        => Tensor.Apply<T, CheckedAddOperator<T>>(left, right, destination);
+        => Tensor.Apply<T, AddCheckedOperator<T>>(left, right, destination);
 }
