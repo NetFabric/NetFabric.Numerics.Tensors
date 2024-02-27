@@ -23,15 +23,15 @@ public static partial class Tensor
                 ref var currentVector = ref Unsafe.Add(ref vectorsRef, indexVector);
                 if (TPredicateOperator.Invoke(ref currentVector, ref yVector, ref zVector))
                 {
-                    for (var indexElement = 0; indexElement < Vector<int>.Count; indexElement++)
+                    for (var indexElement = 0; indexElement < Vector<T>.Count; indexElement++)
                     {
                         if (TPredicateOperator.Invoke(currentVector[indexElement], y, z))
-                            return ((int)indexVector * Vector<int>.Count) + indexElement;
+                            return ((int)indexVector * Vector<T>.Count) + indexElement;
                     }
                 }
             }
 
-            indexSource = indexVector * Vector<int>.Count;
+            indexSource = indexVector * Vector<T>.Count;
         }
 
         ref var xRef = ref MemoryMarshal.GetReference(x);
