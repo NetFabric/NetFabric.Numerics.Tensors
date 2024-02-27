@@ -65,6 +65,32 @@ readonly struct GreaterThanDoubleOperator
         => Vector.GreaterThan(x, y);
 }
 
+readonly struct GreaterThanAllOperator<T>
+    : IBinaryToScalarOperator<T, T, bool>
+    where T : struct, IComparisonOperators<T, T, bool>
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(T x, T y)
+        => x > y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
+        => Vector.GreaterThanAll(x, y);
+}
+
+readonly struct GreaterThanAnyOperator<T>
+    : IBinaryToScalarOperator<T, T, bool>
+    where T : struct, IComparisonOperators<T, T, bool>
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(T x, T y)
+        => x > y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
+        => Vector.GreaterThanAny(x, y);
+}
+
 readonly struct GreaterThanOrEqualOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
@@ -128,6 +154,32 @@ readonly struct GreaterThanOrEqualDoubleOperator
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<long> Invoke(ref readonly Vector<double> x, ref readonly Vector<double> y)
         => Vector.GreaterThanOrEqual(x, y);
+}
+
+readonly struct GreaterThanOrEqualAllOperator<T>
+    : IBinaryToScalarOperator<T, T, bool>
+    where T : struct, IComparisonOperators<T, T, bool>
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(T x, T y)
+        => x >= y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
+        => Vector.GreaterThanOrEqualAll(x, y);
+}
+
+readonly struct GreaterThanOrEqualAnyOperator<T>
+    : IBinaryToScalarOperator<T, T, bool>
+    where T : struct, IComparisonOperators<T, T, bool>
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(T x, T y)
+        => x >= y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
+        => Vector.GreaterThanOrEqualAny(x, y);
 }
 
 readonly struct LessThanOperator<T>
@@ -212,6 +264,32 @@ readonly struct LessThanOrEqualOperator<T>
         => Vector.LessThanOrEqual(x, y);
 }
 
+readonly struct LessThanAllOperator<T>
+    : IBinaryToScalarOperator<T, T, bool>
+    where T : struct, IComparisonOperators<T, T, bool>
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(T x, T y)
+        => x < y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
+        => Vector.LessThanAll(x, y);
+}
+
+readonly struct LessThanAnyOperator<T>
+    : IBinaryToScalarOperator<T, T, bool>
+    where T : struct, IComparisonOperators<T, T, bool>
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(T x, T y)
+        => x < y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
+        => Vector.LessThanAny(x, y);
+}
+
 readonly struct LessThanOrEqualInt32Operator
     : IBinaryOperator<int, int, int>
 {
@@ -258,4 +336,31 @@ readonly struct LessThanOrEqualDoubleOperator
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<long> Invoke(ref readonly Vector<double> x, ref readonly Vector<double> y)
         => Vector.LessThanOrEqual(x, y);
+}
+
+
+readonly struct LessThanOrEqualAllOperator<T>
+    : IBinaryToScalarOperator<T, T, bool>
+    where T : struct, IComparisonOperators<T, T, bool>
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(T x, T y)
+        => x <= y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
+        => Vector.LessThanOrEqualAll(x, y);
+}
+
+readonly struct LessThanOrEqualAnyOperator<T>
+    : IBinaryToScalarOperator<T, T, bool>
+    where T : struct, IComparisonOperators<T, T, bool>
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(T x, T y)
+        => x <= y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
+        => Vector.LessThanOrEqualAny(x, y);
 }

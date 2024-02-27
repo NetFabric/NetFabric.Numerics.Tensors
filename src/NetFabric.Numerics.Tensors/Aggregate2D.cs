@@ -6,7 +6,7 @@ public static partial class Tensor
     /// Aggregates the elements of a source <see cref="ReadOnlySpan{T}"/> containing contiguous 2D data using the specified aggregation operator.
     /// </summary>
     /// <typeparam name="T">The type of the elements in the source span.</typeparam>
-    /// <typeparam name="TOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
+    /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
     /// <param name="source">The source span containing contiguous 2D data to aggregate.</param>
     /// <returns>A tuple containing the aggregated results.</returns>
     public static ValueTuple<T, T> Aggregate2D<T, TAggregateOperator>(ReadOnlySpan<T> source)
