@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct ModulusOperator<T>
+public readonly struct ModulusOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IModulusOperators<T, T, T>
 {

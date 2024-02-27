@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct ShiftRightArithmeticOperator<T, TResult>
+public readonly struct ShiftRightArithmeticOperator<T, TResult>
     : IBinaryScalarOperator<T, int, TResult>
     where T : struct, IShiftOperators<T, int, TResult>
     where TResult : struct
@@ -16,7 +16,7 @@ readonly struct ShiftRightArithmeticOperator<T, TResult>
         => Throw.NotSupportedException<Vector<TResult>>();
 }
 
-readonly struct ShiftRightArithmeticSByteOperator
+public readonly struct ShiftRightArithmeticSByteOperator
     : IBinaryScalarOperator<sbyte, int, sbyte>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -28,7 +28,7 @@ readonly struct ShiftRightArithmeticSByteOperator
         => Vector.ShiftRightArithmetic(value, count);
 }
 
-readonly struct ShiftRightArithmeticInt16Operator
+public readonly struct ShiftRightArithmeticInt16Operator
     : IBinaryScalarOperator<short, int, short>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -40,7 +40,7 @@ readonly struct ShiftRightArithmeticInt16Operator
         => Vector.ShiftRightArithmetic(value, count);
 }
 
-readonly struct ShiftRightArithmeticInt32Operator
+public readonly struct ShiftRightArithmeticInt32Operator
     : IBinaryScalarOperator<int, int, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -52,7 +52,7 @@ readonly struct ShiftRightArithmeticInt32Operator
         => Vector.ShiftRightArithmetic(value, count);
 }
 
-readonly struct ShiftRightArithmeticInt64Operator
+public readonly struct ShiftRightArithmeticInt64Operator
     : IBinaryScalarOperator<long, int, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -64,7 +64,7 @@ readonly struct ShiftRightArithmeticInt64Operator
         => Vector.ShiftRightArithmetic(value, count);
 }
 
-readonly struct ShiftRightArithmeticIntPtrOperator
+public readonly struct ShiftRightArithmeticIntPtrOperator
     : IBinaryScalarOperator<IntPtr, int, IntPtr>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

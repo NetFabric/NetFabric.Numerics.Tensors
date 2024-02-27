@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct MaxAggregationOperator<T>
+public readonly struct MaxAggregationOperator<T>
     : IAggregationOperator<T, T>
     where T : struct, INumber<T>, IMinMaxValue<T>
 {
@@ -16,7 +16,7 @@ readonly struct MaxAggregationOperator<T>
         => Vector.Max(x, y);
 }
 
-readonly struct MaxPropagateNaNOperator<T>
+public readonly struct MaxPropagateNaNOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, INumber<T>
 {
@@ -37,7 +37,7 @@ readonly struct MaxPropagateNaNOperator<T>
             : Vector.Max(x, y); 
 }
 
-readonly struct MaxMagnitudeAggregationOperator<T>
+public readonly struct MaxMagnitudeAggregationOperator<T>
     : IAggregationOperator<T, T>
     where T : struct, INumberBase<T>, IMinMaxValue<T>
 {
@@ -60,7 +60,7 @@ readonly struct MaxMagnitudeAggregationOperator<T>
     }
 }
 
-readonly struct MaxMagnitudePropagateNaNOperator<T>
+public readonly struct MaxMagnitudePropagateNaNOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, INumberBase<T>
 {

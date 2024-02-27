@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct AddMultiplyOperator<T>
+public readonly struct AddMultiplyOperator<T>
     : ITernaryOperator<T, T, T, T>
     where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
 {

@@ -43,6 +43,7 @@
     <Using Include="System.Numerics" />
     <Using Include="System.Runtime.CompilerServices" />
     <Using Include="System.Runtime.InteropServices" />
+    <Using Include="NetFabric.Numerics.Tensors.Operators" />
   </ItemGroup>
 
   <PropertyGroup>

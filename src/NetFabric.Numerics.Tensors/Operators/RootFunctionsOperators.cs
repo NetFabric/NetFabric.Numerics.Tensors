@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct CbrtOperator<T>
+public readonly struct CbrtOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IRootFunctions<T>
 {
@@ -17,7 +17,7 @@ readonly struct CbrtOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct HypotOperator<T>
+public readonly struct HypotOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IRootFunctions<T>
 {
@@ -34,7 +34,7 @@ readonly struct HypotOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct RootNOperator<T>
+public readonly struct RootNOperator<T>
     : IBinaryScalarOperator<T, int, T>
     where T : struct, IRootFunctions<T>
 {
@@ -51,7 +51,7 @@ readonly struct RootNOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct SqrtOperator<T>
+public readonly struct SqrtOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IRootFunctions<T>
 {

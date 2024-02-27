@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct LogOperator<T>
+public readonly struct LogOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ILogarithmicFunctions<T>
 {
@@ -17,7 +17,7 @@ readonly struct LogOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct LogBaseOperator<T>
+public readonly struct LogBaseOperator<T>
     : IBinaryScalarOperator<T, T, T>
     where T : struct, ILogarithmicFunctions<T>
 {
@@ -34,7 +34,7 @@ readonly struct LogBaseOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct LogP1Operator<T>
+public readonly struct LogP1Operator<T>
     : IUnaryOperator<T, T>
     where T : struct, ILogarithmicFunctions<T>
 {
@@ -51,7 +51,7 @@ readonly struct LogP1Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Log2Operator<T>
+public readonly struct Log2Operator<T>
     : IUnaryOperator<T, T>
     where T : struct, ILogarithmicFunctions<T>
 {
@@ -68,7 +68,7 @@ readonly struct Log2Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Log2P1Operator<T>
+public readonly struct Log2P1Operator<T>
     : IUnaryOperator<T, T>
     where T : struct, ILogarithmicFunctions<T>
 {
@@ -85,7 +85,7 @@ readonly struct Log2P1Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Log10Operator<T>
+public readonly struct Log10Operator<T>
     : IUnaryOperator<T, T>
     where T : struct, ILogarithmicFunctions<T>
 {
@@ -102,7 +102,7 @@ readonly struct Log10Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Log10P1Operator<T>
+public readonly struct Log10P1Operator<T>
     : IUnaryOperator<T, T>
     where T : struct, ILogarithmicFunctions<T>
 {

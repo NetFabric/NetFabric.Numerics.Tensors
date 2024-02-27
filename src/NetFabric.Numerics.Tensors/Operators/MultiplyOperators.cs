@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct MultiplyOperator<T>
+public readonly struct MultiplyOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IMultiplyOperators<T, T, T>
 {
@@ -13,7 +13,7 @@ readonly struct MultiplyOperator<T>
         => x * y;
 }
 
-readonly struct CheckedMultiplyOperator<T>
+public readonly struct CheckedMultiplyOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IMultiplyOperators<T, T, T>
 {
@@ -30,7 +30,7 @@ readonly struct CheckedMultiplyOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct MultiplyScalarOperator<T>
+public readonly struct MultiplyScalarOperator<T>
     : IBinaryScalarOperator<T, T, T>
     where T : struct, IMultiplyOperators<T, T, T>
 {

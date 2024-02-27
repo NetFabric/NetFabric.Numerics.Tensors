@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct EqualsAllOperator<T>
+public readonly struct EqualsAllOperator<T>
     : IBinaryToScalarOperator<T, T, bool>
     where T : struct, IEqualityOperators<T, T, bool>
 {
@@ -13,7 +13,7 @@ readonly struct EqualsAllOperator<T>
         => Vector.EqualsAll(x, y);
 }
 
-readonly struct EqualsAnyOperator<T>
+public readonly struct EqualsAnyOperator<T>
     : IBinaryToScalarOperator<T, T, bool>
     where T : struct, IEqualityOperators<T, T, bool>
 {

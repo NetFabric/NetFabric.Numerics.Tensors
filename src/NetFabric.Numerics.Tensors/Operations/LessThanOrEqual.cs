@@ -33,7 +33,7 @@ public static partial class TensorOperations
     public static void LessThanOrEqual(ReadOnlySpan<int> x, ValueTuple<int, int, int> y, Span<int> destination)
         => Tensor.Apply<int, LessThanOrEqualInt32Operator>(x, y, destination);
 
-   public static void LessThanOrEqual(ReadOnlySpan<int> x, ReadOnlySpan<int> y, Span<int> destination)
+    public static void LessThanOrEqual(ReadOnlySpan<int> x, ReadOnlySpan<int> y, Span<int> destination)
         => Tensor.Apply<int, LessThanOrEqualInt32Operator>(x, y, destination);
 
     // long

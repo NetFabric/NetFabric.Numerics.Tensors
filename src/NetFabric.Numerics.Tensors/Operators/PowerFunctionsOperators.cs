@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct SquareOperator<T>
+public readonly struct SquareOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IMultiplyOperators<T, T, T>
 {
@@ -13,7 +13,7 @@ readonly struct SquareOperator<T>
         => x * x;
 }
 
-readonly struct CubeOperator<T>
+public readonly struct CubeOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IMultiplyOperators<T, T, T>
 {
@@ -26,7 +26,7 @@ readonly struct CubeOperator<T>
         => x * x * x;
 }
 
-readonly struct PowOperator<T>
+public readonly struct PowOperator<T>
     : IBinaryScalarOperator<T, T, T>
     where T : struct, IPowerFunctions<T>
 {

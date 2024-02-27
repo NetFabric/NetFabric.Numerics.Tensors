@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct MultiplyDivideOperator<T>
+public readonly struct MultiplyDivideOperator<T>
     : ITernaryOperator<T, T, T, T>
     where T : struct, IMultiplyOperators<T, T, T>, IDivisionOperators<T, T, T>
 {

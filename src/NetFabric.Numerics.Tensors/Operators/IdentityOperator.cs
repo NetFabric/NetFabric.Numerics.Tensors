@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct IdentityOperator<T>
+public readonly struct IdentityOperator<T>
     : IUnaryOperator<T, T>
     where T : struct
 {

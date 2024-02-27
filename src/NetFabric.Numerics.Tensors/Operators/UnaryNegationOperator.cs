@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct NegateOperator<T>
+public readonly struct NegateOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IUnaryNegationOperators<T, T>
 {
@@ -13,7 +13,7 @@ readonly struct NegateOperator<T>
         => -value;
 }
 
-readonly struct CheckedNegateOperator<T>
+public readonly struct CheckedNegateOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IUnaryNegationOperators<T, T>
 {

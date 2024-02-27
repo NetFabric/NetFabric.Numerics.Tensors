@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct ShiftLeftOperator<T, TResult>
+public readonly struct ShiftLeftOperator<T, TResult>
     : IBinaryScalarOperator<T, int, TResult>
     where T : struct, IShiftOperators<T, int, TResult>
     where TResult : struct
@@ -16,7 +16,7 @@ readonly struct ShiftLeftOperator<T, TResult>
         => Throw.NotSupportedException<Vector<TResult>>();
 }
 
-readonly struct ShiftLeftSByteOperator
+public readonly struct ShiftLeftSByteOperator
     : IBinaryScalarOperator<sbyte, int, sbyte>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -28,7 +28,7 @@ readonly struct ShiftLeftSByteOperator
         => Vector.ShiftLeft(value, count);
 }
 
-readonly struct ShiftLeftUInt16Operator
+public readonly struct ShiftLeftUInt16Operator
     : IBinaryScalarOperator<ushort, int, ushort>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -40,7 +40,7 @@ readonly struct ShiftLeftUInt16Operator
         => Vector.ShiftLeft(value, count);
 }
 
-readonly struct ShiftLeftUInt32Operator
+public readonly struct ShiftLeftUInt32Operator
     : IBinaryScalarOperator<uint, int, uint>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -52,7 +52,7 @@ readonly struct ShiftLeftUInt32Operator
         => Vector.ShiftLeft(value, count);
 }
 
-readonly struct ShiftLeftUInt64Operator
+public readonly struct ShiftLeftUInt64Operator
     : IBinaryScalarOperator<ulong, int, ulong>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -64,7 +64,7 @@ readonly struct ShiftLeftUInt64Operator
         => Vector.ShiftLeft(value, count);
 }
 
-readonly struct ShiftLeftUIntPtrOperator
+public readonly struct ShiftLeftUIntPtrOperator
     : IBinaryScalarOperator<UIntPtr, int, UIntPtr>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -76,7 +76,7 @@ readonly struct ShiftLeftUIntPtrOperator
         => Vector.ShiftLeft(value, count);
 }
 
-readonly struct ShiftLeftByteOperator
+public readonly struct ShiftLeftByteOperator
     : IBinaryScalarOperator<byte, int, byte>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -88,7 +88,7 @@ readonly struct ShiftLeftByteOperator
         => Vector.ShiftLeft(value, count);
 }
 
-readonly struct ShiftLeftInt16Operator
+public readonly struct ShiftLeftInt16Operator
     : IBinaryScalarOperator<short, int, short>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -100,7 +100,7 @@ readonly struct ShiftLeftInt16Operator
         => Vector.ShiftLeft(value, count);
 }
 
-readonly struct ShiftLeftInt32Operator
+public readonly struct ShiftLeftInt32Operator
     : IBinaryScalarOperator<int, int, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -112,7 +112,7 @@ readonly struct ShiftLeftInt32Operator
         => Vector.ShiftLeft(value, count);
 }
 
-readonly struct ShiftLeftInt64Operator
+public readonly struct ShiftLeftInt64Operator
     : IBinaryScalarOperator<long, int, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -124,7 +124,7 @@ readonly struct ShiftLeftInt64Operator
         => Vector.ShiftLeft(value, count);
 }
 
-readonly struct ShiftLeftIntPtrOperator
+public readonly struct ShiftLeftIntPtrOperator
     : IBinaryScalarOperator<IntPtr, int, IntPtr>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

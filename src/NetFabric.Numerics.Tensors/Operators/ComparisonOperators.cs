@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct GreaterThanOperator<T>
+public readonly struct GreaterThanOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
 {
@@ -17,7 +17,7 @@ readonly struct GreaterThanOperator<T>
         => Vector.GreaterThan(x, y);
 }
 
-readonly struct GreaterThanInt32Operator
+public readonly struct GreaterThanInt32Operator
     : IBinaryOperator<int, int, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -29,7 +29,7 @@ readonly struct GreaterThanInt32Operator
         => Vector.GreaterThan(x, y);
 }
 
-readonly struct GreaterThanInt64Operator
+public readonly struct GreaterThanInt64Operator
     : IBinaryOperator<long, long, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -41,7 +41,7 @@ readonly struct GreaterThanInt64Operator
         => Vector.GreaterThan(x, y);
 }
 
-readonly struct GreaterThanSingleOperator
+public readonly struct GreaterThanSingleOperator
     : IBinaryOperator<float, float, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -53,7 +53,7 @@ readonly struct GreaterThanSingleOperator
         => Vector.GreaterThan(x, y);
 }
 
-readonly struct GreaterThanDoubleOperator
+public readonly struct GreaterThanDoubleOperator
     : IBinaryOperator<double, double, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -65,7 +65,7 @@ readonly struct GreaterThanDoubleOperator
         => Vector.GreaterThan(x, y);
 }
 
-readonly struct GreaterThanAllOperator<T>
+public readonly struct GreaterThanAllOperator<T>
     : IBinaryToScalarOperator<T, T, bool>
     where T : struct, IComparisonOperators<T, T, bool>
 {
@@ -78,7 +78,7 @@ readonly struct GreaterThanAllOperator<T>
         => Vector.GreaterThanAll(x, y);
 }
 
-readonly struct GreaterThanAnyOperator<T>
+public readonly struct GreaterThanAnyOperator<T>
     : IBinaryToScalarOperator<T, T, bool>
     where T : struct, IComparisonOperators<T, T, bool>
 {
@@ -91,7 +91,7 @@ readonly struct GreaterThanAnyOperator<T>
         => Vector.GreaterThanAny(x, y);
 }
 
-readonly struct GreaterThanOrEqualOperator<T>
+public readonly struct GreaterThanOrEqualOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
 {
@@ -108,7 +108,7 @@ readonly struct GreaterThanOrEqualOperator<T>
         => Vector.GreaterThanOrEqual(x, y);
 }
 
-readonly struct GreaterThanOrEqualInt32Operator
+public readonly struct GreaterThanOrEqualInt32Operator
     : IBinaryOperator<int, int, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -120,7 +120,7 @@ readonly struct GreaterThanOrEqualInt32Operator
         => Vector.GreaterThanOrEqual(x, y);
 }
 
-readonly struct GreaterThanOrEqualInt64Operator
+public readonly struct GreaterThanOrEqualInt64Operator
     : IBinaryOperator<long, long, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -132,7 +132,7 @@ readonly struct GreaterThanOrEqualInt64Operator
         => Vector.GreaterThanOrEqual(x, y);
 }
 
-readonly struct GreaterThanOrEqualSingleOperator
+public readonly struct GreaterThanOrEqualSingleOperator
     : IBinaryOperator<float, float, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -144,7 +144,7 @@ readonly struct GreaterThanOrEqualSingleOperator
         => Vector.GreaterThanOrEqual(x, y);
 }
 
-readonly struct GreaterThanOrEqualDoubleOperator
+public readonly struct GreaterThanOrEqualDoubleOperator
     : IBinaryOperator<double, double, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -156,7 +156,7 @@ readonly struct GreaterThanOrEqualDoubleOperator
         => Vector.GreaterThanOrEqual(x, y);
 }
 
-readonly struct GreaterThanOrEqualAllOperator<T>
+public readonly struct GreaterThanOrEqualAllOperator<T>
     : IBinaryToScalarOperator<T, T, bool>
     where T : struct, IComparisonOperators<T, T, bool>
 {
@@ -169,7 +169,7 @@ readonly struct GreaterThanOrEqualAllOperator<T>
         => Vector.GreaterThanOrEqualAll(x, y);
 }
 
-readonly struct GreaterThanOrEqualAnyOperator<T>
+public readonly struct GreaterThanOrEqualAnyOperator<T>
     : IBinaryToScalarOperator<T, T, bool>
     where T : struct, IComparisonOperators<T, T, bool>
 {
@@ -182,7 +182,7 @@ readonly struct GreaterThanOrEqualAnyOperator<T>
         => Vector.GreaterThanOrEqualAny(x, y);
 }
 
-readonly struct LessThanOperator<T>
+public readonly struct LessThanOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
 {
@@ -199,7 +199,7 @@ readonly struct LessThanOperator<T>
         => Vector.LessThan(x, y);
 }
 
-readonly struct LessThanInt32Operator
+public readonly struct LessThanInt32Operator
     : IBinaryOperator<int, int, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -211,7 +211,7 @@ readonly struct LessThanInt32Operator
         => Vector.LessThan(x, y);
 }
 
-readonly struct LessThanInt64Operator
+public readonly struct LessThanInt64Operator
     : IBinaryOperator<long, long, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -223,7 +223,7 @@ readonly struct LessThanInt64Operator
         => Vector.LessThan(x, y);
 }
 
-readonly struct LessThanSingleOperator
+public readonly struct LessThanSingleOperator
     : IBinaryOperator<float, float, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -235,7 +235,7 @@ readonly struct LessThanSingleOperator
         => Vector.LessThan(x, y);
 }
 
-readonly struct LessThanDoubleOperator
+public readonly struct LessThanDoubleOperator
     : IBinaryOperator<double, double, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -247,7 +247,7 @@ readonly struct LessThanDoubleOperator
         => Vector.LessThan(x, y);
 }
 
-readonly struct LessThanOrEqualOperator<T>
+public readonly struct LessThanOrEqualOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
 {
@@ -264,7 +264,7 @@ readonly struct LessThanOrEqualOperator<T>
         => Vector.LessThanOrEqual(x, y);
 }
 
-readonly struct LessThanAllOperator<T>
+public readonly struct LessThanAllOperator<T>
     : IBinaryToScalarOperator<T, T, bool>
     where T : struct, IComparisonOperators<T, T, bool>
 {
@@ -277,7 +277,7 @@ readonly struct LessThanAllOperator<T>
         => Vector.LessThanAll(x, y);
 }
 
-readonly struct LessThanAnyOperator<T>
+public readonly struct LessThanAnyOperator<T>
     : IBinaryToScalarOperator<T, T, bool>
     where T : struct, IComparisonOperators<T, T, bool>
 {
@@ -290,7 +290,7 @@ readonly struct LessThanAnyOperator<T>
         => Vector.LessThanAny(x, y);
 }
 
-readonly struct LessThanOrEqualInt32Operator
+public readonly struct LessThanOrEqualInt32Operator
     : IBinaryOperator<int, int, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -302,7 +302,7 @@ readonly struct LessThanOrEqualInt32Operator
         => Vector.LessThanOrEqual(x, y);
 }
 
-readonly struct LessThanOrEqualInt64Operator
+public readonly struct LessThanOrEqualInt64Operator
     : IBinaryOperator<long, long, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -314,7 +314,7 @@ readonly struct LessThanOrEqualInt64Operator
         => Vector.LessThanOrEqual(x, y);
 }
 
-readonly struct LessThanOrEqualSingleOperator
+public readonly struct LessThanOrEqualSingleOperator
     : IBinaryOperator<float, float, int>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -326,7 +326,7 @@ readonly struct LessThanOrEqualSingleOperator
         => Vector.LessThanOrEqual(x, y);
 }
 
-readonly struct LessThanOrEqualDoubleOperator
+public readonly struct LessThanOrEqualDoubleOperator
     : IBinaryOperator<double, double, long>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -339,7 +339,7 @@ readonly struct LessThanOrEqualDoubleOperator
 }
 
 
-readonly struct LessThanOrEqualAllOperator<T>
+public readonly struct LessThanOrEqualAllOperator<T>
     : IBinaryToScalarOperator<T, T, bool>
     where T : struct, IComparisonOperators<T, T, bool>
 {
@@ -352,7 +352,7 @@ readonly struct LessThanOrEqualAllOperator<T>
         => Vector.LessThanOrEqualAll(x, y);
 }
 
-readonly struct LessThanOrEqualAnyOperator<T>
+public readonly struct LessThanOrEqualAnyOperator<T>
     : IBinaryToScalarOperator<T, T, bool>
     where T : struct, IComparisonOperators<T, T, bool>
 {

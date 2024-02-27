@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct Atan2Operator<T>
+public readonly struct Atan2Operator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IFloatingPointIeee754<T>
 {
@@ -17,7 +17,7 @@ readonly struct Atan2Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Atan2PiOperator<T>
+public readonly struct Atan2PiOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IFloatingPointIeee754<T>
 {
@@ -34,7 +34,7 @@ readonly struct Atan2PiOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct BitDecrementOperator<T>
+public readonly struct BitDecrementOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IFloatingPointIeee754<T>
 {
@@ -51,7 +51,7 @@ readonly struct BitDecrementOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct BitIncrementOperator<T>
+public readonly struct BitIncrementOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IFloatingPointIeee754<T>
 {
@@ -68,7 +68,7 @@ readonly struct BitIncrementOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct FusedMultiplyAddOperator<T>
+public readonly struct FusedMultiplyAddOperator<T>
     : ITernaryOperator<T, T, T, T>
     where T : struct, IFloatingPointIeee754<T>
 {
@@ -81,7 +81,7 @@ readonly struct FusedMultiplyAddOperator<T>
         => (x * y) + z;
 }
 
-readonly struct Ieee754RemainderOperator<T>
+public readonly struct Ieee754RemainderOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IFloatingPointIeee754<T>
 {
@@ -98,7 +98,7 @@ readonly struct Ieee754RemainderOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct ILogBOperator<T>
+public readonly struct ILogBOperator<T>
     : IUnaryOperator<T, int>
     where T : struct, IFloatingPointIeee754<T>
 {
@@ -115,7 +115,7 @@ readonly struct ILogBOperator<T>
         => Throw.InvalidOperationException<Vector<int>>();
 }
 
-readonly struct LerpOperator<T>
+public readonly struct LerpOperator<T>
     : ITernaryOperator<T, T, T, T>
     where T : struct, IFloatingPointIeee754<T>
 {
@@ -132,7 +132,7 @@ readonly struct LerpOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct ReciprocalEstimateOperator<T>
+public readonly struct ReciprocalEstimateOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IFloatingPointIeee754<T>
 {
@@ -149,7 +149,7 @@ readonly struct ReciprocalEstimateOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct ReciprocalSqrtEstimateOperator<T>
+public readonly struct ReciprocalSqrtEstimateOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IFloatingPointIeee754<T>
 {

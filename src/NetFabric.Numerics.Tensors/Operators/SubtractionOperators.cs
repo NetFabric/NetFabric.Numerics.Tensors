@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct SubtractOperator<T>
+public readonly struct SubtractOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, ISubtractionOperators<T, T, T>
 {
@@ -13,7 +13,7 @@ readonly struct SubtractOperator<T>
         => x - y;
 }
 
-readonly struct CheckedSubtractOperator<T>
+public readonly struct CheckedSubtractOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, ISubtractionOperators<T, T, T>
 {

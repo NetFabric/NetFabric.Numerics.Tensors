@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct DivideOperator<T>
+public readonly struct DivideOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IDivisionOperators<T, T, T>
 {
@@ -13,7 +13,7 @@ readonly struct DivideOperator<T>
         => x / y;
 }
 
-readonly struct CheckedDivideOperator<T>
+public readonly struct CheckedDivideOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IDivisionOperators<T, T, T>
 {

@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct DecrementOperator<T>
+public readonly struct DecrementOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IDecrementOperators<T>
 {
@@ -15,7 +15,7 @@ readonly struct DecrementOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct CheckedDecrementOperator<T>
+public readonly struct CheckedDecrementOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IDecrementOperators<T>
 {

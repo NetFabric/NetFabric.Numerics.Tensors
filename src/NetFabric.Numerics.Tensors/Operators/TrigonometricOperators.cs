@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct AcosOperator<T>
+public readonly struct AcosOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -17,7 +17,7 @@ readonly struct AcosOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct AcosPiOperator<T>
+public readonly struct AcosPiOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -34,7 +34,7 @@ readonly struct AcosPiOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct AsinOperator<T>
+public readonly struct AsinOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -51,7 +51,7 @@ readonly struct AsinOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct AsinPiOperator<T>
+public readonly struct AsinPiOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -68,7 +68,7 @@ readonly struct AsinPiOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct AtanOperator<T>
+public readonly struct AtanOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -85,7 +85,7 @@ readonly struct AtanOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct AtanPiOperator<T>
+public readonly struct AtanPiOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -102,7 +102,7 @@ readonly struct AtanPiOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct CosOperator<T>
+public readonly struct CosOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -119,7 +119,7 @@ readonly struct CosOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct CosPiOperator<T>
+public readonly struct CosPiOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -136,7 +136,7 @@ readonly struct CosPiOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct SinOperator<T>
+public readonly struct SinOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -153,7 +153,7 @@ readonly struct SinOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct SinPiOperator<T>
+public readonly struct SinPiOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -170,7 +170,7 @@ readonly struct SinPiOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct TanOperator<T>
+public readonly struct TanOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -187,7 +187,7 @@ readonly struct TanOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct TanPiOperator<T>
+public readonly struct TanPiOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -204,7 +204,7 @@ readonly struct TanPiOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct SinCosOperator<T>
+public readonly struct SinCosOperator<T>
     : IUnaryOperator<T, (T Sin, T Cos)>
     where T : struct, ITrigonometricFunctions<T>
 {
@@ -221,7 +221,7 @@ readonly struct SinCosOperator<T>
         => Throw.InvalidOperationException<Vector<(T Sin, T Cos)>>();
 }
 
-readonly struct SinCosPiOperator<T>
+public readonly struct SinCosPiOperator<T>
     : IUnaryOperator<T, (T SinPi, T CosPi)>
     where T : struct, ITrigonometricFunctions<T>
 {

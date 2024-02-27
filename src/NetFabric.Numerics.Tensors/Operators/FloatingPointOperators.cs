@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct FloorOperator<T>
+public readonly struct FloorOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IFloatingPoint<T>
 {
@@ -17,7 +17,7 @@ readonly struct FloorOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct FloorSingleOperator
+public readonly struct FloorSingleOperator
     : IUnaryOperator<float, float>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -29,7 +29,7 @@ readonly struct FloorSingleOperator
         => Vector.Floor(x);
 }
 
-readonly struct FloorDoubleOperator
+public readonly struct FloorDoubleOperator
     : IUnaryOperator<double, double>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -41,7 +41,7 @@ readonly struct FloorDoubleOperator
         => Vector.Floor(x);
 }
 
-readonly struct CeilingOperator<T>
+public readonly struct CeilingOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IFloatingPoint<T>
 {
@@ -58,7 +58,7 @@ readonly struct CeilingOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct CeilingSingleOperator
+public readonly struct CeilingSingleOperator
     : IUnaryOperator<float, float>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -70,7 +70,7 @@ readonly struct CeilingSingleOperator
         => Vector.Ceiling(x);
 }
 
-readonly struct CeilingDoubleOperator
+public readonly struct CeilingDoubleOperator
     : IUnaryOperator<double, double>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -82,7 +82,7 @@ readonly struct CeilingDoubleOperator
         => Vector.Ceiling(x);
 }
 
-readonly struct RoundOperator<T>
+public readonly struct RoundOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IFloatingPoint<T>
 {
@@ -99,7 +99,7 @@ readonly struct RoundOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct RoundDigitsOperator<T>
+public readonly struct RoundDigitsOperator<T>
     : IBinaryScalarOperator<T, int, T>
     where T : struct, IFloatingPoint<T>
 {
@@ -116,7 +116,7 @@ readonly struct RoundDigitsOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct RoundModeOperator<T>
+public readonly struct RoundModeOperator<T>
     : IBinaryScalarOperator<T, MidpointRounding, T>
     where T : struct, IFloatingPoint<T>
 {
@@ -133,7 +133,7 @@ readonly struct RoundModeOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct RoundDigitModeOperator<T>
+public readonly struct RoundDigitModeOperator<T>
     : IBinaryScalarOperator<T, (int digits, MidpointRounding mode), T>
     where T : struct, IFloatingPoint<T>
 {
@@ -150,7 +150,7 @@ readonly struct RoundDigitModeOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct TruncateOperator<T>
+public readonly struct TruncateOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IFloatingPoint<T>
 {

@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct AcoshOperator<T>
+public readonly struct AcoshOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IHyperbolicFunctions<T>
 {
@@ -17,7 +17,7 @@ readonly struct AcoshOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct AsinhOperator<T>
+public readonly struct AsinhOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IHyperbolicFunctions<T>
 {
@@ -34,7 +34,7 @@ readonly struct AsinhOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct AtanhOperator<T>
+public readonly struct AtanhOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IHyperbolicFunctions<T>
 {
@@ -51,7 +51,7 @@ readonly struct AtanhOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct CoshOperator<T>
+public readonly struct CoshOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IHyperbolicFunctions<T>
 {
@@ -68,7 +68,7 @@ readonly struct CoshOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct SinhOperator<T>
+public readonly struct SinhOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IHyperbolicFunctions<T>
 {
@@ -85,7 +85,7 @@ readonly struct SinhOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct TanhOperator<T>
+public readonly struct TanhOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IHyperbolicFunctions<T>
 {

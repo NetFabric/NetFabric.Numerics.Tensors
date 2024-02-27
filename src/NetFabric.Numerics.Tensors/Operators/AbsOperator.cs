@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct AbsOperator<T>
+public readonly struct AbsOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, INumberBase<T>
 {

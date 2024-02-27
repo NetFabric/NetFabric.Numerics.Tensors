@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct ProductOperator<T>
+public readonly struct ProductOperator<T>
     : IAggregationOperator<T, T>
     where T : struct, IMultiplicativeIdentity<T, T>, IMultiplyOperators<T, T, T>
 {

@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct BitwiseAndOperator<T>
+public readonly struct BitwiseAndOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IBitwiseOperators<T, T, T>
 {
@@ -13,7 +13,7 @@ readonly struct BitwiseAndOperator<T>
         => x & y;
 }
 
-readonly struct BitwiseAndNotOperator<T>
+public readonly struct BitwiseAndNotOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IBitwiseOperators<T, T, T>
 {
@@ -26,7 +26,7 @@ readonly struct BitwiseAndNotOperator<T>
         => Vector.AndNot(x, y);
 }
 
-readonly struct BitwiseOrOperator<T>
+public readonly struct BitwiseOrOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IBitwiseOperators<T, T, T>
 {
@@ -39,7 +39,7 @@ readonly struct BitwiseOrOperator<T>
         => x | y;
 }
 
-readonly struct XorOperator<T>
+public readonly struct XorOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IBitwiseOperators<T, T, T>
 {
@@ -53,7 +53,7 @@ readonly struct XorOperator<T>
 }
 
 
-readonly struct OnesComplementOperator<T>
+public readonly struct OnesComplementOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IBitwiseOperators<T, T, T>
 {

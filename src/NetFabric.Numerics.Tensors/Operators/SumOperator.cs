@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct SumOperator<T>
+public readonly struct SumOperator<T>
     : IAggregationOperator<T, T>
     where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
 {

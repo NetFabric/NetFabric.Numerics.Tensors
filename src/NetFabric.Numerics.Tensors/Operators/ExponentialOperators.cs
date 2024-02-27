@@ -1,6 +1,6 @@
-namespace NetFabric.Numerics.Tensors;
+namespace NetFabric.Numerics.Tensors.Operators;
 
-readonly struct ExpOperator<T>
+public readonly struct ExpOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IExponentialFunctions<T>
 {
@@ -17,7 +17,7 @@ readonly struct ExpOperator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct ExpM1Operator<T>
+public readonly struct ExpM1Operator<T>
     : IUnaryOperator<T, T>
     where T : struct, IExponentialFunctions<T>
 {
@@ -34,7 +34,7 @@ readonly struct ExpM1Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp2Operator<T>
+public readonly struct Exp2Operator<T>
     : IUnaryOperator<T, T>
     where T : struct, IExponentialFunctions<T>
 {
@@ -51,7 +51,7 @@ readonly struct Exp2Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp2M1Operator<T>
+public readonly struct Exp2M1Operator<T>
     : IUnaryOperator<T, T>
     where T : struct, IExponentialFunctions<T>
 {
@@ -68,7 +68,7 @@ readonly struct Exp2M1Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp10Operator<T>
+public readonly struct Exp10Operator<T>
     : IUnaryOperator<T, T>
     where T : struct, IExponentialFunctions<T>
 {
@@ -85,7 +85,7 @@ readonly struct Exp10Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct Exp10M1Operator<T>
+public readonly struct Exp10M1Operator<T>
     : IUnaryOperator<T, T>
     where T : struct, IExponentialFunctions<T>
 {
@@ -102,7 +102,7 @@ readonly struct Exp10M1Operator<T>
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
-readonly struct SigmoidOperator<T>
+public readonly struct SigmoidOperator<T>
     : IUnaryOperator<T, T>
     where T : struct, IExponentialFunctions<T>
 {
