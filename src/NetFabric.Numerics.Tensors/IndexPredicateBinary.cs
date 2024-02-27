@@ -2,7 +2,7 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class Tensor
 {
-    public static T? AggregatePredicateBinary<T, TPredicateOperator>(ReadOnlySpan<T> x, T y)
+    public static int IndexOfPredicateBinary<T, TPredicateOperator>(ReadOnlySpan<T> x, T y)
         where T : struct
         where TPredicateOperator : struct, IBinaryToScalarOperator<T, T, bool>
     {
@@ -22,10 +22,10 @@ public static partial class Tensor
                 ref var currentVector = ref Unsafe.Add(ref vectorsRef, indexVector);
                 if (TPredicateOperator.Invoke(ref currentVector, ref valueVector))
                 {
-                    for (var index = 0; index < Vector<int>.Count; index++)
+                    for (var indexElement = 0; indexElement < Vector<int>.Count; indexElement++)
                     {
-                        if (TPredicateOperator.Invoke(currentVector[index], y))
-                            return currentVector[index];
+                        if (TPredicateOperator.Invoke(currentVector[indexElement], y))
+                            return ((int)indexVector * Vector<int>.Count) + indexElement;
                     }
                 }
             }
@@ -37,9 +37,9 @@ public static partial class Tensor
         for (; indexSource < x.Length; indexSource++)
         {
             if (TPredicateOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y))
-                return Unsafe.Add(ref xRef, indexSource);
+                return (int)indexSource;
         }
 
-        return default;
+        return -1;
     }
 }
