@@ -168,8 +168,8 @@ public static partial class Tensor
     /// <summary>
     /// Aggregates the elements of two <see cref="ReadOnlySpan{T}"/> using the specified transform and aggregation operators.
     /// </summary>
-    /// <typeparam name="TSource1">The type of the elements in the first source span.</typeparam>
-    /// <typeparam name="TSource2">The type of the elements in the second source span.</typeparam>
+    /// <typeparam name="T1">The type of the elements in the first source span.</typeparam>
+    /// <typeparam name="T2">The type of the elements in the second source span.</typeparam>
     /// <typeparam name="TTransformed">The type of the elements after the transform operation.</typeparam>
     /// <typeparam name="TResult">The type of the result of the aggregation.</typeparam>
     /// <typeparam name="TTransformOperator">The type of the transform operator that must implement the <see cref="IBinaryOperator{T, T, T}"/> interface.</typeparam>
@@ -178,12 +178,12 @@ public static partial class Tensor
     /// <param name="y">The second span of elements to transform and aggregate.</param>
     /// <returns>The result of the aggregation.</returns>
     /// <remarks>The transform operator is applied to the source elements before the aggregation operator.</remarks>
-    public static TResult Aggregate<TSource1, TSource2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<TSource1> x, ReadOnlySpan<TSource2> y)
-        where TSource1 : struct
-        where TSource2 : struct
+    public static TResult Aggregate<T1, T2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
+        where T1 : struct
+        where T2 : struct
         where TTransformed : struct
         where TResult : struct
-        where TTransformOperator : struct, IBinaryOperator<TSource1, TSource2, TTransformed>
+        where TTransformOperator : struct, IBinaryOperator<T1, T2, TTransformed>
         where TAggregateOperator : struct, IAggregationOperator<TTransformed, TResult>
     {
         if (x.Length != y.Length)
@@ -197,14 +197,14 @@ public static partial class Tensor
         if (TTransformOperator.IsVectorizable &&
             TAggregateOperator.IsVectorizable && 
             Vector.IsHardwareAccelerated && 
-            Vector<TSource1>.IsSupported &&
-            Vector<TSource2>.IsSupported &&
+            Vector<T1>.IsSupported &&
+            Vector<T2>.IsSupported &&
             Vector<TTransformed>.IsSupported &&
             Vector<TResult>.IsSupported)
         {
             // convert source span to vector span without copies
-            var xVectors = MemoryMarshal.Cast<TSource1, Vector<TSource1>>(x);
-            var yVectors = MemoryMarshal.Cast<TSource2, Vector<TSource2>>(y);
+            var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
+            var yVectors = MemoryMarshal.Cast<T2, Vector<T2>>(y);
 
             // check if there is at least one vector to aggregate
             if (xVectors.Length > 0)
@@ -229,7 +229,7 @@ public static partial class Tensor
                 }
 
                 // skip the source elements already aggregated
-                indexSource = indexVector * Vector<TSource1>.Count;
+                indexSource = indexVector * Vector<T1>.Count;
             }
         }
 

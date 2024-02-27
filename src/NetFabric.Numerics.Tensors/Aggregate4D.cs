@@ -80,7 +80,7 @@ public static partial class Tensor
                         aggregateW = TAggregateOperator.Invoke(aggregateW, resultVector[index + 3]);
                     }
                 }
-                else
+                else if (Vector<T1>.Count is 2)
                 {
                     // use two aggregator vectors
 
@@ -148,8 +148,8 @@ public static partial class Tensor
     /// <summary>
     /// Aggregates the elements of two source <see cref="ReadOnlySpan{T}"/> containing contiguous 4D data using the specified aggregation operator.
     /// </summary>
-    /// <typeparam name="TSource1">The type of the elements in the first source span.</typeparam>
-    /// <typeparam name="TSource2">The type of the elements in the second source span.</typeparam>
+    /// <typeparam name="T1">The type of the elements in the first source span.</typeparam>
+    /// <typeparam name="T2">The type of the elements in the second source span.</typeparam>
     /// <typeparam name="TTransformed">The type of the elements in the transformed data.</typeparam>
     /// <typeparam name="TResult">The type of the result.</typeparam>
     /// <typeparam name="TTransformOperator">The type of the transform operator that must implement the <see cref="IBinaryOperator{T, T, T}"/> interface.</typeparam>
@@ -158,12 +158,12 @@ public static partial class Tensor
     /// <param name="y">The source span containing the second set of contiguous 4D data to transform and aggregate.</param>
     /// <returns>A tuple containing the transformed and aggregated results.</returns>
     /// <remarks>The transform operator is applied to the source elements before the aggregation operator.</remarks>
-    public static ValueTuple<TResult, TResult, TResult, TResult> Aggregate4D<TSource1, TSource2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<TSource1> x, ReadOnlySpan<TSource2> y)
-        where TSource1 : struct
-        where TSource2 : struct
+    public static ValueTuple<TResult, TResult, TResult, TResult> Aggregate4D<T1, T2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
+        where T1 : struct
+        where T2 : struct
         where TTransformed : struct
         where TResult : struct
-        where TTransformOperator : struct, IBinaryOperator<TSource1, TSource2, TTransformed>
+        where TTransformOperator : struct, IBinaryOperator<T1, T2, TTransformed>
         where TAggregateOperator : struct, IAggregationOperator<TTransformed, TResult>
     {
         if (x.Length % 4 is not 0)
@@ -182,14 +182,14 @@ public static partial class Tensor
         if (TTransformOperator.IsVectorizable &&
             TAggregateOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
-            Vector<TSource1>.IsSupported &&
-            Vector<TSource2>.IsSupported &&
+            Vector<T1>.IsSupported &&
+            Vector<T2>.IsSupported &&
             Vector<TTransformed>.IsSupported &&
             Vector<TResult>.IsSupported)
         {
             // convert source span to vector span without copies
-            var xVectors = MemoryMarshal.Cast<TSource1, Vector<TSource1>>(x);
-            var yVectors = MemoryMarshal.Cast<TSource2, Vector<TSource2>>(y);
+            var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
+            var yVectors = MemoryMarshal.Cast<T2, Vector<T2>>(y);
 
             // check if there is at least one vector to aggregate
             if (xVectors.Length > 1)
@@ -197,7 +197,7 @@ public static partial class Tensor
                 ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
                 ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
                 var indexVector = nint.Zero;
-                if (Vector<TSource1>.Count % 4 is 0)
+                if (Vector<T1>.Count % 4 is 0)
                 {
                     // initialize aggregate vector
                     var resultVector = new Vector<TResult>(TAggregateOperator.Seed);
@@ -218,7 +218,7 @@ public static partial class Tensor
                         aggregateW = TAggregateOperator.Invoke(aggregateW, resultVector[index + 3]);
                     }
                 }
-                else
+                else if (Vector<T1>.Count is 2)
                 {
                     // use two aggregator vectors
 
@@ -234,13 +234,13 @@ public static partial class Tensor
                     {
                         var transformedVector0 = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
                         Unsafe.Add(ref resultVectorsRef, 0) = TAggregateOperator.Invoke(ref Unsafe.Add(ref resultVectorsRef, 0), ref transformedVector0);
-                        var transformedVector1 = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
+                        var transformedVector1 = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector + 1), ref Unsafe.Add(ref yVectorsRef, indexVector + 1));
                         Unsafe.Add(ref resultVectorsRef, 1) = TAggregateOperator.Invoke(ref Unsafe.Add(ref resultVectorsRef, 1), ref transformedVector1);
                     }
 
                     // aggregate the aggregate vector into the aggregate
                     ref var resultValuesRef = ref MemoryMarshal.GetReference(resultValues);
-                    for (var index = nint.Zero; index + 3 < Vector<TResult>.Count * 4; index += 4)
+                    for (var index = nint.Zero; index + 3 < resultValues.Length; index += 4)
                     {
                         aggregateX = TAggregateOperator.Invoke(aggregateX, Unsafe.Add(ref resultValuesRef, index));
                         aggregateY = TAggregateOperator.Invoke(aggregateY, Unsafe.Add(ref resultValuesRef, index + 1));
@@ -250,7 +250,7 @@ public static partial class Tensor
                 }
 
                 // skip the source elements already aggregated
-                indexSource = indexVector * Vector<TSource1>.Count;
+                indexSource = indexVector * Vector<T1>.Count;
             }
         }
 
