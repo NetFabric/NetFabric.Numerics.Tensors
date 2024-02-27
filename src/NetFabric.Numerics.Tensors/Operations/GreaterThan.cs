@@ -2,6 +2,10 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class TensorOperations
 {
+    public static int IndexOfGreaterThan<T>(ReadOnlySpan<T> source, T value)
+        where T : struct, IComparisonOperators<T, T, bool>
+        => Tensor.IndexOfPredicate<T, GreaterThanAnyOperator<T>>(source, value);
+
     public static void GreaterThan<T>(ReadOnlySpan<T> x, T y, Span<T> destination)
         where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>
         => Tensor.Apply<T, GreaterThanOperator<T>>(x, y, destination);
