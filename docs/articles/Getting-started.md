@@ -8,6 +8,7 @@ This library simplifies operations with one, two, or three `ReadOnlySpan<T>`, de
 
 All predefined operations can be found in the static class `TensorOperations`. The following examples showcase the library's capabilities`.
 `
+
 > NOTE: While the examples showcase C#, the underlying concepts should remain accessible to developers using other languages.
 
 For instance, if you have a `data` variable of type `Span<int>`, the following snippet efficiently replaces each element with its square root:
@@ -35,6 +36,16 @@ var product = TensorOperations.Product(values);
 var min = TensorOperations.Min(values);
 var max = TensorOperations.Max(values);
 (var min, var max) = TensorOperations.MinMax(values);
+```
+
+The library offers functionality to retrieve the index of the first element meeting a specific condition:
+
+```csharp
+var indexOfEqual = IndexOfEquals(values, 0);
+var indexOfGreaterThan = IndexOfGreaterThan(values, 0);
+var indexOfGreaterThanOrEqual = IndexOfGreaterThanOrEqual(values, 0);
+var indexOfLessThan = IndexOfLessThan(values, 0);
+var indexOfLessThanOrEqual = IndexOfLessThanOrEqual(values, 0);
 ```
 
 Dive deeper into the library's capabilities by exploring the API documentation, especially the section under the `TensorOperations` type, for an exhaustive list of available functionalities.

@@ -29,7 +29,7 @@ This method requires several generics parameters. The initial parameters specify
 Operators must adhere to one of the following interfaces:
 
 ```csharp
-public interface IUnaryOperator<T, TResult> 
+public interface IUnaryOperator<T, TResult>
     : IOperator
     where T : struct
     where TResult : struct
@@ -38,7 +38,7 @@ public interface IUnaryOperator<T, TResult>
     static abstract Vector<TResult> Invoke(ref readonly Vector<T> x);
 }
 
-public interface IBinaryOperator<T1, T2, TResult> 
+public interface IBinaryOperator<T1, T2, TResult>
     : IOperator
     where T1 : struct
     where T2 : struct
@@ -48,7 +48,7 @@ public interface IBinaryOperator<T1, T2, TResult>
     static abstract Vector<TResult> Invoke(ref readonly Vector<T1> x, ref readonly Vector<T2> y);
 }
 
-public interface IBinaryScalarOperator<T1, T2, TResult> 
+public interface IBinaryScalarOperator<T1, T2, TResult>
     : IOperator
     where T1 : struct
     where TResult : struct
@@ -57,7 +57,7 @@ public interface IBinaryScalarOperator<T1, T2, TResult>
     static abstract Vector<TResult> Invoke(ref readonly Vector<T1> x, T2 y);
 }
 
-public interface ITernaryOperator<T1, T2, T3, TResult> 
+public interface ITernaryOperator<T1, T2, T3, TResult>
     : IOperator
     where T1 : struct
     where T2 : struct
@@ -78,7 +78,7 @@ Each interface specifies a varying number of operator parameters. The utilizatio
 Consider the square operator as an example, which functions as a unary operator designed to operate on a single source. It implements the `IUnaryOperator<T>` interface. The generic type `T` is restricted to `struct` and must implement `IMultiplyOperators<T, T, T`, indicating that only value types with the `*` operator implemented are suitable. The `Invoke` methods straightforwardly execute the square operation for either a single `T` value or a `Vector<T>` of values:
 
 ```csharp
-public readonly struct SquareOperator<T> 
+public readonly struct SquareOperator<T>
     : IUnaryOperator<T>
     where T : struct, IMultiplyOperators<T, T, T>
 {
@@ -95,7 +95,7 @@ public readonly struct SquareOperator<T>
 Similarly, consider an addition operator, a binary operator that works on two sources, the addends. It implements the `IBinaryOperator<T, T, T>` interface. The generic type `T` is confined to `struct` and must implement `IAdditionOperators<T, T, T>`, indicating that only value types with the `+` operator implemented are eligible. The `Invoke()` methods straightforwardly perform the addition operation for either a single `T` value or a `Vector<T>` of values:
 
 ```csharp
-readonly struct AddOperator<T> 
+readonly struct AddOperator<T>
     : IBinaryOperator<T, T, T>
     where T : struct, IAdditionOperators<T, T, T>
 {
@@ -111,7 +111,7 @@ readonly struct AddOperator<T>
 
 The shift left operator (`<<`) is a binary operator that operates on a source value and a count. Typically, in this scenario, all elements in the span are shifted by the same amount. Actually, `Vector<T>` only supports this particular scenario. Hence, the shift left operator is implemented as a binary scalar operator, where the second parameter is a scalar value instead of a `Vector<T>`.
 
-The shift left operation is supported by `Vector<T>` only for signed and unsigned integer primitives. Below is the specific implementation for the `sbyte` type.  It implements the `IBinaryScalarOperator<T, T, T>` interface:
+The shift left operation is supported by `Vector<T>` only for signed and unsigned integer primitives. Below is the specific implementation for the `sbyte` type. It implements the `IBinaryScalarOperator<T, T, T>` interface:
 
 ```csharp
 readonly struct ShiftLeftSByteOperator
@@ -132,7 +132,7 @@ readonly struct ShiftLeftSByteOperator
 Furthermore, consider an operator calculating the addition followed by multiplication of values. This is a ternary operator that handles three sources: the two addends plus the multiplier. It implements the `ITernaryOperator<T, T, T, T>` interface. The generic type `T` is constrained to `struct`, `IAdditionOperators<T, T, T>`, and `IMultiplyOperators<T, T, T>`, indicating that only value types with the `+` and `*` operators implemented are applicable. The `Invoke` methods straightforwardly perform the addition operation followed by multiplication for either a single `T` value or a `Vector<T>` of values:
 
 ```csharp
-readonly struct AddMultiplyOperator<T> 
+readonly struct AddMultiplyOperator<T>
     : ITernaryOperator<T, T, T, T>
     where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
 {
@@ -193,7 +193,7 @@ readonly struct SinOperator<T>
     where T : struct, ITrigonometricFunctions<T>
 {
     public static bool IsVectorizable
-        => false; 
+        => false;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
@@ -208,7 +208,7 @@ readonly struct CosOperator<T>
     where T : struct, ITrigonometricFunctions<T>
 {
     public static bool IsVectorizable
-        => false; 
+        => false;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static T Invoke(T x)
@@ -223,7 +223,7 @@ readonly struct SinCosOperator<T>
     where T : struct, ITrigonometricFunctions<T>
 {
     public static bool IsVectorizable
-        => false; 
+        => false;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static (T Sin, T Cos) Invoke(T x)
@@ -248,12 +248,12 @@ For cases where no transformation is necessary and the type remains consistent a
 It's worth noting that the transform operator must implement either the `IUnaryOperator<T, TResult>` or `IBinaryOperator<T1, T2, TResult>` interface, while the aggregation operator must implement the `IAggregationOperator<TResult, TResult>` interface:
 
 ```csharp
-public interface IAggregationOperator<T, TResult> 
+public interface IAggregationOperator<T, TResult>
     : IBinaryOperator<TResult, T, TResult>
     where T : struct
     where TResult : struct
 {
-    static virtual TResult Seed 
+    static virtual TResult Seed
         => Throw.NotSupportedException<TResult>();
 
     static abstract TResult Invoke(TResult x, TResult y);
@@ -262,14 +262,14 @@ public interface IAggregationOperator<T, TResult>
 
 Each operator must implement a property that returns the seed value for the operation, which initializes the aggregation process. Additionally, operators must implement the two `Invoke` methods required by the `IBinaryOperator<T, T, T>` interface, along with an additional one `Invoke` methods that aggregate the final result.
 
-Consider, for instance, an operator that calculates the sum of all elements in the source. This serves as an aggregation operator, resulting in a value or a tuple of value: 
+Consider, for instance, an operator that calculates the sum of all elements in the source. This serves as an aggregation operator, resulting in a value or a tuple of value:
 
 ```csharp
 readonly struct SumOperator<T>
     : IAggregationOperator<T, T>
     where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
 {
-    public static T Seed 
+    public static T Seed
         => T.AdditiveIdentity;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
@@ -378,7 +378,6 @@ readonly struct MinPropagateNaNOperator<T>
 
 It uses the `Min()` method provided by the `INumber<T>` interface, which handles the propagation of `NaN` values. The `Invoke()` method for `Vector<T>` values is more complex, as it needs to explicitly handle the propagation of `NaN` values for floating-point types. The method `Vector.ConditionalSelect()` is an equivalent to an `if` statement when dealing with vectors.
 
-
 ### AggregatePropagateNaN2
 
 The `AggregatePropagateNaN2()` method streamlines the execution of two distinct operations within a single iteration of the source, returning the results in a tuple.
@@ -394,6 +393,51 @@ public static (T Min, T Max) MinMax<T>(ReadOnlySpan<T> left)
 ```
 
 The `MinOperator<T>` and `MaxOperator<T>` operators used are the ones previously described in the `Aggregate()` method.
+
+### IndexOfPredicate Method
+
+The `IndexOfPredicate()` method expands the capabilities by enabling retrieval of the index of the initial element in the span that adheres to a specified predicate operator.
+
+The predicate operator must adhere to one of the subsequent interfaces with `TResult` specified as a `bool`:
+
+```csharp
+public interface IUnaryToScalarOperator<T, TResult>
+    : IOperator
+    where T : struct
+{
+    static abstract TResult Invoke(T x);
+    static abstract TResult Invoke(ref readonly Vector<T> x);
+}
+
+public interface IBinaryToScalarOperator<T1, T2, TResult>
+    : IOperator
+    where T1 : struct
+    where T2 : struct
+{
+    static abstract TResult Invoke(T1 x, T2 y);
+    static abstract TResult Invoke(ref readonly Vector<T1> x, ref readonly Vector<T2> y);
+}
+
+public interface ITernaryToScalarOperator<T1, T2, T3, TResult>
+    : IOperator
+    where T1 : struct
+    where T2 : struct
+    where T3 : struct
+{
+    static abstract TResult Invoke(T1 x, T2 y, T3 z);
+    static abstract TResult Invoke(ref readonly Vector<T1> x, ref readonly Vector<T2> y, ref readonly Vector<T3> z);
+}
+```
+
+For instance, to obtain the index of the initial element greater than or equal to a specified scalar value, this library furnishes the following operation:
+
+```csharp
+public static int IndexOfGreaterThanOrEqual<T>(ReadOnlySpan<T> source, T value)
+    where T : struct, IComparisonOperators<T, T, bool>
+    => Tensor.IndexOfPredicate<T, GreaterThanOrEqualAnyOperator<T>>(source, value);
+```
+
+It employs the `GreaterThanOrEqualAnyOperator`, which is vectorizable.
 
 ## Operators Unsuitable for Vectorization
 
@@ -414,7 +458,7 @@ This signifies that all operator interfaces include a boolean property indicatin
 Consider the left shift operation (`<<`) as an example. While `Vector<T>` supports it only for signed and unsigned integer primitives, any type implementing `IShiftOperators<TSelf, TOther, TResult>` can support left shift, including third-party-developed types. To cover all scenarios, a generic non-vectorizable operator can be implemented, alongside specific operators for each vectorizable type. The following example illustrates this approach, focusing on the `sbyte` type:
 
 ```csharp
-readonly struct ShiftLeftOperator<T, TResult> 
+readonly struct ShiftLeftOperator<T, TResult>
     : IBinaryScalar<T, int, TResult>
     where T : struct, IShiftOperators<T, int, TResult>
     where TResult : struct
@@ -429,7 +473,7 @@ readonly struct ShiftLeftOperator<T, TResult>
         => Throw.NotSupportedException<Vector<TResult>>();
 }
 
-readonly struct ShiftLeftSByteOperator 
+readonly struct ShiftLeftSByteOperator
     : IBinaryScalar<sbyte, int, sbyte>
 {
     public static sbyte Invoke(sbyte value, int count)
