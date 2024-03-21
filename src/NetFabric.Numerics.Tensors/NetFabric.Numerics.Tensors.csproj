@@ -8,24 +8,18 @@
       This library, based on .NET generic math, provides methods for performing mathematical operations over spans of value types. 
       These operations can be accelerated using SIMD operations supported by the CPU where available.
     </Description>
-    <Version>3.0.0</Version>
+    <Version>3.1.0</Version>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
     <PackageTags>math, performance, intrinsics, simd, span</PackageTags>
     <PackageProjectUrl>https://netfabric.github.io/NetFabric.Numerics.Tensors/</PackageProjectUrl>
     <PackageReleaseNotes>
-- Changed the namespace to NetFabric.Numerics.Tensors.
-- Refactoring of the IAggregationOperation interface.
-- Added support for transform operation on Aggregate.
-- Added AggreagatePropagateNaN.
-- Renamed IGenericBinaryOperation to IBinaryScalarOperation and ApplyGeneric to ApplyScalar.
-- Fixed Min and Max behavior.
-- Added SinCos operations returning the result in two separate spans.
-- Added operations: MinMagnitude, MaxMagnitude, and Sigmoid.
-- Added aggregation operations: Sum, Product, Min, Max, and MinMax.
-- Vectorized Aggregate2D, Aggregate3D, and Aggregate4D.
-- Vectorized operators: ScaleB.
+- Improved performance of Aggregate2D, Aggregate3D, and Aggregate4D.
+- Made the operators public.
+- Added interfaces IUnaryToScalarOperator, IBinaryToScalarOperator, and ITernaryToScalarOperator.
+- Added IndexOfPredicate method.
+- Added operations: IndexOfEquals, IndexOfGreaterThan, IndexOfGreaterThanOrEqual, IndexOfLessThan, and IndexOfLessThanOrEqual.
     </PackageReleaseNotes>
     <RootNamespace>NetFabric.Numerics.Tensors</RootNamespace>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

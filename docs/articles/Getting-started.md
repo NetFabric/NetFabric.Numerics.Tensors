@@ -35,7 +35,7 @@ var average = TensorOperations.Average(values);
 var product = TensorOperations.Product(values);
 var min = TensorOperations.Min(values);
 var max = TensorOperations.Max(values);
-(var min, var max) = TensorOperations.MinMax(values);
+var (min, max) = TensorOperations.MinMax(values);
 ```
 
 The library offers functionality to retrieve the index of the first element meeting a specific condition:

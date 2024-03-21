@@ -28,7 +28,7 @@ Given variables `x`, `y`, and `result`, all of type `Span<float>` and of the sam
 TensorOperations.Add(x, y, result);
 ```
 
-Beyond per element operations, the library extends support to aggregations. For a `values` variable of type `Span<float>`, the following code snippet calculates the sum, the minimum and the minimum magnitude of all its elements:
+In addition to per-element operations, the library also supports various aggregation operations, including:
 
 ```csharp
 var sum = TensorOperations.Sum(values);
@@ -36,7 +36,17 @@ var average = TensorOperations.Average(values);
 var product = TensorOperations.Product(values);
 var min = TensorOperations.Min(values);
 var max = TensorOperations.Max(values);
-(var min, var max) = TensorOperations.MinMax(values);
+var (min, max) = TensorOperations.MinMax(values);
+```
+
+The library offers functionality to retrieve the index of the first element meeting a specific condition:
+
+```csharp
+var indexOfEqual = IndexOfEquals(values, 0);
+var indexOfGreaterThan = IndexOfGreaterThan(values, 0);
+var indexOfGreaterThanOrEqual = IndexOfGreaterThanOrEqual(values, 0);
+var indexOfLessThan = IndexOfLessThan(values, 0);
+var indexOfLessThanOrEqual = IndexOfLessThanOrEqual(values, 0);
 ```
 
 Please consult the [documentation](https://netfabric.github.io/NetFabric.Numerics.Tensors/api/NetFabric.Numerics.TensorOperations.html) to get the complete list of pre-defined operations.
