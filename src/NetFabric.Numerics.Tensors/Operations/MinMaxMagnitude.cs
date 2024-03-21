@@ -9,7 +9,7 @@ public static partial class TensorOperations
     /// <param name="source">The span of elements to get the minimum and maximum magnitude value.</param>
     /// <returns>The minimum and maximum magnitude value of the source span.</returns>
     /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
-    public static (T MinMagnitude, T MaxMagnitude) MinMaxMagnitude<T>(ReadOnlySpan<T> left)
+    public static (T MinMagnitude, T MaxMagnitude) MinMaxMagnitude<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.AggregatePropagateNaN2<T, MinMagnitudeAggregationOperator<T>, MaxMagnitudeAggregationOperator<T>>(left);
+        => Tensor.AggregatePropagateNaN2<T, MinMagnitudeAggregationOperator<T>, MaxMagnitudeAggregationOperator<T>>(source);
 }
