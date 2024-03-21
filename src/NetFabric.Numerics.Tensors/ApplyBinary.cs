@@ -280,7 +280,7 @@ public static partial class Tensor
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
-            var valueVector = GetVector(y);
+            var valueVector = VectorFactory.Create(y);
             var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
             // Iterate through the vectors.
