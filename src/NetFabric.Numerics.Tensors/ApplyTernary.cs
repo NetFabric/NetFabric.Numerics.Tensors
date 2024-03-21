@@ -312,7 +312,7 @@ public static partial class Tensor
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
-            var yVector = GetVector(y);
+            var yVector = VectorFactory.Create(y);
             var zVectors = MemoryMarshal.Cast<T3, Vector<T3>>(z);
             var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
@@ -609,7 +609,7 @@ public static partial class Tensor
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
             var yVectors = MemoryMarshal.Cast<T2, Vector<T2>>(y);
-            var zVector = GetVector(z);
+            var zVector = VectorFactory.Create(z);
             var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
             // Iterate through the vectors.
@@ -903,8 +903,8 @@ public static partial class Tensor
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
-            var yVector = GetVector(y);
-            var zVector = GetVector(z);
+            var yVector = VectorFactory.Create(y);
+            var zVector = VectorFactory.Create(z);
             var destinationVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(destination);
 
             // Iterate through the vectors.
