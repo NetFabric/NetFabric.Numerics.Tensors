@@ -231,7 +231,7 @@ public static partial class Tensor
     /// <param name="destination">The span to store the result of the operation.</param>
     /// <exception cref="ArgumentException">The destination is too small, or the length of the source span is not even, or the source span overlaps with the destination but they are not identical.</exception>
     /// <remarks>If the destination is the same as the source span, the operation is performed in-place.</remarks>
-    public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ValueTuple<T, T> y, Span<T> destination)
+    public static void Apply<T, TOperator>(ReadOnlySpan<T> x, (T, T) y, Span<T> destination)
         where T : struct
         where TOperator : struct, IBinaryOperator<T, T, T>
     {
@@ -253,7 +253,7 @@ public static partial class Tensor
     /// <param name="destination">The span to store the result of the operation.</param>
     /// <exception cref="ArgumentException">The destination is too small or the length of the source span is not even.</exception>
     /// <remarks>If the destination is the same as the source span, the operation is performed in-place.</remarks>
-    public static void Apply<T1, T2, TResult, TOperator>(ReadOnlySpan<T1> x, ValueTuple<T2, T2> y, Span<TResult> destination)
+    public static void Apply<T1, T2, TResult, TOperator>(ReadOnlySpan<T1> x, (T2, T2) y, Span<TResult> destination)
         where T1 : struct
         where T2 : struct
         where TResult : struct
@@ -334,7 +334,7 @@ public static partial class Tensor
     /// <param name="destination">The span to store the result of the operation.</param>
     /// <exception cref="ArgumentException">The destination is too small, or the length of the source span is not a multiple of 3, or the source span overlaps with the destination but they are not identical.</exception>
     /// <remarks>If the destination is the same as the source span, the operation is performed in-place.</remarks>
-    public static void Apply<T, TOperator>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, Span<T> destination)
+    public static void Apply<T, TOperator>(ReadOnlySpan<T> x, (T, T, T) y, Span<T> destination)
         where T : struct
         where TOperator : struct, IBinaryOperator<T, T, T>
     {
@@ -356,7 +356,7 @@ public static partial class Tensor
     /// <param name="destination">The span to store the result of the operation.</param>
     /// <exception cref="ArgumentException">The destination is too small or the length of the source span is not a multiple of 3.</exception>
     /// <remarks>If the destination is the same as the source span, the operation is performed in-place.</remarks>
-    public static void Apply<T1, T2, TResult, TOperator>(ReadOnlySpan<T1> x, ValueTuple<T2, T2, T2> y, Span<TResult> destination)
+    public static void Apply<T1, T2, TResult, TOperator>(ReadOnlySpan<T1> x, (T2, T2, T2) y, Span<TResult> destination)
         where T1 : struct
         where T2 : struct
         where TResult : struct

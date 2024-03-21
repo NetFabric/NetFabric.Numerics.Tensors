@@ -27,7 +27,7 @@ public static partial class TensorOperations
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 2D vectors.
     /// </remarks>
-    public static void AddMultiply<T>(ReadOnlySpan<T> x, ValueTuple<T, T> y, ValueTuple<T, T> z, Span<T> destination)
+    public static void AddMultiply<T>(ReadOnlySpan<T> x, (T, T) y, (T, T) z, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => Tensor.Apply<T, AddMultiplyOperator<T>>(x, y, z, destination);
 
@@ -43,7 +43,7 @@ public static partial class TensorOperations
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 3D vectors.
     /// </remarks>
-    public static void AddMultiply<T>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, ValueTuple<T, T, T> z, Span<T> destination)
+    public static void AddMultiply<T>(ReadOnlySpan<T> x, (T, T, T) y, (T, T, T) z, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => Tensor.Apply<T, AddMultiplyOperator<T>>(x, y, z, destination);
 
@@ -72,7 +72,7 @@ public static partial class TensorOperations
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 2D vectors.
     /// </remarks>
-    public static void AddMultiply<T>(ReadOnlySpan<T> x, ValueTuple<T, T> y, ReadOnlySpan<T> z, Span<T> destination)
+    public static void AddMultiply<T>(ReadOnlySpan<T> x, (T, T) y, ReadOnlySpan<T> z, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => Tensor.Apply<T, AddMultiplyOperator<T>>(x, y, z, destination);
 
@@ -88,7 +88,7 @@ public static partial class TensorOperations
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 3D vectors.
     /// </remarks>
-    public static void AddMultiply<T>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, ReadOnlySpan<T> z, Span<T> destination)
+    public static void AddMultiply<T>(ReadOnlySpan<T> x, (T, T, T) y, ReadOnlySpan<T> z, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => Tensor.Apply<T, AddMultiplyOperator<T>>(x, y, z, destination);
 
@@ -117,7 +117,7 @@ public static partial class TensorOperations
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 2D vectors.
     /// </remarks>
-    public static void AddMultiply<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, ValueTuple<T, T> z, Span<T> destination)
+    public static void AddMultiply<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, (T, T) z, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => Tensor.Apply<T, AddMultiplyOperator<T>>(x, y, z, destination);
 
@@ -133,7 +133,7 @@ public static partial class TensorOperations
     /// <remarks>
     /// This method can be used to calculate the addition and multiplication of 3D vectors.
     /// </remarks>
-    public static void AddMultiply<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, ValueTuple<T, T, T> z, Span<T> destination)
+    public static void AddMultiply<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, (T, T, T) z, Span<T> destination)
         where T : struct, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => Tensor.Apply<T, AddMultiplyOperator<T>>(x, y, z, destination);
 

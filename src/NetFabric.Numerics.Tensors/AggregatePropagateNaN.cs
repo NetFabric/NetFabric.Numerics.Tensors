@@ -91,7 +91,7 @@ public static partial class Tensor
     /// The two operators are applied in parallel to the source elements, allowing two operations to be performed on a single pass of the source elements.
     /// If any of the elements is NaN, the result is NaN.
     /// </remarks>
-    public static ValueTuple<T, T> AggregatePropagateNaN2<T, TAggregateOperator1, TAggregateOperator2>(ReadOnlySpan<T> source)
+    public static (T, T) AggregatePropagateNaN2<T, TAggregateOperator1, TAggregateOperator2>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>
         where TAggregateOperator1 : struct, IAggregationOperator<T, T>
         where TAggregateOperator2 : struct, IAggregationOperator<T, T>

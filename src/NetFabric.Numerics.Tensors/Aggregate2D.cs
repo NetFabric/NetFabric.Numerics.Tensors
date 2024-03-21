@@ -9,7 +9,7 @@ public static partial class Tensor
     /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
     /// <param name="source">The source span containing contiguous 2D data to aggregate.</param>
     /// <returns>A tuple containing the aggregated results.</returns>
-    public static ValueTuple<T, T> Aggregate2D<T, TAggregateOperator>(ReadOnlySpan<T> source)
+    public static (T, T) Aggregate2D<T, TAggregateOperator>(ReadOnlySpan<T> source)
         where T : struct
         where TAggregateOperator : struct, IAggregationOperator<T, T>
         => Aggregate2D<T, T, T, IdentityOperator<T>, TAggregateOperator>(source);
@@ -25,7 +25,7 @@ public static partial class Tensor
     /// <param name="source">The source span containing contiguous 2D data to transform and aggregate.</param>
     /// <returns>A tuple containing the transformed and aggregated results.</returns>
     /// <remarks>The transform operator is applied to the source elements before the aggregation operator.</remarks>
-    public static ValueTuple<TResult, TResult> Aggregate2D<TSource, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<TSource> source)
+    public static (TResult, TResult) Aggregate2D<TSource, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<TSource> source)
         where TSource : struct
         where TTransformed : struct
         where TResult : struct
@@ -124,7 +124,7 @@ public static partial class Tensor
     /// <param name="y">The source span containing the second set of contiguous 2D data to transform and aggregate.</param>
     /// <returns>The result of the aggregation.</returns>
     /// <remarks>The transform operator is applied to the source elements before the aggregation operator.</remarks>
-    public static ValueTuple<T, T> Aggregate2D<T, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
+    public static (T, T) Aggregate2D<T, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct
         where TTransformOperator : struct, IBinaryOperator<T, T, T>
         where TAggregateOperator : struct, IAggregationOperator<T, T>
@@ -143,7 +143,7 @@ public static partial class Tensor
     /// <param name="y">The source span containing the second set of contiguous 2D data to transform and aggregate.</param>
     /// <returns>A tuple containing the transformed and aggregated results.</returns>
     /// <remarks>The transform operator is applied to the source elements before the aggregation operator.</remarks>
-    public static ValueTuple<TResult, TResult> Aggregate2D<T1, T2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
+    public static (TResult, TResult) Aggregate2D<T1, T2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
         where T1 : struct
         where T2 : struct
         where TTransformed : struct

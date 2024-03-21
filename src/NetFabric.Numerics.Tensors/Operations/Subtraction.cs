@@ -6,11 +6,11 @@ public static partial class TensorOperations
         where T : struct, ISubtractionOperators<T, T, T>
         => Tensor.Apply<T, SubtractOperator<T>>(left, right, destination);
 
-    public static void Subtract<T>(ReadOnlySpan<T> left, ValueTuple<T, T> right, Span<T> destination)
+    public static void Subtract<T>(ReadOnlySpan<T> left, (T, T) right, Span<T> destination)
         where T : struct, ISubtractionOperators<T, T, T>
         => Tensor.Apply<T, SubtractOperator<T>>(left, right, destination);
 
-    public static void Subtract<T>(ReadOnlySpan<T> left, ValueTuple<T, T, T> right, Span<T> destination)
+    public static void Subtract<T>(ReadOnlySpan<T> left, (T, T, T) right, Span<T> destination)
         where T : struct, ISubtractionOperators<T, T, T>
         => Tensor.Apply<T, SubtractOperator<T>>(left, right, destination);
 
@@ -22,11 +22,11 @@ public static partial class TensorOperations
         where T : struct, ISubtractionOperators<T, T, T>
         => Tensor.Apply<T, CheckedSubtractOperator<T>>(left, right, destination);
 
-    public static void CheckedSubtract<T>(ReadOnlySpan<T> left, ValueTuple<T, T> right, Span<T> destination)
+    public static void CheckedSubtract<T>(ReadOnlySpan<T> left, (T, T) right, Span<T> destination)
         where T : struct, ISubtractionOperators<T, T, T>
         => Tensor.Apply<T, CheckedSubtractOperator<T>>(left, right, destination);
 
-    public static void CheckedSubtract<T>(ReadOnlySpan<T> left, ValueTuple<T, T, T> right, Span<T> destination)
+    public static void CheckedSubtract<T>(ReadOnlySpan<T> left, (T, T, T) right, Span<T> destination)
         where T : struct, ISubtractionOperators<T, T, T>
         => Tensor.Apply<T, CheckedSubtractOperator<T>>(left, right, destination);
 

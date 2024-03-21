@@ -6,7 +6,7 @@ public readonly record struct MyVector2<T>(T X, T Y)
     : IAdditiveIdentity<MyVector2<T>, MyVector2<T>>, IAdditionOperators<MyVector2<T>, MyVector2<T>, MyVector2<T>>
     where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
 {
-    public MyVector2(ValueTuple<T, T> tuple)
+    public MyVector2((T, T) tuple)
         : this(tuple.Item1, tuple.Item2)
     { }
 
@@ -21,7 +21,7 @@ public readonly record struct MyVector3<T>(T X, T Y, T Z)
     : IAdditiveIdentity<MyVector3<T>, MyVector3<T>>, IAdditionOperators<MyVector3<T>, MyVector3<T>, MyVector3<T>>
     where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
 {
-    public MyVector3(ValueTuple<T, T, T> tuple)
+    public MyVector3((T, T, T) tuple)
         : this(tuple.Item1, tuple.Item2, tuple.Item3)
     { }
 
@@ -36,7 +36,7 @@ public readonly record struct MyVector4<T>(T X, T Y, T Z, T W)
     : IAdditiveIdentity<MyVector4<T>, MyVector4<T>>, IAdditionOperators<MyVector4<T>, MyVector4<T>, MyVector4<T>>
     where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
 {
-    public MyVector4(ValueTuple<T, T, T, T> tuple)
+    public MyVector4((T, T, T, T) tuple)
         : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4)
     { }
 

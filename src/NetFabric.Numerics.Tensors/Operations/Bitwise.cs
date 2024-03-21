@@ -6,11 +6,11 @@ public static partial class TensorOperations
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, BitwiseAndOperator<T>>(x, y, destination);
 
-    public static void BitwiseAnd<T>(ReadOnlySpan<T> x, ValueTuple<T, T> y, Span<T> destination)
+    public static void BitwiseAnd<T>(ReadOnlySpan<T> x, (T, T) y, Span<T> destination)
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, BitwiseAndOperator<T>>(x, y, destination);
 
-    public static void BitwiseAnd<T>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, Span<T> destination)
+    public static void BitwiseAnd<T>(ReadOnlySpan<T> x, (T, T, T) y, Span<T> destination)
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, BitwiseAndOperator<T>>(x, y, destination);
 
@@ -22,11 +22,11 @@ public static partial class TensorOperations
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, BitwiseAndNotOperator<T>>(x, y, destination);
 
-    public static void BitwiseAndNot<T>(ReadOnlySpan<T> x, ValueTuple<T, T> y, Span<T> destination)
+    public static void BitwiseAndNot<T>(ReadOnlySpan<T> x, (T, T) y, Span<T> destination)
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, BitwiseAndNotOperator<T>>(x, y, destination);
 
-    public static void BitwiseAndNot<T>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, Span<T> destination)
+    public static void BitwiseAndNot<T>(ReadOnlySpan<T> x, (T, T, T) y, Span<T> destination)
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, BitwiseAndNotOperator<T>>(x, y, destination);
 
@@ -38,11 +38,11 @@ public static partial class TensorOperations
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, BitwiseOrOperator<T>>(x, y, destination);
 
-    public static void BitwiseOr<T>(ReadOnlySpan<T> x, ValueTuple<T, T> y, Span<T> destination)
+    public static void BitwiseOr<T>(ReadOnlySpan<T> x, (T, T) y, Span<T> destination)
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, BitwiseOrOperator<T>>(x, y, destination);
 
-    public static void BitwiseOr<T>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, Span<T> destination)
+    public static void BitwiseOr<T>(ReadOnlySpan<T> x, (T, T, T) y, Span<T> destination)
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, BitwiseOrOperator<T>>(x, y, destination);
 
@@ -54,11 +54,11 @@ public static partial class TensorOperations
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, XorOperator<T>>(x, y, destination);
 
-    public static void Xor<T>(ReadOnlySpan<T> x, ValueTuple<T, T> y, Span<T> destination)
+    public static void Xor<T>(ReadOnlySpan<T> x, (T, T) y, Span<T> destination)
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, XorOperator<T>>(x, y, destination);
 
-    public static void Xor<T>(ReadOnlySpan<T> x, ValueTuple<T, T, T> y, Span<T> destination)
+    public static void Xor<T>(ReadOnlySpan<T> x, (T, T, T) y, Span<T> destination)
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, XorOperator<T>>(x, y, destination);
 

@@ -10,7 +10,7 @@ readonly record struct MyVector2<T>(T X, T Y)
     {
     }
 
-    public MyVector2(ValueTuple<T, T> tuple)
+    public MyVector2((T, T) tuple)
         : this(tuple.Item1, tuple.Item2)
     {
     }
@@ -32,7 +32,7 @@ readonly record struct MyVector3<T>(T X, T Y, T Z)
     {
     }
 
-    public MyVector3(ValueTuple<T, T, T> tuple)
+    public MyVector3((T, T, T) tuple)
         : this(tuple.Item1, tuple.Item2, tuple.Item3)
     {
     }
@@ -54,7 +54,7 @@ readonly record struct MyVector4<T>(T X, T Y, T Z, T W)
     {
     }
 
-    public MyVector4(ValueTuple<T, T, T, T> tuple)
+    public MyVector4((T, T, T, T) tuple)
         : this(tuple.Item1, tuple.Item2, tuple.Item3, tuple.Item4)
     {
     }

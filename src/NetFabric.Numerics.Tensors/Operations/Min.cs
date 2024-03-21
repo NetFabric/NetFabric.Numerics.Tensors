@@ -17,11 +17,11 @@ public static partial class TensorOperations
         where T : struct, INumber<T>, IMinMaxValue<T> 
         => Tensor.Apply<T, MinPropagateNaNOperator<T>>(left, right, destination);
 
-    public static void Min<T>(ReadOnlySpan<T> left, ValueTuple<T, T> right, Span<T> destination)
+    public static void Min<T>(ReadOnlySpan<T> left, (T, T) right, Span<T> destination)
         where T : struct, INumber<T>, IMinMaxValue<T> 
         => Tensor.Apply<T, MinPropagateNaNOperator<T>>(left, right, destination);
 
-    public static void Min<T>(ReadOnlySpan<T> left, ValueTuple<T, T, T> right, Span<T> destination)
+    public static void Min<T>(ReadOnlySpan<T> left, (T, T, T) right, Span<T> destination)
         where T : struct, INumber<T>, IMinMaxValue<T> 
         => Tensor.Apply<T, MinPropagateNaNOperator<T>>(left, right, destination);
 

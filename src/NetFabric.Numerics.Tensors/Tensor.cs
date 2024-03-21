@@ -14,7 +14,7 @@ public static partial class Tensor
     static bool SpansOverlapAndAreNotSame<T>(ReadOnlySpan<T> span, ReadOnlySpan<T> other)
         => !Unsafe.AreSame(ref MemoryMarshal.GetReference(span), ref MemoryMarshal.GetReference(other)) && MemoryExtensions.Overlaps(span, other);
 
-    static Vector<T> GetVector<T>(ValueTuple<T, T> tuple)
+    static Vector<T> GetVector<T>((T, T) tuple)
         where T : struct
     {
         var array = new T[Vector<T>.Count];

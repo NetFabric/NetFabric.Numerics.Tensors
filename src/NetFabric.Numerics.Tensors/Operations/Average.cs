@@ -8,7 +8,7 @@ public static partial class TensorOperations
             ? Throw.InvalidOperationException<T>()
             : Sum(source) / T.CreateChecked(source.Length);
 
-    public static ValueTuple<T, T> Average2D<T>(ReadOnlySpan<T> source)
+    public static (T, T) Average2D<T>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
     {
         if (source.Length is 0)
@@ -21,7 +21,7 @@ public static partial class TensorOperations
         return result;
     }
 
-    public static ValueTuple<T, T, T> Average3D<T>(ReadOnlySpan<T> source)
+    public static (T, T, T) Average3D<T>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
     {
         if (source.Length is 0)
@@ -35,7 +35,7 @@ public static partial class TensorOperations
         return result;
     }
 
-    public static ValueTuple<T, T, T, T> Average4D<T>(ReadOnlySpan<T> source)
+    public static (T, T, T, T) Average4D<T>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
     {
         if (source.Length is 0)
