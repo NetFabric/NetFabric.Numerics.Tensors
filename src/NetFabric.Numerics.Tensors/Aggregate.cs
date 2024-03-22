@@ -100,6 +100,119 @@ public static partial class Tensor
     }
 
     /// <summary>
+    /// Aggregates the elements of two <see cref="ReadOnlySpan{T}"/> using the specified transform and aggregation operators.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source spans.</typeparam>
+    /// <typeparam name="TTransformOperator">The type of the transform operator that must implement the <see cref="IBinaryOperator{T, T, T}"/> interface.</typeparam>
+    /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
+    /// <param name="x">The first span of elements to transform and aggregate.</param>
+    /// <param name="y">The second span of elements to transform and aggregate.</param>
+    /// <returns>The result of the aggregation.</returns>
+    /// <remarks>
+    ///     <para>The transform operator is applied to the source elements before the aggregation operator.</para>
+    ///     <para>This methods does not propagate NaN.</para>
+    /// </remarks>
+    public static T Aggregate<T, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
+        where T : struct, INumberBase<T>
+        where TTransformOperator : struct, IBinaryOperator<T, T, T>
+        where TAggregateOperator : struct, IAggregationOperator<T, T>
+        => Aggregate<T, T, T, T, TTransformOperator, TAggregateOperator>(x, y);
+
+    /// <summary>
+    /// Aggregates the elements of two <see cref="ReadOnlySpan{T}"/> using the specified transform and aggregation operators.
+    /// </summary>
+    /// <typeparam name="T1">The type of the elements in the first source span.</typeparam>
+    /// <typeparam name="T2">The type of the elements in the second source span.</typeparam>
+    /// <typeparam name="TTransformed">The type of the elements after the transform operation.</typeparam>
+    /// <typeparam name="TResult">The type of the result of the aggregation.</typeparam>
+    /// <typeparam name="TTransformOperator">The type of the transform operator that must implement the <see cref="IBinaryOperator{T, T, T}"/> interface.</typeparam>
+    /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
+    /// <param name="x">The first span of elements to transform and aggregate.</param>
+    /// <param name="y">The second span of elements to transform and aggregate.</param>
+    /// <returns>The result of the aggregation.</returns>
+    /// <remarks>
+    ///     <para>The transform operator is applied to the source elements before the aggregation operator.</para>
+    ///     <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</para>
+    /// </remarks>
+    public static TResult Aggregate<T1, T2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
+        where T1 : struct
+        where T2 : struct
+        where TTransformed : struct
+        where TResult : struct, INumberBase<TResult>
+        where TTransformOperator : struct, IBinaryOperator<T1, T2, TTransformed>
+        where TAggregateOperator : struct, IAggregationOperator<TTransformed, TResult>
+    {
+        if (x.Length != y.Length)
+            Throw.ArgumentException(nameof(y), "source spans must have the same size.");
+
+        // initialize aggregate
+        var aggregate = TAggregateOperator.Seed;
+        var indexSource = nint.Zero;
+
+        // aggregate using hardware acceleration if available
+        if (TTransformOperator.IsVectorizable &&
+            TAggregateOperator.IsVectorizable &&
+            Vector.IsHardwareAccelerated &&
+            Vector<T1>.IsSupported &&
+            Vector<T2>.IsSupported &&
+            Vector<TTransformed>.IsSupported &&
+            Vector<TResult>.IsSupported)
+        {
+            // convert source span to vector span without copies
+            var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
+            var yVectors = MemoryMarshal.Cast<T2, Vector<T2>>(y);
+
+            // check if there is at least one vector to aggregate
+            if (xVectors.Length > 0)
+            {
+                // initialize aggregate vector
+                var aggregateVector = new Vector<TResult>(TAggregateOperator.Seed);
+
+                // aggregate the source vectors into the aggregate vector
+                ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
+                ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
+                var indexVector = nint.Zero;
+                for (; indexVector < xVectors.Length; indexVector++)
+                {
+                    var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
+                    aggregateVector = TAggregateOperator.Invoke(ref aggregateVector, ref transformedVector);
+                    if (!Vector.EqualsAll(aggregateVector, aggregateVector)) // check if vector contains NaN
+                    {
+                        for (var index = 0; index < Vector<TResult>.Count; index++)
+                        {
+                            var current = aggregateVector[index];
+                            if (TResult.IsNaN(current))
+                                return current;
+                        }
+                        Throw.Exception("Should not happen!");
+                    }
+                }
+
+                // aggregate the aggregate vector into the aggregate
+                for (var index = 0; index < Vector<TResult>.Count; index++)
+                {
+                    aggregate = TAggregateOperator.Invoke(aggregate, aggregateVector[index]);
+                }
+
+                // skip the source elements already aggregated
+                indexSource = indexVector * Vector<TResult>.Count;
+            }
+        }
+
+        // aggregate the remaining elements in the source
+        ref var xRef = ref MemoryMarshal.GetReference(x);
+        ref var yRef = ref MemoryMarshal.GetReference(y);
+        for (; indexSource < x.Length; indexSource++)
+        {
+            aggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource)));
+            if (TResult.IsNaN(aggregate))
+                return aggregate;
+        }
+
+        return aggregate;
+    }
+
+    /// <summary>
     /// Aggregates the elements of a <see cref="ReadOnlySpan{T}"/> using the specified two operators propagating NaN values.
     /// </summary>
     /// <typeparam name="T">The type of the elements in the source span that must implement the <see cref="INumberBase{T}"/> interface.</typeparam>
