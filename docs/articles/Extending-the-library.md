@@ -12,9 +12,9 @@ public static void DegreesToRadians<T>(ReadOnlySpan<T> left, Span<T> destination
     => MultiplyDivide(left, T.Pi, T.CreateChecked(180), destination);
 ```
 
-Beyond the fundamental operations like `Negate`, `Add`, `Subtract`, `Multiply`, and `Divide`, you can explore composed operations such as `AddMultiply`, `MultiplyAdd`, and `MultiplyDivide`.
+Consider evaluating the potential utilization of combinations of predefined operators with the `Apply()` or `Aggregate()` methods, as elaborated below. The predefined operators are all defined in the `NetFabric.Numerics.Tensors.Operators` namespace.
 
-## Custom Operator Definitions
+## Custom Operation Definitions
 
 All methods enabling operator functionality are housed within the `Tensor` static class. Within this class, there are two primary categories of methods: `Apply` and `Aggregate`. The `Apply` methods are designed to execute operations on one, two, or three source `ReadOnlySpan<T>`, with the results stored in the destination `Span<T>`. Conversely, the `Aggregate` methods aim to condense a source span of data into either a single value or a tuple of values.
 
@@ -239,7 +239,7 @@ The user can choose the most suitable overload based on their requirements.
 
 ### Aggregate
 
-The `Aggregate()` method is a versatile tool for consolidating a source span of data into either a single value or a tuple of values. It relies on two operators: one for transforming the source elements and another for aggregating the transformed elements.
+The `Aggregate()` method is a versatile tool for consolidating a source span of data into either a single value or a tuple of values. It relies on two operators: one for transforming the source elements and another for aggregating the transformed elements. This methods follows the IEEE 754 standard for floating-point arithmetic, it returns `NaN` if the transformation and aggregation of any of the elements result in `NaN`.
 
 This method is flexible, accepting five generics parameters. The first specifies the type of elements in the source span, the second specifies the output type of the transform operator, and the third specifies the element type of the destination span. The fourth and fifth parameters specify the transform and aggregation operators, respectively.
 
@@ -284,12 +284,22 @@ readonly struct SumOperator<T>
 
 It implements the `IAggregationOperator<T, T>` interface. The generic type `T` is restricted to `struct`, `IAdditiveIdentity<T, T>`, and `IAdditionOperators<T, T, T>`, signifying that only value types with both the additive identity and the `+` operator implemented are suitable. The `Seed` initializes the sum using the additive identity. The `Invoke()` methods straightforwardly perform the addition operation for either a single `T` value or a `Vector<T>` of values.
 
-The transform operator is utilized to apply a transformation to the source elements before aggregation. For instance, consider an operation that calculates the sum of the squares of all elements in the source. This operation can be employed to compute the square of the length of any n-dimensional vector. It can be implemented as follows:
+The `SumOperator<T>` operator is utilized in the `Sum()` operation, which calculates the sum of all elements in the source:
+
+```csharp
+public static T Sum<T>(ReadOnlySpan<T> source)
+    where T : struct, INumberBase<T>
+    => Tensor.Aggregate<T, SumOperator<T>>(source);
+```
+
+The generic type `T` is restricted to `INumberBase<T>` as the `Aggregate()` method requires the method `T.IsNaN()` to be implemented so that it can return `NaN` if the transformation and aggregation of any of the elements result in `NaN`.
+
+A transform operator can be utilized to apply a transformation to the source elements before aggregation. For instance, consider an operation that calculates the sum of the squares of all elements in the source. This operation can be employed to compute the square of the length of any n-dimensional vector. It can be implemented as follows:
 
 ```csharp
 public static T SumOfSquares<T>(ReadOnlySpan<T> source)
     where T : struct, IMultiplyOperators<T, T, T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
-    => Tensor.Aggregate<T, T, T, SquareOperator<T>, SumOperator<T>>(source);
+    => Tensor.Aggregate<T, SquareOperator<T>, SumOperator<T>>(source);
 ```
 
 Here, the `SquareOperator<T>` and `SumOperator<T>` operators are utilized. The `SquareOperator<T>` operator is a unary operator that transforms the source elements by squaring them, while the `SumOperator<T>` operator is an aggregation operator that calculates the sum of the transformed elements.
@@ -303,6 +313,8 @@ The transform operator can also take two parameters, as demonstrated in the `Sum
             ? null
             : Tensor.Aggregate<T, AddOperator<T>, ProductOperator<T>>(x, y);
 ```
+
+The `Aggregate()` method also provides an overload that supports the types of the source, transformed and returns to be all different.
 
 Additional variants of the `Aggregate()` method are available: `Aggregate2D()`, `Aggregate3D()`, and `Aggregate4D()`. These specialized methods are tailored to aggregate the source span into a tuple of two, three, or four values, respectively. They prove especially valuable when dealing with multi-dimensional data. For further details, refer to the section on "Working with Tensors for Structured Data".
 
