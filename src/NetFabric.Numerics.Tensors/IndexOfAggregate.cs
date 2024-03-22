@@ -13,7 +13,22 @@ public static partial class Tensor
     public static int IndexOfAggregate<T, TAggregateOperator>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>
         where TAggregateOperator : struct, IAggregationOperator<T, T>
-        => IndexOfAggregate<T, T, T, IdentityOperator<T>, TAggregateOperator>(source);
+        => IndexOfAggregate<T, IdentityOperator<T>, TAggregateOperator>(source);
+
+    /// <summary>
+    /// Aggregates the elements of a <see cref="ReadOnlySpan{T}"/> using the specified aggregation operator.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="TTransformOperator">The type of the transform operator that must implement the <see cref="IUnaryOperator{TSource, TTransformed}"/> interface.</typeparam>
+    /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
+    /// <param name="source">The span of elements to aggregate.</param>
+    /// <returns>The result of the aggregation.</returns>
+    /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns the index of the first element to which the transformation and aggregation results in NaN.</remarks>
+    public static int IndexOfAggregate<T, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T> source)
+        where T : struct, INumberBase<T>
+        where TTransformOperator : struct, IUnaryOperator<T, T>
+        where TAggregateOperator : struct, IAggregationOperator<T, T>
+        => IndexOfAggregate<T, T, T, TTransformOperator, TAggregateOperator>(source);
 
     /// <summary>
     /// Aggregates the elements of a <see cref="ReadOnlySpan{T1}"/> using the specified transform and aggregation operators.

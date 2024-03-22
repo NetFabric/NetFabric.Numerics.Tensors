@@ -12,6 +12,20 @@ public static partial class Tensor
     public static int IndexOfAggregateNumber<T, TAggregateOperator>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>
         where TAggregateOperator : struct, IAggregationOperator<T, T>
+        => IndexOfAggregateNumber<T, IdentityOperator<T>, TAggregateOperator>(source);
+
+    /// <summary>
+    /// Aggregates the elements of a <see cref="ReadOnlySpan{T}"/> using the specified aggregation operator.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="TTransformOperator">The type of the transform operator that must implement the <see cref="IUnaryOperator{TSource, TTransformed}"/> interface.</typeparam>
+    /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
+    /// <param name="source">The span of elements to aggregate.</param>
+    /// <returns>The result of the aggregation.</returns>
+    public static int IndexOfAggregateNumber<T, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T> source)
+        where T : struct, INumberBase<T>
+        where TTransformOperator : struct, IUnaryOperator<T, T>
+        where TAggregateOperator : struct, IAggregationOperator<T, T>
         => IndexOfAggregateNumber<T, T, T, IdentityOperator<T>, TAggregateOperator>(source);
 
     /// <summary>

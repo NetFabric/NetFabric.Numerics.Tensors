@@ -36,7 +36,7 @@ For variables `x`, `y`, and `result`, all of type `Span<float>` and of the same 
 Tensor.Add(x, y, result);
 ```
 
-In addition to per-element operations, the library also supports various aggregation operations, including:
+In addition to per-element operations, the library also provides support for various aggregation operations, including:
 
 ```csharp
 var sum = TensorOperations.Sum(values);
@@ -44,17 +44,24 @@ var average = TensorOperations.Average(values);
 var product = TensorOperations.Product(values);
 var min = TensorOperations.Min(values);
 var max = TensorOperations.Max(values);
-var (min, max) = TensorOperations.MinMax(values);
+var (minIndex, maxIndex) = TensorOperations.MinMax(values);
 ```
 
-The library offers functionality to retrieve the index of the first element meeting a specific condition:
+Furthermore, the library offers functionality to retrieve the index of specific elements:
 
 ```csharp
-var indexOfEqual = IndexOfEquals(values, 0);
-var indexOfGreaterThan = IndexOfGreaterThan(values, 0);
-var indexOfGreaterThanOrEqual = IndexOfGreaterThanOrEqual(values, 0);
-var indexOfLessThan = IndexOfLessThan(values, 0);
-var indexOfLessThanOrEqual = IndexOfLessThanOrEqual(values, 0);
+var indexOfMin = TensorOperations.IndexOfMin(values);
+var indexOfMax = TensorOperations.IndexOfMax(values);
+```
+
+It also facilitates finding the index of the first element meeting a particular condition:
+
+```csharp
+var indexOfEqualToZero = IndexOfEquals(values, 0);
+var indexOfGreaterThanZero = IndexOfGreaterThan(values, 0);
+var indexOfGreaterThanOrEqualToZero = IndexOfGreaterThanOrEqual(values, 0);
+var indexOfLessThanZero = IndexOfLessThan(values, 0);
+var indexOfLessThanOrEqualToZero = IndexOfLessThanOrEqual(values, 0);
 ```
 
 ### Custom Operations

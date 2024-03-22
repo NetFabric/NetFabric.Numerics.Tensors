@@ -239,13 +239,9 @@ The user can choose the most suitable overload based on their requirements.
 
 ### Aggregate
 
-The `Aggregate()` method is a versatile tool for consolidating a source span of data into either a single value or a tuple of values. It relies on two operators: one for transforming the source elements and another for aggregating the transformed elements. This methods follows the IEEE 754 standard for floating-point arithmetic, it returns `NaN` if the transformation and aggregation of any of the elements result in `NaN`.
+The `Aggregate()` method is a powerful tool for consolidating a source span of data into either a single value or a tuple of values. It operates using two essential operators: one for transforming the source elements and another for aggregating the transformed elements. This method adheres to the IEEE 754 standard for floating-point arithmetic; if any element's transformation or aggregation results in `NaN`, it returns `NaN`.
 
-This method is flexible, accepting five generics parameters. The first specifies the type of elements in the source span, the second specifies the output type of the transform operator, and the third specifies the element type of the destination span. The fourth and fifth parameters specify the transform and aggregation operators, respectively.
-
-For cases where no transformation is necessary and the type remains consistent across all spans, a couple of alternative overloads with fewer generics parameters are provided for the `Aggregate()` method.
-
-It's worth noting that the transform operator must implement either the `IUnaryOperator<T, TResult>` or `IBinaryOperator<T1, T2, TResult>` interface, while the aggregation operator must implement the `IAggregationOperator<TResult, TResult>` interface:
+It's essential to note that the transform operator must implement either the `IUnaryOperator<T, TResult>` or `IBinaryOperator<T1, T2, TResult>` interface, while the aggregation operator must implement the `IAggregationOperator<TResult, TResult>` interface.
 
 ```csharp
 public interface IAggregationOperator<T, TResult>
@@ -260,9 +256,9 @@ public interface IAggregationOperator<T, TResult>
 }
 ```
 
-Each operator must implement a property that returns the seed value for the operation, which initializes the aggregation process. Additionally, operators must implement the two `Invoke` methods required by the `IBinaryOperator<T, T, T>` interface, along with an additional one `Invoke` methods that aggregate the final result.
+Each operator must provide a property returning the seed value, initializing the aggregation process. Additionally, operators must implement the required `Invoke` methods by the `IBinaryOperator<T1, T2, TResult>` interface, along with an extra `Invoke` method that aggregates the final result.
 
-Consider, for instance, an operator that calculates the sum of all elements in the source. This serves as an aggregation operator, resulting in a value or a tuple of value:
+For example, consider an operation calculating the sum of all elements in the source. It employs the following aggregation operator:
 
 ```csharp
 readonly struct SumOperator<T>
@@ -282,9 +278,9 @@ readonly struct SumOperator<T>
 }
 ```
 
-It implements the `IAggregationOperator<T, T>` interface. The generic type `T` is restricted to `struct`, `IAdditiveIdentity<T, T>`, and `IAdditionOperators<T, T, T>`, signifying that only value types with both the additive identity and the `+` operator implemented are suitable. The `Seed` initializes the sum using the additive identity. The `Invoke()` methods straightforwardly perform the addition operation for either a single `T` value or a `Vector<T>` of values.
+This operator adheres to the `IAggregationOperator<T, T>` interface. The generic type `T` is constrained to `struct`, `IAdditiveIdentity<T, T>`, and `IAdditionOperators<T, T, T>`, indicating that only value types with both the additive identity and the `+` operator implemented are suitable. The `Seed` initializes the sum using the additive identity. The `Invoke()` methods straightforwardly perform the addition operation for either a single `T` value or a `Vector<T>` of values.
 
-The `SumOperator<T>` operator is utilized in the `Sum()` operation, which calculates the sum of all elements in the source:
+The `Sum()` operation can be utilized as follows:
 
 ```csharp
 public static T Sum<T>(ReadOnlySpan<T> source)
@@ -292,9 +288,9 @@ public static T Sum<T>(ReadOnlySpan<T> source)
     => Tensor.Aggregate<T, SumOperator<T>>(source);
 ```
 
-The generic type `T` is restricted to `INumberBase<T>` as the `Aggregate()` method requires the method `T.IsNaN()` to be implemented so that it can return `NaN` if the transformation and aggregation of any of the elements result in `NaN`.
+Here, the generic type `T` is restricted to `INumberBase<T>` as the `Aggregate()` method necessitates the method `T.IsNaN()` for checking if any transformation or aggregation results in `NaN`.
 
-A transform operator can be utilized to apply a transformation to the source elements before aggregation. For instance, consider an operation that calculates the sum of the squares of all elements in the source. This operation can be employed to compute the square of the length of any n-dimensional vector. It can be implemented as follows:
+A transform operator can be applied to transform the source elements before aggregation. For instance, consider an operation calculating the sum of the squares of all elements in the source. This operation can be employed to compute the square of the length of any n-dimensional vector:
 
 ```csharp
 public static T SumOfSquares<T>(ReadOnlySpan<T> source)
@@ -302,145 +298,77 @@ public static T SumOfSquares<T>(ReadOnlySpan<T> source)
     => Tensor.Aggregate<T, SquareOperator<T>, SumOperator<T>>(source);
 ```
 
-Here, the `SquareOperator<T>` and `SumOperator<T>` operators are utilized. The `SquareOperator<T>` operator is a unary operator that transforms the source elements by squaring them, while the `SumOperator<T>` operator is an aggregation operator that calculates the sum of the transformed elements.
+Here, the `SquareOperator<T>` and `SumOperator<T>` operators are utilized. The `SquareOperator<T>` operator is a unary operator that squares the source elements, while the `SumOperator<T>` operator aggregates the transformed elements.
 
-The transform operator can also take two parameters, as demonstrated in the `SumOfProducts()` operation, which computes the sum of the products of corresponding elements in two sources:
+The transform operator can also take two parameters, as shown in the `ProductOfAdditions()` operation, which computes the sum of the products of corresponding elements in two sources:
 
 ```csharp
-    public static T? ProductOfAdditions<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
-        where T : struct, IMultiplicativeIdentity<T, T>, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
-        => x.IsEmpty 
-            ? null
-            : Tensor.Aggregate<T, AddOperator<T>, ProductOperator<T>>(x, y);
+public static T? ProductOfAdditions<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
+    where T : struct, IMultiplicativeIdentity<T, T>, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
+    => x.IsEmpty 
+        ? null
+        : Tensor.Aggregate<T, AddOperator<T>, ProductOperator<T>>(x, y);
 ```
 
-The `Aggregate()` method also provides an overload that supports the types of the source, transformed and returns to be all different.
+The `Aggregate()` method also provides overloads supporting different types for the source, transformed, and return values.
 
-Additional variants of the `Aggregate()` method are available: `Aggregate2D()`, `Aggregate3D()`, and `Aggregate4D()`. These specialized methods are tailored to aggregate the source span into a tuple of two, three, or four values, respectively. They prove especially valuable when dealing with multi-dimensional data. For further details, refer to the section on "Working with Tensors for Structured Data".
+Additional variants of the `Aggregate()` method are available: `Aggregate2D()`, `Aggregate3D()`, and `Aggregate4D()`. These specialized methods are tailored to aggregate the source span into tuples of two, three, or four values, respectively, which is particularly useful for multi-dimensional data. For further details, refer to the "Working with Tensors for Structured Data" section.
 
-For an aggregate operation akin to `Sum`, the library provides all the following operations:
+### IndexOfAggregate
 
-```csharp
-public static T Sum<T>(ReadOnlySpan<T> source)
-    where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
-    => Aggregate<T, SumOperator<T>>(source);
+The `IndexOfAggregate()` method functions similarly to `Aggregate()` but returns the index of the first element matching the value returned by `Aggregate()`.
 
-public static ValueTuple<T, T> Sum2D<T>(ReadOnlySpan<T> source)
-    where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
-    => Aggregate2D<T, SumOperator<T>>(source);
-
-public static ValueTuple<T, T, T> Sum3D<T>(ReadOnlySpan<T> source)
-    where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
-    => Aggregate3D<T, SumOperator<T>>(source);
-
-public static ValueTuple<T, T, T, T> Sum4D<T>(ReadOnlySpan<T> source)
-    where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
-    => Aggregate4D<T, SumOperator<T>>(source);
-```
-
-## IndexOfAggregate
-
-The `IndexOfAggregate()` method operates similarly to the `Aggregate()` method, but it retrieves the index of the first element that matches the value returned by `Aggregate()`.
-
-For instance, let's explore its usage with the `IndexOfMaxNumber()` aggregation operation:
+For instance, the `IndexOfMax()` aggregation retrieves the index of the maximum value in the source span:
 
 ```csharp
-public static int IndexOfMaxNumber<T>(ReadOnlySpan<T> source)
+public static int IndexOfMax<T>(ReadOnlySpan<T> source)
     where T : struct, INumber<T>, IMinMaxValue<T>
-    => Tensor.IndexOfAggregate<T, MaxOperator<T>>(source);
+    => Tensor.IndexOfAggregate<T, MaxAggregationOperator<T>>(source);
 ```
 
-The method can employ a transform operator that accepts one or two parameters. Consider its application in the `IndexOfMaxNumber()` aggregation operation, which computes the index of the first element matching the maximum sum of corresponding elements in two sources:
+The `IndexOfAggregate()` method can utilize a transform operator accepting one or two parameters. Consider its application in the `IndexOfMaxSum()` aggregation operation, determining the index of the first element matching the maximum sum of corresponding elements in two sources:
 
 ```csharp
-public static int IndexOfMaxSumNumber<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right)
+public static int IndexOfMaxSum<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right)
     where T : struct, INumber<T>, IMinMaxValue<T>
     => Tensor.IndexOfAggregate<T, SumOperator<T>, MaxAggregationOperator<T>>(left, right);
 ```
 
 Here, two operators are specified as generic parameters. The first operator transforms the source elements, while the second operator aggregates the transformed elements.
 
-## AggregatePropagateNaN
+### Aggregate2
 
-The `AggregatePropagateNaN()` method is a specialized version of the `Aggregate()` method, designed to handle operations that propagate `NaN` values, exiting the iteration as soon as possible. It is particularly useful when dealing with floating-point data, as it ensures that the presence of `NaN` values in the source span is reflected in the final result. This method requires the same generics parameters as the `Aggregate()` method.
+The `Aggregate2()` method simplifies the execution of two distinct operations within a single iteration of the source, returning the results in a tuple.
 
-The use of this method means that the operator doesn't have to deal with propagating `NaN` values, as the `AggregatePropagateNaN()` method handles this automatically. This simplifies the implementation of the operator, as it only needs to focus on the operation itself and considerably improves its performance.
+This method necessitates three generic parameters. The first determines the type of elements within the source span, while the second and third parameters specify the operators to apply.
 
-As an example, consider the implementation of the `Min()` aggregation operation:
-
-```csharp
-public static T Min<T>(ReadOnlySpan<T> left)
-    where T : struct, INumber<T>, IMinMaxValue<T>
-    => Tensor.AggregatePropagateNaN<T, MinOperator<T>>(left);
-```
-
-The implementation of the `MinOperator<T>` operator is as follows:
-
-```csharp
-readonly struct MinOperator<T>
-    : IAggregationOperator<T, T>
-    where T : struct, INumber<T>, IMinMaxValue<T>
-{
-    public static T Seed
-        => T.MaxValue;
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Invoke(T x, T y)
-        => T.MinNumber(x, y);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
-        => Vector.Min(x, y);
-}
-```
-
-It implements the `IAggregationOperator<T, T>` interface. The generic type `T` is constrained to `struct`, `INumber<T>`, and `IMinMaxValue<T>`, indicating that only value types with the `MinNumber()` method implemented are suitable. The `Seed` initializes the aggregation using the type's maximum value. The `Invoke` methods handle the minimum of `T` and `Vector<T>` values. The methods `T.MinNumber()` and `Vector.Min()` used do not propagate `NaN` values.
-
-For reference, the `MinPropagateNaNOperator` is a specialized version of the `MinOperator<T>` operator. As its name suggests, it propagates `NaN` values. This operator, utilized with the `Apply()` method, is implemented as follows:
-
-```csharp
-readonly struct MinPropagateNaNOperator<T>
-    : IBinaryOperator<T, T, T>
-    where T : struct, INumber<T>, IMinMaxValue<T>
-{
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static T Invoke(T x, T y)
-        => T.Min(x, y);
-
-    [MethodImpl(MethodImplOptions.AggressiveInlining)]
-    public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
-        => typeof(T) == typeof(double) || typeof(T) == typeof(float) || typeof(T) == typeof(Half)
-            ? Vector.ConditionalSelect(Vector.Equals(x, x),
-                Vector.ConditionalSelect(Vector.Equals(y, y),
-                    Vector.ConditionalSelect(Vector.Equals(x, y),
-                        Vector.ConditionalSelect(Vector.LessThan(x, Vector<T>.Zero), x, y),
-                        Vector.Min(x, y)),
-                    y),
-                x)
-            : Vector.Min(x, y);
-```
-
-It uses the `Min()` method provided by the `INumber<T>` interface, which handles the propagation of `NaN` values. The `Invoke()` method for `Vector<T>` values is more complex, as it needs to explicitly handle the propagation of `NaN` values for floating-point types. The method `Vector.ConditionalSelect()` is an equivalent to an `if` statement when dealing with vectors.
-
-### AggregatePropagateNaN2
-
-The `AggregatePropagateNaN2()` method streamlines the execution of two distinct operations within a single iteration of the source, returning the results in a tuple.
-
-This method requires three generic parameters. The first specifies the type of elements within the source span, while the second and third parameters specify the operators to be applied.
-
-For example, let's consider the `MinMax()` method, which computes the minimum and maximum in a span simultaneously. This library provides the following operation:
+For instance, let's examine the `MinMax()` method, which calculates both the minimum and maximum values in a span simultaneously:
 
 ```csharp
 public static (T Min, T Max) MinMax<T>(ReadOnlySpan<T> source)
     where T : struct, INumber<T>, IMinMaxValue<T>
-    => Tensor.AggregatePropagateNaN2<T, MinOperator<T>, MaxOperator<T>>(source);
+    => Tensor.Aggregate2<T, MinNumberAggregationOperator<T>, MaxNumberAggregationOperator<T>>(source);
 ```
 
-The `MinOperator<T>` and `MaxOperator<T>` operators used are the ones previously described in the `Aggregate()` method.
+### AggregateNumber
+
+The `AggregateNumber` method functions akin to the `Aggregate()` method, but it omits propagating `NaN` values if encountered. This alternative implementation exhibits better performance and is suitable when `NaN` values are guaranteed not to occur in the source spans.
+
+For instance, let's examine the implementation of the `SumNumber()` aggregation operation:
+
+```csharp
+public static T SumNumber<T>(ReadOnlySpan<T> source)
+    where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
+    => Tensor.AggregateNumber<T, SumOperator<T>>(source);
+```
+
+This behaves similarly to `Sum()` but without propagating `NaN` values. This principle applies to all methods suffixed with `Number` in this library.
+
+Further variants of the `AggregateNumber()` method exist: `AggregateNumber2D()`, `AggregateNumber3D()`, and `AggregateNumber4D()`.
 
 ### IndexOfPredicate Method
 
-The `IndexOfPredicate()` method expands the capabilities by enabling retrieval of the index of the initial element in the span that adheres to a specified predicate operator.
+The `IndexOfPredicate()` method returns the index of the initial element in the span that adheres to a specified predicate operator.
 
 The predicate operator must adhere to one of the subsequent interfaces with `TResult` specified as a `bool`:
 

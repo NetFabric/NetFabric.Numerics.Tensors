@@ -32,7 +32,7 @@ public static partial class TensorOperations
     /// <returns>The index of the first element that is the maximum value of the source span.</returns>
     /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
     public static int IndexOfMax<T>(ReadOnlySpan<T> source)
-    where T : struct, INumber<T>, IMinMaxValue<T>
+        where T : struct, INumber<T>, IMinMaxValue<T>
         => Tensor.IndexOfAggregate<T, MaxAggregationOperator<T>>(source);
 
     /// <summary>

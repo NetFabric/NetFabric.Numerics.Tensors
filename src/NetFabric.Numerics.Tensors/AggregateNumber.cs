@@ -26,8 +26,8 @@ public static partial class Tensor
     /// <remarks>This methods does not propagate NaN.</remarks>
     public static T AggregateNumber<T, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T> source)
         where T : struct
-        where TAggregateOperator : struct, IAggregationOperator<T, T>
         where TTransformOperator : struct, IUnaryOperator<T, T>
+        where TAggregateOperator : struct, IAggregationOperator<T, T>
         => AggregateNumber<T, T, T, TTransformOperator, TAggregateOperator>(source);
 
     /// <summary>
