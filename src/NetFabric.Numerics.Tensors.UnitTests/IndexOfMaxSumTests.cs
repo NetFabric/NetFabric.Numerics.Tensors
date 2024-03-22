@@ -1,11 +1,11 @@
 ﻿namespace NetFabric.Numerics.Tensors.UnitTests;
 
-public class IndexOfMaxSumNumberTests
+public class IndexOfMaxSumTests
 {
     public static TheoryData<int> MaxData
         => new() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32, 33, 34, 35, 36, 37 };
 
-    static void IndexOfMaxSumNumber_Should_Succeed<T>(int count)
+    static void IndexOfMaxSum_Should_Succeed<T>(int count)
         where T : struct, INumber<T>, IMinMaxValue<T>
     {
         // arrange
@@ -29,7 +29,7 @@ public class IndexOfMaxSumNumberTests
         }
 
         // act
-        var result = TensorOperations.IndexOfMaxSumNumber<T>(left, right);
+        var result = TensorOperations.IndexOfMaxSum<T>(left, right);
 
         // assert
         Assert.Equal(expected, result);
@@ -37,32 +37,32 @@ public class IndexOfMaxSumNumberTests
 
     [Theory]
     [MemberData(nameof(MaxData))]
-    public void IndexOfMaxSumNumber_Short_Should_Succeed(int count)
-        => IndexOfMaxSumNumber_Should_Succeed<short>(count);
+    public void IndexOfMaxSum_Short_Should_Succeed(int count)
+        => IndexOfMaxSum_Should_Succeed<short>(count);
 
     [Theory]
     [MemberData(nameof(MaxData))]
-    public void IndexOfMaxSumNumber_Int_Should_Succeed(int count)
-        => IndexOfMaxSumNumber_Should_Succeed<int>(count);
+    public void IndexOfMaxSum_Int_Should_Succeed(int count)
+        => IndexOfMaxSum_Should_Succeed<int>(count);
 
     [Theory]
     [MemberData(nameof(MaxData))]
-    public void IndexOfMaxSumNumber_Long_Should_Succeed(int count)
-        => IndexOfMaxSumNumber_Should_Succeed<long>(count);
+    public void IndexOfMaxSum_Long_Should_Succeed(int count)
+        => IndexOfMaxSum_Should_Succeed<long>(count);
 
     [Theory]
     [MemberData(nameof(MaxData))]
-    public void IndexOfMaxSumNumber_Half_Should_Succeed(int count)
-        => IndexOfMaxSumNumber_Should_Succeed<Half>(count);
+    public void IndexOfMaxSum_Half_Should_Succeed(int count)
+        => IndexOfMaxSum_Should_Succeed<Half>(count);
 
     [Theory]
     [MemberData(nameof(MaxData))]
-    public void IndexOfMaxSumNumber_Float_Should_Succeed(int count)
-        => IndexOfMaxSumNumber_Should_Succeed<float>(count);
+    public void IndexOfMaxSum_Float_Should_Succeed(int count)
+        => IndexOfMaxSum_Should_Succeed<float>(count);
 
     [Theory]
     [MemberData(nameof(MaxData))]
-    public void IndexOfMaxSumNumber_Double_Should_Succeed(int count)
-        => IndexOfMaxSumNumber_Should_Succeed<float>(count);
+    public void IndexOfMaxSum_Double_Should_Succeed(int count)
+        => IndexOfMaxSum_Should_Succeed<float>(count);
 
 }

@@ -1,6 +1,4 @@
-﻿using System.Numerics.Tensors;
-
-namespace NetFabric.Numerics.Tensors.UnitTests;
+﻿namespace NetFabric.Numerics.Tensors.UnitTests;
 
 public class IndexOfMaxNumberTests
 {
