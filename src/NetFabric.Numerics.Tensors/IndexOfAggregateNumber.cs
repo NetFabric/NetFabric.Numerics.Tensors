@@ -9,11 +9,10 @@ public static partial class Tensor
     /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
     /// <param name="source">The span of elements to aggregate.</param>
     /// <returns>The result of the aggregation.</returns>
-    /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
-    public static int IndexOfAggregatePropagateNaN<T, TAggregateOperator>(ReadOnlySpan<T> source)
+    public static int IndexOfAggregateNumber<T, TAggregateOperator>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>
         where TAggregateOperator : struct, IAggregationOperator<T, T>
-        => IndexOfAggregatePropagateNaN<T, T, T, IdentityOperator<T>, TAggregateOperator>(source);
+        => IndexOfAggregateNumber<T, T, T, IdentityOperator<T>, TAggregateOperator>(source);
 
     /// <summary>
     /// Aggregates the elements of a <see cref="ReadOnlySpan{T1}"/> using the specified transform and aggregation operators.
@@ -25,11 +24,8 @@ public static partial class Tensor
     /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{TTransformed, TResult}"/> interface.</typeparam>
     /// <param name="source">The span of elements to transform and aggregate.</param>
     /// <returns>The result of the aggregation.</returns>
-    /// <remarks>
-    /// <para>The transform operator is applied to the source elements before the aggregation operator.</para>
-    /// <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</para>
-    /// </remarks>
-    public static int IndexOfAggregatePropagateNaN<TSource, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<TSource> source)
+    /// <remarks>The transform operator is applied to the source elements before the aggregation operator.</remarks>
+    public static int IndexOfAggregateNumber<TSource, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<TSource> source)
         where TSource : struct
         where TTransformed : struct
         where TResult : struct, INumberBase<TResult>
@@ -71,28 +67,15 @@ public static partial class Tensor
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
                     var currentVector = TAggregateOperator.Invoke(ref aggregateVector, ref transformedVector);
-                    if (Vector.EqualsAll(currentVector, currentVector)) // check if vector contains NaN
-                    {
-                        var equalsVector = Vector.Equals(currentVector, aggregateVector);
-                        aggregateVector = Vector.ConditionalSelect(equalsVector, aggregateVector, currentVector);
-                        aggregateIndicesVector = Vector.ConditionalSelect(equalsVector, aggregateIndicesVector, indicesVector);
+                    var equalsVector = Vector.Equals(currentVector, aggregateVector);
+                    aggregateVector = Vector.ConditionalSelect(equalsVector, aggregateVector, currentVector);
+                    aggregateIndicesVector = Vector.ConditionalSelect(equalsVector, aggregateIndicesVector, indicesVector);
 
-                        indicesVector += indicesIncrementVector;
-                    }
-                    else
-                    {
-                        for (var index = 0; index < Vector<TResult>.Count; index++)
-                        {
-                            var current = currentVector[index];
-                            if (TResult.IsNaN(current))
-                                return ((int)indexVector * Vector<TResult>.Count) + index;
-                        }
-                        Throw.Exception("Should not happen!");
-                    }
+                    indicesVector += indicesIncrementVector;
                 }
 
                 // aggregate the aggregate vector into the aggregate
-                for (var index = 0; index < Vector<TResult>.Count; index++)
+                for(var index = 0; index < Vector<TResult>.Count; index++)
                 {
                     var indexT = int.CreateChecked(aggregateIndicesVector[index]);
                     
@@ -117,9 +100,6 @@ public static partial class Tensor
         for (; indexSource < source.Length; indexSource++)
         {
             var currentAggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource)));
-            if (TResult.IsNaN(currentAggregate))
-                return (int)indexSource;
-
             if (!currentAggregate.Equals(aggregate))
             {
                 indexOfAggregate = (int)indexSource;
@@ -139,15 +119,12 @@ public static partial class Tensor
     /// <param name="x">The first span of elements to transform and aggregate.</param>
     /// <param name="y">The second span of elements to transform and aggregate.</param>
     /// <returns>The result of the aggregation.</returns>
-    /// <remarks>
-    /// <para>The transform operator is applied to the source elements before the aggregation operator.</para>
-    /// <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</para>
-    /// </remarks>
-    public static int IndexOfAggregatePropagateNaN<T, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
+    /// <remarks>The transform operator is applied to the source elements before the aggregation operator.</remarks>
+    public static int IndexOfAggregateNumber<T, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct, INumberBase<T>
         where TTransformOperator : struct, IBinaryOperator<T, T, T>
         where TAggregateOperator : struct, IAggregationOperator<T, T>
-        => IndexOfAggregatePropagateNaN<T, T, T, T, TTransformOperator, TAggregateOperator>(x, y);
+        => IndexOfAggregateNumber<T, T, T, T, TTransformOperator, TAggregateOperator>(x, y);
 
     /// <summary>
     /// Aggregates the elements of two <see cref="ReadOnlySpan{T}"/> using the specified transform and aggregation operators.
@@ -161,11 +138,8 @@ public static partial class Tensor
     /// <param name="x">The first span of elements to transform and aggregate.</param>
     /// <param name="y">The second span of elements to transform and aggregate.</param>
     /// <returns>The result of the aggregation.</returns>
-    /// <remarks>
-    /// <para>The transform operator is applied to the source elements before the aggregation operator.</para>
-    /// <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</para>
-    /// </remarks>
-    public static int IndexOfAggregatePropagateNaN<T1, T2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
+    /// <remarks>The transform operator is applied to the source elements before the aggregation operator.</remarks>
+    public static int IndexOfAggregateNumber<T1, T2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
         where T1 : struct
         where T2 : struct
         where TTransformed : struct
@@ -214,24 +188,11 @@ public static partial class Tensor
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
                     var currentVector = TAggregateOperator.Invoke(ref aggregateVector, ref transformedVector);
-                    if (Vector.EqualsAll(currentVector, currentVector)) // check if vector contains NaN
-                    {
-                        var equalsVector = Vector.Equals(currentVector, aggregateVector);
-                        aggregateVector = Vector.ConditionalSelect(equalsVector, aggregateVector, currentVector);
-                        aggregateIndicesVector = Vector.ConditionalSelect(equalsVector, aggregateIndicesVector, indicesVector);
+                    var equalsVector = Vector.Equals(currentVector, aggregateVector);
+                    aggregateVector = Vector.ConditionalSelect(equalsVector, aggregateVector, currentVector);
+                    aggregateIndicesVector = Vector.ConditionalSelect(equalsVector, aggregateIndicesVector, indicesVector);
 
-                        indicesVector += indicesIncrementVector;
-                    }
-                    else
-                    {
-                        for (var index = 0; index < Vector<TResult>.Count; index++)
-                        {
-                            var current = currentVector[index];
-                            if (TResult.IsNaN(current))
-                                return ((int)indexVector * Vector<TResult>.Count) + index;
-                        }
-                        Throw.Exception("Should not happen!");
-                    }
+                    indicesVector += indicesIncrementVector;
                 }
 
                 // aggregate the aggregate vector into the aggregate
@@ -262,9 +223,6 @@ public static partial class Tensor
         for (; indexSource < x.Length; indexSource++)
         {
             var currentAggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource)));
-            if (TResult.IsNaN(currentAggregate))
-                return (int)indexSource;
-
             if (!currentAggregate.Equals(aggregate))
             {
                 indexOfAggregate = (int)indexSource;

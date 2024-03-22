@@ -11,5 +11,5 @@ public static partial class TensorOperations
     /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
     public static (T MinMagnitude, T MaxMagnitude) MinMaxMagnitude<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.AggregatePropagateNaN2<T, MinMagnitudeNumberAggregationOperator<T>, MaxMagnitudeNumberAggregationOperator<T>>(source);
+        => Tensor.Aggregate2<T, MinMagnitudeNumberAggregationOperator<T>, MaxMagnitudeNumberAggregationOperator<T>>(source);
 }

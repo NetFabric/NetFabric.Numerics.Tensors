@@ -11,7 +11,7 @@ public static partial class TensorOperations
     /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
     public static T Max<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.AggregatePropagateNaN<T, MaxAggregationOperator<T>>(source);
+        => Tensor.Aggregate<T, MaxAggregationOperator<T>>(source);
 
     /// <summary>
     /// Gets the maximum value of a <see cref="ReadOnlySpan{T}"/>.
@@ -22,7 +22,7 @@ public static partial class TensorOperations
     /// <remarks>This methods does not propagate NaN.</remarks>
     public static T MaxNumber<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.Aggregate<T, MaxNumberAggregationOperator<T>>(source);
+        => Tensor.AggregateNumber<T, MaxNumberAggregationOperator<T>>(source);
 
     /// <summary>
     /// Gets the index of the first element that is the maximum value of a <see cref="ReadOnlySpan{T}"/>.
@@ -33,7 +33,7 @@ public static partial class TensorOperations
     /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
     public static int IndexOfMax<T>(ReadOnlySpan<T> source)
     where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.IndexOfAggregatePropagateNaN<T, MaxAggregationOperator<T>>(source);
+        => Tensor.IndexOfAggregate<T, MaxAggregationOperator<T>>(source);
 
     /// <summary>
     /// Gets the index of the first element that is the maximum value of a <see cref="ReadOnlySpan{T}"/>.
@@ -44,7 +44,7 @@ public static partial class TensorOperations
     /// <remarks>This methods does not propagate NaN.</remarks>
     public static int IndexOfMaxNumber<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.IndexOfAggregate<T, MaxNumberAggregationOperator<T>>(source);
+        => Tensor.IndexOfAggregateNumber<T, MaxNumberAggregationOperator<T>>(source);
 
     public static void Max<T>(ReadOnlySpan<T> left, T right, Span<T> destination)
         where T : struct, INumber<T>, IMinMaxValue<T> 

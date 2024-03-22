@@ -11,7 +11,7 @@ public static partial class TensorOperations
     /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
     public static T Min<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.AggregatePropagateNaN<T, MinNumberAggregationOperator<T>>(source);
+        => Tensor.Aggregate<T, MinNumberAggregationOperator<T>>(source);
 
     /// <summary>
     /// Gets the minimum value of a <see cref="ReadOnlySpan{T}"/>.
@@ -22,7 +22,7 @@ public static partial class TensorOperations
     /// <remarks>This methods does not propagate NaN.</remarks>
     public static T MinNumber<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.Aggregate<T, MinNumberAggregationOperator<T>>(source);
+        => Tensor.AggregateNumber<T, MinNumberAggregationOperator<T>>(source);
 
     /// <summary>
     /// Gets the index of the first element that is the minimum value of a <see cref="ReadOnlySpan{T}"/>.
@@ -33,7 +33,7 @@ public static partial class TensorOperations
     /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
     public static int IndexOfMin<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.IndexOfAggregatePropagateNaN<T, MinAggregationOperator<T>>(source);
+        => Tensor.IndexOfAggregate<T, MinAggregationOperator<T>>(source);
 
     /// <summary>
     /// Gets the index of the first element that is the minimum value of a <see cref="ReadOnlySpan{T}"/>.
@@ -44,7 +44,7 @@ public static partial class TensorOperations
     /// <remarks>This methods does not propagate NaN.</remarks>
     public static int IndexOfMinNumber<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.IndexOfAggregate<T, MinNumberAggregationOperator<T>>(source);
+        => Tensor.IndexOfAggregateNumber<T, MinNumberAggregationOperator<T>>(source);
 
     public static void Min<T>(ReadOnlySpan<T> left, T right, Span<T> destination)
         where T : struct, INumber<T>, IMinMaxValue<T> 

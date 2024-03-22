@@ -8,13 +8,13 @@ public static partial class TensorOperations
 
     public static T MaxSumNumber<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.Aggregate<T, SumOperator<T>, MaxNumberAggregationOperator<T>>(left, right);
+        => Tensor.AggregateNumber<T, SumOperator<T>, MaxNumberAggregationOperator<T>>(left, right);
 
     public static int IndexOfMaxSum<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.IndexOfAggregatePropagateNaN<T, SumOperator<T>, MaxNumberAggregationOperator<T>>(left, right);
+        => Tensor.IndexOfAggregate<T, SumOperator<T>, MaxNumberAggregationOperator<T>>(left, right);
 
     public static int IndexOfMaxSumNumber<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.IndexOfAggregate<T, SumOperator<T>, MaxNumberAggregationOperator<T>>(left, right);
+        => Tensor.IndexOfAggregateNumber<T, SumOperator<T>, MaxNumberAggregationOperator<T>>(left, right);
 }

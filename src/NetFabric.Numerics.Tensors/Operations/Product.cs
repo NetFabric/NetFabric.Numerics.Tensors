@@ -6,72 +6,72 @@ public static partial class TensorOperations
         where T : struct, IMultiplicativeIdentity<T, T>, IMultiplyOperators<T, T, T>
         => source.IsEmpty 
             ? null
-            : Tensor.Aggregate<T, ProductOperator<T>>(source);
+            : Tensor.AggregateNumber<T, ProductOperator<T>>(source);
 
     public static (T, T)? Product2D<T>(ReadOnlySpan<T> source)
         where T : struct, IMultiplicativeIdentity<T, T>, IMultiplyOperators<T, T, T>
         => source.IsEmpty 
             ? null
-            : Tensor.Aggregate2D<T, ProductOperator<T>>(source);
+            : Tensor.AggregateNumber2D<T, ProductOperator<T>>(source);
 
     public static (T, T, T)? Product3D<T>(ReadOnlySpan<T> source)
         where T : struct, IMultiplicativeIdentity<T, T>, IMultiplyOperators<T, T, T>
         => source.IsEmpty 
             ? null
-            : Tensor.Aggregate3D<T, ProductOperator<T>>(source);
+            : Tensor.AggregateNumber3D<T, ProductOperator<T>>(source);
 
     public static (T, T, T, T)? Product4D<T>(ReadOnlySpan<T> source)
         where T : struct, IMultiplicativeIdentity<T, T>, IMultiplyOperators<T, T, T>
         => source.IsEmpty 
             ? null
-            : Tensor.Aggregate4D<T, ProductOperator<T>>(source);
+            : Tensor.AggregateNumber4D<T, ProductOperator<T>>(source);
 
     public static T? ProductOfAdditions<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct, IMultiplicativeIdentity<T, T>, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => x.IsEmpty 
             ? null
-            : Tensor.Aggregate<T, AddOperator<T>, ProductOperator<T>>(x, y);
+            : Tensor.AggregateNumber<T, AddOperator<T>, ProductOperator<T>>(x, y);
 
     public static (T, T)? ProductOfAdditions2D<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct, IMultiplicativeIdentity<T, T>, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => x.IsEmpty 
             ? null
-            : Tensor.Aggregate2D<T, AddOperator<T>, ProductOperator<T>>(x, y);
+            : Tensor.AggregateNumber2D<T, AddOperator<T>, ProductOperator<T>>(x, y);
 
     public static (T, T, T)? ProductOfAdditions3D<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct, IMultiplicativeIdentity<T, T>, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => x.IsEmpty 
             ? null
-            : Tensor.Aggregate3D<T, AddOperator<T>, ProductOperator<T>>(x, y);
+            : Tensor.AggregateNumber3D<T, AddOperator<T>, ProductOperator<T>>(x, y);
 
     public static (T, T, T, T)? ProductOfAdditions4D<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct, IMultiplicativeIdentity<T, T>, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => x.IsEmpty 
             ? null
-            : Tensor.Aggregate4D<T, AddOperator<T>, ProductOperator<T>>(x, y);
+            : Tensor.AggregateNumber4D<T, AddOperator<T>, ProductOperator<T>>(x, y);
 
     public static T? ProductOfSubtractions<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct, IMultiplicativeIdentity<T, T>, ISubtractionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => x.IsEmpty 
             ? null
-            : Tensor.Aggregate<T, SubtractOperator<T>, ProductOperator<T>>(x, y);
+            : Tensor.AggregateNumber<T, SubtractOperator<T>, ProductOperator<T>>(x, y);
 
     public static (T, T)? ProductOfSubtractions2D<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct, IMultiplicativeIdentity<T, T>, ISubtractionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => x.IsEmpty 
             ? null
-            : Tensor.Aggregate2D<T, SubtractOperator<T>, ProductOperator<T>>(x, y);
+            : Tensor.AggregateNumber2D<T, SubtractOperator<T>, ProductOperator<T>>(x, y);
 
     public static (T, T, T)? ProductOfSubtractions3D<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct, IMultiplicativeIdentity<T, T>, ISubtractionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => x.IsEmpty 
             ? null
-            : Tensor.Aggregate3D<T, SubtractOperator<T>, ProductOperator<T>>(x, y);
+            : Tensor.AggregateNumber3D<T, SubtractOperator<T>, ProductOperator<T>>(x, y);
 
     public static (T, T, T, T)? ProductOfSubtractions4D<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct, IMultiplicativeIdentity<T, T>, ISubtractionOperators<T, T, T>, IMultiplyOperators<T, T, T>
         => x.IsEmpty 
             ? null
-            : Tensor.Aggregate4D<T, SubtractOperator<T>, ProductOperator<T>>(x, y);
+            : Tensor.AggregateNumber4D<T, SubtractOperator<T>, ProductOperator<T>>(x, y);
 
 }
