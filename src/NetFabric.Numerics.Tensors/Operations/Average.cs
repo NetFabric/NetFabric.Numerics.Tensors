@@ -8,6 +8,12 @@ public static partial class TensorOperations
             ? Throw.InvalidOperationException<T>()
             : Sum(source) / T.CreateChecked(source.Length);
 
+    public static T AverageNumber<T>(ReadOnlySpan<T> source)
+        where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
+        => source.Length is 0
+            ? Throw.InvalidOperationException<T>()
+            : SumNumber(source) / T.CreateChecked(source.Length);
+
     public static (T, T) Average2D<T>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>, IDivisionOperators<T, T, T>
     {
