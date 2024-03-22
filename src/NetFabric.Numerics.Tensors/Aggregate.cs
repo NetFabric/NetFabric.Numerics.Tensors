@@ -9,11 +9,26 @@ public static partial class Tensor
     /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
     /// <param name="source">The span of elements to aggregate.</param>
     /// <returns>The result of the aggregation.</returns>
-    /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
+    /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if the transformation and aggregation of any of the elements result in NaN.</remarks>
     public static T Aggregate<T, TAggregateOperator>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>
         where TAggregateOperator : struct, IAggregationOperator<T, T>
-        => Aggregate<T, T, T, IdentityOperator<T>, TAggregateOperator>(source);
+        => Aggregate<T, IdentityOperator<T>, TAggregateOperator>(source);
+
+    /// <summary>
+    /// Aggregates the elements of a <see cref="ReadOnlySpan{T}"/> using the specified aggregation operator.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source span.</typeparam>
+    /// <typeparam name="TTransformOperator">The type of the transform operator that must implement the <see cref="IUnaryOperator{TSource, TTransformed}"/> interface.</typeparam>
+    /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
+    /// <param name="source">The span of elements to aggregate.</param>
+    /// <returns>The result of the aggregation.</returns>
+    /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if the transformation and aggregation of any of the elements result in NaN.</remarks>
+    public static T Aggregate<T, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T> source)
+        where T : struct, INumberBase<T>
+        where TTransformOperator : struct, IUnaryOperator<T, T>
+        where TAggregateOperator : struct, IAggregationOperator<T, T>
+        => Aggregate<T, T, T, TTransformOperator, TAggregateOperator>(source);
 
     /// <summary>
     /// Aggregates the elements of a <see cref="ReadOnlySpan{T1}"/> using the specified transform and aggregation operators.
@@ -27,7 +42,7 @@ public static partial class Tensor
     /// <returns>The result of the aggregation.</returns>
     /// <remarks>
     ///     <para>The transform operator is applied to the source elements before the aggregation operator.</para>
-    ///     <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</para>
+    ///     <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if the transformation and aggregation of any of the elements result in NaN.</para>
     /// </remarks>
     public static TResult Aggregate<TSource, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<TSource> source)
         where TSource : struct
@@ -132,7 +147,7 @@ public static partial class Tensor
     /// <returns>The result of the aggregation.</returns>
     /// <remarks>
     ///     <para>The transform operator is applied to the source elements before the aggregation operator.</para>
-    ///     <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</para>
+    ///     <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if the transformation and aggregation of any of the elements result in NaN.</para>
     /// </remarks>
     public static TResult Aggregate<T1, T2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
         where T1 : struct

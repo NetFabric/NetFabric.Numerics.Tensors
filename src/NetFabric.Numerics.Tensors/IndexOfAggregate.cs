@@ -9,7 +9,7 @@ public static partial class Tensor
     /// <typeparam name="TAggregateOperator">The type of the aggregation operator that must implement the <see cref="IAggregationOperator{T, T}"/> interface.</typeparam>
     /// <param name="source">The span of elements to aggregate.</param>
     /// <returns>The result of the aggregation.</returns>
-    /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns the index of the first NaN element if found.</remarks>
+    /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns the index of the first element to which the transformation and aggregation results in NaN.</remarks>
     public static int IndexOfAggregate<T, TAggregateOperator>(ReadOnlySpan<T> source)
         where T : struct, INumberBase<T>
         where TAggregateOperator : struct, IAggregationOperator<T, T>
@@ -27,7 +27,7 @@ public static partial class Tensor
     /// <returns>The result of the aggregation.</returns>
     /// <remarks>
     /// <para>The transform operator is applied to the source elements before the aggregation operator.</para>
-    /// <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns the index of the first NaN element if found.</para>
+    /// <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns the index of the first element to which the transformation and aggregation results in NaN.</para>
     /// </remarks>
     public static int IndexOfAggregate<TSource, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<TSource> source)
         where TSource : struct
@@ -141,7 +141,7 @@ public static partial class Tensor
     /// <returns>The result of the aggregation.</returns>
     /// <remarks>
     /// <para>The transform operator is applied to the source elements before the aggregation operator.</para>
-    /// <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns the index of the first NaN element if found.</para>
+    /// <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns the index of the first element to which the transformation and aggregation results in NaN.</para>
     /// </remarks>
     public static int IndexOfAggregate<T, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct, INumberBase<T>
@@ -163,7 +163,7 @@ public static partial class Tensor
     /// <returns>The result of the aggregation.</returns>
     /// <remarks>
     /// <para>The transform operator is applied to the source elements before the aggregation operator.</para>
-    /// <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns the index of the first NaN element if found.</para>
+    /// <para>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns the index of the first element to which the transformation and aggregation results in NaN.</para>
     /// </remarks>
     public static int IndexOfAggregate<T1, T2, TTransformed, TResult, TTransformOperator, TAggregateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
         where T1 : struct

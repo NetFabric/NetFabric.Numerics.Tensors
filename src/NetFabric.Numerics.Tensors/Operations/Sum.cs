@@ -3,6 +3,10 @@ namespace NetFabric.Numerics.Tensors;
 public static partial class TensorOperations
 {
     public static T Sum<T>(ReadOnlySpan<T> source)
+        where T : struct, INumberBase<T>
+        => Tensor.Aggregate<T, SumOperator<T>>(source);
+
+    public static T SumNumber<T>(ReadOnlySpan<T> source)
         where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
         => Tensor.AggregateNumber<T, SumOperator<T>>(source);
 
@@ -17,8 +21,4 @@ public static partial class TensorOperations
     public static (T, T, T, T) Sum4D<T>(ReadOnlySpan<T> source)
         where T : struct, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
         => Tensor.AggregateNumber4D<T, SumOperator<T>>(source);
-
-    public static T SumOfSquares<T>(ReadOnlySpan<T> source)
-        where T : struct, IMultiplyOperators<T, T, T>, IAdditionOperators<T, T, T>, IAdditiveIdentity<T, T>
-        => Tensor.AggregateNumber<T, T, T, SquareOperator<T>, SumOperator<T>>(source);
 }

@@ -1,7 +1,36 @@
-﻿namespace NetFabric.Numerics.Tensors.UnitTests;
+﻿using System.Numerics.Tensors;
+
+namespace NetFabric.Numerics.Tensors.UnitTests;
 
 public class SumTests
 {
+    public static TheoryData<float[]> SumNaNData
+        => new() {
+            new[] { float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN, float.NaN },
+            new[] { float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f, 1.0f },
+            new[] { 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, 1.0f, float.NaN, 1.0f, 1.0f, 1.0f },
+        };
+
+    [Theory]
+    [MemberData(nameof(SumNaNData))]
+    public static void Sum_With_NaN_Should_Return_NaN(float[] source)
+    {
+        // arrange
+        var expected = TensorPrimitives.Sum(source);
+
+        // act
+        var result = TensorOperations.Sum<float>(source);
+
+        // assert
+        Assert.Equal(expected, result);
+    }
+
     public static TheoryData<int> SumData
         => new() { 
             { 0 }, { 1 }, { 2 }, { 3 }, { 4 }, { 5 }, { 6 }, { 7 }, { 8 }, { 9 }, { 10 }, { 100 },
