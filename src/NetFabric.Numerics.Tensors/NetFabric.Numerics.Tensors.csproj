@@ -8,18 +8,21 @@
       This library, based on .NET generic math, provides methods for performing mathematical operations over spans of value types. 
       These operations can be accelerated using SIMD operations supported by the CPU where available.
     </Description>
-    <Version>3.1.0</Version>
+    <Version>4.0.0</Version>
     <PackageIcon>Icon.png</PackageIcon>
     <PackageLicenseFile>LICENSE</PackageLicenseFile>
     <PackageReadmeFile>README.md</PackageReadmeFile>
-    <PackageTags>math, performance, intrinsics, simd, span</PackageTags>
+    <PackageTags>math, tensor, performance, intrinsics, simd, span</PackageTags>
     <PackageProjectUrl>https://netfabric.github.io/NetFabric.Numerics.Tensors/</PackageProjectUrl>
     <PackageReleaseNotes>
-- Improved performance of Aggregate2D, Aggregate3D, and Aggregate4D.
-- Made the operators public.
-- Added interfaces IUnaryToScalarOperator, IBinaryToScalarOperator, and ITernaryToScalarOperator.
-- Added IndexOfPredicate method.
-- Added operations: IndexOfEquals, IndexOfGreaterThan, IndexOfGreaterThanOrEqual, IndexOfLessThan, and IndexOfLessThanOrEqual.
+BREAKING CHANGES:
+
+- The method AggregatePropagateNaN has been renamed to only Aggregate. The previous Aggregate has been renamed to AggregateNumber. All methods and operators that don't propagate NaN have the suffix Number.
+
+UPDATES AND ADDITIONS:
+
+- Added IndexOfAggregate method.
+- Added operations: IndexOfMax, IndexOfMaxMagnitude, IndexOfMin, IndexOfMinMagnitude, IndexOfMaxNumber, IndexOfMaxMagnitudeNumber, IndexOfMinNumber, IndexOfMinMagnitudeNumber, SumNumber.
     </PackageReleaseNotes>
     <RootNamespace>NetFabric.Numerics.Tensors</RootNamespace>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>
