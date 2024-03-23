@@ -57,7 +57,7 @@ public static partial class Tensor
         // initialize aggregate
         var aggregate = TAggregateOperator.Seed;
         var indexOfAggregate = -1;
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // aggregate using hardware acceleration if available
         if (TTransformOperator.IsVectorizable &&
@@ -81,7 +81,7 @@ public static partial class Tensor
 
                 // aggregate the source vectors into the aggregate vector
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
-                var indexVector = nint.Zero;
+                var indexVector = 0;
                 for (; indexVector < sourceVectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
@@ -98,9 +98,8 @@ public static partial class Tensor
                     {
                         for (var index = 0; index < Vector<TResult>.Count; index++)
                         {
-                            var current = currentVector[index];
-                            if (TResult.IsNaN(current))
-                                return ((int)indexVector * Vector<TResult>.Count) + index;
+                            if (TResult.IsNaN(currentVector[index]))
+                                return (indexVector * Vector<TResult>.Count) + index;
                         }
                         Throw.Exception("Should not happen!");
                     }
@@ -109,17 +108,17 @@ public static partial class Tensor
                 // aggregate the aggregate vector into the aggregate
                 for (var index = 0; index < Vector<TResult>.Count; index++)
                 {
-                    var indexT = int.CreateChecked(aggregateIndicesVector[index]);
-                    
-                    if(aggregate.Equals(aggregateVector[index]) && indexOfAggregate > indexT)
+                    var current = aggregateVector[index];
+                    var currentIndex = int.CreateChecked(aggregateIndicesVector[index]);
+                    if (!TAggregateOperator.Invoke(aggregate, current).Equals(aggregate))
                     {
-                        indexOfAggregate = indexT;
-                    } 
-                    else if (!TAggregateOperator.Invoke(aggregate, aggregateVector[index]).Equals(aggregate))
-                    {
-                        aggregate = aggregateVector[index];
-                        indexOfAggregate = indexT;
+                        aggregate = current;
+                        indexOfAggregate = currentIndex;
                     }
+                    else if(aggregate.Equals(current) && indexOfAggregate > currentIndex)
+                    {
+                        indexOfAggregate = currentIndex;
+                    } 
                 }
 
                 // skip the source elements already aggregated
@@ -133,12 +132,12 @@ public static partial class Tensor
         {
             var currentAggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource)));
             if (TResult.IsNaN(currentAggregate))
-                return (int)indexSource;
+                return indexSource;
 
-            if (!currentAggregate.Equals(aggregate))
+            if (!aggregate.Equals(currentAggregate))
             {
-                indexOfAggregate = (int)indexSource;
                 aggregate = currentAggregate;
+                indexOfAggregate = indexSource;
             }
         }
 
@@ -197,7 +196,7 @@ public static partial class Tensor
         // initialize aggregate
         var aggregate = TAggregateOperator.Seed;
         var indexOfAggregate = -1;
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // aggregate using hardware acceleration if available
         if (TTransformOperator.IsVectorizable &&
@@ -224,7 +223,7 @@ public static partial class Tensor
                 // aggregate the source vectors into the aggregate vector
                 ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
                 ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
-                var indexVector = nint.Zero;
+                var indexVector = 0;
                 for (; indexVector < xVectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
@@ -241,9 +240,8 @@ public static partial class Tensor
                     {
                         for (var index = 0; index < Vector<TResult>.Count; index++)
                         {
-                            var current = currentVector[index];
-                            if (TResult.IsNaN(current))
-                                return ((int)indexVector * Vector<TResult>.Count) + index;
+                            if (TResult.IsNaN(currentVector[index]))
+                                return (indexVector * Vector<TResult>.Count) + index;
                         }
                         Throw.Exception("Should not happen!");
                     }
@@ -252,17 +250,17 @@ public static partial class Tensor
                 // aggregate the aggregate vector into the aggregate
                 for (var index = 0; index < Vector<TResult>.Count; index++)
                 {
-                    var indexT = int.CreateChecked(aggregateIndicesVector[index]);
-
-                    if (aggregate.Equals(aggregateVector[index]) && indexOfAggregate > indexT)
+                    var current = aggregateVector[index];
+                    var currentIndex = int.CreateChecked(aggregateIndicesVector[index]);
+                    if (!TAggregateOperator.Invoke(aggregate, current).Equals(aggregate))
                     {
-                        indexOfAggregate = indexT;
+                        aggregate = current;
+                        indexOfAggregate = currentIndex;
                     }
-                    else if (!TAggregateOperator.Invoke(aggregate, aggregateVector[index]).Equals(aggregate))
+                    else if(aggregate.Equals(current) && indexOfAggregate > currentIndex)
                     {
-                        aggregate = aggregateVector[index];
-                        indexOfAggregate = indexT;
-                    }
+                        indexOfAggregate = currentIndex;
+                    } 
                 }
 
                 // skip the source elements already aggregated
@@ -278,12 +276,12 @@ public static partial class Tensor
         {
             var currentAggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource)));
             if (TResult.IsNaN(currentAggregate))
-                return (int)indexSource;
+                return indexSource;
 
-            if (!currentAggregate.Equals(aggregate))
+            if (!aggregate.Equals(currentAggregate))
             {
-                indexOfAggregate = (int)indexSource;
                 aggregate = currentAggregate;
+                indexOfAggregate = indexSource;
             }
         }
 
