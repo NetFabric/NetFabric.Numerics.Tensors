@@ -22,6 +22,14 @@ public readonly struct MaxAggregationOperator<T>
                     y),
                 x)
             : Vector.Max(x, y);
+        
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Invoke(T x, ref readonly Vector<T> y)
+    {
+        for (var index = 0; index < Vector<T>.Count; index++)
+            x = T.MaxNumber(x, y[index]);
+        return x;
+    }
 }
 
 public readonly struct MaxNumberAggregationOperator<T>
@@ -38,6 +46,14 @@ public readonly struct MaxNumberAggregationOperator<T>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
         => Vector.Max(x, y);
+        
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Invoke(T x, ref readonly Vector<T> y)
+    {
+        for (var index = 0; index < Vector<T>.Count; index++)
+            x = T.MaxNumber(x, y[index]);
+        return x;
+    }
 }
 
 public readonly struct MaxOperator<T>

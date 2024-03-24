@@ -85,6 +85,19 @@ public static class Baseline
     }
 
     public static T Sum<T>(ReadOnlySpan<T> source)
+        where T : struct, INumber<T>, IAdditionOperators<T, T, T>
+    {
+        var sum = T.AdditiveIdentity;
+        foreach (var item in source)
+        {
+            if (T.IsNaN(item))
+                return item;
+            sum += item;
+        }
+        return sum;
+    }
+
+    public static T SumNumber<T>(ReadOnlySpan<T> source)
         where T : struct, IAdditiveIdentity<T, T>, IAdditionOperators<T, T, T>
     {
         var sum = T.AdditiveIdentity;
@@ -123,7 +136,18 @@ public static class Baseline
             if (T.IsNaN(item))
                 return item;
 
-            if (item < min)
+            min = T.Min(min, item); 
+        }
+        return min;
+    }
+
+    public static T MinNumber<T>(ReadOnlySpan<T> source)
+        where T : struct, IComparisonOperators<T, T, bool>, IMinMaxValue<T>
+    {
+        var min = T.MaxValue;
+        foreach (var item in source)
+        {
+            if(min > item)
                 min = item; 
         }
         return min;
@@ -140,7 +164,25 @@ public static class Baseline
             if (T.IsNaN(item))
                 return index;
 
-            if (item < min)
+            var value = T.Min(min, item); 
+            if (value.Equals(item))
+            {
+                min = item;
+                minIndex = index;
+            }
+        }
+        return minIndex;
+    }
+
+    public static int IndexOfMinNumber<T>(ReadOnlySpan<T> source)
+        where T : struct, IComparisonOperators<T, T, bool>, IMinMaxValue<T>
+    {
+        var min = T.MaxValue;
+        var minIndex = -1;
+        for (var index = 0; index < source.Length; index++)
+        {
+            var item = source[index];
+            if (min > item)
             {
                 min = item;
                 minIndex = index;
@@ -159,12 +201,21 @@ public static class Baseline
             if (T.IsNaN(item))
                 return (item, item);
 
-            if (item < min)
-                min = item; 
-
-            if (item > max)
-                max = item;     
+            min = T.Min(min, item);
+            max = T.Max(max, item);
         }
         return (min, max);
     }
+
+    public static int IndexOfGreaterThan<T>(ReadOnlySpan<T> source, T value)
+        where T : struct, INumber<T>, IMinMaxValue<T>
+    {
+        for (var index = 0; index < source.Length; index++)
+        {
+            if (source[index] > value)
+                return index;
+        }
+        return -1;
+    }
+
 }

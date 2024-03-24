@@ -13,7 +13,7 @@ public static partial class TensorOperations
     /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
     public static T MaxMagnitude<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.Aggregate<T, MaxMagnitudeNumberAggregationOperator<T>>(source);
+        => Tensor.Aggregate<T, MaxMagnitudeAggregationOperator<T>>(source);
 
     /// <summary>
     /// Gets the maximum magnitude value of a <see cref="ReadOnlySpan{T}"/>.
@@ -35,7 +35,7 @@ public static partial class TensorOperations
     /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
     public static int IndexOfMaxMagnitude<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.IndexOfAggregate<T, MaxMagnitudeNumberAggregationOperator<T>>(source);
+        => Tensor.IndexOfAggregate<T, MaxMagnitudeAggregationOperator<T>>(source);
 
     /// <summary>
     /// Gets the index of the first element that is the maximum magnitude value of a <see cref="ReadOnlySpan{T}"/>.

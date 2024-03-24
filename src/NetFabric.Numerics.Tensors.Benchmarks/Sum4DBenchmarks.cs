@@ -16,7 +16,7 @@ public class Sum4DBenchmarks
     MyVector4<float>[]? arrayFloat;
     MyVector4<double>[]? arrayDouble;
 
-    [Params(5, 100)]
+    [Params(100)]
     public int Count { get; set; }
 
     [GlobalSetup]
@@ -44,7 +44,7 @@ public class Sum4DBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark(Baseline = true)]
     public MyVector4<short> Baseline_Short()
-        => Baseline.Sum<MyVector4<short>>(arrayShort!);
+        => Baseline.SumNumber<MyVector4<short>>(arrayShort!);
 
     [BenchmarkCategory("Short")]
     [Benchmark]
@@ -57,7 +57,7 @@ public class Sum4DBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
     public MyVector4<int> Baseline_Int()
-        => Baseline.Sum<MyVector4<int>>(arrayInt!);
+        => Baseline.SumNumber<MyVector4<int>>(arrayInt!);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
@@ -70,7 +70,7 @@ public class Sum4DBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
     public MyVector4<long> Baseline_Long()
-        => Baseline.Sum<MyVector4<long>>(arrayLong!);
+        => Baseline.SumNumber<MyVector4<long>>(arrayLong!);
 
     [BenchmarkCategory("Long")]
     [Benchmark]
@@ -83,7 +83,7 @@ public class Sum4DBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
     public MyVector4<Half> Baseline_Half()
-        => Baseline.Sum<MyVector4<Half>>(arrayHalf!);
+        => Baseline.SumNumber<MyVector4<Half>>(arrayHalf!);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
@@ -96,7 +96,7 @@ public class Sum4DBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
     public MyVector4<float> Baseline_Float()
-        => Baseline.Sum<MyVector4<float>>(arrayFloat!);
+        => Baseline.SumNumber<MyVector4<float>>(arrayFloat!);
 
     [BenchmarkCategory("Float")]
     [Benchmark]
@@ -109,7 +109,7 @@ public class Sum4DBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
     public MyVector4<double> Baseline_Double()
-        => Baseline.Sum<MyVector4<double>>(arrayDouble!);
+        => Baseline.SumNumber<MyVector4<double>>(arrayDouble!);
     
     [BenchmarkCategory("Double")]
     [Benchmark]

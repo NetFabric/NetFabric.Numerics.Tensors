@@ -22,6 +22,14 @@ public readonly struct MinAggregationOperator<T>
                     y),
                 x)
             : Vector.Min(x, y);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Invoke(T x, ref readonly Vector<T> y)
+    {
+        for (var index = 0; index < Vector<T>.Count; index++)
+            x = T.MinNumber(x, y[index]);
+        return x;
+    }
 }
 
 public readonly struct MinNumberAggregationOperator<T>
@@ -38,6 +46,14 @@ public readonly struct MinNumberAggregationOperator<T>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
         => Vector.Min(x, y);
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Invoke(T x, ref readonly Vector<T> y)
+    {
+        for (var index = 0; index < Vector<T>.Count; index++)
+            x = T.MinNumber(x, y[index]);
+        return x;
+    }
 }
 
 public readonly struct MinOperator<T>

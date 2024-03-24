@@ -6,40 +6,56 @@ public static partial class Tensor
         where T : struct
         where TPredicateOperator : struct, IBinaryToScalarOperator<T, T, bool>
     {
-        var indexSource = nint.Zero;
+        return (Vector.IsHardwareAccelerated && 
+            Vector<T>.IsSupported && 
+            TPredicateOperator.IsVectorizable)
+                ? VectorOperation(x, y)
+                : ScalarOperation(x, y);
 
-        if (TPredicateOperator.IsVectorizable && 
-            Vector.IsHardwareAccelerated && 
-            Vector<T>.IsSupported)
+        static int ScalarOperation(ReadOnlySpan<T> x, T y)
         {
-            var vectors = MemoryMarshal.Cast<T, Vector<T>>(x);
-            ref var vectorsRef = ref MemoryMarshal.GetReference(vectors);
-            var yVector = new Vector<T>(y);
-
-            var indexVector = nint.Zero;
-            for (; indexVector < vectors.Length; indexVector++)
+            for (var index = 0; index < x.Length; index++)
             {
-                ref var currentVector = ref Unsafe.Add(ref vectorsRef, indexVector);
-                if (TPredicateOperator.Invoke(ref currentVector, ref yVector))
+                if (TPredicateOperator.Invoke(x[index], y))
+                    return index;
+            }
+            return -1;
+        }
+
+        static int VectorOperation(ReadOnlySpan<T> x, T y)
+        {
+            var indexSource = 0;
+            var vectors = MemoryMarshal.Cast<T, Vector<T>>(x);
+            if (vectors.Length > 0)
+            {
+                ref var vectorsRef = ref MemoryMarshal.GetReference(vectors);
+                var yVector = new Vector<T>(y);
+
+                var indexVector = 0;
+                for (; indexVector < vectors.Length; indexVector++)
                 {
-                    for (var indexElement = 0; indexElement < Vector<T>.Count; indexElement++)
+                    ref var currentVector = ref Unsafe.Add(ref vectorsRef, indexVector);
+                    if (TPredicateOperator.Invoke(ref currentVector, ref yVector))
                     {
-                        if (TPredicateOperator.Invoke(currentVector[indexElement], y))
-                            return ((int)indexVector * Vector<T>.Count) + indexElement;
+                        for (var indexElement = 0; indexElement < Vector<T>.Count; indexElement++)
+                        {
+                            if (TPredicateOperator.Invoke(currentVector[indexElement], y))
+                                return (indexVector * Vector<T>.Count) + indexElement;
+                        }
                     }
                 }
+
+                indexSource = indexVector * Vector<T>.Count;
             }
 
-            indexSource = indexVector * Vector<T>.Count;
-        }
+            ref var xRef = ref MemoryMarshal.GetReference(x);
+            for (; indexSource < x.Length; indexSource++)
+            {
+                if (TPredicateOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y))
+                    return indexSource;
+            }
 
-        ref var xRef = ref MemoryMarshal.GetReference(x);
-        for (; indexSource < x.Length; indexSource++)
-        {
-            if (TPredicateOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y))
-                return (int)indexSource;
+            return -1;
         }
-
-        return -1;
-    }
+    } 
 }

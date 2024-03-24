@@ -39,7 +39,7 @@ public static partial class Tensor
         var aggregateY = TAggregateOperator.Seed;
         var aggregateZ = TAggregateOperator.Seed;
         var aggregateW = TAggregateOperator.Seed;
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // aggregate using hardware acceleration if available
         if (TTransformOperator.IsVectorizable &&
@@ -56,7 +56,7 @@ public static partial class Tensor
             if (sourceVectors.Length > 1)
             {
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
-                var indexVector = nint.Zero;
+                var indexVector = 0;
                 if (Vector<T1>.Count % 4 is 0)
                 {
                     // use one aggregator vector
@@ -102,7 +102,7 @@ public static partial class Tensor
 
                     // aggregate the aggregate vector into the aggregate
                     ref var resultValuesRef = ref MemoryMarshal.GetReference(resultValues);
-                    for (var index = nint.Zero; index + 3 < Vector<TResult>.Count * 4; index += 4)
+                    for (var index = 0; index + 3 < Vector<TResult>.Count * 4; index += 4)
                     {
                         aggregateX = TAggregateOperator.Invoke(aggregateX, Unsafe.Add(ref resultValuesRef, index));
                         aggregateY = TAggregateOperator.Invoke(aggregateY, Unsafe.Add(ref resultValuesRef, index + 1));
@@ -176,7 +176,7 @@ public static partial class Tensor
         var aggregateY = TAggregateOperator.Seed;
         var aggregateZ = TAggregateOperator.Seed;
         var aggregateW = TAggregateOperator.Seed;
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // aggregate using hardware acceleration if available
         if (TTransformOperator.IsVectorizable &&
@@ -196,7 +196,7 @@ public static partial class Tensor
             {
                 ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
                 ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
-                var indexVector = nint.Zero;
+                var indexVector = 0;
                 if (Vector<T1>.Count % 4 is 0)
                 {
                     // initialize aggregate vector
@@ -223,7 +223,7 @@ public static partial class Tensor
                     // use two aggregator vectors
 
                     // initialize aggregate vectors
-                    var values = new TResult[Vector<TResult>.Count * 2];
+                    var values = GC.AllocateUninitializedArray<TResult>(Vector<TResult>.Count * 2);
                     Array.Fill(values, TAggregateOperator.Seed);
                     var resultValues = values.AsSpan();
                     var resultVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(resultValues);
@@ -240,7 +240,7 @@ public static partial class Tensor
 
                     // aggregate the aggregate vector into the aggregate
                     ref var resultValuesRef = ref MemoryMarshal.GetReference(resultValues);
-                    for (var index = nint.Zero; index + 3 < resultValues.Length; index += 4)
+                    for (var index = 0; index + 3 < resultValues.Length; index += 4)
                     {
                         aggregateX = TAggregateOperator.Invoke(aggregateX, Unsafe.Add(ref resultValuesRef, index));
                         aggregateY = TAggregateOperator.Invoke(aggregateY, Unsafe.Add(ref resultValuesRef, index + 1));

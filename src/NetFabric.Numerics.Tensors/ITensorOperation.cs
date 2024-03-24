@@ -149,6 +149,15 @@ public interface IAggregationOperator<T, TResult>
     /// <param name="y">The second value.</param>
     /// <returns>The result of using the operation.</returns>
     static abstract TResult Invoke(TResult x, TResult y);
+
+    /// <summary>
+    /// Performs the binary operation using the specified values.
+    /// </summary>
+    /// <param name="x">The first value.</param>
+    /// <param name="y">A vector of values</param>
+    /// <returns>The result of using the operation.</returns>
+    /// <remarks>It's guaranteed that none of the parameters will contain NaN.</remarks>
+    static abstract TResult Invoke(TResult x, ref readonly Vector<TResult> y);
 }
 
 /// <summary>

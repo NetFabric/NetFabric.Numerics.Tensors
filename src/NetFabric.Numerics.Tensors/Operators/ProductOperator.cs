@@ -14,4 +14,12 @@ public readonly struct ProductOperator<T>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
         => x * y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Invoke(T x, ref readonly Vector<T> y)
+    {
+        for (var index = 0; index < Vector<T>.Count; index++)
+            x *= y[index];
+        return x;
+    }
 }

@@ -14,4 +14,8 @@ public readonly struct SumOperator<T>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
         => x + y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Invoke(T x, ref readonly Vector<T> y)
+        => x + Vector.Sum(y);
 }

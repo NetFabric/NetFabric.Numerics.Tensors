@@ -16,7 +16,7 @@ public class NegateBenchmarks
     float[]? sourceFloat, resultFloat;
     double[]? sourceDouble, resultDouble;
 
-    [Params(5, 100)]
+    [Params(100)]
     public int Count { get; set; }
 
     [GlobalSetup]

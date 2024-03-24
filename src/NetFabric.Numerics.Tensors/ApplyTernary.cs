@@ -54,7 +54,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
 
         // Initialize the index to 0.
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -77,7 +77,7 @@ public static partial class Tensor
             ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
             ref var zVectorsRef = ref MemoryMarshal.GetReference(zVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            var indexVector = nint.Zero;
+            var indexVector = 0;
             for (; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
@@ -103,7 +103,7 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, indexSource + 3) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 3), Unsafe.Add(ref yRef, indexSource + 3), Unsafe.Add(ref zRef, indexSource + 3));
         }
 
-        switch(x.Length - (int)indexSource)
+        switch(x.Length - indexSource)
         {
             case 3:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), Unsafe.Add(ref zRef, indexSource));
@@ -175,7 +175,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
 
         // Initialize the index to 0.
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -197,7 +197,7 @@ public static partial class Tensor
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var zVectorsRef = ref MemoryMarshal.GetReference(zVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            var indexVector = nint.Zero;
+            var indexVector = 0;
             for (; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
@@ -222,7 +222,7 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, indexSource + 3) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 3), y, Unsafe.Add(ref zRef, indexSource + 3));
         }
 
-        switch(x.Length - (int)indexSource)
+        switch(x.Length - indexSource)
         {
             case 3:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y, Unsafe.Add(ref zRef, indexSource));
@@ -296,7 +296,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
 
         // Initialize the index to 0.
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -320,7 +320,7 @@ public static partial class Tensor
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var zVectorsRef = ref MemoryMarshal.GetReference(zVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            var indexVector = nint.Zero;
+            var indexVector = 0;
             for (; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
@@ -345,7 +345,7 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, indexSource + 3) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 3), y.Item2, Unsafe.Add(ref zRef, indexSource + 3));
         }
 
-        switch (x.Length - (int)indexSource)
+        switch (x.Length - indexSource)
         {
             case 2:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y.Item1, Unsafe.Add(ref zRef, indexSource));
@@ -413,7 +413,7 @@ public static partial class Tensor
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var zRef = ref MemoryMarshal.GetReference(z);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (var index = nint.Zero; index < x.Length; index += 3)
+        for (var index = 0; index < x.Length; index += 3)
         {
             Unsafe.Add(ref destinationRef, index) = TOperator.Invoke(Unsafe.Add(ref xRef, index), y.Item1, Unsafe.Add(ref zRef, index));
             Unsafe.Add(ref destinationRef, index + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, index + 1), y.Item2, Unsafe.Add(ref zRef, index + 1));
@@ -471,7 +471,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
 
         // Initialize the index to 0.
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -493,7 +493,7 @@ public static partial class Tensor
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            var indexVector = nint.Zero;
+            var indexVector = 0;
             for (; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
@@ -518,7 +518,7 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, indexSource + 3) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 3), Unsafe.Add(ref yRef, indexSource + 3), z);
         }
 
-        switch(x.Length - (int)indexSource)
+        switch(x.Length - indexSource)
         {
             case 3:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), z);
@@ -592,7 +592,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
 
         // Initialize the index to 0.
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -616,7 +616,7 @@ public static partial class Tensor
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            var indexVector = nint.Zero;
+            var indexVector = 0;
             for (; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
@@ -641,7 +641,7 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, indexSource + 3) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 3), Unsafe.Add(ref yRef, indexSource + 3), z.Item2);
         }
 
-        switch (x.Length - (int)indexSource)
+        switch (x.Length - indexSource)
         {
             case 2:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), z.Item1);
@@ -709,7 +709,7 @@ public static partial class Tensor
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var yRef = ref MemoryMarshal.GetReference(y);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        var indexSource = nint.Zero;
+        var indexSource = 0;
         for (; indexSource < x.Length; indexSource += 3)
         {
             Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), z.Item1);
@@ -717,7 +717,7 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, indexSource + 2) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), Unsafe.Add(ref yRef, indexSource + 2), z.Item3);
         }
 
-        switch (x.Length - (int)indexSource)
+        switch (x.Length - indexSource)
         {
             case 0:
                 break;
@@ -773,7 +773,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
 
         // Initialize the index to 0.
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -794,7 +794,7 @@ public static partial class Tensor
             // Iterate through the vectors.
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            var indexVector = nint.Zero;
+            var indexVector = 0;
             for (; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
@@ -818,7 +818,7 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, indexSource + 3) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 3), y, z);
         }
 
-        switch(x.Length - (int)indexSource)
+        switch(x.Length - indexSource)
         {
             case 3:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y, z);
@@ -887,7 +887,7 @@ public static partial class Tensor
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
 
         // Initialize the index to 0.
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
         // and if the length of the x is greater than the Vector<T>.Count.
@@ -910,7 +910,7 @@ public static partial class Tensor
             // Iterate through the vectors.
             ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            var indexVector = nint.Zero;
+            var indexVector = 0;
             for (; indexVector < xVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(
@@ -934,7 +934,7 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, indexSource + 3) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 3), y.Item2, z.Item2);
         }
 
-        switch (x.Length - (int)indexSource)
+        switch (x.Length - indexSource)
         {
             case 2:
                 Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y.Item1, z.Item1);
@@ -997,7 +997,7 @@ public static partial class Tensor
 
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        var indexSource = nint.Zero;
+        var indexSource = 0;
         for (; indexSource < x.Length; indexSource += 3)
         {
             Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y.Item1, z.Item1);
@@ -1005,7 +1005,7 @@ public static partial class Tensor
             Unsafe.Add(ref destinationRef, indexSource + 2) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), y.Item3, z.Item3);
         }
 
-        switch (x.Length - (int)indexSource)
+        switch (x.Length - indexSource)
         {
             case 0:
                 break;

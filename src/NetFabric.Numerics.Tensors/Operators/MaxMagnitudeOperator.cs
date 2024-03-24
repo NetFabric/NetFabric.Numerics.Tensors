@@ -28,6 +28,15 @@ public readonly struct MaxMagnitudeAggregationOperator<T>
                 Vector.ConditionalSelect(Vector.LessThan(x, Vector<T>.Zero), y, x),
                 Vector.ConditionalSelect(Vector.GreaterThan(xMag, yMag), x, y));
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Invoke(T x, ref readonly Vector<T> y)
+    {
+        var result = x;
+        for (var index = 0; index < Vector<T>.Count; index++)
+            result = T.MaxMagnitudeNumber(result, y[index]);
+        return result;
+    }
 }
 
 public readonly struct MaxMagnitudeNumberAggregationOperator<T>
@@ -50,6 +59,15 @@ public readonly struct MaxMagnitudeNumberAggregationOperator<T>
             Vector.ConditionalSelect(Vector.Equals(xMag, yMag),
                 Vector.ConditionalSelect(Vector.LessThan(x, Vector<T>.Zero), y, x),
                 Vector.ConditionalSelect(Vector.GreaterThan(xMag, yMag), x, y));
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Invoke(T x, ref readonly Vector<T> y)
+    {
+        var result = x;
+        for (var index = 0; index < Vector<T>.Count; index++)
+            result = T.MaxMagnitudeNumber(result, y[index]);
+        return result;
     }
 }
 

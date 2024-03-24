@@ -28,6 +28,14 @@ public readonly struct MinMagnitudeAggregationOperator<T>
                 Vector.ConditionalSelect(Vector.LessThan(y, Vector<T>.Zero), y, x),
                 Vector.ConditionalSelect(Vector.LessThan(yMag, xMag), y, x));
     }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Invoke(T x, ref readonly Vector<T> y)
+    {
+        for (var index = 0; index < Vector<T>.Count; index++)
+            x = T.MinMagnitudeNumber(x, y[index]);
+        return x;
+    }
 }
 
 public readonly struct MinMagnitudeNumberAggregationOperator<T>
@@ -50,6 +58,14 @@ public readonly struct MinMagnitudeNumberAggregationOperator<T>
             Vector.ConditionalSelect(Vector.Equals(yMag, xMag),
                 Vector.ConditionalSelect(Vector.LessThan(y, Vector<T>.Zero), y, x),
                 Vector.ConditionalSelect(Vector.LessThan(yMag, xMag), y, x));
+    }
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Invoke(T x, ref readonly Vector<T> y)
+    {
+        for (var index = 0; index < Vector<T>.Count; index++)
+            x = T.MinMagnitudeNumber(x, y[index]);
+        return x;
     }
 }
 
@@ -81,7 +97,7 @@ public readonly struct MinMagnitudeOperator<T>
 }
 
 public readonly struct MinMagnitudeNumberOperator<T>
-    : IAggregationOperator<T, T>
+    : IBinaryOperator<T, T, T>
     where T : struct, INumberBase<T>
 {
     [MethodImpl(MethodImplOptions.AggressiveInlining)]

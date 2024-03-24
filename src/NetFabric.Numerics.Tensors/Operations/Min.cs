@@ -11,7 +11,7 @@ public static partial class TensorOperations
     /// <remarks>This methods follows the IEEE 754 standard for floating-point arithmetic, it returns NaN if any of the elements is NaN.</remarks>
     public static T Min<T>(ReadOnlySpan<T> source)
         where T : struct, INumber<T>, IMinMaxValue<T>
-        => Tensor.Aggregate<T, MinNumberAggregationOperator<T>>(source);
+        => Tensor.Aggregate<T, MinAggregationOperator<T>>(source);
 
     /// <summary>
     /// Gets the minimum value of a <see cref="ReadOnlySpan{T}"/>.

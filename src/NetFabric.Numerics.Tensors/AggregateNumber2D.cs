@@ -38,7 +38,7 @@ public static partial class Tensor
         // initialize aggregate
         var aggregateX = TAggregateOperator.Seed;
         var aggregateY = TAggregateOperator.Seed;
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // aggregate using hardware acceleration if available
         if (TTransformOperator.IsVectorizable &&
@@ -59,7 +59,7 @@ public static partial class Tensor
 
                 // aggregate the source vectors into the aggregate vector
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
-                var indexVector = nint.Zero;
+                var indexVector = 0;
                 for (; indexVector < sourceVectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
@@ -95,7 +95,7 @@ public static partial class Tensor
             aggregateX = TAggregateOperator.Invoke(aggregateX, partialX1);
             aggregateY = TAggregateOperator.Invoke(aggregateY, partialY1);
 
-            remaining = source.Length - (int)indexSource;
+            remaining = source.Length - indexSource;
         }
 
         switch(remaining)
@@ -159,7 +159,7 @@ public static partial class Tensor
         // initialize aggregate
         var aggregateX = TAggregateOperator.Seed;
         var aggregateY = TAggregateOperator.Seed;
-        var indexSource = nint.Zero;
+        var indexSource = 0;
 
         // aggregate using hardware acceleration if available
         if (TTransformOperator.IsVectorizable &&
@@ -184,7 +184,7 @@ public static partial class Tensor
                 // aggregate the source vectors into the aggregate vector
                 ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
                 ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
-                var indexVector = nint.Zero;
+                var indexVector = 0;
                 for (; indexVector < xVectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
@@ -206,7 +206,7 @@ public static partial class Tensor
         // aggregate the remaining elements in the source
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var yRef = ref MemoryMarshal.GetReference(y);
-        var remaining = x.Length - (int)indexSource;
+        var remaining = x.Length - indexSource;
         if (remaining >= 4)
         {
             var partialX1 = TAggregateOperator.Seed;
@@ -221,7 +221,7 @@ public static partial class Tensor
             aggregateX = TAggregateOperator.Invoke(aggregateX, partialX1);
             aggregateY = TAggregateOperator.Invoke(aggregateY, partialY1);
 
-            remaining = x.Length - (int)indexSource;
+            remaining = x.Length - indexSource;
         }
 
         switch(remaining)

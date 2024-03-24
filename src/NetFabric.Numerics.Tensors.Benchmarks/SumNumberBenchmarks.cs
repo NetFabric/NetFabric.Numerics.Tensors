@@ -1,6 +1,5 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
-using BenchmarkDotNet.Diagnosers;
 using System.Numerics.Tensors;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
@@ -8,7 +7,7 @@ namespace NetFabric.Numerics.Tensors.Benchmarks;
 [Config(typeof(VectorizationConfig))]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
-public class MinAggregateBenchmarks
+public class SumNumberBenchmarks
 {
     short[]? arrayShort;
     int[]? arrayInt;
@@ -33,103 +32,72 @@ public class MinAggregateBenchmarks
         var random = new Random(42);
         for(var index = 0; index < Count; index++)
         {
-            var value = random.Next(100) - 50;
-            arrayShort[index] = (short)value;
-            arrayInt[index] = value;
-            arrayLong[index] = value;
-            arrayHalf[index] = (Half)value;
-            arrayFloat[index] = value;
-            arrayDouble[index] = value;
+            arrayShort[index] = (short)random.Next(10);
+            arrayInt[index] = random.Next(10);
+            arrayLong[index] = random.Next(10);
+            arrayHalf[index] = (Half)random.Next(10);
+            arrayFloat[index] = random.Next(10);
+            arrayDouble[index] = random.Next(10);
         }
     }
 
     [BenchmarkCategory("Short")]
     [Benchmark(Baseline = true)]
     public short Baseline_Short()
-        => Baseline.Min<short>(arrayShort!);
-
-    [BenchmarkCategory("Short")]
-    [Benchmark]
-    public short System_Short()
-        => TensorPrimitives.Min<short>(arrayShort!);
+        => Baseline.SumNumber<short>(arrayShort!);
 
     [BenchmarkCategory("Short")]
     [Benchmark]
     public short NetFabric_Short()
-        => TensorOperations.Min<short>(arrayShort!);
+        => TensorOperations.SumNumber<short>(arrayShort!);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
     public int Baseline_Int()
-        => Baseline.Min<int>(arrayInt!);
-
-    [BenchmarkCategory("Int")]
-    [Benchmark]
-    public int System_Int()
-        => TensorPrimitives.Min<int>(arrayInt!);
+        => Baseline.SumNumber<int>(arrayInt!);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
     public int NetFabric_Int()
-        => TensorOperations.Min<int>(arrayInt!);
+        => TensorOperations.SumNumber<int>(arrayInt!);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
     public long Baseline_Long()
-        => Baseline.Min<long>(arrayLong!);
-
-    [BenchmarkCategory("Long")]
-    [Benchmark]
-    public long System_Long()
-        => TensorPrimitives.Min<long>(arrayLong!);
+        => Baseline.SumNumber<long>(arrayLong!);
 
     [BenchmarkCategory("Long")]
     [Benchmark]
     public long NetFabric_Long()
-        => TensorOperations.Min<long>(arrayLong!);
+        => TensorOperations.SumNumber<long>(arrayLong!);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
     public Half Baseline_Half()
-        => Baseline.Min<Half>(arrayHalf!);
-
-    [BenchmarkCategory("Half")]
-    [Benchmark]
-    public Half System_Half()
-        => TensorPrimitives.Min<Half>(arrayHalf!);
+        => Baseline.SumNumber<Half>(arrayHalf!);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
     public Half NetFabric_Half()
-        => TensorOperations.Min<Half>(arrayHalf!);
+        => TensorOperations.SumNumber<Half>(arrayHalf!);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
     public float Baseline_Float()
-        => Baseline.Min<float>(arrayFloat!);
-
-    [BenchmarkCategory("Float")]
-    [Benchmark]
-    public float System_Float()
-        => TensorPrimitives.Min(arrayFloat!);
+        => Baseline.SumNumber<float>(arrayFloat!);
 
     [BenchmarkCategory("Float")]
     [Benchmark]
     public float NetFabric_Float()
-        => TensorOperations.Min<float>(arrayFloat!);
+        => TensorOperations.SumNumber<float>(arrayFloat!);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
     public double Baseline_Double()
-        => Baseline.Min<double>(arrayDouble!);
-
-    [BenchmarkCategory("Double")]
-    [Benchmark]
-    public double System_Double()
-        => TensorPrimitives.Min<double>(arrayDouble!);
+        => Baseline.SumNumber<double>(arrayDouble!);
 
     [BenchmarkCategory("Double")]
     [Benchmark]
     public double NetFabric_Double()
-        => TensorOperations.Min<double>(arrayDouble!);
+        => TensorOperations.SumNumber<double>(arrayDouble!);
 }

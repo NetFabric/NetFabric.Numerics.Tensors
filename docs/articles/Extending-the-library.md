@@ -253,10 +253,12 @@ public interface IAggregationOperator<T, TResult>
         => Throw.NotSupportedException<TResult>();
 
     static abstract TResult Invoke(TResult x, TResult y);
+
+    static abstract TResult Invoke(TResult x, ref readonly Vector<TResult> y);
 }
 ```
 
-Each operator must provide a property returning the seed value, initializing the aggregation process. Additionally, operators must implement the required `Invoke` methods by the `IBinaryOperator<T1, T2, TResult>` interface, along with an extra `Invoke` method that aggregates the final result.
+Each operator must provide a property returning the seed value, initializing the aggregation process. Additionally, operators must implement the required `Invoke` methods by the `IBinaryOperator<T1, T2, TResult>` interface, along with two extra `Invoke` methods that aggregates the final result. On the last `Invoke` it's guaranteed that the parameters will not contain `NaN`.
 
 For example, consider an operation calculating the sum of all elements in the source. It employs the following aggregation operator:
 
@@ -275,10 +277,14 @@ readonly struct SumOperator<T>
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
         => x + y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static T Invoke(T x, ref readonly Vector<T> y)
+        => x + Vector.Sum(y);
 }
 ```
 
-This operator adheres to the `IAggregationOperator<T, T>` interface. The generic type `T` is constrained to `struct`, `IAdditiveIdentity<T, T>`, and `IAdditionOperators<T, T, T>`, indicating that only value types with both the additive identity and the `+` operator implemented are suitable. The `Seed` initializes the sum using the additive identity. The `Invoke()` methods straightforwardly perform the addition operation for either a single `T` value or a `Vector<T>` of values.
+This operator adheres to the `IAggregationOperator<T, T>` interface. The generic type `T` is constrained to `struct`, `IAdditiveIdentity<T, T>`, and `IAdditionOperators<T, T, T>`, indicating that only value types with both the additive identity and the `+` operator implemented are suitable. The `Seed` initializes the sum using the additive identity. The two first `Invoke()` methods straightforwardly perform the addition operation for either a single `T` value or a `Vector<T>` of values. The last `Invoke`, sums the aggregated value to the sum of the elements in the aggregated vector.
 
 The `Sum()` operation can be utilized as follows:
 

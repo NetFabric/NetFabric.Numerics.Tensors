@@ -16,7 +16,7 @@ public class SumBenchmarks
     float[]? arrayFloat;
     double[]? arrayDouble;
 
-    [Params(5, 100)]
+    [Params(100)]
     public int Count { get; set; }
 
     [GlobalSetup]

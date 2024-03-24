@@ -16,7 +16,7 @@ public class AddMultiplyBenchmarks
     float[]? sourceFloat, otherFloat, anotherFloat, resultFloat;
     double[]? sourceDouble, otherDouble, anotherDouble, resultDouble;
 
-    [Params(5, 100)]
+    [Params(100)]
     public int Count { get; set; }
 
     [GlobalSetup]

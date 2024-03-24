@@ -51,18 +51,32 @@ public static partial class Tensor
         where TTransformOperator : struct, IUnaryOperator<TSource, TTransformed>
         where TAggregateOperator : struct, IAggregationOperator<TTransformed, TResult>
     {
-        // initialize aggregate
-        var aggregate = TAggregateOperator.Seed;
-        var indexSource = 0;
+        return (TTransformOperator.IsVectorizable &&
+                TAggregateOperator.IsVectorizable &&
+                Vector.IsHardwareAccelerated &&
+                Vector<TSource>.IsSupported &&
+                Vector<TTransformed>.IsSupported &&
+                Vector<TResult>.IsSupported)
+            ? VectorAggregate(source)
+            : ScalarAggregate(source);
 
-        // aggregate using hardware acceleration if available
-        if (TTransformOperator.IsVectorizable &&
-            TAggregateOperator.IsVectorizable &&
-            Vector.IsHardwareAccelerated &&
-            Vector<TSource>.IsSupported &&
-            Vector<TTransformed>.IsSupported &&
-            Vector<TResult>.IsSupported)
+        static TResult ScalarAggregate(ReadOnlySpan<TSource> source)
         {
+            var aggregate = TAggregateOperator.Seed;
+            foreach (var item in source)
+            {
+                aggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(item));
+                if (TResult.IsNaN(aggregate))
+                    return aggregate;
+            }
+            return aggregate;
+        }
+
+        static TResult VectorAggregate(ReadOnlySpan<TSource> source)
+        {
+            var aggregate = TAggregateOperator.Seed;
+            var indexSource = 0;
+
             // convert source span to vector span without copies
             var sourceVectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(source);
 
@@ -92,26 +106,23 @@ public static partial class Tensor
                 }
 
                 // aggregate the aggregate vector into the aggregate
-                for (var index = 0; index < Vector<TResult>.Count; index++)
-                {
-                    aggregate = TAggregateOperator.Invoke(aggregate, aggregateVector[index]);
-                }
+                aggregate = TAggregateOperator.Invoke(aggregate, ref aggregateVector);
 
                 // skip the source elements already aggregated
                 indexSource = indexVector * Vector<TResult>.Count;
             }
-        }
 
-        // aggregate the remaining elements in the source
-        ref var sourceRef = ref MemoryMarshal.GetReference(source);
-        for (; indexSource < source.Length; indexSource++)
-        {
-            aggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource)));
-            if (TResult.IsNaN(aggregate))
-                return aggregate;
-        }
+            // aggregate the remaining elements in the source
+            ref var sourceRef = ref MemoryMarshal.GetReference(source);
+            for (; indexSource < source.Length; indexSource++)
+            {
+                aggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource)));
+                if (TResult.IsNaN(aggregate))
+                    return aggregate;
+            }
 
-        return aggregate;
+            return aggregate;
+        }
     }
 
     /// <summary>
@@ -157,22 +168,33 @@ public static partial class Tensor
         where TTransformOperator : struct, IBinaryOperator<T1, T2, TTransformed>
         where TAggregateOperator : struct, IAggregationOperator<TTransformed, TResult>
     {
-        if (x.Length != y.Length)
-            Throw.ArgumentException(nameof(y), "source spans must have the same size.");
+        return (TTransformOperator.IsVectorizable &&
+                TAggregateOperator.IsVectorizable &&
+                Vector.IsHardwareAccelerated &&
+                Vector<T1>.IsSupported &&
+                Vector<T2>.IsSupported &&
+                Vector<TTransformed>.IsSupported &&
+                Vector<TResult>.IsSupported)
+            ? VectorAggregate(x, y)
+            : ScalarAggregate(x, y);
 
-        // initialize aggregate
-        var aggregate = TAggregateOperator.Seed;
-        var indexSource = 0;
-
-        // aggregate using hardware acceleration if available
-        if (TTransformOperator.IsVectorizable &&
-            TAggregateOperator.IsVectorizable &&
-            Vector.IsHardwareAccelerated &&
-            Vector<T1>.IsSupported &&
-            Vector<T2>.IsSupported &&
-            Vector<TTransformed>.IsSupported &&
-            Vector<TResult>.IsSupported)
+        static TResult ScalarAggregate(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
         {
+            var aggregate = TAggregateOperator.Seed;
+            for (var index = 0; index < x.Length && index < y.Length; index++)
+            {
+                aggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(x[index], y[index]));
+                if (TResult.IsNaN(aggregate))
+                    return aggregate;
+            }
+            return aggregate;
+        }
+
+        static TResult VectorAggregate(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
+        {
+            var aggregate = TAggregateOperator.Seed;
+            var indexSource = 0;
+
             // convert source span to vector span without copies
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
             var yVectors = MemoryMarshal.Cast<T2, Vector<T2>>(y);
@@ -204,27 +226,24 @@ public static partial class Tensor
                 }
 
                 // aggregate the aggregate vector into the aggregate
-                for (var index = 0; index < Vector<TResult>.Count; index++)
-                {
-                    aggregate = TAggregateOperator.Invoke(aggregate, aggregateVector[index]);
-                }
+                aggregate = TAggregateOperator.Invoke(aggregate, ref aggregateVector);
 
                 // skip the source elements already aggregated
                 indexSource = indexVector * Vector<TResult>.Count;
             }
-        }
 
-        // aggregate the remaining elements in the source
-        ref var xRef = ref MemoryMarshal.GetReference(x);
-        ref var yRef = ref MemoryMarshal.GetReference(y);
-        for (; indexSource < x.Length; indexSource++)
-        {
-            aggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource)));
-            if (TResult.IsNaN(aggregate))
-                return aggregate;
-        }
+            // aggregate the remaining elements in the source
+            ref var xRef = ref MemoryMarshal.GetReference(x);
+            ref var yRef = ref MemoryMarshal.GetReference(y);
+            for (; indexSource < x.Length; indexSource++)
+            {
+                aggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource)));
+                if (TResult.IsNaN(aggregate))
+                    return aggregate;
+            }
 
-        return aggregate;
+            return aggregate;
+        }
     }
 
     /// <summary>
@@ -244,17 +263,34 @@ public static partial class Tensor
         where TAggregateOperator1 : struct, IAggregationOperator<T, T>
         where TAggregateOperator2 : struct, IAggregationOperator<T, T>
     {
-        // initialize aggregate
-        var aggregate1 = TAggregateOperator1.Seed;
-        var aggregate2 = TAggregateOperator2.Seed;
-        var indexSource = 0;
+        return (TAggregateOperator1.IsVectorizable &&
+                TAggregateOperator2.IsVectorizable &&
+                Vector.IsHardwareAccelerated &&
+                Vector<T>.IsSupported)
+            ? VectorAggregate(source)
+            : ScalarAggregate(source);
 
-        // aggregate using hardware acceleration if available
-        if (TAggregateOperator1.IsVectorizable &&
-            TAggregateOperator2.IsVectorizable &&
-            Vector.IsHardwareAccelerated &&
-            Vector<T>.IsSupported)
+        static (T, T) ScalarAggregate(ReadOnlySpan<T> source)
         {
+            var aggregate1 = TAggregateOperator1.Seed;
+            var aggregate2 = TAggregateOperator2.Seed;
+            foreach (var item in source)
+            {
+                if (T.IsNaN(item))
+                    return (item, item);
+
+                aggregate1 = TAggregateOperator1.Invoke(aggregate1, item);
+                aggregate2 = TAggregateOperator2.Invoke(aggregate2, item);
+            }
+            return (aggregate1, aggregate2);
+        }
+
+        static (T, T) VectorAggregate(ReadOnlySpan<T> source)
+        {
+            var aggregate1 = TAggregateOperator1.Seed;
+            var aggregate2 = TAggregateOperator2.Seed;
+            var indexSource = 0;
+
             // convert source span to vector span without copies
             var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(source);
 
@@ -298,21 +334,21 @@ public static partial class Tensor
                 // skip the source elements already aggregated
                 indexSource = indexVector * Vector<T>.Count;
             }
+
+            // aggregate the remaining elements in the source
+            ref var sourceRef = ref MemoryMarshal.GetReference(source);
+            for (; indexSource < source.Length; indexSource++)
+            {
+                var current = Unsafe.Add(ref sourceRef, indexSource);
+                if (T.IsNaN(current))
+                    return (current, current);
+
+                aggregate1 = TAggregateOperator1.Invoke(aggregate1, current);
+                aggregate2 = TAggregateOperator2.Invoke(aggregate2, current);
+            }
+
+            return (aggregate1, aggregate2);
         }
-
-        // aggregate the remaining elements in the source
-        ref var sourceRef = ref MemoryMarshal.GetReference(source);
-        for (; indexSource < source.Length; indexSource++)
-        {
-            var current = Unsafe.Add(ref sourceRef, indexSource);
-            if (T.IsNaN(current))
-                return (current, current);
-
-            aggregate1 = TAggregateOperator1.Invoke(aggregate1, current);
-            aggregate2 = TAggregateOperator2.Invoke(aggregate2, current);
-        }
-
-        return (aggregate1, aggregate2);
     }
 
 }
