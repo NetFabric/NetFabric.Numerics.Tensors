@@ -168,6 +168,9 @@ public static partial class Tensor
         where TTransformOperator : struct, IBinaryOperator<T1, T2, TTransformed>
         where TAggregateOperator : struct, IAggregationOperator<TTransformed, TResult>
     {
+        if (x.Length != y.Length)
+            Throw.ArgumentException(nameof(y), "source spans must have the same size.");
+            
         return (TTransformOperator.IsVectorizable &&
                 TAggregateOperator.IsVectorizable &&
                 Vector.IsHardwareAccelerated &&

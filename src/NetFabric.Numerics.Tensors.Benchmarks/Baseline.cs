@@ -207,7 +207,18 @@ public static class Baseline
         return (min, max);
     }
 
-    public static int IndexOfGreaterThan<T>(ReadOnlySpan<T> source, T value)
+    public static T? FirstGreaterThan<T>(ReadOnlySpan<T> source, T value)
+        where T : struct, INumber<T>, IMinMaxValue<T>
+    {
+        for (var index = 0; index < source.Length; index++)
+        {
+            if (source[index] > value)
+                return source[index];
+        }
+        return null;
+    }
+
+    public static int IndexOfFirstGreaterThan<T>(ReadOnlySpan<T> source, T value)
         where T : struct, INumber<T>, IMinMaxValue<T>
     {
         for (var index = 0; index < source.Length; index++)

@@ -1,13 +1,12 @@
 ﻿using BenchmarkDotNet.Attributes;
 using BenchmarkDotNet.Configs;
-using System.Numerics.Tensors;
 
 namespace NetFabric.Numerics.Tensors.Benchmarks;
 
 [Config(typeof(VectorizationConfig))]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
-public class IndexOfGreaterThanBenchmarks
+public class IndexOfFirstGreaterThanBenchmarks
 {
     short[]? arrayShort;
     int[]? arrayInt;
@@ -32,7 +31,7 @@ public class IndexOfGreaterThanBenchmarks
         var random = new Random(42);
         for(var index = 0; index < Count; index++)
         {
-            var value = random.Next(100) - 50;
+            var value = -random.Next(100);
             arrayShort[index] = (short)value;
             arrayInt[index] = value;
             arrayLong[index] = value;
@@ -40,95 +39,71 @@ public class IndexOfGreaterThanBenchmarks
             arrayFloat[index] = value;
             arrayDouble[index] = value;
         }
+        arrayShort[Count - 1] = 1;
+        arrayInt[Count - 1] = 1;
+        arrayLong[Count - 1] = 1L;
+        arrayHalf[Count - 1] = (Half)1.0;
+        arrayFloat[Count - 1] = 1.0f;
+        arrayDouble[Count - 1] = 1.0;
     }
 
     [BenchmarkCategory("Short")]
     [Benchmark(Baseline = true)]
     public int Baseline_Short()
-        => Baseline.IndexOfGreaterThan<short>(arrayShort!, 0);
-
-    // [BenchmarkCategory("Short")]
-    // [Benchmark]
-    // public int System_Short()
-    //     => TensorPrimitives.IndexOfGreaterThan<short>(arrayShort!, 0);
+        => Baseline.IndexOfFirstGreaterThan<short>(arrayShort!, 0);
 
     [BenchmarkCategory("Short")]
     [Benchmark]
     public int NetFabric_Short()
-        => TensorOperations.IndexOfGreaterThan<short>(arrayShort!, 0);
+        => TensorOperations.IndexOfFirstGreaterThanNumber<short>(arrayShort!, 0);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
     public int Baseline_Int()
-        => Baseline.IndexOfGreaterThan<int>(arrayInt!, 0);
-
-    // [BenchmarkCategory("Int")]
-    // [Benchmark]
-    // public int System_Int()
-    //     => TensorPrimitives.IndexOfGreaterThan<int>(arrayInt!, 0);
+        => Baseline.IndexOfFirstGreaterThan<int>(arrayInt!, 0);
 
     [BenchmarkCategory("Int")]
     [Benchmark]
     public int NetFabric_Int()
-        => TensorOperations.IndexOfGreaterThan(arrayInt!, 0);
+        => TensorOperations.IndexOfFirstGreaterThanNumber(arrayInt!, 0);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
     public int Baseline_Long()
-        => Baseline.IndexOfGreaterThan<long>(arrayLong!, 0);
-
-    // [BenchmarkCategory("Long")]
-    // [Benchmark]
-    // public int System_Long()
-    //     => TensorPrimitives.IndexOfGreaterThan<long>(arrayLong!, 0);
+        => Baseline.IndexOfFirstGreaterThan<long>(arrayLong!, 0);
 
     [BenchmarkCategory("Long")]
     [Benchmark]
     public int NetFabric_Long()
-        => TensorOperations.IndexOfGreaterThan(arrayLong!, 0L);
+        => TensorOperations.IndexOfFirstGreaterThanNumber(arrayLong!, 0L);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
     public int Baseline_Half()
-        => Baseline.IndexOfGreaterThan<Half>(arrayHalf!, (Half)0);
-
-    // [BenchmarkCategory("Half")]
-    // [Benchmark]
-    // public int System_Half()
-    //     => TensorPrimitives.IndexOfGreaterThan<Half>(arrayHalf!, (Half)0);
+        => Baseline.IndexOfFirstGreaterThan<Half>(arrayHalf!, (Half)0);
 
     [BenchmarkCategory("Half")]
     [Benchmark]
     public int NetFabric_Half()
-        => TensorOperations.IndexOfGreaterThan<Half>(arrayHalf!, (Half)0);
+        => TensorOperations.IndexOfFirstGreaterThanNumber<Half>(arrayHalf!, (Half)0);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
     public int Baseline_Float()
-        => Baseline.IndexOfGreaterThan<float>(arrayFloat!, 0.0f);
-
-    // [BenchmarkCategory("Float")]
-    // [Benchmark]
-    // public int System_Float()
-    //     => TensorPrimitives.IndexOfGreaterThan(arrayFloat!, 0.0f);
+        => Baseline.IndexOfFirstGreaterThan<float>(arrayFloat!, 0.0f);
 
     [BenchmarkCategory("Float")]
     [Benchmark]
     public int NetFabric_Float()
-        => TensorOperations.IndexOfGreaterThan<float>(arrayFloat!, 0.0f);
+        => TensorOperations.IndexOfFirstGreaterThanNumber<float>(arrayFloat!, 0.0f);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
     public int Baseline_Double()
-        => Baseline.IndexOfGreaterThan<double>(arrayDouble!, 0.0);
-
-    // [BenchmarkCategory("Double")]
-    // [Benchmark]
-    // public int System_Double()
-    //     => TensorPrimitives.IndexOfGreaterThan<double>(arrayDouble!);
+        => Baseline.IndexOfFirstGreaterThan<double>(arrayDouble!, 0.0);
 
     [BenchmarkCategory("Double")]
     [Benchmark]
     public int NetFabric_Double()
-        => TensorOperations.IndexOfGreaterThan(arrayDouble!, 0.0);
+        => TensorOperations.IndexOfFirstGreaterThanNumber(arrayDouble!, 0.0);
 }
