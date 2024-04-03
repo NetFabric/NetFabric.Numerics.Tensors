@@ -22,7 +22,7 @@ public class FirstGreaterThanTests
         // arrange
 
         // act
-        var result = TensorOperations.FirstGreaterThanNumber(source, value);
+        var result = TensorOperations.FirstGreaterThan(source, value);
 
         // assert
         Assert.Equal(expected, result);

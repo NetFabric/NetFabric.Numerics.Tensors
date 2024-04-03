@@ -17,12 +17,13 @@
     <PackageReleaseNotes>
 BREAKING CHANGES:
 
-- The method AggregatePropagateNaN has been renamed to only Aggregate. The previous Aggregate has been renamed to AggregateNumber. All methods and operators that don't propagate NaN have the suffix Number.
+- The method AggregatePropagateNaN has been renamed to only Aggregate. The previous Aggregate has been renamed to AggregateNumber. All aggregation methods and operators that don't propagate NaN have the suffix Number.
+- The method IndexOfPredicate has been renamed to IndexOfFirst.
 
 UPDATES AND ADDITIONS:
 
-- Added IndexOfAggregate method.
-- Added operations: IndexOfMax, IndexOfMaxMagnitude, IndexOfMin, IndexOfMinMagnitude, IndexOfMaxNumber, IndexOfMaxMagnitudeNumber, IndexOfMinNumber, IndexOfMinMagnitudeNumber, SumNumber.
+- Added methods: First and IndexOfAggregate.
+- Added operations: Contains, IndexOfFirstEquals, FirstGreaterThan, IndexOfFirstGreaterThan, FirstGreaterThanOrEqual, IndexOfFirstGreaterThanOrEqual, FirstLessThan, IndexOfFirstLessThan, FirstLessThanOrEqual, IndexOfFirstLessThanOrEqual, IndexOfMax, IndexOfMaxMagnitude, IndexOfMin, IndexOfMinMagnitude, IndexOfMaxNumber, IndexOfMaxMagnitudeNumber, IndexOfMinNumber, IndexOfMinMagnitudeNumber, SumNumber.
     </PackageReleaseNotes>
     <RootNamespace>NetFabric.Numerics.Tensors</RootNamespace>
     <PublishRepositoryUrl>true</PublishRepositoryUrl>

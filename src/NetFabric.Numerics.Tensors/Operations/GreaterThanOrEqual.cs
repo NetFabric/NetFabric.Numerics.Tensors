@@ -2,13 +2,13 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class TensorOperations
 {
-    public static T? FirstGreaterThanOrEqualNumber<T>(ReadOnlySpan<T> source, T value)
+    public static T? FirstGreaterThanOrEqual<T>(ReadOnlySpan<T> source, T value)
         where T : struct, IComparisonOperators<T, T, bool>
-        => Tensor.FirstNumber<T, GreaterThanOrEqualAnyOperator<T>>(source, value);
+        => Tensor.First<T, GreaterThanOrEqualAnyOperator<T>>(source, value);
 
-    public static int IndexOfFirstGreaterThanOrEqualNumber<T>(ReadOnlySpan<T> source, T value)
+    public static int IndexOfFirstGreaterThanOrEqual<T>(ReadOnlySpan<T> source, T value)
         where T : struct, IComparisonOperators<T, T, bool>
-        => Tensor.IndexOfFirstNumber<T, GreaterThanOrEqualAnyOperator<T>>(source, value);
+        => Tensor.IndexOfFirst<T, GreaterThanOrEqualAnyOperator<T>>(source, value);
 
     public static void GreaterThanOrEqual<T>(ReadOnlySpan<T> x, T y, Span<T> destination)
         where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>

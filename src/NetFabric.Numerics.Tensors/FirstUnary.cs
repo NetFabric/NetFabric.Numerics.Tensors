@@ -2,12 +2,12 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class Tensor
 {
-    public static int IndexOfFirstNumber<T, TPredicateOperator>(ReadOnlySpan<T> x)
+    public static T? First<T, TPredicateOperator>(ReadOnlySpan<T> x)
         where T : struct
         where TPredicateOperator : struct, IUnaryToScalarOperator<T, bool>
-        => IndexOfFirstNumber<T, T, IdentityOperator<T>, TPredicateOperator>(x);
+        => First<T, T, IdentityOperator<T>, TPredicateOperator>(x);
 
-    public static int IndexOfFirstNumber<TSource, TTransformed, TTransformOperator, TPredicateOperator>(ReadOnlySpan<TSource> x)
+    public static TTransformed? First<TSource, TTransformed, TTransformOperator, TPredicateOperator>(ReadOnlySpan<TSource> x)
         where TSource : struct
         where TTransformed : struct
         where TTransformOperator : struct, IUnaryOperator<TSource, TTransformed>
@@ -21,17 +21,18 @@ public static partial class Tensor
                 ? VectorOperation(x)
                 : ScalarOperation(x);
 
-        static int ScalarOperation(ReadOnlySpan<TSource> x)
+        static TTransformed? ScalarOperation(ReadOnlySpan<TSource> x)
         {
             for (var index = 0; index < x.Length; index++)
             {
-                if (TPredicateOperator.Invoke(TTransformOperator.Invoke(x[index])))
-                    return index;
+                var transformedItem = TTransformOperator.Invoke(x[index]);
+                if (TPredicateOperator.Invoke(transformedItem))
+                    return transformedItem;
             }
-            return -1;
+            return null;
         }
 
-        static int VectorOperation(ReadOnlySpan<TSource> x)
+        static TTransformed? VectorOperation(ReadOnlySpan<TSource> x)
         {
             var indexSource = 0;
             var vectors = MemoryMarshal.Cast<TSource, Vector<TSource>>(x);
@@ -49,7 +50,7 @@ public static partial class Tensor
                         for (var indexElement = 0; indexElement < Vector<TTransformed>.Count; indexElement++)
                         {
                             if (TPredicateOperator.Invoke(transformedVector[indexElement]))
-                                return (indexVector * Vector<TTransformed>.Count) + indexElement;
+                                return transformedVector[indexElement];
                         }
                     }
                 }
@@ -62,20 +63,20 @@ public static partial class Tensor
             {
                 var transformedItem = TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource));
                 if (TPredicateOperator.Invoke(transformedItem))
-                    return indexSource;
+                    return transformedItem;
             }
 
-            return -1;
+            return null;
         }
     } 
 
-    public static int IndexOfFirstNumber<T, TTransformOperator, TPredicateOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
+    public static T? First<T, TTransformOperator, TPredicateOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
         where T : struct
         where TTransformOperator : struct, IBinaryOperator<T, T, T>
         where TPredicateOperator : struct, IUnaryToScalarOperator<T, bool>
-        => IndexOfFirstNumber<T, T, T, TTransformOperator, TPredicateOperator>(x, y);
+        => First<T, T, T, TTransformOperator, TPredicateOperator>(x, y);
 
-    public static int IndexOfFirstNumber<T1, T2, TTransformed, TTransformOperator, TPredicateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
+    public static TTransformed? First<T1, T2, TTransformed, TTransformOperator, TPredicateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
         where T1 : struct
         where T2 : struct
         where TTransformed : struct
@@ -94,17 +95,18 @@ public static partial class Tensor
                 ? VectorOperation(x, y)
                 : ScalarOperation(x, y);
 
-        static int ScalarOperation(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
+        static TTransformed? ScalarOperation(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
         {
             for (var index = 0; index < x.Length; index++)
             {
-                if (TPredicateOperator.Invoke(TTransformOperator.Invoke(x[index], y[index])))
-                    return index;
+                var transformedItem = TTransformOperator.Invoke(x[index], y[index]);
+                if (TPredicateOperator.Invoke(transformedItem))
+                    return transformedItem;
             }
-            return -1;
+            return null;
         }
 
-        static int VectorOperation(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
+        static TTransformed? VectorOperation(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y)
         {
             var indexSource = 0;
 
@@ -128,7 +130,7 @@ public static partial class Tensor
                         for (var indexElement = 0; indexElement < Vector<TTransformed>.Count; indexElement++)
                         {
                             if (TPredicateOperator.Invoke(transformedVector[indexElement]))
-                                return (indexVector * Vector<TTransformed>.Count) + indexElement;
+                                return transformedVector[indexElement];
                         }
                     }
                 }
@@ -142,10 +144,10 @@ public static partial class Tensor
             {
                 var transformedItem = TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource));
                 if (TPredicateOperator.Invoke(transformedItem))
-                    return indexSource;
+                    return transformedItem;
             }
 
-            return -1;
+            return null;
         }
     } 
 }

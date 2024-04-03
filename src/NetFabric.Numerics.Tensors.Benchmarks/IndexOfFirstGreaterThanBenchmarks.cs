@@ -55,7 +55,7 @@ public class IndexOfFirstGreaterThanBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark]
     public int NetFabric_Short()
-        => TensorOperations.IndexOfFirstGreaterThanNumber<short>(arrayShort!, 0);
+        => TensorOperations.IndexOfFirstGreaterThan<short>(arrayShort!, 0);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
@@ -65,7 +65,7 @@ public class IndexOfFirstGreaterThanBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark]
     public int NetFabric_Int()
-        => TensorOperations.IndexOfFirstGreaterThanNumber(arrayInt!, 0);
+        => TensorOperations.IndexOfFirstGreaterThan(arrayInt!, 0);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
@@ -75,7 +75,7 @@ public class IndexOfFirstGreaterThanBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark]
     public int NetFabric_Long()
-        => TensorOperations.IndexOfFirstGreaterThanNumber(arrayLong!, 0L);
+        => TensorOperations.IndexOfFirstGreaterThan(arrayLong!, 0L);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
@@ -85,7 +85,7 @@ public class IndexOfFirstGreaterThanBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark]
     public int NetFabric_Half()
-        => TensorOperations.IndexOfFirstGreaterThanNumber<Half>(arrayHalf!, (Half)0);
+        => TensorOperations.IndexOfFirstGreaterThan<Half>(arrayHalf!, (Half)0);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
@@ -95,7 +95,7 @@ public class IndexOfFirstGreaterThanBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark]
     public int NetFabric_Float()
-        => TensorOperations.IndexOfFirstGreaterThanNumber<float>(arrayFloat!, 0.0f);
+        => TensorOperations.IndexOfFirstGreaterThan<float>(arrayFloat!, 0.0f);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
@@ -105,5 +105,5 @@ public class IndexOfFirstGreaterThanBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark]
     public int NetFabric_Double()
-        => TensorOperations.IndexOfFirstGreaterThanNumber(arrayDouble!, 0.0);
+        => TensorOperations.IndexOfFirstGreaterThan(arrayDouble!, 0.0);
 }

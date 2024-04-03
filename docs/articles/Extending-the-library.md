@@ -311,7 +311,7 @@ The transform operator can also take two parameters, as shown in the `ProductOfA
 ```csharp
 public static T? ProductOfAdditions<T>(ReadOnlySpan<T> x, ReadOnlySpan<T> y)
     where T : struct, IMultiplicativeIdentity<T, T>, IAdditionOperators<T, T, T>, IMultiplyOperators<T, T, T>
-    => x.IsEmpty 
+    => x.IsEmpty
         ? null
         : Tensor.Aggregate<T, AddOperator<T>, ProductOperator<T>>(x, y);
 ```
@@ -372,9 +372,9 @@ This behaves similarly to `Sum()` but without propagating `NaN` values. This pri
 
 Further variants of the `AggregateNumber()` method exist: `AggregateNumber2D()`, `AggregateNumber3D()`, and `AggregateNumber4D()`.
 
-### IndexOfPredicate Method
+### First Method
 
-The `IndexOfPredicate()` method returns the index of the initial element in the span that adheres to a specified predicate operator.
+The `First()` method returns the first element in the span that adheres to a specified predicate operator. It yields a nullable type, with `null` indicating that no item satisfying the predicate is found.
 
 The predicate operator must adhere to one of the subsequent interfaces with `TResult` specified as a `bool`:
 
@@ -407,15 +407,29 @@ public interface ITernaryToScalarOperator<T1, T2, T3, TResult>
 }
 ```
 
-For instance, to obtain the index of the initial element greater than or equal to a specified scalar value, this library furnishes the following operation:
+For instance, to obtain the first element greater than or equal to a specified scalar value, this library provides the following operation:
 
 ```csharp
-public static int IndexOfGreaterThanOrEqual<T>(ReadOnlySpan<T> source, T value)
+public static T? FirstGreaterThanOrEqual<T>(ReadOnlySpan<T> source, T value)
     where T : struct, IComparisonOperators<T, T, bool>
-    => Tensor.IndexOfPredicate<T, GreaterThanOrEqualAnyOperator<T>>(source, value);
+    => Tensor.First<T, GreaterThanOrEqualAnyOperator<T>>(source, value);
 ```
 
-It employs the `GreaterThanOrEqualAnyOperator`, which is vectorizable.
+It uses the `GreaterThanOrEqualAnyOperator` operator, which is vectorizable, improving performance when vectorization is available.
+
+### IndexOfFirst Method
+
+The method `IndexOfFirst()`, works similarly to `First()`, but returning the first element in the span that adheres to a specified predicate operator. Returns `-1` if no item satisfying the predicate is found.
+
+For instance, to obtain the index of the first element greater than or equal to a specified scalar value, this library provides the following operation:
+
+```csharp
+public static int IndexOfFirstGreaterThanOrEqual<T>(ReadOnlySpan<T> source, T value)
+    where T : struct, IComparisonOperators<T, T, bool>
+    => Tensor.IndexOfFirst<T, GreaterThanOrEqualAnyOperator<T>>(source, value);
+```
+
+It uses exactly the same `GreaterThanOrEqualAnyOperator` operator as in the previous example.
 
 ## Operators Unsuitable for Vectorization
 

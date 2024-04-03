@@ -4,7 +4,11 @@ public static partial class TensorOperations
 {
     public static T? FirstLessThanOrEqual<T>(ReadOnlySpan<T> source, T value)
         where T : struct, IComparisonOperators<T, T, bool>
-        => Tensor.FirstNumber<T, LessThanOrEqualAnyOperator<T>>(source, value);
+        => Tensor.First<T, LessThanOrEqualAnyOperator<T>>(source, value);
+
+    public static int IndexOfFirstLessThanOrEqual<T>(ReadOnlySpan<T> source, T value)
+        where T : struct, IComparisonOperators<T, T, bool>
+        => Tensor.IndexOfFirst<T, LessThanOrEqualAnyOperator<T>>(source, value);
 
     public static void LessThanOrEqual<T>(ReadOnlySpan<T> x, T y, Span<T> destination)
         where T : struct, IComparisonOperators<T, T, bool>, IMultiplicativeIdentity<T, T>

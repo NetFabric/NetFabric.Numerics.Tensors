@@ -22,7 +22,7 @@ public class IndexOfFirstGreaterThanTests
         // arrange
 
         // act
-        var result = TensorOperations.IndexOfFirstGreaterThanNumber(source, value);
+        var result = TensorOperations.IndexOfFirstGreaterThan(source, value);
 
         // assert
         Assert.Equal(expected, result);

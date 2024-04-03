@@ -55,7 +55,7 @@ public class FirstGreaterThanBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark]
     public short? NetFabric_Short()
-        => TensorOperations.FirstGreaterThanNumber<short>(arrayShort!, 0);
+        => TensorOperations.FirstGreaterThan<short>(arrayShort!, 0);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
@@ -65,7 +65,7 @@ public class FirstGreaterThanBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark]
     public int? NetFabric_Int()
-        => TensorOperations.FirstGreaterThanNumber(arrayInt!, 0);
+        => TensorOperations.FirstGreaterThan(arrayInt!, 0);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
@@ -75,7 +75,7 @@ public class FirstGreaterThanBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark]
     public long? NetFabric_Long()
-        => TensorOperations.FirstGreaterThanNumber(arrayLong!, 0L);
+        => TensorOperations.FirstGreaterThan(arrayLong!, 0L);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
@@ -85,7 +85,7 @@ public class FirstGreaterThanBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark]
     public Half? NetFabric_Half()
-        => TensorOperations.FirstGreaterThanNumber<Half>(arrayHalf!, (Half)0);
+        => TensorOperations.FirstGreaterThan<Half>(arrayHalf!, (Half)0);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
@@ -95,7 +95,7 @@ public class FirstGreaterThanBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark]
     public float? NetFabric_Float()
-        => TensorOperations.FirstGreaterThanNumber<float>(arrayFloat!, 0.0f);
+        => TensorOperations.FirstGreaterThan<float>(arrayFloat!, 0.0f);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
@@ -105,5 +105,5 @@ public class FirstGreaterThanBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark]
     public double? NetFabric_Double()
-        => TensorOperations.FirstGreaterThanNumber(arrayDouble!, 0.0);
+        => TensorOperations.FirstGreaterThan(arrayDouble!, 0.0);
 }
