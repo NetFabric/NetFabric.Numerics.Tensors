@@ -2,11 +2,32 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class Tensor
 {
+    /// <summary>
+    /// Returns the index of the first element in the <paramref name="x"/> span that satisfies the specified condition.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the span.</typeparam>
+    /// <typeparam name="TPredicateOperator">The type of the binary operator used to evaluate the condition.</typeparam>
+    /// <param name="x">The span to search.</param>
+    /// <param name="y">The first value to compare against.</param>
+    /// <param name="z">The second value to compare against.</param>
+    /// <returns>The index of the first element that satisfies the condition, or <c>-1</c> if no element is found.</returns>
     public static int IndexOfFirst<T, TPredicateOperator>(ReadOnlySpan<T> x, T y, T z)
         where T : struct
         where TPredicateOperator : struct, ITernaryToScalarOperator<T, T, T, bool>
         => IndexOfFirst<T, T, IdentityOperator<T>, TPredicateOperator>(x, y, z);
 
+    /// <summary>
+    /// Returns the index of the first transformed element in the <paramref name="x"/> span that satisfies the specified condition.
+    /// </summary>
+    /// <typeparam name="TSource">The type of the source elements in the span.</typeparam>
+    /// <typeparam name="TTransformed">The type of the transformed elements in the span.</typeparam>
+    /// <typeparam name="TTransformOperator">The type of the unary operator used to transform the elements.</typeparam>
+    /// <typeparam name="TPredicateOperator">The type of the ternary operator used to evaluate the condition.</typeparam>
+    /// <param name="x">The span to search.</param>
+    /// <param name="y">The first value to compare against.</param>
+    /// <param name="z">The second value to compare against.</param>
+    /// <returns>The index of the first transformed element that satisfies the condition, or <c>-1</c> if no element is found.</returns>
+    /// <remarks>The elements of the <paramref name="x"/> span are transformed by the <typeparamref name="TTransformOperator"/> operator before being passed as parameter of <typeparamref name="TPredicateOperator"/> operator.</remarks>
     public static int IndexOfFirst<TSource, TTransformed, TTransformOperator, TPredicateOperator>(ReadOnlySpan<TSource> x, TTransformed y, TTransformed z)
         where TSource : struct
         where TTransformed : struct
@@ -71,12 +92,37 @@ public static partial class Tensor
         }
     } 
 
+    /// <summary>
+    /// Returns the index of the first element in the <paramref name="x"/> span that satisfies the specified condition.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the span.</typeparam>
+    /// <typeparam name="TTransformOperator">The type of the binary operator used to transform the elements.</typeparam>
+    /// <typeparam name="TPredicateOperator">The type of the ternary operator used to evaluate the condition.</typeparam>
+    /// <param name="x">The span to search.</param>
+    /// <param name="y">The span to compare against.</param>
+    /// <param name="z">The first value to compare against.</param>
+    /// <param name="w">The second value to compare against.</param>
+    /// <returns>The index of the first element that satisfies the condition, or <c>-1</c> if no element is found.</returns>
     public static int IndexOfFirst<T, TTransformOperator, TPredicateOperator>(ReadOnlySpan<T> x, ReadOnlySpan<T> y, T z, T w)
         where T : struct
         where TTransformOperator : struct, IBinaryOperator<T, T, T>
         where TPredicateOperator : struct, ITernaryToScalarOperator<T, T, T, bool>
         => IndexOfFirst<T, T, T, TTransformOperator, TPredicateOperator>(x, y, z, w);
 
+    /// <summary>
+    /// Returns the index of the first element in the <paramref name="x"/> span that satisfies the specified condition.
+    /// </summary>
+    /// <typeparam name="T1">The type of the elements in the first span.</typeparam>
+    /// <typeparam name="T2">The type of the elements in the second span.</typeparam>
+    /// <typeparam name="TTransformed">The type of the transformed elements in the span.</typeparam>
+    /// <typeparam name="TTransformOperator">The type of the binary operator used to transform the elements.</typeparam>
+    /// <typeparam name="TPredicateOperator">The type of the ternary operator used to evaluate the condition.</typeparam>
+    /// <param name="x">The first span to search.</param>
+    /// <param name="y">The second span to search.</param>
+    /// <param name="z">The first value to compare against.</param>
+    /// <param name="w">The second value to compare against.</param>
+    /// <returns>The index of the first element that satisfies the condition, or <c>-1</c> if no element is found.</returns>
+    /// <remarks>The elements of the <paramref name="x"/> and <paramref name="y"/> spans are transformed by the <typeparamref name="TTransformOperator"/> operator before being passed as parameters of <typeparamref name="TPredicateOperator"/> operator.</remarks>
     public static int IndexOfFirst<T1, T2, TTransformed, TTransformOperator, TPredicateOperator>(ReadOnlySpan<T1> x, ReadOnlySpan<T2> y, TTransformed z, TTransformed w)
         where T1 : struct
         where T2 : struct
