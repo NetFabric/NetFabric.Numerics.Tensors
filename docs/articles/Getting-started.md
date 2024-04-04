@@ -27,32 +27,30 @@ TensorOperations.Add(x, y, result);
 
 > **NOTE**: The operations do not allocate any memory, ensuring optimal performance. The library is designed to be memory-efficient and performant. All the spans have to be allocated and managed by the user.
 
-In addition to per-element operations, the library also provides support for various aggregation operations, including:
+In addition to working with individual elements, this library supports various aggregation operations. For example:
 
 ```csharp
-var sum = TensorOperations.Sum(values);
-var average = TensorOperations.Average(values);
-var product = TensorOperations.Product(values);
-var min = TensorOperations.Min(values);
-var max = TensorOperations.Max(values);
-var (minIndex, maxIndex) = TensorOperations.MinMax(values);
+var sum = TensorOperations.Sum(data);
+var min = TensorOperations.Min(data);
+var (min, max) = TensorOperations.MinMax(data);
 ```
 
-Furthermore, the library offers functionality to retrieve the index of specific elements:
+It also helps find the index of specific elements:
 
 ```csharp
-var indexOfMin = TensorOperations.IndexOfMin(values);
-var indexOfMax = TensorOperations.IndexOfMax(values);
+var index = TensorOperations.IndexOfMin(data);
 ```
 
-It also facilitates finding the index of the first element meeting a particular condition:
+Additionally, it can quickly locate the first element meeting certain criteria:
 
 ```csharp
-var indexOfEqualToZero = IndexOfEquals(values, 0);
-var indexOfGreaterThanZero = IndexOfGreaterThan(values, 0);
-var indexOfGreaterThanOrEqualToZero = IndexOfGreaterThanOrEqual(values, 0);
-var indexOfLessThanZero = IndexOfLessThan(values, 0);
-var indexOfLessThanOrEqualToZero = IndexOfLessThanOrEqual(values, 0);
+var value = FirstGreaterThan(data, 0);
+```
+
+And it simplifies finding the index of such elements:
+
+```csharp
+var index = IndexOfFirstGreaterThan(data, 0);
 ```
 
 Dive deeper into the library's capabilities by exploring the API documentation, especially the section under the `TensorOperations` type, for an exhaustive list of available functionalities.
