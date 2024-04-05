@@ -46,18 +46,46 @@ public static partial class TensorOperations
         where T : struct, INumber<T>, IMinMaxValue<T>
         => Tensor.IndexOfAggregateNumber<T, MaxNumberAggregationOperator<T>>(source);
 
+    /// <summary>
+    /// Applies the maximum operator to each element in the left span and a scalar value, storing the result in the destination span.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source and destination spans that must implement the <see cref="INumber{T}"/> and <see cref="IMinMaxValue{T}"/> interfaces.</typeparam>
+    /// <param name="left">The span of elements to apply the maximum operator to.</param>
+    /// <param name="right">The scalar value to compare against each element in the left span.</param>
+    /// <param name="destination">The span to store the result of the maximum operator.</param>
     public static void Max<T>(ReadOnlySpan<T> left, T right, Span<T> destination)
         where T : struct, INumber<T>, IMinMaxValue<T> 
         => Tensor.Apply<T, MaxOperator<T>>(left, right, destination);
 
+    /// <summary>
+    /// Applies the maximum operator to each element in the left span and a tuple of scalar values, storing the result in the destination span.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source and destination spans that must implement the <see cref="INumber{T}"/> and <see cref="IMinMaxValue{T}"/> interfaces.</typeparam>
+    /// <param name="left">The span of elements to apply the maximum operator to.</param>
+    /// <param name="right">The tuple of scalar values to compare against each element in the left span.</param>
+    /// <param name="destination">The span to store the result of the maximum operator.</param>
     public static void Max<T>(ReadOnlySpan<T> left, (T, T) right, Span<T> destination)
         where T : struct, INumber<T>, IMinMaxValue<T> 
         => Tensor.Apply<T, MaxOperator<T>>(left, right, destination);
 
+    /// <summary>
+    /// Applies the maximum operator to each element in the left span and a tuple of scalar values, storing the result in the destination span.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source and destination spans that must implement the <see cref="INumber{T}"/> and <see cref="IMinMaxValue{T}"/> interfaces.</typeparam>
+    /// <param name="left">The span of elements to apply the maximum operator to.</param>
+    /// <param name="right">The tuple of scalar values to compare against each element in the left span.</param>
+    /// <param name="destination">The span to store the result of the maximum operator.</param>
     public static void Max<T>(ReadOnlySpan<T> left, (T, T, T) right, Span<T> destination)
         where T : struct, INumber<T>, IMinMaxValue<T> 
         => Tensor.Apply<T, MaxOperator<T>>(left, right, destination);
 
+    /// <summary>
+    /// Applies the maximum operator to each element in the left span and the corresponding element in the right span, storing the result in the destination span.
+    /// </summary>
+    /// <typeparam name="T">The type of the elements in the source and destination spans that must implement the <see cref="INumber{T}"/> and <see cref="IMinMaxValue{T}"/> interfaces.</typeparam>
+    /// <param name="left">The span of elements to apply the maximum operator to.</param>
+    /// <param name="right">The span of elements to compare against each element in the left span.</param>
+    /// <param name="destination">The span to store the result of the maximum operator.</param>
     public static void Max<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right, Span<T> destination)
         where T : struct, INumber<T>, IMinMaxValue<T> 
         => Tensor.Apply<T, MaxOperator<T>>(left, right, destination);
