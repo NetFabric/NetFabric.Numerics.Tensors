@@ -97,7 +97,7 @@ public static partial class Tensor
             var partial1 = TAggregateOperator.Seed;
             var partial2 = TAggregateOperator.Seed;
             var partial3 = TAggregateOperator.Seed;
-            for (; indexSource + 3 < source.Length; indexSource += 4)
+            for (; indexSource < source.Length - 3; indexSource += 4)
             {
                 aggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource)));
                 partial1 = TAggregateOperator.Invoke(partial1, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 1)));
@@ -261,7 +261,7 @@ public static partial class Tensor
             var partial1 = TAggregateOperator.Seed;
             var partial2 = TAggregateOperator.Seed;
             var partial3 = TAggregateOperator.Seed;
-            for (; indexSource + 3 < x.Length; indexSource += 4)
+            for (; indexSource < x.Length - 3; indexSource += 4)
             {
                 aggregate = TAggregateOperator.Invoke(aggregate, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource)));
                 partial1 = TAggregateOperator.Invoke(partial1, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1)));

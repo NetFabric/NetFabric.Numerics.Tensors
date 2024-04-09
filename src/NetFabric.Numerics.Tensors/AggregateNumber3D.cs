@@ -52,12 +52,12 @@ public static partial class Tensor
             // convert source span to vector span without copies
             var sourceVectors = MemoryMarshal.Cast<T1, Vector<T1>>(source);
 
-            // check if there is at least one vector to aggregate
-            if (sourceVectors.Length > 0)
+            // check if there are more than 3 vector to aggregate
+            if (sourceVectors.Length > 3)
             {
                 // initialize aggregate vectors
                 // use 3 vectors as 3 times the number of items in a vector is a multiple of 3
-                var values = new TResult[Vector<TResult>.Count * 3];
+                var values = GC.AllocateUninitializedArray<TResult>(Vector<TResult>.Count * 3);
                 Array.Fill(values, TAggregateOperator.Seed);
                 var resultValues = values.AsSpan();
                 var resultVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(resultValues);
@@ -66,7 +66,7 @@ public static partial class Tensor
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
                 ref var resultVectorsRef = ref MemoryMarshal.GetReference(resultVectors);
                 var indexVector = 0;
-                for (; indexVector + 2 < sourceVectors.Length; indexVector += 3)
+                for (; indexVector < sourceVectors.Length - 2; indexVector += 3)
                 {
                     var transformedVector0 = TTransformOperator.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
                     Unsafe.Add(ref resultVectorsRef, 0) = TAggregateOperator.Invoke(ref Unsafe.Add(ref resultVectorsRef, 0), ref transformedVector0);
@@ -78,7 +78,7 @@ public static partial class Tensor
 
                 // aggregate the aggregate vector into the aggregate
                 ref var resultValuesRef = ref MemoryMarshal.GetReference(resultValues);
-                for (var index = 0; index + 2 < Vector<TResult>.Count * 3; index += 3)
+                for (var index = 0; index < resultValues.Length - 2; index += 3)
                 {
                     aggregateX = TAggregateOperator.Invoke(aggregateX, Unsafe.Add(ref resultValuesRef, index));
                     aggregateY = TAggregateOperator.Invoke(aggregateY, Unsafe.Add(ref resultValuesRef, index + 1));
@@ -92,20 +92,11 @@ public static partial class Tensor
 
         // aggregate the remaining elements in the source
         ref var sourceRef = ref MemoryMarshal.GetReference(source);
-        for (; indexSource + 2 < source.Length; indexSource += 3)
+        for (; indexSource < source.Length - 2; indexSource += 3)
         {
             aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource)));
             aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 1)));
             aggregateZ = TAggregateOperator.Invoke(aggregateZ, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 2)));
-        }
-
-        switch (source.Length - indexSource)
-        {
-            case 0:
-                break;
-            default:
-                Throw.Exception("Should not happen!");
-                break;
         }
 
         return (aggregateX, aggregateY, aggregateZ);
@@ -172,12 +163,12 @@ public static partial class Tensor
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
             var yVectors = MemoryMarshal.Cast<T2, Vector<T2>>(y);
 
-            // check if there is at least one vector to aggregate
-            if (xVectors.Length > 0)
+            // check if there are more than 3 vector to aggregate
+            if (xVectors.Length > 3)
             {
                 // initialize aggregate vectors
                 // use 3 vectors as 3 times the number of items in a vector is a multiple of 3
-                var values = new TResult[Vector<TResult>.Count * 3];
+                var values = GC.AllocateUninitializedArray<TResult>(Vector<TResult>.Count * 3);
                 Array.Fill(values, TAggregateOperator.Seed);
                 var resultValues = values.AsSpan();
                 var resultVectors = MemoryMarshal.Cast<TResult, Vector<TResult>>(resultValues);
@@ -187,7 +178,7 @@ public static partial class Tensor
                 ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
                 ref var resultVectorsRef = ref MemoryMarshal.GetReference(resultVectors);
                 var indexVector = 0;
-                for (; indexVector + 2 < xVectors.Length; indexVector += 3)
+                for (; indexVector < xVectors.Length - 2; indexVector += 3)
                 {
                     var transformedVector0 = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
                     Unsafe.Add(ref resultVectorsRef, 0) = TAggregateOperator.Invoke(ref Unsafe.Add(ref resultVectorsRef, 0), ref transformedVector0);
@@ -199,7 +190,7 @@ public static partial class Tensor
 
                 // aggregate the aggregate vector into the aggregate
                 ref var resultValuesRef = ref MemoryMarshal.GetReference(resultValues);
-                for (var index = 0; index + 2 < Vector<TResult>.Count * 3; index += 3)
+                for (var index = 0; index < resultValues.Length - 2; index += 3)
                 {
                     aggregateX = TAggregateOperator.Invoke(aggregateX, Unsafe.Add(ref resultValuesRef, index));
                     aggregateY = TAggregateOperator.Invoke(aggregateY, Unsafe.Add(ref resultValuesRef, index + 1));
@@ -214,20 +205,11 @@ public static partial class Tensor
         // aggregate the remaining elements in the source
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var yRef = ref MemoryMarshal.GetReference(y);
-        for (; indexSource + 2 < x.Length; indexSource += 3)
+        for (; indexSource < x.Length - 2; indexSource += 3)
         {
             aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource)));
             aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1)));
             aggregateZ = TAggregateOperator.Invoke(aggregateZ, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 2), Unsafe.Add(ref yRef, indexSource + 2)));
-        }
-
-        switch (x.Length - indexSource)
-        {
-            case 0:
-                break;
-            default:
-                Throw.Exception("Should not happen!");
-                break;
         }
 
         return (aggregateX, aggregateY, aggregateZ);

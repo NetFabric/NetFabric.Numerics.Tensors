@@ -70,7 +70,7 @@ public static partial class Tensor
         // Iterate through the remaining elements.
         ref var sourceRef = ref MemoryMarshal.GetReference(x);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (; indexSource + 3 < x.Length; indexSource += 4)
+        for (; indexSource < x.Length - 3; indexSource += 4)
         {
             Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource));
             Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 1));
@@ -193,7 +193,7 @@ public static partial class Tensor
         ref var sourceRef = ref MemoryMarshal.GetReference(x);
         ref var destination1Ref = ref MemoryMarshal.GetReference(destination1);
         ref var destination2Ref = ref MemoryMarshal.GetReference(destination2);
-        for (; indexSource + 1 < x.Length; indexSource += 2)
+        for (; indexSource < x.Length - 1; indexSource += 2)
         {
             Unsafe.Add(ref destination1Ref, indexSource) = TOperator1.Invoke(Unsafe.Add(ref sourceRef, indexSource));
             Unsafe.Add(ref destination1Ref, indexSource + 1) = TOperator1.Invoke(Unsafe.Add(ref sourceRef, indexSource + 1));

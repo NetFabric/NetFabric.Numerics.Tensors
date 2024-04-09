@@ -67,7 +67,7 @@ public static partial class Tensor
                 }
 
                 // aggregate the aggregate vector into the aggregate
-                for (var index = 0; index + 1 < Vector<TResult>.Count; index += 2)
+                for (var index = 0; index < Vector<TResult>.Count - 1; index += 2)
                 {
                     aggregateX = TAggregateOperator.Invoke(aggregateX, resultVector[index]);
                     aggregateY = TAggregateOperator.Invoke(aggregateY, resultVector[index + 1]);
@@ -85,7 +85,7 @@ public static partial class Tensor
         {
             var partialX1 = TAggregateOperator.Seed;
             var partialY1 = TAggregateOperator.Seed;
-            for (; indexSource + 3 < source.Length; indexSource += 4)
+            for (; indexSource < source.Length - 3; indexSource += 4)
             {
                 aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource)));
                 aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref sourceRef, indexSource + 1)));
@@ -192,7 +192,7 @@ public static partial class Tensor
                 }
 
                 // aggregate the aggregate vector into the aggregate
-                for (var index = 0; index + 1 < Vector<TResult>.Count; index += 2)
+                for (var index = 0; index < Vector<TResult>.Count - 1; index += 2)
                 {
                     aggregateX = TAggregateOperator.Invoke(aggregateX, resultVector[index]);
                     aggregateY = TAggregateOperator.Invoke(aggregateY, resultVector[index + 1]);
@@ -211,7 +211,7 @@ public static partial class Tensor
         {
             var partialX1 = TAggregateOperator.Seed;
             var partialY1 = TAggregateOperator.Seed;
-            for (; indexSource + 3 < x.Length; indexSource += 4)
+            for (; indexSource < x.Length - 3; indexSource += 4)
             {
                 aggregateX = TAggregateOperator.Invoke(aggregateX, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource)));
                 aggregateY = TAggregateOperator.Invoke(aggregateY, TTransformOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1)));

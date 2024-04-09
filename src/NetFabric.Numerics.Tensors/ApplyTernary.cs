@@ -95,7 +95,7 @@ public static partial class Tensor
         ref var yRef = ref MemoryMarshal.GetReference(y);
         ref var zRef = ref MemoryMarshal.GetReference(z);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (; indexSource + 3 < x.Length; indexSource += 4)
+        for (; indexSource < x.Length - 3; indexSource += 4)
         {
             Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), Unsafe.Add(ref zRef, indexSource));
             Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1), Unsafe.Add(ref zRef, indexSource + 1));
@@ -214,7 +214,7 @@ public static partial class Tensor
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var zRef = ref MemoryMarshal.GetReference(z);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (; indexSource + 3 < x.Length; indexSource += 4)
+        for (; indexSource < x.Length - 3; indexSource += 4)
         {
             Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y, Unsafe.Add(ref zRef, indexSource));
             Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), y, Unsafe.Add(ref zRef, indexSource + 1));
@@ -337,7 +337,7 @@ public static partial class Tensor
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var zRef = ref MemoryMarshal.GetReference(z);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (; indexSource + 3 < x.Length; indexSource += 4)
+        for (; indexSource < x.Length - 3; indexSource += 4)
         {
             Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y.Item1, Unsafe.Add(ref zRef, indexSource));
             Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), y.Item2, Unsafe.Add(ref zRef, indexSource + 1));
@@ -510,7 +510,7 @@ public static partial class Tensor
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var yRef = ref MemoryMarshal.GetReference(y);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (; indexSource + 3 < x.Length; indexSource += 4)
+        for (; indexSource < x.Length - 3; indexSource += 4)
         {
             Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), z);
             Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1), z);
@@ -633,7 +633,7 @@ public static partial class Tensor
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var yRef = ref MemoryMarshal.GetReference(y);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (; indexSource + 3 < x.Length; indexSource += 4)
+        for (; indexSource < x.Length - 3; indexSource += 4)
         {
             Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), Unsafe.Add(ref yRef, indexSource), z.Item1);
             Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), Unsafe.Add(ref yRef, indexSource + 1), z.Item2);
@@ -810,7 +810,7 @@ public static partial class Tensor
         // Iterate through the remaining elements.
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (; indexSource + 3 < x.Length; indexSource += 4)
+        for (; indexSource < x.Length - 3; indexSource += 4)
         {
             Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y, z);
             Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), y, z);
@@ -926,7 +926,7 @@ public static partial class Tensor
         // Iterate through the remaining elements.
         ref var xRef = ref MemoryMarshal.GetReference(x);
         ref var destinationRef = ref MemoryMarshal.GetReference(destination);
-        for (; indexSource + 3 < x.Length; indexSource += 4)
+        for (; indexSource < x.Length - 3; indexSource += 4)
         {
             Unsafe.Add(ref destinationRef, indexSource) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource), y.Item1, z.Item1);
             Unsafe.Add(ref destinationRef, indexSource + 1) = TOperator.Invoke(Unsafe.Add(ref xRef, indexSource + 1), y.Item2, z.Item2);
