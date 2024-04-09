@@ -11,9 +11,7 @@ public readonly struct AcosOperator<T>
     public static T Invoke(T x)
         => T.Acos(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -28,9 +26,7 @@ public readonly struct AcosPiOperator<T>
     public static T Invoke(T x)
         => T.AcosPi(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -45,9 +41,7 @@ public readonly struct AsinOperator<T>
     public static T Invoke(T x)
         => T.Asin(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -62,9 +56,7 @@ public readonly struct AsinPiOperator<T>
     public static T Invoke(T x)
         => T.AsinPi(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -79,9 +71,7 @@ public readonly struct AtanOperator<T>
     public static T Invoke(T x)
         => T.Atan(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -96,9 +86,7 @@ public readonly struct AtanPiOperator<T>
     public static T Invoke(T x)
         => T.AtanPi(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -113,9 +101,7 @@ public readonly struct CosOperator<T>
     public static T Invoke(T x)
         => T.Cos(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -130,9 +116,7 @@ public readonly struct CosPiOperator<T>
     public static T Invoke(T x)
         => T.CosPi(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -147,9 +131,7 @@ public readonly struct SinOperator<T>
     public static T Invoke(T x)
         => T.Sin(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -164,9 +146,7 @@ public readonly struct SinPiOperator<T>
     public static T Invoke(T x)
         => T.SinPi(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -181,9 +161,7 @@ public readonly struct TanOperator<T>
     public static T Invoke(T x)
         => T.Sin(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -198,9 +176,7 @@ public readonly struct TanPiOperator<T>
     public static T Invoke(T x)
         => T.SinPi(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -215,9 +191,7 @@ public readonly struct SinCosOperator<T>
     public static (T Sin, T Cos) Invoke(T x)
         => T.SinCos(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<(T Sin, T Cos)> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<(T Sin, T Cos)>>();
 }
 
@@ -232,9 +206,7 @@ public readonly struct SinCosPiOperator<T>
     public static (T SinPi, T CosPi) Invoke(T x)
         => T.SinCosPi(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<(T SinPi, T CosPi)> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<(T SinPi, T CosPi)>>();
 }
 

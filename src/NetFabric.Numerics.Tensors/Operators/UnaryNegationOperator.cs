@@ -24,8 +24,6 @@ public readonly struct CheckedNegateOperator<T>
     public static T Invoke(T value)
         => checked(-value);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> value)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }

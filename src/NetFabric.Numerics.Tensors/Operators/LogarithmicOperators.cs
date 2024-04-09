@@ -11,9 +11,7 @@ public readonly struct LogOperator<T>
     public static T Invoke(T x)
         => T.Log(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -28,9 +26,7 @@ public readonly struct LogBaseOperator<T>
     public static T Invoke(T x, T newBase)
         => T.Log(x, newBase);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x, T newBase)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -45,9 +41,7 @@ public readonly struct LogP1Operator<T>
     public static T Invoke(T x)
         => T.LogP1(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -62,9 +56,7 @@ public readonly struct Log2Operator<T>
     public static T Invoke(T x)
         => T.Log2(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -79,9 +71,7 @@ public readonly struct Log2P1Operator<T>
     public static T Invoke(T x)
         => T.Log2P1(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -96,9 +86,7 @@ public readonly struct Log10Operator<T>
     public static T Invoke(T x)
         => T.Log10(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -113,9 +101,7 @@ public readonly struct Log10P1Operator<T>
     public static T Invoke(T x)
         => T.Log10P1(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 

@@ -11,9 +11,7 @@ public readonly struct AcoshOperator<T>
     public static T Invoke(T x)
         => T.Acosh(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -28,9 +26,7 @@ public readonly struct AsinhOperator<T>
     public static T Invoke(T x)
         => T.Asinh(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -45,9 +41,7 @@ public readonly struct AtanhOperator<T>
     public static T Invoke(T x)
         => T.Atanh(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -62,9 +56,7 @@ public readonly struct CoshOperator<T>
     public static T Invoke(T x)
         => T.Cosh(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -79,9 +71,7 @@ public readonly struct SinhOperator<T>
     public static T Invoke(T x)
         => T.Sinh(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -96,8 +86,6 @@ public readonly struct TanhOperator<T>
     public static T Invoke(T x)
         => T.Tanh(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }

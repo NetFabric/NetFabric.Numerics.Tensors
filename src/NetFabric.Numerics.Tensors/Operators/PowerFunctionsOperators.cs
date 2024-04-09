@@ -37,9 +37,7 @@ public readonly struct PowOperator<T>
     public static T Invoke(T x, T y)
         => T.Pow(x, y);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x, T y)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 

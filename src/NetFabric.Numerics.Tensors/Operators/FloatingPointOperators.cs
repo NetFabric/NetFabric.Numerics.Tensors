@@ -11,9 +11,7 @@ public readonly struct FloorOperator<T>
     public static T Invoke(T x)
         => T.Floor(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -52,9 +50,7 @@ public readonly struct CeilingOperator<T>
     public static T Invoke(T x)
         => T.Ceiling(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -93,9 +89,7 @@ public readonly struct RoundOperator<T>
     public static T Invoke(T x)
         => T.Round(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -110,9 +104,7 @@ public readonly struct RoundDigitsOperator<T>
     public static T Invoke(T x, int digits)
         => T.Round(x, digits);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x, int digits)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -127,9 +119,7 @@ public readonly struct RoundModeOperator<T>
     public static T Invoke(T x, MidpointRounding mode)
         => T.Round(x, mode);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x, MidpointRounding mode)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -144,9 +134,7 @@ public readonly struct RoundDigitModeOperator<T>
     public static T Invoke(T x, (int digits, MidpointRounding mode) param)
         => T.Round(x, param.digits, param.mode);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x, (int digits, MidpointRounding mode) param)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -161,8 +149,6 @@ public readonly struct TruncateOperator<T>
     public static T Invoke(T x)
         => T.Truncate(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }

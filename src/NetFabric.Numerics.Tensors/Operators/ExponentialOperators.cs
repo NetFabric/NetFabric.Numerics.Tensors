@@ -11,9 +11,7 @@ public readonly struct ExpOperator<T>
     public static T Invoke(T x)
         => T.Exp(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -28,9 +26,7 @@ public readonly struct ExpM1Operator<T>
     public static T Invoke(T x)
         => T.ExpM1(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -45,9 +41,7 @@ public readonly struct Exp2Operator<T>
     public static T Invoke(T x)
         => T.Exp2(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -62,9 +56,7 @@ public readonly struct Exp2M1Operator<T>
     public static T Invoke(T x)
         => T.Exp2M1(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -79,9 +71,7 @@ public readonly struct Exp10Operator<T>
     public static T Invoke(T x)
         => T.Exp10(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -96,9 +86,7 @@ public readonly struct Exp10M1Operator<T>
     public static T Invoke(T x)
         => T.Exp10M1(x);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
@@ -113,8 +101,6 @@ public readonly struct SigmoidOperator<T>
     public static T Invoke(T x)
         => T.CreateChecked(1) / (T.CreateChecked(1) + T.Exp(-x));
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }

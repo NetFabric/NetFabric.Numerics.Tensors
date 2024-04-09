@@ -24,9 +24,7 @@ public readonly struct CheckedMultiplyOperator<T>
     public static T Invoke(T x, T y)
         => checked(x * y);
 
-#pragma warning disable IDE0060 // Remove unused parameter
     public static Vector<T> Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
-#pragma warning restore IDE0060 // Remove unused parameter
         => Throw.InvalidOperationException<Vector<T>>();
 }
 
