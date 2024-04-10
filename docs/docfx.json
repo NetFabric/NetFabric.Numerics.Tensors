@@ -4,9 +4,7 @@
       "src": [
         {
           "src": "../",
-          "files": [
-            "**/**.csproj"
-          ],
+          "files": ["**/**.csproj"],
           "exclude": [
             "**/**.UnitTests.csproj",
             "**/**.Benchmarks.csproj",
@@ -29,25 +27,15 @@
   "build": {
     "content": [
       {
-        "files": [
-          "api/**.yml",
-          "api/index.md"
-        ]
+        "files": ["api/**.yml", "api/index.md"]
       },
       {
-        "files": [
-          "articles/**.md",
-          "articles/**/toc.yml",
-          "toc.yml",
-          "*.md"
-        ]
+        "files": ["articles/**.md", "articles/**/toc.yml", "toc.yml", "*.md"]
       }
     ],
     "resource": [
       {
-        "files": [
-          "images/**"
-        ]
+        "files": ["images/**"]
       }
     ],
     "output": "_site",
@@ -60,13 +48,12 @@
     },
     "globalMetadataFiles": [],
     "fileMetadataFiles": [],
-    "template": [
-      "default",
-      "modern",
-      "template"
-    ],
+    "template": ["default", "modern", "template"],
     "postProcessors": [],
     "keepFileLink": false,
-    "disableGitFeatures": false
+    "disableGitFeatures": false,
+    "sitemap": {
+      "baseUrl": "https://netfabric.github.io/NetFabric.Numerics.Tensors"
+    }
   }
 }
