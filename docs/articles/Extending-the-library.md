@@ -69,7 +69,7 @@ public interface ITernaryOperator<T1, T2, T3, TResult>
 }
 ```
 
-> **NOTE:** It's essential to note that these interfaces make use of [static virtual members](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/static-virtual-interface-members), a feature introduced in .NET 7. No instance of the operator is required to utilize the methods, and operators are pure, devoid of internal state.
+> **NOTE:** It's essential to note that these interfaces make use of [static virtual members](https://learn.microsoft.com/en-us/dotnet/csharp/whats-new/tutorials/static-virtual-interface-members), a feature introduced in .NET 7. No instance of the operator is required to use the methods, and operators are pure, devoid of internal state.
 
 Each operator is required to implement two `Invoke` methods, defining the operation between elements of type `T` or vectors of type `Vector<T>`. The second method is utilized when both the operator and the hardware support vectorization. Conversely, the first method is employed for every element that is not handled by vectorization.
 
@@ -239,7 +239,7 @@ The user can choose the most suitable overload based on their requirements.
 
 ### Aggregate
 
-The `Aggregate()` method is a powerful tool for consolidating a source span of data into either a single value or a tuple of values. It operates using two essential operators: one for transforming the source elements and another for aggregating the transformed elements. This method adheres to the IEEE 754 standard for floating-point arithmetic; if any element's transformation or aggregation results in `NaN`, it returns `NaN`.
+The `Aggregate()` method is a powerful tool for consolidating a source span of data into either a single value or a tuple of values. It operates using two essential operators: one for transforming the source elements and another for aggregating the transformed elements. This method adheres to the IEEE 754 standard for floating-point arithmetic; if any element's transformation results in `NaN`, it returns `NaN`.
 
 It's essential to note that the transform operator must implement either the `IUnaryOperator<T, TResult>` or `IBinaryOperator<T1, T2, TResult>` interface, while the aggregation operator must implement the `IAggregationOperator<TResult, TResult>` interface.
 
@@ -294,7 +294,7 @@ public static T Sum<T>(ReadOnlySpan<T> source)
     => Tensor.Aggregate<T, SumOperator<T>>(source);
 ```
 
-Here, the generic type `T` is restricted to `INumberBase<T>` as the `Aggregate()` method necessitates the method `T.IsNaN()` for checking if any transformation or aggregation results in `NaN`.
+Here, the generic type `T` is restricted to `INumberBase<T>` as the `Aggregate()` method requires the method `T.IsNaN()` for checking if any transformation results in `NaN`.
 
 A transform operator can be applied to transform the source elements before aggregation. For instance, consider an operation calculating the sum of the squares of all elements in the source. This operation can be employed to compute the square of the length of any n-dimensional vector:
 
@@ -332,7 +332,7 @@ public static int IndexOfMax<T>(ReadOnlySpan<T> source)
     => Tensor.IndexOfAggregate<T, MaxAggregationOperator<T>>(source);
 ```
 
-The `IndexOfAggregate()` method can utilize a transform operator accepting one or two parameters. Consider its application in the `IndexOfMaxSum()` aggregation operation, determining the index of the first element matching the maximum sum of corresponding elements in two sources:
+The `IndexOfAggregate()` method can use a transform operator accepting one or two parameters. Consider its application in the `IndexOfMaxSum()` aggregation operation, determining the index of the first element matching the maximum sum of corresponding elements in two sources:
 
 ```csharp
 public static int IndexOfMaxSum<T>(ReadOnlySpan<T> left, ReadOnlySpan<T> right)
@@ -346,7 +346,7 @@ Here, two operators are specified as generic parameters. The first operator tran
 
 The `Aggregate2()` method simplifies the execution of two distinct operations within a single iteration of the source, returning the results in a tuple.
 
-This method necessitates three generic parameters. The first determines the type of elements within the source span, while the second and third parameters specify the operators to apply.
+This method requires three generic parameters. The first determines the type of elements within the source span, while the second and third parameters specify the operators to apply.
 
 For instance, let's examine the `MinMax()` method, which calculates both the minimum and maximum values in a span simultaneously:
 
@@ -358,7 +358,7 @@ public static (T Min, T Max) MinMax<T>(ReadOnlySpan<T> source)
 
 ### AggregateNumber
 
-The `AggregateNumber` method functions akin to the `Aggregate()` method, but it omits propagating `NaN` values if encountered. This alternative implementation exhibits better performance and is suitable when `NaN` values are guaranteed not to occur in the source spans.
+The `AggregateNumber` method functions akin to the `Aggregate()` method, but it omits propagating `NaN` values if encountered. This alternative implementation exhibits better performance and is suitable when `NaN` values are guaranteed not to occur after the source span elements are transformed.
 
 For instance, let's examine the implementation of the `SumNumber()` aggregation operation:
 
@@ -368,15 +368,15 @@ public static T SumNumber<T>(ReadOnlySpan<T> source)
     => Tensor.AggregateNumber<T, SumOperator<T>>(source);
 ```
 
-This behaves similarly to `Sum()` but without propagating `NaN` values. This principle applies to all methods suffixed with `Number` in this library.
+This behaves similarly to `Sum()` but without propagating `NaN` values. **This principle applies to all methods suffixed with `Number` in this library.**
 
 Further variants of the `AggregateNumber()` method exist: `AggregateNumber2D()`, `AggregateNumber3D()`, and `AggregateNumber4D()`.
 
 ### First Method
 
-The `First()` method returns the first element in the span that adheres to a specified predicate operator. It yields a nullable type, with `null` indicating that no item satisfying the predicate is found.
+The `First()` method retrieves the first element in the span that matches a specified predicate. It returns a nullable type, where `null` indicates that no item satisfying the predicate was found.
 
-The predicate operator must adhere to one of the subsequent interfaces with `TResult` specified as a `bool`:
+The predicate must conform to one of the following interfaces, where `TResult` is specified as a `bool`:
 
 ```csharp
 public interface IUnaryToScalarOperator<T, TResult>
@@ -407,7 +407,24 @@ public interface ITernaryToScalarOperator<T1, T2, T3, TResult>
 }
 ```
 
-For instance, to obtain the first element greater than or equal to a specified scalar value, this library provides the following operation:
+For example, to find the element greater than or equal to a specified value, the library provides the following vectorizable operator:
+
+```csharp
+public readonly struct GreaterThanOrEqualAnyOperator<T>
+    : IBinaryToScalarOperator<T, T, bool>
+    where T : struct, IComparisonOperators<T, T, bool>
+{
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(T x, T y)
+        => x >= y;
+
+    [MethodImpl(MethodImplOptions.AggressiveInlining)]
+    public static bool Invoke(ref readonly Vector<T> x, ref readonly Vector<T> y)
+        => Vector.GreaterThanOrEqualAny(x, y);
+}
+```
+
+Then, you can employ the defined operator for the following operation:
 
 ```csharp
 public static T? FirstGreaterThanOrEqual<T>(ReadOnlySpan<T> source, T value)
@@ -415,7 +432,7 @@ public static T? FirstGreaterThanOrEqual<T>(ReadOnlySpan<T> source, T value)
     => Tensor.First<T, GreaterThanOrEqualAnyOperator<T>>(source, value);
 ```
 
-It uses the `GreaterThanOrEqualAnyOperator` operator, which is vectorizable, improving performance when vectorization is available.
+This approach ensures efficient retrieval of the first matching element.
 
 ### IndexOfFirst Method
 

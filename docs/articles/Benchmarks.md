@@ -20,18 +20,18 @@ The system supports vectorization up to 512 bits. Benchmarks are conducted both 
 Four distinct jobs are included in the benchmarks:
 
 - Scalar: No SIMD support
-- Vector128: Utilizing 128-bit SIMD support
-- Vector256: Utilizing 256-bit SIMD support
-- Vector512: Utilizing 512-bit SIMD support
+- Vector128: using 128-bit SIMD support
+- Vector256: using 256-bit SIMD support
+- Vector512: using 512-bit SIMD support
 
 ## Benchmark Scenarios
 
 The benchmarks encompass the following scenarios:
 
 - Baseline\_\*: Simple iteration without explicit optimizations
-- LINQ\_\*: Utilizing LINQ (when available)
-- System\_\*: Utilizing `System.Numerics.Tensors`
-- NetFabric\_\*: Utilizing `NetFabric.Numerics.Tensors`
+- LINQ\_\*: using LINQ (when available)
+- System\_\*: using `System.Numerics.Tensors`
+- NetFabric\_\*: using `NetFabric.Numerics.Tensors`
 
 The source code for the benchmarks can be accessed [here](https://github.com/NetFabric/NetFabric.Numerics.Tensors/tree/main/src/NetFabric.Numerics.Tensors.Benchmarks).
 
