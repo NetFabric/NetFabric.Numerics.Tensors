@@ -1,0 +1,132 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>NetFabric.Numerics.Tensors | NetFabric.Numerics </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="NetFabric.Numerics.Tensors | NetFabric.Numerics ">
+      
+      
+      <link rel="icon" href="images/Logo.png">
+      <link rel="stylesheet" href="public/docfx.min.css">
+      <link rel="stylesheet" href="public/main.css">
+      <meta name="docfx:navrel" content="toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/NetFabric/NetFabric.Numerics.Tensors/blob/main/docs/index.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+      <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E372L91FWS"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-E372L91FWS');
+      </script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="index.html">
+            <img id="logo" class="svg" src="images/Logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+
+      <div class="content">
+        <div class="actionbar">
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="netfabricnumericstensors">NetFabric.Numerics.Tensors</h1>
+
+<p>Dealing with SIMD in .NET for optimized code can be complex, but this library offers a practical solution. It provides a reusable and highly-optimized iterations on <code>Span&lt;T&gt;</code>, enabling the application of both pre-defined and custom operations to each element.</p>
+<p>Using generics, the library accommodates any type embracing <a href="https://aalmada.github.io/Generic-math-in-dotnet.html">generic math</a>.</p>
+<p>Within the library, you'll find pre-defined operations such as <code>Sqrt()</code>, <code>Sin()</code>, <code>Negate()</code>, <code>Add()</code>, <code>Divide()</code>, <code>Multiply()</code>, <code>AddMultiply()</code>, <code>Sum()</code>, <code>Average()</code>, and many more.</p>
+<p>For custom operations, the library allows the definition of operators through interfaces like <code>IUnaryOperator&lt;T&gt;</code>, <code>IBinaryOperator&lt;T&gt;</code>, <code>ITernaryOperator&lt;T&gt;</code>, or <code>IAggregationOperator&lt;T&gt;</code>. These operators can be applied seamlessly using the <code>Apply()</code> or <code>Aggregate()</code> methods.</p>
+<h2 id="usage">Usage</h2>
+<p>To use the <code>NetFabric.Numerics.Tensors</code> library:</p>
+<ol>
+<li>Install the library via NuGet: <code>dotnet add package NetFabric.Numerics.Tensors</code></li>
+<li>Import the library in your code: <code>using NetFabric.Numerics.Tensors;</code></li>
+<li>Utilize the library's functions for mathematical operations on tensors represented as spans.</li>
+</ol>
+<blockquote>
+<p><strong>Note:</strong> Ensure you're on .NET 8 or a later version for compatibility with the <code>NetFabric.Numerics.Tensors</code> library.</p>
+</blockquote>
+<p>The library includes methods tailored for operations involving one, two, or three <code>ReadOnlySpan&lt;T&gt;</code>. Results are provided in a <code>Span&lt;T&gt;</code>, with the condition that the destination <code>Span&lt;T&gt;</code> must be of the same size or larger than the sources. Inplace operations are supported when the destination parameter matches any of the sources.</p>
+<p>For example, given a variable <code>data</code> of type <code>Span&lt;int&gt;</code>, the following code snippet replaces each element of the span with its square root:</p>
+<pre><code class="lang-csharp">Tensor.Sqrt(data, data);
+</code></pre>
+<p>Note that since <code>data</code> serves as both the source and destination, the operation is performed in-place.</p>
+<p>For variables <code>x</code>, <code>y</code>, and <code>result</code>, all of type <code>Span&lt;float&gt;</code> and of the same size, the following example updates each element in <code>result</code> with the sum of the corresponding elements in <code>x</code> and <code>y</code>:</p>
+<pre><code class="lang-csharp">Tensor.Add(x, y, result);
+</code></pre>
+<p>Beyond per element operations, the library extends support to aggregations. For a <code>values</code> variable of type <code>Span&lt;float&gt;</code>, the following code snippet calculates the sum, the minimum and the minimum magnitude of all its elements:</p>
+<pre><code class="lang-csharp">var sum = Tensor.Sum(values);
+var min = Tensor.Min(values);
+var minMagnitude = Tensor.MinMagnitude(values);
+</code></pre>
+<p>While <code>NetFabric.Numerics.Tensors</code> provides various primitive operations, combining them might not be efficient. Custom operators can be implemented, allowing the definition of specific operations for each element of the source, while still benefiting from high-performance reusable iteration code. Check the articles to find how to implement custom operations.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/NetFabric/NetFabric.Numerics.Tensors/blob/main/docs/index.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Copyright (c) 2023-2024 Antão Almada
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,151 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Getting Started with NetFabric.Numerics.Tensors | NetFabric.Numerics </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Getting Started with NetFabric.Numerics.Tensors | NetFabric.Numerics ">
+      
+      
+      <link rel="icon" href="../images/Logo.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/NetFabric/NetFabric.Numerics.Tensors/blob/main/docs/articles/Getting-started.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+      <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E372L91FWS"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-E372L91FWS');
+      </script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/Logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="getting-started-with-netfabricnumericstensors">Getting Started with NetFabric.Numerics.Tensors</h1>
+
+<p>To kick off your exploration of NetFabric.Numerics.Tensors, grab it from <a href="https://www.nuget.org/packages/NetFabric.Numerics.Tensors">NuGet</a>. Embed it as a dependency in your project, either by executing the command line steps (<a href="https://www.nuget.org/packages/NetFabric.Numerics.Tensors">outlined on the NuGet page</a>) or through your preferred dependency manager.</p>
+<p>Import the library into your source code files as needed – include <code>using NetFabric.Numerics.Tensors;</code> in your C# files or <code>open NetFabric.Numerics.Tensors</code> if you're working in F#.</p>
+<p>This library simplifies operations with one, two, or three <code>ReadOnlySpan&lt;T&gt;</code>, designed for specific use cases. The outcomes are presented in a <code>Span&lt;T&gt;</code>, specified as the last parameter. Keep in mind that the destination <code>Span&lt;T&gt;</code> must match or exceed the size of the sources. In-place operations are supported when the destination aligns with any of the sources.</p>
+<p>All predefined operations can be found in the static class <code>TensorOperations</code>. The following examples showcase the library's capabilities<code>. </code></p>
+<blockquote>
+<p>NOTE: While the examples showcase C#, the underlying concepts should remain accessible to developers using other languages.</p>
+</blockquote>
+<p>For instance, if you have a <code>data</code> variable of type <code>Span&lt;int&gt;</code>, the following snippet efficiently replaces each element with its square root:</p>
+<pre><code class="lang-csharp">TensorOperations.Sqrt(data, data);
+</code></pre>
+<p>Given that <code>data</code> serves as both the source and destination, the operation unfolds in-place.</p>
+<p>Consider variables <code>x</code>, <code>y</code>, and <code>result</code>, all of type <code>Span&lt;float&gt;</code> and equal size. This example populates each element in <code>result</code> with the sum of corresponding elements from <code>x</code> and <code>y</code>:</p>
+<pre><code class="lang-csharp">TensorOperations.Add(x, y, result);
+</code></pre>
+<blockquote>
+<p><strong>NOTE</strong>: The operations do not allocate any memory, ensuring optimal performance. The library is designed to be memory-efficient and performant. All the spans have to be allocated and managed by the user.</p>
+</blockquote>
+<p>In addition to working with individual elements, this library supports various aggregation operations. For example:</p>
+<pre><code class="lang-csharp">var sum = TensorOperations.Sum(data);
+var min = TensorOperations.Min(data);
+var (min, max) = TensorOperations.MinMax(data);
+</code></pre>
+<p>It also helps find the index of specific elements:</p>
+<pre><code class="lang-csharp">var index = TensorOperations.IndexOfMin(data);
+</code></pre>
+<p>Additionally, it can quickly locate the first element meeting certain criteria:</p>
+<pre><code class="lang-csharp">var value = FirstGreaterThan(data, 0);
+</code></pre>
+<p>And it simplifies finding the index of such elements:</p>
+<pre><code class="lang-csharp">var index = IndexOfFirstGreaterThan(data, 0);
+</code></pre>
+<p>Dive deeper into the library's capabilities by exploring the API documentation, especially the section under the <code>TensorOperations</code> type, for an exhaustive list of available functionalities.</p>
+<p>Moreover, this library caters to customization and extensibility, ensuring it aligns seamlessly with your unique scenarios. Uncover the nuances in the following sections to tailor the library to your needs.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/NetFabric/NetFabric.Numerics.Tensors/blob/main/docs/articles/Getting-started.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Copyright (c) 2023-2024 Antão Almada
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+      <title>Working with Tensors for Structured Data | NetFabric.Numerics </title>
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <meta name="title" content="Working with Tensors for Structured Data | NetFabric.Numerics ">
+      
+      
+      <link rel="icon" href="../images/Logo.png">
+      <link rel="stylesheet" href="../public/docfx.min.css">
+      <link rel="stylesheet" href="../public/main.css">
+      <meta name="docfx:navrel" content="../toc.html">
+      <meta name="docfx:tocrel" content="toc.html">
+      
+      
+      
+      
+      <meta name="docfx:docurl" content="https://github.com/NetFabric/NetFabric.Numerics.Tensors/blob/main/docs/articles/Working-structured-data.md/#L1">
+      <meta name="loc:inThisArticle" content="In this article">
+      <meta name="loc:searchResultsCount" content="{count} results for &quot;{query}&quot;">
+      <meta name="loc:searchNoResults" content="No results for &quot;{query}&quot;">
+      <meta name="loc:tocFilter" content="Filter by title">
+      <meta name="loc:nextArticle" content="Next">
+      <meta name="loc:prevArticle" content="Previous">
+      <meta name="loc:themeLight" content="Light">
+      <meta name="loc:themeDark" content="Dark">
+      <meta name="loc:themeAuto" content="Auto">
+      <meta name="loc:changeTheme" content="Change theme">
+      <meta name="loc:copy" content="Copy">
+      <meta name="loc:downloadPdf" content="Download PDF">
+
+      <script type="module" src="./../public/docfx.min.js"></script>
+
+      <script>
+        const theme = localStorage.getItem('theme') || 'auto'
+        document.documentElement.setAttribute('data-bs-theme', theme === 'auto' ? (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light') : theme)
+      </script>
+
+      <script async="" src="https://www.googletagmanager.com/gtag/js?id=G-E372L91FWS"></script>
+      <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+        gtag('config', 'G-E372L91FWS');
+      </script>
+  </head>
+
+  <body class="tex2jax_ignore" data-layout="" data-yaml-mime="">
+    <header class="bg-body border-bottom">
+      <nav id="autocollapse" class="navbar navbar-expand-md" role="navigation">
+        <div class="container-xxl flex-nowrap">
+          <a class="navbar-brand" href="../index.html">
+            <img id="logo" class="svg" src="../images/Logo.png" alt="">
+            
+          </a>
+          <button class="btn btn-lg d-md-none border-0" type="button" data-bs-toggle="collapse" data-bs-target="#navpanel" aria-controls="navpanel" aria-expanded="false" aria-label="Toggle navigation">
+            <i class="bi bi-three-dots"></i>
+          </button>
+          <div class="collapse navbar-collapse" id="navpanel">
+            <div id="navbar">
+            </div>
+          </div>
+        </div>
+      </nav>
+    </header>
+
+    <main class="container-xxl">
+      <div class="toc-offcanvas">
+        <div class="offcanvas-md offcanvas-start" tabindex="-1" id="tocOffcanvas" aria-labelledby="tocOffcanvasLabel">
+          <div class="offcanvas-header">
+            <h5 class="offcanvas-title" id="tocOffcanvasLabel">Table of Contents</h5>
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" data-bs-target="#tocOffcanvas" aria-label="Close"></button>
+          </div>
+          <div class="offcanvas-body">
+            <nav class="toc" id="toc"></nav>
+          </div>
+        </div>
+      </div>
+
+      <div class="content">
+        <div class="actionbar">
+          <button class="btn btn-lg border-0 d-md-none" style="margin-top: -.65em; margin-left: -.8em" type="button" data-bs-toggle="offcanvas" data-bs-target="#tocOffcanvas" aria-controls="tocOffcanvas" aria-expanded="false" aria-label="Show table of contents">
+            <i class="bi bi-list"></i>
+          </button>
+
+          <nav id="breadcrumb"></nav>
+        </div>
+
+        <article data-uid="">
+<h1 id="working-with-tensors-for-structured-data">Working with Tensors for Structured Data</h1>
+
+<p>In the <code>NetFabric.Numerics.Tensors</code> library, tensors can efficiently handle any value-type that meets specific requirements. For instance, consider the implementation of a 2D vector, <code>MyVector2&lt;T&gt;</code>, which supports the <code>Sum</code> operation as it's a value type and implements both <code>IAdditiveIdentity&lt;T, T&gt;</code> and <code>IAdditionOperators&lt;T, T, T&gt;</code>:</p>
+<pre><code class="lang-csharp">public readonly record struct MyVector2&lt;T&gt;(T X, T Y)
+    : IAdditiveIdentity&lt;MyVector2&lt;T&gt;, MyVector2&lt;T&gt;&gt;
+    , IAdditionOperators&lt;MyVector2&lt;T&gt;, MyVector2&lt;T&gt;, MyVector2&lt;T&gt;&gt;
+    where T : struct, INumber&lt;T&gt;
+{
+    public MyVector2(ValueTuple&lt;T, T&gt; tuple)
+        : this(tuple.Item1, tuple.Item2)
+    { }
+
+    public static MyVector2&lt;T&gt; AdditiveIdentity
+        =&gt; new(T.AdditiveIdentity, T.AdditiveIdentity);
+
+    public static MyVector2&lt;T&gt; operator +(MyVector2&lt;T&gt; left, MyVector2&lt;T&gt; right)
+        =&gt; new(left.X + right.X, left.Y + right.Y);
+}
+</code></pre>
+<p>However, <code>NetFabric.Numerics.Tensors</code> relies on <code>Vector&lt;T&gt;</code> for vectorization, which supports only primitive numeric types. This limitation prevents vectorization when using other types.</p>
+<p>It's worth mentioning that because <code>MyVector2&lt;T&gt;</code> consists of two fields of the same type and is always a value type, the contiguous storage in memory facilitates easy conversion from a span of <code>MyVector2&lt;T&gt;</code> to a span of <code>T</code> using <code>MemoryMarshal.Cast&lt;MyVector2&lt;T&gt;, T&gt;()</code>. This operation returns a span containing all the vector coordinates laid out contiguously. The <code>Apply()</code> and <code>Aggregate()</code> methods offer overloads that accommodate elements of up to 4 elements of the same type.</p>
+<p>This capability facilitates the implementation of the <code>Sum</code> operation for a span of <code>MyVector2&lt;T&gt;</code>:</p>
+<pre><code class="lang-csharp">public static MyVector2&lt;T&gt; Sum&lt;T&gt;(this ReadOnlySpan&lt;MyVector2&lt;T&gt;&gt; source)
+    where T : struct, INumber&lt;T&gt;
+    =&gt; new(Tensor.Sum2D(MemoryMarshal.Cast&lt;MyVector2&lt;T&gt;, T&gt;(source)));
+</code></pre>
+<p>Here, the tensor efficiently leverages vectorization for improved performance in the <code>Sum</code> operation on a span of <code>MyVector2&lt;T&gt;</code>, treating it as a span of its internal values. The use of <code>Sum2D</code> specifically indicates the intention to calculate the sum of every other item in the span, returning a 2D tuple that is then converted into the result <code>MyVector2&lt;T&gt;</code> by using the constructor.</p>
+<p>Regarding the <code>Apply</code> operation, it's used on each element while preserving order in the destination span. Employing <code>MemoryMarshal.Cast()</code> on both the sources and the destination is suitable:</p>
+<pre><code class="lang-csharp">public static void Add&lt;T&gt;(ReadOnlySpan&lt;MyVector2&lt;T&gt;&gt; left, MyVector2&lt;T&gt; right, Span&lt;MyVector2&lt;T&gt;&gt; result)
+    where T : struct, INumber&lt;T&gt;
+    =&gt; Tensor.Add(MemoryMarshal.Cast&lt;MyVector2&lt;T&gt;, T&gt;(left), (right.X, right.Y), MemoryMarshal.Cast&lt;MyVector2&lt;T&gt;, T&gt;(result));
+
+public static void Add&lt;T&gt;(ReadOnlySpan&lt;MyVector2&lt;T&gt;&gt; left, ReadOnlySpan&lt;MyVector2&lt;T&gt;&gt; right, Span&lt;MyVector2&lt;T&gt;&gt; result)
+    where T : struct, INumber&lt;T&gt;
+    =&gt; Tensor.Add(MemoryMarshal.Cast&lt;MyVector2&lt;T&gt;, T&gt;(left), MemoryMarshal.Cast&lt;MyVector2&lt;T&gt;, T&gt;(right), MemoryMarshal.Cast&lt;MyVector2&lt;T&gt;, T&gt;(result));
+</code></pre>
+<p>The first method yields a <code>result</code> span of vectors, with each vector containing the sum of the corresponding vectors in the <code>left</code> span and a fixed vector <code>right</code>. To achieve this, it invokes the <code>Add</code> overload, passing a value tuple with two parameters as the second argument.</p>
+<p>The second method produces a <code>result</code> span where each vector holds the sum of the respective vectors in the <code>left</code> and <code>right</code> spans.</p>
+<p>In these scenarios, the spans of <code>MyVector2&lt;T&gt;</code> are transformed into spans of <code>T</code> to enable the tensor to perform the <code>Add</code> operation. Afterwards, the result is recast to spans of <code>MyVector2&lt;T&gt;</code>. Each <code>MyVector2&lt;T&gt;</code> within the destination span encapsulates the result of the operation applied to the corresponding <code>MyVector2&lt;T&gt;</code> within the source spans.</p>
+
+</article>
+
+        <div class="contribution d-print-none">
+          <a href="https://github.com/NetFabric/NetFabric.Numerics.Tensors/blob/main/docs/articles/Working-structured-data.md/#L1" class="edit-link">Edit this page</a>
+        </div>
+
+        <div class="next-article d-print-none border-top" id="nextArticle"></div>
+
+      </div>
+
+      <div class="affix">
+        <nav id="affix"></nav>
+      </div>
+    </main>
+
+
+    <footer class="border-top text-secondary">
+      <div class="container-xxl">
+        <div class="flex-fill">
+          Copyright (c) 2023-2024 Antão Almada
+        </div>
+      </div>
+    </footer>
+  </body>
+</html>

@@ -1,0 +1,1923 @@
+{
+  "sitemap": {
+    "baseUrl": "https://netfabric.github.io/NetFabric.Numerics.Tensors/"
+  },
+  "source_base_path": "/home/runner/work/NetFabric.Numerics.Tensors/NetFabric.Numerics.Tensors/docs",
+  "xrefmap": "xrefmap.yml",
+  "files": [
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.IAggregationOperator-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.IAggregationOperator-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.IBinaryOperator-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.IBinaryOperator-3.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.IBinaryScalarOperator-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.IBinaryScalarOperator-3.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.IBinaryToScalarOperator-3.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.IBinaryToScalarOperator-3.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.IOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.IOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.ITernaryOperator-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.ITernaryOperator-4.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.ITernaryToScalarOperator-4.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.ITernaryToScalarOperator-4.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.IUnaryOperator-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.IUnaryOperator-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.IUnaryToScalarOperator-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.IUnaryToScalarOperator-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AbsOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AbsOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AcosOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AcosOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AcosPiOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AcosPiOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AcoshOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AcoshOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AddMultiplyOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AddMultiplyOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AddOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AddOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AsinOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AsinOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AsinPiOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AsinPiOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AsinhOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AsinhOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.Atan2Operator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.Atan2Operator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.Atan2PiOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.Atan2PiOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AtanOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AtanOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AtanPiOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AtanPiOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.AtanhOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.AtanhOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.BitDecrementOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.BitDecrementOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.BitIncrementOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.BitIncrementOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.BitwiseAndNotOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.BitwiseAndNotOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.BitwiseAndOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.BitwiseAndOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.BitwiseOrOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.BitwiseOrOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CbrtOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CbrtOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CeilingDoubleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CeilingDoubleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CeilingOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CeilingOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CeilingSingleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CeilingSingleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedAddOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedAddOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedDecrementOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedDecrementOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedDivideOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedDivideOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedIncrementOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedIncrementOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedMultiplyOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedMultiplyOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedNegateOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedNegateOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedSubtractOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CheckedSubtractOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CosOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CosOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CosPiOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CosPiOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CoshOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CoshOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.CubeOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.CubeOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.DecrementOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.DecrementOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.DivideOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.DivideOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.EqualsAllOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.EqualsAllOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.EqualsAnyOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.EqualsAnyOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.Exp10M1Operator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.Exp10M1Operator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.Exp10Operator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.Exp10Operator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.Exp2M1Operator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.Exp2M1Operator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.Exp2Operator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.Exp2Operator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ExpM1Operator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ExpM1Operator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ExpOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ExpOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.FloorDoubleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.FloorDoubleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.FloorOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.FloorOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.FloorSingleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.FloorSingleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.FusedMultiplyAddOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.FusedMultiplyAddOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanAllOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanAllOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanAnyOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanAnyOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanDoubleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanDoubleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanInt32Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanInt32Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanInt64Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanInt64Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualAllOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualAllOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualAnyOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualAnyOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualDoubleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualDoubleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualInt32Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualInt32Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualInt64Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualInt64Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualSingleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanOrEqualSingleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanSingleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.GreaterThanSingleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.HypotOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.HypotOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ILogBOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ILogBOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.IdentityOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.IdentityOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.Ieee754RemainderOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.Ieee754RemainderOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.IncrementOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.IncrementOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LerpOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LerpOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanAllOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanAllOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanAnyOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanAnyOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanDoubleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanDoubleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanInt32Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanInt32Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanInt64Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanInt64Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualAllOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualAllOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualAnyOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualAnyOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualDoubleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualDoubleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualInt32Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualInt32Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualInt64Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualInt64Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualSingleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanOrEqualSingleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanSingleOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LessThanSingleOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.Log10Operator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.Log10Operator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.Log10P1Operator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.Log10P1Operator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.Log2Operator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.Log2Operator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.Log2P1Operator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.Log2P1Operator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LogBaseOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LogBaseOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LogOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LogOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.LogP1Operator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.LogP1Operator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxAggregationOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxAggregationOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxMagnitudeAggregationOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxMagnitudeAggregationOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxMagnitudeNumberAggregationOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxMagnitudeNumberAggregationOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxMagnitudeNumberOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxMagnitudeNumberOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxMagnitudeOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxMagnitudeOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxNumberAggregationOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxNumberAggregationOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxNumberOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxNumberOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MaxOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinAggregationOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinAggregationOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinMagnitudeAggregationOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinMagnitudeAggregationOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinMagnitudeNumberAggregationOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinMagnitudeNumberAggregationOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinMagnitudeNumberOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinMagnitudeNumberOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinMagnitudeOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinMagnitudeOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinNumberAggregationOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinNumberAggregationOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinNumberOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinNumberOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MinOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ModulusOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ModulusOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MultiplyAddOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MultiplyAddOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MultiplyDivideOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MultiplyDivideOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MultiplyOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MultiplyOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.MultiplyScalarOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.MultiplyScalarOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.NegateOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.NegateOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.OnesComplementOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.OnesComplementOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.PowOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.PowOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ProductOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ProductOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ReciprocalEstimateOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ReciprocalEstimateOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ReciprocalSqrtEstimateOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ReciprocalSqrtEstimateOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.RootNOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.RootNOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.RoundDigitModeOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.RoundDigitModeOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.RoundDigitsOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.RoundDigitsOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.RoundModeOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.RoundModeOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.RoundOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.RoundOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftByteOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftByteOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftInt16Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftInt16Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftInt32Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftInt32Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftInt64Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftInt64Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftIntPtrOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftIntPtrOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftOperator-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftOperator-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftSByteOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftSByteOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftUInt16Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftUInt16Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftUInt32Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftUInt32Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftUInt64Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftUInt64Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftUIntPtrOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftLeftUIntPtrOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticInt16Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticInt16Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticInt32Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticInt32Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticInt64Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticInt64Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticIntPtrOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticIntPtrOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticOperator-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticOperator-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticSByteOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightArithmeticSByteOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalByteOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalByteOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalInt16Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalInt16Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalInt32Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalInt32Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalInt64Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalInt64Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalIntPtrOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalIntPtrOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalOperator-2.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalOperator-2.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalSByteOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalSByteOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalUInt16Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalUInt16Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalUInt32Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalUInt32Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalUInt64Operator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalUInt64Operator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalUIntPtrOperator.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.ShiftRightLogicalUIntPtrOperator.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.SigmoidOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.SigmoidOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.SinCosOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.SinCosOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.SinCosPiOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.SinCosPiOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.SinOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.SinOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.SinPiOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.SinPiOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.SinhOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.SinhOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.SqrtOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.SqrtOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.SquareOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.SquareOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.SubtractOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.SubtractOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.SumOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.SumOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.TanOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.TanOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.TanPiOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.TanPiOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.TanhOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.TanhOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.TruncateOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.TruncateOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.XorOperator-1.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.XorOperator-1.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Operators.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Operators.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.Tensor.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.Tensor.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.TensorOperations.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.TensorOperations.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "ManagedReference",
+      "source_relative_path": "api/NetFabric.Numerics.Tensors.yml",
+      "output": {
+        ".html": {
+          "relative_path": "api/NetFabric.Numerics.Tensors.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "api/index.md",
+      "output": {
+        ".html": {
+          "relative_path": "api/index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "api/toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "api/toc.json"
+        },
+        ".html": {
+          "relative_path": "api/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Benchmarks.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Benchmarks.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Extending-LINQ.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Extending-LINQ.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Extending-the-library.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Extending-the-library.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Getting-started.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Getting-started.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Working-lists.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Working-lists.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/Working-structured-data.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/Working-structured-data.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "articles/intro.md",
+      "output": {
+        ".html": {
+          "relative_path": "articles/intro.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "articles/toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "articles/toc.json"
+        },
+        ".html": {
+          "relative_path": "articles/toc.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Resource",
+      "source_relative_path": "images/Logo.png",
+      "output": {
+        "resource": {
+          "relative_path": "images/Logo.png"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Conceptual",
+      "source_relative_path": "index.md",
+      "output": {
+        ".html": {
+          "relative_path": "index.html"
+        }
+      },
+      "version": ""
+    },
+    {
+      "type": "Toc",
+      "source_relative_path": "toc.yml",
+      "output": {
+        ".json": {
+          "relative_path": "toc.json"
+        },
+        ".html": {
+          "relative_path": "toc.html"
+        }
+      },
+      "version": ""
+    }
+  ],
+  "groups": [
+    {
+      "xrefmap": "xrefmap.yml"
+    }
+  ]
+}
