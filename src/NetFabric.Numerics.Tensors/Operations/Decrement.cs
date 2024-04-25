@@ -2,6 +2,14 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class TensorOperations
 {
+    public static void Decrement<T>(T[] source, T[] destination)
+        where T : struct, IDecrementOperators<T>
+        => Tensor.Apply<T, DecrementOperator<T>>(source, destination);
+
+    public static void Decrement<T>(ReadOnlyMemory<T> source, Memory<T> destination)
+        where T : struct, IDecrementOperators<T>
+        => Tensor.Apply<T, DecrementOperator<T>>(source, destination);
+
     /// <summary>
     /// Decrements each element in the <paramref name="source"/> span and stores the result in the <paramref name="destination"/> span.
     /// </summary>
@@ -12,6 +20,14 @@ public static partial class TensorOperations
     public static void Decrement<T>(ReadOnlySpan<T> source, Span<T> destination)
         where T : struct, IDecrementOperators<T>
         => Tensor.Apply<T, DecrementOperator<T>>(source, destination);
+
+    public static void CheckedDecrement<T>(T[] source, T[] destination)
+        where T : struct, IDecrementOperators<T>
+        => Tensor.Apply<T, CheckedDecrementOperator<T>>(source, destination);
+
+    public static void CheckedDecrement<T>(ReadOnlyMemory<T> source, Memory<T> destination)
+        where T : struct, IDecrementOperators<T>
+        => Tensor.Apply<T, CheckedDecrementOperator<T>>(source, destination);
 
     /// <summary>
     /// Decrements each element in the <paramref name="source"/> span and stores the result in the <paramref name="destination"/> span. 

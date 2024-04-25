@@ -2,6 +2,61 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class Tensor
 {
+    public static void Apply<T, TOperator>(T[] x, T[] destination)
+        where T : struct
+        where TOperator : struct, IUnaryOperator<T, T>
+        => Apply<T, TOperator>(x.AsMemory(), destination.AsMemory());
+
+    public static void Apply<T, TResult, TOperator>(T[] x, TResult[] destination)
+        where T : struct
+        where TResult : struct
+        where TOperator : struct, IUnaryOperator<T, TResult>
+        => Apply<T, TResult, TOperator>(x.AsMemory(), destination.AsMemory());
+
+    public static void Apply<T, TOperator>(ReadOnlyMemory<T> x, Memory<T> destination)
+        where T : struct
+        where TOperator : struct, IUnaryOperator<T, T>
+    {
+        if (OverlapAndAreNotSame(x, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
+
+        Apply<T, T, TOperator>(x, destination);
+    }
+
+    public static void Apply<T, TResult, TOperator>(ReadOnlyMemory<T> x, Memory<TResult> destination)
+        where T : struct
+        where TResult : struct
+        where TOperator : struct, IUnaryOperator<T, TResult>
+    {
+        if (x.Length > destination.Length)
+            Throw.ArgumentException(nameof(destination), "Destination span is too small.");
+
+        if(x.Length > 2 * minChunkSize)
+            ParallelApply(x, destination);
+        else
+            Apply<T, TResult, TOperator>(x.Span, destination.Span);
+
+        static void ParallelApply(ReadOnlyMemory<T> source, Memory<TResult> destination)
+        {
+            var size = source.Length;
+            var chunkSize = int.Max(size / AvailableCores(), minChunkSize);
+
+            var actions = new Action[size / chunkSize];
+            for (var index = 0; index < actions.Length; index++)
+            {
+                var start = index * chunkSize;
+                var length = (index == actions.Length - 1) 
+                    ? size - start
+                    : chunkSize;
+
+                var sourceSlice = source.Slice(start, length);
+                var destinationSlice = destination.Slice(start, length);
+                actions[index] = () => Apply<T, TResult, TOperator>(sourceSlice.Span, destinationSlice.Span);
+            }
+            Parallel.Invoke(actions);
+        }
+    }
+
     /// <summary>
     /// Applies the specified operator to the elements of the <see cref="ReadOnlySpan{T}"/> and stores the result in the destination <see cref="Span{T}"/>.
     /// </summary>
@@ -15,7 +70,7 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, IUnaryOperator<T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         Apply<T, T, TOperator>(x, destination);
@@ -122,9 +177,9 @@ public static partial class Tensor
         where TOperator1 : struct, IUnaryOperator<T, T>
         where TOperator2 : struct, IUnaryOperator<T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination1))
+        if (OverlapAndAreNotSame(x, destination1))
             Throw.ArgumentException(nameof(destination1), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(x, destination2))
+        if (OverlapAndAreNotSame(x, destination2))
             Throw.ArgumentException(nameof(destination2), "Destination span overlaps with x.");
 
         Apply2<T, T, T, TOperator1, TOperator2>(x, destination1, destination2);

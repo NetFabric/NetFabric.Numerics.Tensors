@@ -2,6 +2,14 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class TensorOperations
 {
+    public static void Negate<T>(T[] value, T[] destination)
+        where T : struct, IUnaryNegationOperators<T, T>
+        => Tensor.Apply<T, NegateOperator<T>>(value, destination);
+
+    public static void Negate<T>(ReadOnlyMemory<T> value, Memory<T> destination)
+        where T : struct, IUnaryNegationOperators<T, T>
+        => Tensor.Apply<T, NegateOperator<T>>(value, destination);
+
     /// <summary>
     /// Negates the elements in the source span and stores the result in the destination span.
     /// </summary>
@@ -12,6 +20,15 @@ public static partial class TensorOperations
     public static void Negate<T>(ReadOnlySpan<T> value, Span<T> destination)
         where T : struct, IUnaryNegationOperators<T, T>
         => Tensor.Apply<T, NegateOperator<T>>(value, destination);
+
+    public static void CheckedNegate<T>(T[] value, T[] destination)
+        where T : struct, IUnaryNegationOperators<T, T>
+        => Tensor.Apply<T, CheckedNegateOperator<T>>(value, destination);
+
+    public static void CheckedNegate<T>(ReadOnlyMemory<T> value, Memory<T> destination)
+        where T : struct, IUnaryNegationOperators<T, T>
+        => Tensor.Apply<T, CheckedNegateOperator<T>>(value, destination);
+
 
     /// <summary>
     /// Negates the elements in the source span and stores the result in the destination span, performing checked arithmetic.

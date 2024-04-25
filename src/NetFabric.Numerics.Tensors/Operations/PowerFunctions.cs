@@ -2,6 +2,15 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class TensorOperations
 {
+
+    public static void Square<T>(T[] x, T[] destination)
+        where T : struct, IMultiplyOperators<T, T, T>
+        => Tensor.Apply<T, SquareOperator<T>>(x, destination);
+
+    public static void Square<T>(ReadOnlyMemory<T> x, Memory<T> destination)
+        where T : struct, IMultiplyOperators<T, T, T>
+        => Tensor.Apply<T, SquareOperator<T>>(x, destination);
+
     /// <summary>
     /// Computes the square of each element in the input span and stores the result in the destination span.
     /// </summary>
@@ -12,6 +21,14 @@ public static partial class TensorOperations
     public static void Square<T>(ReadOnlySpan<T> x, Span<T> destination)
         where T : struct, IMultiplyOperators<T, T, T>
         => Tensor.Apply<T, SquareOperator<T>>(x, destination);
+
+    public static void Cube<T>(T[] x, T[] destination)
+        where T : struct, IMultiplyOperators<T, T, T>
+        => Tensor.Apply<T, CubeOperator<T>>(x, destination);
+
+    public static void Cube<T>(ReadOnlyMemory<T> x, Memory<T> destination)
+        where T : struct, IMultiplyOperators<T, T, T>
+        => Tensor.Apply<T, CubeOperator<T>>(x, destination);
 
     /// <summary>
     /// Computes the cube of each element in the input span and stores the result in the destination span.

@@ -210,6 +210,14 @@ public static partial class TensorOperations
         where T : struct, IBitwiseOperators<T, T, T>
         => Tensor.Apply<T, XorOperator<T>>(x, y, destination);
 
+    public static void OnesComplement<T>(T[] x, T[] destination)
+        where T : struct, IBitwiseOperators<T, T, T>
+        => Tensor.Apply<T, OnesComplementOperator<T>>(x, destination);
+
+    public static void OnesComplement<T>(ReadOnlyMemory<T> x, Memory<T> destination)
+        where T : struct, IBitwiseOperators<T, T, T>
+        => Tensor.Apply<T, OnesComplementOperator<T>>(x, destination);
+
     /// <summary>
     /// Computes the ones' complement (bitwise negation) operation on each element of a <see cref="ReadOnlySpan{T}"/>,
     /// and stores the result in the corresponding position of the <see cref="Span{T}"/> <paramref name="destination"/>.

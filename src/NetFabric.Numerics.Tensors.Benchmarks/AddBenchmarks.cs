@@ -18,7 +18,7 @@ public class AddBenchmarks
     float[]? sourceFloat, otherFloat, resultFloat;
     double[]? sourceDouble, otherDouble, resultDouble;
 
-    [Params(100)]
+    [Params(1_000)]
     public int Count { get; set; }
 
     [GlobalSetup]
@@ -75,7 +75,7 @@ public class AddBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark]
     public void NetFabric_Short()
-        => TensorOperations.Add<short>(sourceShort!, otherShort!, resultShort!);
+        => TensorOperations.Add(sourceShort!, otherShort!, resultShort!);
 
     [BenchmarkCategory("Int")]
     [Benchmark(Baseline = true)]
@@ -90,7 +90,7 @@ public class AddBenchmarks
     [BenchmarkCategory("Int")]
     [Benchmark]
     public void NetFabric_Int()
-        => TensorOperations.Add<int>(sourceInt!, otherInt!, resultInt!);
+        => TensorOperations.Add(sourceInt!, otherInt!, resultInt!);
 
     [BenchmarkCategory("Long")]
     [Benchmark(Baseline = true)]
@@ -105,7 +105,7 @@ public class AddBenchmarks
     [BenchmarkCategory("Long")]
     [Benchmark]
     public void NetFabric_Long()
-        => TensorOperations.Add<long>(sourceLong!, otherLong!, resultLong!);
+        => TensorOperations.Add(sourceLong!, otherLong!, resultLong!);
 
     [BenchmarkCategory("Half")]
     [Benchmark(Baseline = true)]
@@ -120,7 +120,7 @@ public class AddBenchmarks
     [BenchmarkCategory("Half")]
     [Benchmark]
     public void NetFabric_Half()
-        => TensorOperations.Add<Half>(sourceHalf!, otherHalf!, resultHalf!);
+        => TensorOperations.Add(sourceHalf!, otherHalf!, resultHalf!);
 
     [BenchmarkCategory("Float")]
     [Benchmark(Baseline = true)]
@@ -135,7 +135,7 @@ public class AddBenchmarks
     [BenchmarkCategory("Float")]
     [Benchmark]
     public void NetFabric_Float()
-        => TensorOperations.Add<float>(sourceFloat!, otherFloat!, resultFloat!);
+        => TensorOperations.Add(sourceFloat!, otherFloat!, resultFloat!);
 
     [BenchmarkCategory("Double")]
     [Benchmark(Baseline = true)]
@@ -150,5 +150,5 @@ public class AddBenchmarks
     [BenchmarkCategory("Double")]
     [Benchmark]
     public void NetFabric_Double()
-        => TensorOperations.Add<double>(sourceDouble!, otherDouble!, resultDouble!);
+        => TensorOperations.Add(sourceDouble!, otherDouble!, resultDouble!);
 }

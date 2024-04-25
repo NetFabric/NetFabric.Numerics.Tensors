@@ -17,11 +17,11 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
+        if (OverlapAndAreNotSame(y, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
-        if (SpansOverlapAndAreNotSame(z, destination))
+        if (OverlapAndAreNotSame(z, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -139,9 +139,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(z, destination))
+        if (OverlapAndAreNotSame(z, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -257,9 +257,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(z, destination))
+        if (OverlapAndAreNotSame(z, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -371,9 +371,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(z, destination))
+        if (OverlapAndAreNotSame(z, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -433,9 +433,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
+        if (OverlapAndAreNotSame(y, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -551,9 +551,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
+        if (OverlapAndAreNotSame(y, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -665,9 +665,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
+        if (OverlapAndAreNotSame(y, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -737,7 +737,7 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -849,7 +849,7 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -956,7 +956,7 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);

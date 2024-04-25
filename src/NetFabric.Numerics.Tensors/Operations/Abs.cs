@@ -2,6 +2,14 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class TensorOperations
 {
+    public static void Abs<T>(T[] source, T[] destination)
+        where T : struct, INumberBase<T>
+        => Tensor.Apply<T, AbsOperator<T>>(source, destination);
+
+    public static void Abs<T>(ReadOnlyMemory<T> source, Memory<T> destination)
+        where T : struct, INumberBase<T>
+        => Tensor.Apply<T, AbsOperator<T>>(source, destination);
+
     /// <summary>
     /// Computes the absolute value of each element in the source span and stores the result in the destination span.
     /// </summary>

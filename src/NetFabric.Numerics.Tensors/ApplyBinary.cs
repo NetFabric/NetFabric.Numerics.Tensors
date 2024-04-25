@@ -2,6 +2,66 @@ namespace NetFabric.Numerics.Tensors;
 
 public static partial class Tensor
 {
+    public static void Apply<T, TOperator>(T[] x, T[] y, T[] destination)
+        where T : struct
+        where TOperator : struct, IBinaryOperator<T, T, T>
+        => Apply<T, TOperator>(x.AsMemory(), y.AsMemory(), destination.AsMemory());
+
+    public static void Apply<T1, T2, TResult, TOperator>(T1[] x, T2[] y, TResult[] destination)
+        where T1 : struct
+        where T2: struct
+        where TResult : struct
+        where TOperator : struct, IBinaryOperator<T1, T2, TResult>
+        => Apply<T1, T2, TResult, TOperator>(x.AsMemory(), y.AsMemory(), destination.AsMemory());
+
+    public static void Apply<T, TOperator>(ReadOnlyMemory<T> x, ReadOnlyMemory<T> y, Memory<T> destination)
+        where T : struct
+        where TOperator : struct, IBinaryOperator<T, T, T>
+    {
+        if (OverlapAndAreNotSame(x, destination))
+            Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
+
+        Apply<T, T, T, TOperator>(x, y, destination);
+    }
+
+    public static void Apply<T1, T2, TResult, TOperator>(ReadOnlyMemory<T1> x, ReadOnlyMemory<T2> y, Memory<TResult> destination)
+        where T1 : struct
+        where T2 : struct
+        where TResult : struct
+        where TOperator : struct, IBinaryOperator<T1, T2, TResult>
+    {
+        if (x.Length != y.Length)
+            Throw.ArgumentException(nameof(y), "x and y spans must have the same length.");
+        if (x.Length > destination.Length)
+            Throw.ArgumentException(nameof(destination), "Destination span is too small.");
+
+        if(x.Length > 2 * minChunkSize)
+            ParallelApply(x, y, destination);
+        else
+            Apply<T1, T2, TResult, TOperator>(x.Span, y.Span, destination.Span);
+
+        static void ParallelApply(ReadOnlyMemory<T1> x, ReadOnlyMemory<T2> y, Memory<TResult> destination)
+        {
+            var size = x.Length;
+            var chunkSize = int.Max(size / AvailableCores(), minChunkSize);
+
+            var actions = new Action[size / chunkSize];
+            for (var index = 0; index < actions.Length; index++)
+            {
+                var start = index * chunkSize;
+                var length = (index == actions.Length - 1) 
+                    ? size - start
+                    : chunkSize;
+
+                var xSlice = x.Slice(start, length);
+                var ySlice = y.Slice(start, length);
+                var destinationSlice = destination.Slice(start, length);
+                actions[index] = () => Apply<T1, T2, TResult, TOperator>(xSlice.Span, ySlice.Span, destinationSlice.Span);
+            }
+            Parallel.Invoke(actions);
+        }
+    }
+
     /// <summary>
     /// Applies the specified operator to the elements of two <see cref="ReadOnlySpan{T}"/> and stores the result in the destination <see cref="Span{T}"/>.
     /// </summary>
@@ -16,9 +76,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, IBinaryOperator<T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
+        if (OverlapAndAreNotSame(y, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         Apply<T, T, T, TOperator>(x, y, destination);
@@ -128,7 +188,7 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, IBinaryOperator<T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         Apply<T, T, T, TOperator>(x, y, destination);
@@ -233,7 +293,7 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, IBinaryOperator<T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         Apply<T, T, T, TOperator>(x, y, destination);
@@ -335,7 +395,7 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, IBinaryOperator<T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         Apply<T, T, T, TOperator>(x, y, destination);
