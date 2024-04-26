@@ -1,3 +1,5 @@
+using System;
+
 namespace NetFabric.Numerics.Tensors;
 
 public static partial class Tensor
@@ -35,28 +37,32 @@ public static partial class Tensor
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
 
-        if(x.Length > 2 * minChunkSize)
-            ParallelApply(x, y, destination);
+        var coreCount = AvailableCores();
+
+        if (coreCount >= minChunkCount && x.Length > minChunkCount * minChunkSize)
+            ParallelApply(x, y, destination, coreCount);
         else
             Apply<T1, T2, TResult, TOperator>(x.Span, y.Span, destination.Span);
 
-        static void ParallelApply(ReadOnlyMemory<T1> x, ReadOnlyMemory<T2> y, Memory<TResult> destination)
+        static void ParallelApply(ReadOnlyMemory<T1> x, ReadOnlyMemory<T2> y, Memory<TResult> destination, int coreCount)
         {
-            var size = x.Length;
-            var chunkSize = int.Max(size / AvailableCores(), minChunkSize);
+            var totalSize = x.Length;
+            var chunkSize = int.Max(totalSize / coreCount, minChunkSize);
 
-            var actions = new Action[size / chunkSize];
+            var actions = new Action[totalSize / chunkSize];
+            var start = 0;
             for (var index = 0; index < actions.Length; index++)
             {
-                var start = index * chunkSize;
-                var length = (index == actions.Length - 1) 
-                    ? size - start
+                var length = (index == actions.Length - 1)
+                    ? totalSize - start
                     : chunkSize;
 
                 var xSlice = x.Slice(start, length);
                 var ySlice = y.Slice(start, length);
                 var destinationSlice = destination.Slice(start, length);
                 actions[index] = () => Apply<T1, T2, TResult, TOperator>(xSlice.Span, ySlice.Span, destinationSlice.Span);
+
+                start += length;
             }
             Parallel.Invoke(actions);
         }
@@ -111,13 +117,13 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
             Vector<T2>.IsSupported &&
             Vector<TResult>.IsSupported &&
-            x.Length >= Vector<T1>.Count)
+            x.Length > Vector<T1>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
@@ -219,13 +225,13 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
             Vector<T2>.IsSupported &&
             Vector<TResult>.IsSupported &&
-            x.Length >= Vector<T1>.Count)
+            x.Length > Vector<T1>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
@@ -326,7 +332,7 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
@@ -334,7 +340,7 @@ public static partial class Tensor
             Vector<TResult>.IsSupported &&
             Vector<T1>.Count > 2 &&
             Vector<T1>.Count % 2 is 0 &&
-            x.Length >= Vector<T1>.Count)
+            x.Length > Vector<T1>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);

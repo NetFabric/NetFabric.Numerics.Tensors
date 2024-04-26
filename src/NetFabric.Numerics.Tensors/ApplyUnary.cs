@@ -31,27 +31,31 @@ public static partial class Tensor
         if (x.Length > destination.Length)
             Throw.ArgumentException(nameof(destination), "Destination span is too small.");
 
-        if(x.Length > 2 * minChunkSize)
-            ParallelApply(x, destination);
+        var coreCount = AvailableCores();
+
+        if (coreCount >= minChunkCount && x.Length > minChunkCount * minChunkSize)
+            ParallelApply(x, destination, coreCount);
         else
             Apply<T, TResult, TOperator>(x.Span, destination.Span);
 
-        static void ParallelApply(ReadOnlyMemory<T> source, Memory<TResult> destination)
+        static void ParallelApply(ReadOnlyMemory<T> x, Memory<TResult> destination, int coreCount)
         {
-            var size = source.Length;
-            var chunkSize = int.Max(size / AvailableCores(), minChunkSize);
+            var totalSize = x.Length;
+            var chunkSize = int.Max(totalSize / coreCount, minChunkSize);
 
-            var actions = new Action[size / chunkSize];
+            var actions = new Action[totalSize / chunkSize];
+            var start = 0;
             for (var index = 0; index < actions.Length; index++)
             {
-                var start = index * chunkSize;
-                var length = (index == actions.Length - 1) 
-                    ? size - start
+                var length = (index == actions.Length - 1)
+                    ? totalSize - start
                     : chunkSize;
 
-                var sourceSlice = source.Slice(start, length);
+                var xSlice = x.Slice(start, length);
                 var destinationSlice = destination.Slice(start, length);
-                actions[index] = () => Apply<T, TResult, TOperator>(sourceSlice.Span, destinationSlice.Span);
+                actions[index] = () => Apply<T, TResult, TOperator>(xSlice.Span, destinationSlice.Span);
+
+                start += length;
             }
             Parallel.Invoke(actions);
         }
@@ -98,12 +102,12 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T>.IsSupported &&
             Vector<TResult>.IsSupported &&
-            x.Length >= Vector<T>.Count)
+            x.Length > Vector<T>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(x);
@@ -214,14 +218,14 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator1.IsVectorizable &&
             TOperator2.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T>.IsSupported &&
             Vector<TResult1>.IsSupported &&
             Vector<TResult2>.IsSupported &&
-            x.Length >= Vector<T>.Count)
+            x.Length > Vector<T>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var sourceVectors = MemoryMarshal.Cast<T, Vector<T>>(x);

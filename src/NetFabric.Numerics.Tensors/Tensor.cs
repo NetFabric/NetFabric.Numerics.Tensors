@@ -10,7 +10,8 @@ namespace NetFabric.Numerics.Tensors;
 /// </remarks>
 public static partial class Tensor
 {
-    const int minChunkSize = 100;
+    const int minChunkSize = 1_000;
+    const int minChunkCount = 4;
 
     [MethodImpl(MethodImplOptions.AggressiveInlining)]
     static int AvailableCores() 
