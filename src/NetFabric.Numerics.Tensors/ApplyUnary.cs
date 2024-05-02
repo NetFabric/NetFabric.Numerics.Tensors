@@ -57,14 +57,13 @@ public static partial class Tensor
             // Iterate through the vectors.
             ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
             ref var destinationVectorsRef = ref MemoryMarshal.GetReference(destinationVectors);
-            var indexVector = 0;
-            for (; indexVector < sourceVectors.Length; indexVector++)
+            for (var indexVector = 0; indexVector < sourceVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destinationVectorsRef, indexVector) = TOperator.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
             }
 
             // Update the index to the end of the last complete vector.
-            indexSource = indexVector * Vector<T>.Count;
+            indexSource = sourceVectors.Length * Vector<T>.Count;
         }
 
         // Iterate through the remaining elements.
@@ -178,15 +177,14 @@ public static partial class Tensor
             ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
             ref var destination1VectorsRef = ref MemoryMarshal.GetReference(destination1Vectors);
             ref var destination2VectorsRef = ref MemoryMarshal.GetReference(destination2Vectors);
-            var indexVector = 0;
-            for (; indexVector < sourceVectors.Length; indexVector++)
+            for (var indexVector = 0; indexVector < sourceVectors.Length; indexVector++)
             {
                 Unsafe.Add(ref destination1VectorsRef, indexVector) = TOperator1.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
                 Unsafe.Add(ref destination2VectorsRef, indexVector) = TOperator2.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
             }
 
             // Update the index to the end of the last complete vector.
-            indexSource = indexVector * Vector<T>.Count;
+            indexSource = sourceVectors.Length * Vector<T>.Count;
         }
 
         // Iterate through the remaining elements.

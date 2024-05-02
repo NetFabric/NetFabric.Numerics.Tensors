@@ -56,9 +56,7 @@ public static partial class Tensor
             {
                 // aggregate the source vectors into the aggregate vector
                 ref var vectorsRef = ref MemoryMarshal.GetReference(vectors);
-
-                var indexVector = 0;
-                for (; indexVector < vectors.Length; indexVector++)
+                for (var indexVector = 0; indexVector < vectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref vectorsRef, indexVector));
                     if (TPredicateOperator.Invoke(ref transformedVector))
@@ -71,7 +69,7 @@ public static partial class Tensor
                     }
                 }
 
-                indexSource = indexVector * Vector<TTransformed>.Count;
+                indexSource = vectors.Length * Vector<TTransformed>.Count;
             }
 
             ref var xRef = ref MemoryMarshal.GetReference(x);
@@ -156,9 +154,7 @@ public static partial class Tensor
                 // aggregate the source vectors into the aggregate vector
                 ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
                 ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
-
-                var indexVector = 0;
-                for (; indexVector < xVectors.Length; indexVector++)
+                for (var indexVector = 0; indexVector < xVectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
                     if (TPredicateOperator.Invoke(ref transformedVector))
@@ -171,7 +167,7 @@ public static partial class Tensor
                     }
                 }
 
-                indexSource = indexVector * Vector<TTransformed>.Count;
+                indexSource = xVectors.Length * Vector<TTransformed>.Count;
             }
 
             ref var xRef = ref MemoryMarshal.GetReference(x);

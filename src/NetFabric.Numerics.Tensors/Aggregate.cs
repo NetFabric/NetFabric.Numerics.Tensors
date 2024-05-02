@@ -88,8 +88,7 @@ public static partial class Tensor
 
                 // aggregate the source vectors into the aggregate vector
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
-                var indexVector = 0;
-                for (; indexVector < sourceVectors.Length; indexVector++)
+                for (var indexVector = 0; indexVector < sourceVectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
                     aggregateVector = TAggregateOperator.Invoke(ref aggregateVector, ref transformedVector);
@@ -109,7 +108,7 @@ public static partial class Tensor
                 aggregate = TAggregateOperator.Invoke(aggregate, ref aggregateVector);
 
                 // skip the source elements already aggregated
-                indexSource = indexVector * Vector<TResult>.Count;
+                indexSource = sourceVectors.Length * Vector<TResult>.Count;
             }
 
             // aggregate the remaining elements in the source
@@ -211,8 +210,7 @@ public static partial class Tensor
                 // aggregate the source vectors into the aggregate vector
                 ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
                 ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
-                var indexVector = 0;
-                for (; indexVector < xVectors.Length; indexVector++)
+                for (var indexVector = 0; indexVector < xVectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
                     aggregateVector = TAggregateOperator.Invoke(ref aggregateVector, ref transformedVector);
@@ -232,7 +230,7 @@ public static partial class Tensor
                 aggregate = TAggregateOperator.Invoke(aggregate, ref aggregateVector);
 
                 // skip the source elements already aggregated
-                indexSource = indexVector * Vector<TResult>.Count;
+                indexSource = xVectors.Length * Vector<TResult>.Count;
             }
 
             // aggregate the remaining elements in the source
@@ -306,8 +304,7 @@ public static partial class Tensor
 
                 // aggregate the source vectors into the aggregate vector
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
-                var indexVector = 0;
-                for (; indexVector < sourceVectors.Length; indexVector++)
+                for (var indexVector = 0; indexVector < sourceVectors.Length; indexVector++)
                 {
                     var currentVector = Unsafe.Add(ref sourceVectorsRef, indexVector);
                     if (Vector.EqualsAll(currentVector, currentVector)) // check if vector contains NaN
@@ -335,7 +332,7 @@ public static partial class Tensor
                 }
 
                 // skip the source elements already aggregated
-                indexSource = indexVector * Vector<T>.Count;
+                indexSource = sourceVectors.Length * Vector<T>.Count;
             }
 
             // aggregate the remaining elements in the source

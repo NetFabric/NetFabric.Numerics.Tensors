@@ -62,9 +62,7 @@ public static partial class Tensor
                 ref var vectorsRef = ref MemoryMarshal.GetReference(vectors);
                 var yVector = new Vector<TTransformed>(y);
                 var zVector = new Vector<TTransformed>(z);
-
-                var indexVector = 0;
-                for (; indexVector < vectors.Length; indexVector++)
+                for (var indexVector = 0; indexVector < vectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref vectorsRef, indexVector));
                     if (TPredicateOperator.Invoke(ref transformedVector, ref yVector, ref zVector))
@@ -77,7 +75,7 @@ public static partial class Tensor
                     }
                 }
 
-                indexSource = indexVector * Vector<TTransformed>.Count;
+                indexSource = vectors.Length * Vector<TTransformed>.Count;
             }
 
             ref var xRef = ref MemoryMarshal.GetReference(x);
@@ -168,9 +166,7 @@ public static partial class Tensor
                 ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
                 var zVector = new Vector<TTransformed>(z);
                 var wVector = new Vector<TTransformed>(w);
-
-                var indexVector = 0;
-                for (; indexVector < xVectors.Length; indexVector++)
+                for (var indexVector = 0; indexVector < xVectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
                     if (TPredicateOperator.Invoke(ref transformedVector, ref zVector, ref wVector))
@@ -183,7 +179,7 @@ public static partial class Tensor
                     }
                 }
 
-                indexSource = indexVector * Vector<TTransformed>.Count;
+                indexSource = xVectors.Length * Vector<TTransformed>.Count;
             }
 
             ref var xRef = ref MemoryMarshal.GetReference(x);

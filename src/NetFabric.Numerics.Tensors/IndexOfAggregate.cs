@@ -81,8 +81,7 @@ public static partial class Tensor
 
                 // aggregate the source vectors into the aggregate vector
                 ref var sourceVectorsRef = ref MemoryMarshal.GetReference(sourceVectors);
-                var indexVector = 0;
-                for (; indexVector < sourceVectors.Length; indexVector++)
+                for (var indexVector = 0; indexVector < sourceVectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref sourceVectorsRef, indexVector));
                     var currentVector = TAggregateOperator.Invoke(ref aggregateVector, ref transformedVector);
@@ -122,7 +121,7 @@ public static partial class Tensor
                 }
 
                 // skip the source elements already aggregated
-                indexSource = indexVector * Vector<TSource>.Count;
+                indexSource = sourceVectors.Length * Vector<TSource>.Count;
             }
         }
 
@@ -223,8 +222,7 @@ public static partial class Tensor
                 // aggregate the source vectors into the aggregate vector
                 ref var xVectorsRef = ref MemoryMarshal.GetReference(xVectors);
                 ref var yVectorsRef = ref MemoryMarshal.GetReference(yVectors);
-                var indexVector = 0;
-                for (; indexVector < xVectors.Length; indexVector++)
+                for (var indexVector = 0; indexVector < xVectors.Length; indexVector++)
                 {
                     var transformedVector = TTransformOperator.Invoke(ref Unsafe.Add(ref xVectorsRef, indexVector), ref Unsafe.Add(ref yVectorsRef, indexVector));
                     var currentVector = TAggregateOperator.Invoke(ref aggregateVector, ref transformedVector);
@@ -264,7 +262,7 @@ public static partial class Tensor
                 }
 
                 // skip the source elements already aggregated
-                indexSource = indexVector * Vector<T1>.Count;
+                indexSource = xVectors.Length * Vector<T1>.Count;
             }
 
         }
