@@ -8,6 +8,8 @@ namespace NetFabric.Numerics.Tensors.Benchmarks;
 [Config(typeof(VectorizationConfig))]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
+[MemoryDiagnoser]
+[MemoryRandomization]
 public class IndexOfMinAggregateBenchmarks
 {
     short[]? arrayShort;

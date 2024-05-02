@@ -7,6 +7,8 @@ namespace NetFabric.Numerics.Tensors.Benchmarks;
 [Config(typeof(VectorizationConfig))]
 [GroupBenchmarksBy(BenchmarkLogicalGroupRule.ByCategory)]
 [CategoriesColumn]
+[MemoryDiagnoser]
+[MemoryRandomization]
 public class Sum3DBenchmarks
 {
     MyVector3<short>[]? arrayShort;
