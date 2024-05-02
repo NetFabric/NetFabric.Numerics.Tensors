@@ -17,11 +17,11 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
+        if (OverlapAndAreNotSame(y, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
-        if (SpansOverlapAndAreNotSame(z, destination))
+        if (OverlapAndAreNotSame(z, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -57,14 +57,14 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
             Vector<T2>.IsSupported &&
             Vector<T3>.IsSupported &&
             Vector<TResult>.IsSupported &&
-            x.Length >= Vector<T1>.Count)
+            x.Length > Vector<T1>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
@@ -139,9 +139,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(z, destination))
+        if (OverlapAndAreNotSame(z, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -177,14 +177,14 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
             Vector<T2>.IsSupported &&
             Vector<T3>.IsSupported &&
             Vector<TResult>.IsSupported &&
-            x.Length >= Vector<T1>.Count)
+            x.Length > Vector<T1>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
@@ -257,9 +257,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(z, destination))
+        if (OverlapAndAreNotSame(z, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -297,7 +297,7 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
@@ -306,7 +306,7 @@ public static partial class Tensor
             Vector<TResult>.IsSupported &&
             Vector<T1>.Count > 2 &&
             Vector<T1>.Count % 2 is 0 &&
-            x.Length >= Vector<T1>.Count)
+            x.Length > Vector<T1>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
@@ -371,9 +371,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(z, destination))
+        if (OverlapAndAreNotSame(z, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with z.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -433,9 +433,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
+        if (OverlapAndAreNotSame(y, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -471,14 +471,14 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
             Vector<T2>.IsSupported &&
             Vector<T3>.IsSupported &&
             Vector<TResult>.IsSupported &&
-            x.Length >= Vector<T1>.Count)
+            x.Length > Vector<T1>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
@@ -551,9 +551,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
+        if (OverlapAndAreNotSame(y, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -591,7 +591,7 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
@@ -600,7 +600,7 @@ public static partial class Tensor
             Vector<TResult>.IsSupported &&
             Vector<T1>.Count > 2 &&
             Vector<T1>.Count % 2 is 0 &&
-            x.Length >= Vector<T1>.Count)
+            x.Length > Vector<T1>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
@@ -665,9 +665,9 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
-        if (SpansOverlapAndAreNotSame(y, destination))
+        if (OverlapAndAreNotSame(y, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with y.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -737,7 +737,7 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -771,14 +771,14 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
             Vector<T2>.IsSupported &&
             Vector<T3>.IsSupported &&
             Vector<TResult>.IsSupported &&
-            x.Length >= Vector<T1>.Count)
+            x.Length > Vector<T1>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
@@ -849,7 +849,7 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);
@@ -884,7 +884,7 @@ public static partial class Tensor
         var indexSource = 0;
 
         // Check if hardware acceleration and Vector<T> support are available,
-        // and if the length of the x is greater than the Vector<T>.Count.
+        // and if the length of the x is greater than the length of Vector<T>.
         if (TOperator.IsVectorizable &&
             Vector.IsHardwareAccelerated &&
             Vector<T1>.IsSupported &&
@@ -893,7 +893,7 @@ public static partial class Tensor
             Vector<TResult>.IsSupported &&
             Vector<T1>.Count > 2 &&
             Vector<T1>.Count % 2 is 0 &&
-            x.Length >= Vector<T1>.Count)
+            x.Length > Vector<T1>.Count)
         {
             // Cast the spans to vectors for hardware acceleration.
             var xVectors = MemoryMarshal.Cast<T1, Vector<T1>>(x);
@@ -956,7 +956,7 @@ public static partial class Tensor
         where T : struct
         where TOperator : struct, ITernaryOperator<T, T, T, T>
     {
-        if (SpansOverlapAndAreNotSame(x, destination))
+        if (OverlapAndAreNotSame(x, destination))
             Throw.ArgumentException(nameof(destination), "Destination span overlaps with x.");
 
         Apply<T, T, T, T, TOperator>(x, y, z, destination);

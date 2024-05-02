@@ -38,6 +38,14 @@ public static partial class TensorOperations
         where T : struct, IAdditionOperators<T, T, T>
         => Tensor.Apply<T, AddOperator<T>>(left, right, destination);
 
+    public static void Add<T>(T[] left, T[] right, T[] destination)
+        where T : struct, IAdditionOperators<T, T, T>
+        => Tensor.Apply<T, AddOperator<T>>(left, right, destination);
+
+    public static void Add<T>(ReadOnlyMemory<T> left, ReadOnlyMemory<T> right, Memory<T> destination)
+        where T : struct, IAdditionOperators<T, T, T>
+        => Tensor.Apply<T, AddOperator<T>>(left, right, destination);
+
     /// <summary>
     /// Performs element-wise addition of two tensors with matching dimensions.
     /// </summary>

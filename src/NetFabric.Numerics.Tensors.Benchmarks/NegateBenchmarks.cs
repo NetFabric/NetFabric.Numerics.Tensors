@@ -18,7 +18,7 @@ public class NegateBenchmarks
     float[]? sourceFloat, resultFloat;
     double[]? sourceDouble, resultDouble;
 
-    [Params(100)]
+    [Params(1_000)]
     public int Count { get; set; }
 
     [GlobalSetup]
@@ -63,80 +63,80 @@ public class NegateBenchmarks
     [BenchmarkCategory("Short")]
     [Benchmark]
     public void NetFabric_Short()
-        => TensorOperations.Negate<short>(sourceShort!, resultShort!);
+        => TensorOperations.Negate(sourceShort!, resultShort!);
 
-    [BenchmarkCategory("Int")]
-    [Benchmark(Baseline = true)]
-    public void Baseline_Int()
-        => Baseline.Negate<int>(sourceInt!, resultInt!);
+    // [BenchmarkCategory("Int")]
+    // [Benchmark(Baseline = true)]
+    // public void Baseline_Int()
+    //     => Baseline.Negate<int>(sourceInt!, resultInt!);
 
-    [BenchmarkCategory("Int")]
-    [Benchmark]
-    public void System_Int()
-        => TensorPrimitives.Negate<int>(sourceInt!, resultInt!);
+    // [BenchmarkCategory("Int")]
+    // [Benchmark]
+    // public void System_Int()
+    //     => TensorPrimitives.Negate<int>(sourceInt!, resultInt!);
 
-    [BenchmarkCategory("Int")]
-    [Benchmark]
-    public void NetFabric_Int()
-        => TensorOperations.Negate<int>(sourceInt!, resultInt!);
+    // [BenchmarkCategory("Int")]
+    // [Benchmark]
+    // public void NetFabric_Int()
+    //     => TensorOperations.Negate(sourceInt!, resultInt!);
 
-    [BenchmarkCategory("Long")]
-    [Benchmark(Baseline = true)]
-    public void Baseline_Long()
-        => Baseline.Negate<long>(sourceLong!, resultLong!);
+    // [BenchmarkCategory("Long")]
+    // [Benchmark(Baseline = true)]
+    // public void Baseline_Long()
+    //     => Baseline.Negate<long>(sourceLong!, resultLong!);
 
-    [BenchmarkCategory("Long")]
-    [Benchmark]
-    public void System_Long()
-        => TensorPrimitives.Negate<long>(sourceLong!, resultLong!);
+    // [BenchmarkCategory("Long")]
+    // [Benchmark]
+    // public void System_Long()
+    //     => TensorPrimitives.Negate<long>(sourceLong!, resultLong!);
 
-    [BenchmarkCategory("Long")]
-    [Benchmark]
-    public void NetFabric_Long()
-        => TensorOperations.Negate<long>(sourceLong!, resultLong!);
+    // [BenchmarkCategory("Long")]
+    // [Benchmark]
+    // public void NetFabric_Long()
+    //     => TensorOperations.Negate(sourceLong!, resultLong!);
 
-    [BenchmarkCategory("Half")]
-    [Benchmark(Baseline = true)]
-    public void Baseline_Half()
-        => Baseline.Negate<Half>(sourceHalf!, resultHalf!);
+    // [BenchmarkCategory("Half")]
+    // [Benchmark(Baseline = true)]
+    // public void Baseline_Half()
+    //     => Baseline.Negate<Half>(sourceHalf!, resultHalf!);
 
-    [BenchmarkCategory("Half")]
-    [Benchmark]
-    public void System_Half()
-        => TensorPrimitives.Negate<Half>(sourceHalf!, resultHalf!);
+    // [BenchmarkCategory("Half")]
+    // [Benchmark]
+    // public void System_Half()
+    //     => TensorPrimitives.Negate<Half>(sourceHalf!, resultHalf!);
 
-    [BenchmarkCategory("Half")]
-    [Benchmark]
-    public void NetFabric_Half()
-        => TensorOperations.Negate<Half>(sourceHalf!, resultHalf!);
+    // [BenchmarkCategory("Half")]
+    // [Benchmark]
+    // public void NetFabric_Half()
+    //     => TensorOperations.Negate(sourceHalf!, resultHalf!);
 
-    [BenchmarkCategory("Float")]
-    [Benchmark(Baseline = true)]
-    public void Baseline_Float()
-        => Baseline.Negate<float>(sourceFloat!, resultFloat!);
+    // [BenchmarkCategory("Float")]
+    // [Benchmark(Baseline = true)]
+    // public void Baseline_Float()
+    //     => Baseline.Negate<float>(sourceFloat!, resultFloat!);
 
-    [BenchmarkCategory("Float")]
-    [Benchmark]
-    public void System_Float()
-        => TensorPrimitives.Negate(sourceFloat!, resultFloat!);
+    // [BenchmarkCategory("Float")]
+    // [Benchmark]
+    // public void System_Float()
+    //     => TensorPrimitives.Negate(sourceFloat!, resultFloat!);
 
-    [BenchmarkCategory("Float")]
-    [Benchmark]
-    public void NetFabric_Float()
-        => TensorOperations.Negate<float>(sourceFloat!, resultFloat!);
+    // [BenchmarkCategory("Float")]
+    // [Benchmark]
+    // public void NetFabric_Float()
+    //     => TensorOperations.Negate(sourceFloat!, resultFloat!);
 
-    [BenchmarkCategory("Double")]
-    [Benchmark(Baseline = true)]
-    public void Baseline_Double()
-        => Baseline.Negate<double>(sourceDouble!, resultDouble!);
+    // [BenchmarkCategory("Double")]
+    // [Benchmark(Baseline = true)]
+    // public void Baseline_Double()
+    //     => Baseline.Negate<double>(sourceDouble!, resultDouble!);
 
-    [BenchmarkCategory("Double")]
-    [Benchmark]
-    public void System_Double()
-        => TensorPrimitives.Negate<double>(sourceDouble!, resultDouble!);
+    // [BenchmarkCategory("Double")]
+    // [Benchmark]
+    // public void System_Double()
+    //     => TensorPrimitives.Negate<double>(sourceDouble!, resultDouble!);
 
-    [BenchmarkCategory("Double")]
-    [Benchmark]
-    public void NetFabric_Double()
-        => TensorOperations.Negate<double>(sourceDouble!, resultDouble!);
+    // [BenchmarkCategory("Double")]
+    // [Benchmark]
+    // public void NetFabric_Double()
+    //     => TensorOperations.Negate(sourceDouble!, resultDouble!);
 }
