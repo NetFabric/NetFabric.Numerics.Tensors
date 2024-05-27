@@ -10,7 +10,7 @@
 
   <ItemGroup>
     <PackageReference Include="BenchmarkDotNet" Version="0.13.12" />
-    <PackageReference Include="System.Numerics.Tensors" Version="9.0.0-preview.3.24172.9" />
+    <PackageReference Include="System.Numerics.Tensors" Version="9.0.0-preview.4.24266.19" />
   </ItemGroup>
 
   <ItemGroup>
